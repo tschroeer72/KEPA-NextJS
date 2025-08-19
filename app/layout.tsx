@@ -29,7 +29,12 @@ export default function RootLayout({
     return (
         <html lang="de" className="h-full" suppressHydrationWarning>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class"
+                       defaultTheme="system"
+                       enableSystem
+                       disableTransitionOnChange
+                       storageKey="theme-preference"
+        >
             <div className="min-h-screen flex flex-col">
                 <AppBar />
                 <main className="flex-1 px-4 py-4">{children}</main>
