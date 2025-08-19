@@ -1,0 +1,8 @@
+﻿/dist
+/coverage
+/node_modules
+
+package*.json
+
+tsconfig*.json
+eslintrc.json
