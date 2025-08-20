@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
-    "build:isolated": "set NODE_PATH=%cd%\\node_modules && set NODE_OPTIONS=\"--max-old-space-size=8192\" && next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "generate:crud": "npx ts-node scripts/generate-crud-routes.ts",
