@@ -87,7 +87,7 @@ export default function Kontakt() {
                         Kontaktformular
                     </CardTitle>
                     <CardDescription>
-                        Füllen Sie die Pflichtfelder (*) aus und klicken Sie auf "Nachricht senden".
+                        Füllen Sie die Pflichtfelder (*) aus und klicken Sie auf &quotNachricht senden&quot.
                         Ihr Standard-E-Mail-Programm wird geöffnet.
                     </CardDescription>
                 </CardHeader>

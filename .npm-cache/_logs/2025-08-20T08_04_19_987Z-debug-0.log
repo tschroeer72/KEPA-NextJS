@@ -1,0 +1,18 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.4.2
+2 info using node@v24.2.0
+3 silly config load:file:C:\Users\tschr\AppData\Roaming\nvm\v24.2.0\node_modules\npm\npmrc
+4 silly config load:file:D:\nextjs\kepa\.npmrc
+5 silly config load:file:C:\Users\tschr\.npmrc
+6 silly config load:file:C:\Program Files\nodejs\etc\npmrc
+7 verbose title npm config list
+8 verbose argv "config" "list" "--json"
+9 verbose logfile logs-max:10 dir:D:\nextjs\kepa\.npm-cache\_logs\2025-08-20T08_04_19_987Z-
+10 verbose logfile D:\nextjs\kepa\.npm-cache\_logs\2025-08-20T08_04_19_987Z-debug-0.log
+11 silly logfile start cleaning logs, removing 1 files
+12 verbose cwd D:\nextjs\kepa
+13 verbose os Windows_NT 10.0.26100
+14 verbose node v24.2.0
+15 verbose npm  v11.4.2
+16 verbose exit 0
+17 info ok

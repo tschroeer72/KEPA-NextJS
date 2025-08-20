@@ -1,0 +1,8 @@
+﻿// .eslintignore
+node_modules
+.DS_Store
+C:/Users/tschr
+
+# Prisma generierte Dateien ignorieren
+lib/generated/prisma/
+**/generated/prisma/
