@@ -17,19 +17,22 @@ export default function Login() {
 
     const login = async () => {
         try {
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-            await axios.post(`${apiUrl}/api/login`,{
+            const response = await axios.post("/api/login", {
                 benutzer,
                 passwort
             }, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                headers: {
+                    'Content-Type': 'application/json'
                 }
-            )
-            //console.log("Login erfolgreich")
+            });
+
+            //console.log("Login erfolgreich", response);
+
+            // Warten bis die Response vollständig verarbeitet wurde
+            await new Promise(resolve => setTimeout(resolve, 200));
+
             setIsLogin(true);
-            router.push("/verwaltung")
+            router.push("/verwaltung");
         } catch (error) {
             console.log("Login Error", error)
             setError(true)

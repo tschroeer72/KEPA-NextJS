@@ -4,6 +4,6 @@ const prisma = new PrismaClient()
 
 export async function GET(request: Request) {
     const mgl = await prisma.tblMitglieder.findMany()
-    console.log(mgl)
+    //console.log(mgl)
     return Response.json(mgl, {status: 200})
 }

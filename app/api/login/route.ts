@@ -10,8 +10,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { benutzer, passwort } = body;
 
+    //console.log('Login Route - JWT_SECRET vorhanden:', !!process.env.JWT_SECRET);
+
     const hashedPassword = crypto.createHash('sha256').update(passwort).digest('hex');
-    console.log(hashedPassword)
+    //console.log(hashedPassword)
 
     const usr = await prisma.tblMitglieder.findFirst({
             where: {
@@ -22,6 +24,8 @@ export async function POST(request: NextRequest) {
     );
 
     if (usr !== null && usr !== undefined) {
+        //console.log('Login Route - Benutzer gefunden, erstelle Token');
+
         // Token generieren
         const token = jwt.sign(
             {
@@ -35,13 +39,15 @@ export async function POST(request: NextRequest) {
             }
         );
 
+        //console.log('Login Route - Token erstellt:', token);
+
         const serialized = serialize('token', token, {
             maxAge: 60 * 60, // 1 Stunde
             sameSite: 'strict',
             path: '/',
             httpOnly: true, // Zusätzlicher Schutz - Cookie nur serverseitig zugänglich
         });
-
+        //console.log('Login Route - Cookie serialisiert:', serialized);
 
         const response = NextResponse.json('Erfolgreich', { status: 200 });
         response.headers.set('Set-Cookie', serialized);
