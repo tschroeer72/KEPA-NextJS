@@ -26,7 +26,8 @@ export default function AppBarVerwaltung() {
 
     const handleLogout = async () => {
         try {
-            await axios.post('http://localhost:3000/api/logout');
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+            await axios.post(`${apiUrl}/api/logout`);
             setIsLogin(false);
             router.push('/');
         } catch (error) {
