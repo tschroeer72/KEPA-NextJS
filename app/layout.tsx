@@ -4,6 +4,7 @@ import "./globals.css";
 import {ThemeProvider} from "next-themes";
 import { Analytics } from "@vercel/analytics/next"
 import ConditionalLayout from "@/components/conditional-layout";
+import {AuthContextProvider} from "@/providers/auth-context-provider";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -34,7 +35,9 @@ export default function RootLayout({
                        disableTransitionOnChange
                        storageKey="theme-preference"
         >
-            <ConditionalLayout>{children}</ConditionalLayout>
+            <AuthContextProvider>
+                <ConditionalLayout>{children}</ConditionalLayout>
+            </AuthContextProvider>
             <Analytics />
         </ThemeProvider>
         </body>

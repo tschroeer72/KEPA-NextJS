@@ -11,8 +11,11 @@ import {
 } from "@/components/ui/navigation-menu"
 import {NavData} from "@/data/navdata";
 import { Menu, X } from 'lucide-react';
+import {useAuthContext} from "@/providers/auth-context-provider";
 
 export default function AppBar() {
+    const {isLogin} = useAuthContext();
+
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const toggleMobileMenu = () => {
@@ -20,11 +23,11 @@ export default function AppBar() {
     };
 
     return (
-        <div className="sticky top-0 z-50 bg-gray-800 text-white shadow-md">
+        <div className="sticky top-0 z-50 bg-gray-800 dark:bg-gray-900 text-white shadow-md">
             <div className="flex items-center justify-between p-4">
                 {/* Links: Kegelgruppe Titel */}
                 <div className="flex items-center">
-                    <Link href="/" className="text-white hover:text-gray-600 transition-colors">
+                    <Link href="/" className="text-white hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 px-2 py-1 rounded transition-all">
                         <span className="text-xl font-semibold">Kegelgruppe KEPA 1958</span>
                     </Link>
                 </div>
@@ -37,7 +40,7 @@ export default function AppBar() {
                                 <NavigationMenuLink asChild>
                                     <Link
                                         href="/"
-                                        className="px-3 py-2 text-white hover:text-gray-600 transition-colors"
+                                        className="px-3 py-2 text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-all"
                                     >
                                         Home
                                     </Link>
@@ -49,13 +52,24 @@ export default function AppBar() {
                                     <NavigationMenuLink asChild>
                                         <Link
                                             href={navItem.href}
-                                            className="px-3 py-2 text-white hover:text-gray-600 transition-colors"
+                                            className="px-3 py-2 text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-all"
                                         >
                                             {navItem.title}
                                         </Link>
                                     </NavigationMenuLink>
                                 </NavigationMenuItem>
                             ))}
+
+                            <NavigationMenuItem>
+                                <NavigationMenuLink asChild>
+                                    <Link
+                                        href={isLogin ? "/verwaltung" : "/login"}
+                                        className="px-3 py-2 text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-all"
+                                    >
+                                        {isLogin ? "Verwaltung" : "Login"}
+                                    </Link>
+                                </NavigationMenuLink>
+                            </NavigationMenuItem>
                         </NavigationMenuList>
                     </NavigationMenu>
 
@@ -67,7 +81,7 @@ export default function AppBar() {
                     <ThemeSwitcher />
                     <button
                         onClick={toggleMobileMenu}
-                        className="p-2 text-white hover:text-gray-300 transition-colors"
+                        className="p-2 text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-all"
                         aria-label="Toggle mobile menu"
                     >
                         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -77,11 +91,11 @@ export default function AppBar() {
 
             {/* Mobile Navigation - sichtbar nur wenn geöffnet */}
             {isMobileMenuOpen && (
-                <div className="md:hidden bg-gray-700 border-t border-gray-600">
+                <div className="md:hidden bg-gray-700 dark:bg-gray-800 border-t border-gray-600 dark:border-gray-700">
                     <nav className="flex flex-col space-y-1 p-4">
                         <Link
                             href="/"
-                            className="px-3 py-2 text-white hover:text-gray-300 transition-colors rounded"
+                            className="px-3 py-2 text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 rounded transition-all"
                             onClick={() => setIsMobileMenuOpen(false)}
                         >
                             Home
@@ -90,12 +104,19 @@ export default function AppBar() {
                             <Link
                                 key={navItem.title}
                                 href={navItem.href}
-                                className="px-3 py-2 text-white hover:text-gray-300 transition-colors rounded"
+                                className="px-3 py-2 text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 rounded transition-all"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 {navItem.title}
                             </Link>
                         ))}
+                        <Link
+                            href={isLogin ? "/verwaltung" : "/login"}
+                            className="px-3 py-2 text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 rounded transition-all"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                            {isLogin ? "Verwaltung" : "Login"}
+                        </Link>
                     </nav>
                 </div>
             )}

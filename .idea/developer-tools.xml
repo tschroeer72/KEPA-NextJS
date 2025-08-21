@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DeveloperToolsToolWindowSettingsV1" lastSelectedContentNodeId="hashing-transformer" pluginVersion="7.1.0">
+    <developerToolsConfigurations>
+      <developerToolConfiguration developerToolId="hashing-transformer" id="21723f0b-8cbb-484d-9564-1431aa25259a" name="Workbench">
+        <properties>
+          <property key="sourceText" type="INPUT" value="kotlin.String|usr01354" />
+        </properties>
+      </developerToolConfiguration>
+    </developerToolsConfigurations>
+  </component>
+</project>
