@@ -47,3 +47,4 @@ next-env.d.ts
 **/AppData/**
 C:/Users/*/Anwendungsdaten/**
 C:/Users/*/AppData/**
+/.npm-cache/

@@ -1,11 +1,9 @@
-
 import type {Metadata} from "next";
 import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import {ThemeProvider} from "next-themes";
-import AppBar from "@/components/app-bar";
-import Footer from "@/components/footer";
 import { Analytics } from "@vercel/analytics/next"
+import ConditionalLayout from "@/components/conditional-layout";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -36,11 +34,7 @@ export default function RootLayout({
                        disableTransitionOnChange
                        storageKey="theme-preference"
         >
-            <div className="min-h-screen flex flex-col">
-                <AppBar />
-                <main className="flex-1 px-4 py-4">{children}</main>
-                <Footer />
-            </div>
+            <ConditionalLayout>{children}</ConditionalLayout>
             <Analytics />
         </ThemeProvider>
         </body>

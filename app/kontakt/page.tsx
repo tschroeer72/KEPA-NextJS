@@ -1,5 +1,4 @@
-﻿
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -13,7 +12,9 @@ export default function Kontakt() {
     const [formData, setFormData] = useState({
         name: '',
         telefon: '',
-        nachricht: ''
+        nachricht: '',
+        // Honeypot-Feld - wird von Bots ausgefüllt, aber von Menschen ignoriert
+        website: ''
     });
     const [errors, setErrors] = useState<{[key: string]: string}>({});
 
@@ -36,6 +37,14 @@ export default function Kontakt() {
     const validateForm = () => {
         const newErrors: {[key: string]: string} = {};
 
+        // Bot-Schutz: Honeypot-Feld prüfen
+        // Wenn das versteckte "website"-Feld ausgefüllt wurde, ist es wahrscheinlich ein Bot
+        if (formData.website.trim()) {
+            newErrors.bot = 'Bot erkannt. Das Formular kann nicht gesendet werden.';
+            return false;
+        }
+
+        // Normale Validierung
         if (!formData.name.trim()) {
             newErrors.name = 'Name ist ein Pflichtfeld';
         }
@@ -87,13 +96,41 @@ export default function Kontakt() {
                         Kontaktformular
                     </CardTitle>
                     <CardDescription>
-                        Füllen Sie die Pflichtfelder (*) aus und klicken Sie auf &quotNachricht senden&quot.
+                        Füllen Sie die Pflichtfelder (*) aus und klicken Sie auf &quot;Nachricht senden&quot;.
                         Ihr Standard-E-Mail-Programm wird geöffnet.
                     </CardDescription>
                 </CardHeader>
 
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-6">
+                        {/* Bot-Fehler anzeigen */}
+                        {errors.bot && (
+                            <div className="p-4 bg-red-50 border border-red-200 rounded-md">
+                                <p className="text-sm text-red-600 font-medium">{errors.bot}</p>
+                            </div>
+                        )}
+
+                        {/* Honeypot-Feld - versteckt für Menschen, aber sichtbar für Bots */}
+                        <div
+                            className="absolute -left-[9999px] opacity-0 pointer-events-none"
+                            style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}
+                            tabIndex={-1}
+                        >
+                            <Label htmlFor="website">
+                                Website (Bitte leer lassen - dieses Feld ist nur für Spam-Schutz)
+                            </Label>
+                            <Input
+                                id="website"
+                                name="website"
+                                type="text"
+                                value={formData.website}
+                                onChange={handleInputChange}
+                                tabIndex={-1}
+                                autoComplete="off"
+                                placeholder="Nicht ausfüllen"
+                            />
+                        </div>
+
                         {/* Name - Pflichtfeld */}
                         <div className="space-y-2">
                             <Label htmlFor="name" className="flex items-center gap-2">
@@ -108,6 +145,7 @@ export default function Kontakt() {
                                 onChange={handleInputChange}
                                 placeholder="Ihr vollständiger Name"
                                 className={errors.name ? "border-red-500" : ""}
+                                required
                             />
                             {errors.name && (
                                 <p className="text-sm text-red-500">{errors.name}</p>
@@ -143,6 +181,7 @@ export default function Kontakt() {
                                 placeholder="Ihre Nachricht an uns..."
                                 rows={6}
                                 className={errors.nachricht ? "border-red-500" : ""}
+                                required
                             />
                             {errors.nachricht && (
                                 <p className="text-sm text-red-500">{errors.nachricht}</p>
