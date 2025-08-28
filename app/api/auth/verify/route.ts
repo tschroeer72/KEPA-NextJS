@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
         //console.log('Verify Route - Token erfolgreich verifiziert');
         return NextResponse.json({ message: 'Token gültig' }, { status: 200 });
     } catch (error) {
-        //console.log('Verify Route - Token Verifikation fehlgeschlagen:', error);
+        console.log('Verify Route - Token Verifikation fehlgeschlagen:', error);
         return NextResponse.json({ error: 'Token ungültig' }, { status: 401 });
     }
 }

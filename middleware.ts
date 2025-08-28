@@ -32,5 +32,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/verwaltung/:path*']
+    matcher: ['/verwaltung/:path*', '/api/db/:path*']
 };

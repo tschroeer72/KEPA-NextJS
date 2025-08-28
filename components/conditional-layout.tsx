@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import AppBar from "@/components/app-bar";
 import AppBarVerwaltung from "@/components/app-bar-verwaltung";
 import Footer from "@/components/footer";
+import {Toaster} from "@/components/ui/sonner";
 
 export default function ConditionalLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -18,6 +19,7 @@ export default function ConditionalLayout({ children }: { children: React.ReactN
                         {children}
                     </div>
                 </main>
+                <Toaster />
                 <Footer/>
             </div>
         );

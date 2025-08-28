@@ -4,46 +4,46 @@ import { Calendar } from "@/components/ui/calendar";
 import { useMemo } from "react";
 import { de } from "date-fns/locale";
 
-export default function Termine() {
-    // Funktion um den ersten Mittwoch des Jahres zu finden
-    const getFirstWednesday = (year: number): Date => {
-        const firstDayOfYear = new Date(year, 0, 1);
-        const dayOfWeek = firstDayOfYear.getDay();
+// Funktion um den ersten Mittwoch des Jahres zu finden
+const getFirstWednesday = (year: number): Date => {
+    const firstDayOfYear = new Date(year, 0, 1);
+    const dayOfWeek = firstDayOfYear.getDay();
 
-        let daysUntilWednesday;
-        if (dayOfWeek === 0) {
-            daysUntilWednesday = 3;
-        } else if (dayOfWeek <= 3) {
-            daysUntilWednesday = 3 - dayOfWeek;
+    let daysUntilWednesday;
+    if (dayOfWeek === 0) {
+        daysUntilWednesday = 3;
+    } else if (dayOfWeek <= 3) {
+        daysUntilWednesday = 3 - dayOfWeek;
+    } else {
+        daysUntilWednesday = 7 - dayOfWeek + 3;
+    }
+
+    return new Date(year, 0, 1 + daysUntilWednesday);
+};
+
+// Funktion um alle Termine zu generieren
+const generateTermine = (year: number): Date[] => {
+    const termine: Date[] = [];
+    const firstWednesday = getFirstWednesday(year);
+
+    let currentDate = new Date(firstWednesday);
+    termine.push(new Date(currentDate));
+
+    for (let i = 1; i < 26; i++) {
+        currentDate = new Date(currentDate);
+        currentDate.setDate(currentDate.getDate() + 14);
+
+        if (currentDate.getFullYear() === year) {
+            termine.push(new Date(currentDate));
         } else {
-            daysUntilWednesday = 7 - dayOfWeek + 3;
+            break;
         }
+    }
 
-        return new Date(year, 0, 1 + daysUntilWednesday);
-    };
+    return termine;
+};
 
-    // Funktion um alle Termine zu generieren
-    const generateTermine = (year: number): Date[] => {
-        const termine: Date[] = [];
-        const firstWednesday = getFirstWednesday(year);
-
-        let currentDate = new Date(firstWednesday);
-        termine.push(new Date(currentDate));
-
-        for (let i = 1; i < 26; i++) {
-            currentDate = new Date(currentDate);
-            currentDate.setDate(currentDate.getDate() + 14);
-
-            if (currentDate.getFullYear() === year) {
-                termine.push(new Date(currentDate));
-            } else {
-                break;
-            }
-        }
-
-        return termine;
-    };
-
+export default function Termine() {
     const currentYear = new Date().getFullYear();
     const terminDaten = useMemo(() => generateTermine(currentYear), [currentYear]);
 

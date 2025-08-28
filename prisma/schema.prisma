@@ -58,7 +58,7 @@ model tblMitglieder {
   Vorname                                                                         String                       @db.VarChar(50)
   Nachname                                                                        String                       @db.VarChar(50)
   Spitzname                                                                       String?                      @db.VarChar(50)
-  Stra_e                                                                          String?                      @map("Straße") @db.VarChar(50)
+  Strasse                                                                          String?                      @map("Straße") @db.VarChar(50)
   PLZ                                                                             String?                      @db.VarChar(5)
   Ort                                                                             String?                      @db.VarChar(50)
   Geburtsdatum                                                                    DateTime?                    @db.DateTime(0)

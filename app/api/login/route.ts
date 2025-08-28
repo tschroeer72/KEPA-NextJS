@@ -1,5 +1,5 @@
 ﻿import { NextResponse, NextRequest } from 'next/server';
-import cookie, {serialize} from 'cookie';
+import {serialize} from 'cookie';
 import { PrismaClient } from '@prisma/client'
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';

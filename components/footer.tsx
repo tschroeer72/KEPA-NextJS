@@ -1,5 +1,4 @@
-﻿import Divider from "@/components/devider";
-import Link from "next/link";
+﻿import Link from "next/link";
 
 export default function Footer() {
     const getCurrentYear = () => new Date().getFullYear();

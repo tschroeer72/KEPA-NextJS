@@ -17,7 +17,7 @@ export default function Login() {
 
     const login = async () => {
         try {
-            const response = await axios.post("/api/login", {
+            await axios.post("/api/login", {
                 benutzer,
                 passwort
             }, {
