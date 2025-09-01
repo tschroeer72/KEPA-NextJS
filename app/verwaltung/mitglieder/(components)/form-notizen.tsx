@@ -3,7 +3,7 @@
 import React from "react"
 import {Card, CardContent} from "@/components/ui/card"
 import {Label} from "@/components/ui/label"
-import {MitgliedNotizenFormData} from "@/interfaces/MitgliedNotizenFormData";
+import {MitgliedNotizenFormData} from "@/interfaces/mitglied-notizen-form-data";
 
 interface FormNotizenProps {
     formData: MitgliedNotizenFormData;

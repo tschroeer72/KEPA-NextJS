@@ -33,6 +33,7 @@ function parsePrismaSchema(): Model[] {
             // System-Felder und Relations überspringen
             if (
                 fieldName !== 'id' &&
+                fieldName !== 'ID' &&
                 fieldName !== 'createdAt' &&
                 fieldName !== 'updatedAt' &&
                 !fieldType.includes('[]') && // Arrays (Relations) überspringen
@@ -55,29 +56,34 @@ interface Model {
     fields: string[]
 }
 
+// Funktion zum Entfernen des "tbl" Präfixes für Route-Namen
+function removeTablePrefix(modelName: string): string {
+    return modelName.startsWith('tbl') ? modelName.substring(3) : modelName
+}
+
 function generateRouteTemplate(modelName: string, fields: string[]): string {
-    //const lowerModel = modelName.toLowerCase()
-    const lowerModel = modelName
-    const pluralModel = `${lowerModel}s`
+    const cleanModelName = removeTablePrefix(modelName)
+    const routeName = cleanModelName.toLowerCase()
+    const variableName = `data${cleanModelName}`
 
     return `import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-// GET - Alle ${pluralModel} abrufen
+// GET - Alle ${routeName} abrufen
 export async function GET() {
   try {
-    const ${pluralModel} = await prisma.${lowerModel}.findMany({
+    const ${variableName} = await prisma.${modelName}.findMany({
       orderBy: {
         ID: 'desc'
       }
     })
-    return NextResponse.json(${pluralModel})
+    return NextResponse.json(${variableName})
   } catch (error) {
     console.error('Database error:', error)
     return NextResponse.json(
-      { error: 'Fehler beim Abrufen der ${pluralModel}' },
+      { error: 'Fehler beim Abrufen der ${routeName}' },
       { status: 500 }
     )
   } finally {
@@ -85,30 +91,30 @@ export async function GET() {
   }
 }
 
-// POST - Neuen ${modelName} erstellen
+// POST - Neuen ${cleanModelName} erstellen
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     
-    // Validierung
-    ${fields.map(field => `if (!body.${field} && body.${field} !== false && body.${field} !== 0) {
+    // Validierung - Nur für relevante Felder
+    ${fields.filter(field => !field.includes('tbl')).map(field => `if (body.${field} === undefined || body.${field} === null) {
       return NextResponse.json(
         { error: '${field} ist erforderlich' },
         { status: 400 }
       )
     }`).join('\n    ')}
 
-    const ${lowerModel} = await prisma.${lowerModel}.create({
+    const ${variableName} = await prisma.${modelName}.create({
       data: {
-        ${fields.map(field => `${field}: body.${field}`).join(',\n        ')},
+        ${fields.filter(field => !field.includes('tbl')).map(field => `${field}: body.${field}`).join(',\n        ')},
       }
     })
 
-    return NextResponse.json(${lowerModel}, { status: 201 })
+    return NextResponse.json(${variableName}, { status: 201 })
   } catch (error) {
     console.error('Database error:', error)
     return NextResponse.json(
-      { error: 'Fehler beim Erstellen des ${modelName}' },
+      { error: 'Fehler beim Erstellen des ${cleanModelName}' },
       { status: 500 }
     )
   } finally {
@@ -119,20 +125,23 @@ export async function POST(request: NextRequest) {
 }
 
 function generateIdRouteTemplate(modelName: string, fields: string[]): string {
-    const lowerModel = modelName.toLowerCase()
+    const cleanModelName = removeTablePrefix(modelName)
+    const routeName = cleanModelName.toLowerCase()
+    const variableName = `data${cleanModelName}`
 
     return `import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-// GET - Einzelnen ${modelName} abrufen
+// GET - Einzelnen ${cleanModelName} abrufen
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id)
+    const { id: idString } = await params
+    const id = parseInt(idString)
     
     if (isNaN(id)) {
       return NextResponse.json(
@@ -141,22 +150,22 @@ export async function GET(
       )
     }
 
-    const ${lowerModel} = await prisma.${lowerModel}.findUnique({
-      where: { id }
+    const ${variableName} = await prisma.${modelName}.findUnique({
+      where: { ID: id }
     })
 
-    if (!${lowerModel}) {
+    if (!${variableName}) {
       return NextResponse.json(
-        { error: '${modelName} nicht gefunden' },
+        { error: '${cleanModelName} nicht gefunden' },
         { status: 404 }
       )
     }
 
-    return NextResponse.json(${lowerModel})
+    return NextResponse.json(${variableName})
   } catch (error) {
     console.error('Database error:', error)
     return NextResponse.json(
-      { error: 'Fehler beim Abrufen des ${modelName}' },
+      { error: 'Fehler beim Abrufen des ${cleanModelName}' },
       { status: 500 }
     )
   } finally {
@@ -164,13 +173,14 @@ export async function GET(
   }
 }
 
-// PUT - ${modelName} aktualisieren
+// PUT - ${cleanModelName} aktualisieren
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id)
+    const { id: idString } = await params
+    const id = parseInt(idString)
     const body = await request.json()
     
     if (isNaN(id)) {
@@ -180,30 +190,30 @@ export async function PUT(
       )
     }
 
-    // Prüfen ob ${modelName} existiert
-    const existing${modelName} = await prisma.${lowerModel}.findUnique({
-      where: { id }
+    // Prüfen ob ${cleanModelName} existiert
+    const existing${cleanModelName} = await prisma.${modelName}.findUnique({
+      where: { ID: id }
     })
 
-    if (!existing${modelName}) {
+    if (!existing${cleanModelName}) {
       return NextResponse.json(
-        { error: '${modelName} nicht gefunden' },
+        { error: '${cleanModelName} nicht gefunden' },
         { status: 404 }
       )
     }
 
-    const ${lowerModel} = await prisma.${lowerModel}.update({
-      where: { id },
+    const ${variableName} = await prisma.${modelName}.update({
+      where: { ID: id },
       data: {
-        ${fields.map(field => `...(body.${field} !== undefined && { ${field}: body.${field} })`).join(',\n        ')},
+        ${fields.filter(field => !field.includes('tbl')).map(field => `...(body.${field} !== undefined && { ${field}: body.${field} })`).join(',\n        ')},
       }
     })
 
-    return NextResponse.json(${lowerModel})
+    return NextResponse.json(${variableName})
   } catch (error) {
     console.error('Database error:', error)
     return NextResponse.json(
-      { error: 'Fehler beim Aktualisieren des ${modelName}' },
+      { error: 'Fehler beim Aktualisieren des ${cleanModelName}' },
       { status: 500 }
     )
   } finally {
@@ -211,13 +221,14 @@ export async function PUT(
   }
 }
 
-// DELETE - ${modelName} löschen
+// DELETE - ${cleanModelName} löschen
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id)
+    const { id: idString } = await params
+    const id = parseInt(idString)
     
     if (isNaN(id)) {
       return NextResponse.json(
@@ -226,30 +237,30 @@ export async function DELETE(
       )
     }
 
-    // Prüfen ob ${modelName} existiert
-    const existing${modelName} = await prisma.${lowerModel}.findUnique({
-      where: { id }
+    // Prüfen ob ${cleanModelName} existiert
+    const existing${cleanModelName} = await prisma.${modelName}.findUnique({
+      where: { ID: id }
     })
 
-    if (!existing${modelName}) {
+    if (!existing${cleanModelName}) {
       return NextResponse.json(
-        { error: '${modelName} nicht gefunden' },
+        { error: '${cleanModelName} nicht gefunden' },
         { status: 404 }
       )
     }
 
-    await prisma.${lowerModel}.delete({
-      where: { id }
+    await prisma.${modelName}.delete({
+      where: { ID: id }
     })
 
     return NextResponse.json(
-      { message: '${modelName} erfolgreich gelöscht' },
+      { message: '${cleanModelName} erfolgreich gelöscht' },
       { status: 200 }
     )
   } catch (error) {
     console.error('Database error:', error)
     return NextResponse.json(
-      { error: 'Fehler beim Löschen des ${modelName}' },
+      { error: 'Fehler beim Löschen des ${cleanModelName}' },
       { status: 500 }
     )
   } finally {
@@ -278,7 +289,7 @@ function generateCrudRoutes() {
     console.log()
 
     // API-Ordner erstellen falls nicht vorhanden
-    const apiDir = path.join('app', 'api')
+    const apiDir = path.join('app', 'api', 'db')
     if (!fs.existsSync(apiDir)) {
         fs.mkdirSync(apiDir, { recursive: true })
         console.log('📁 API-Ordner erstellt')
@@ -286,10 +297,11 @@ function generateCrudRoutes() {
 
     // Routen für jedes Modell generieren
     models.forEach(model => {
-        const pluralName = `${model.name.toLowerCase()}s`
+        const cleanModelName = removeTablePrefix(model.name)
+        const routeName = cleanModelName.toLowerCase()
 
         // Ordner erstellen
-        const routeDir = path.join('app', 'api', 'db', pluralName)
+        const routeDir = path.join('app', 'api', 'db', routeName)
         const idRouteDir = path.join(routeDir, '[id]')
 
         fs.mkdirSync(routeDir, { recursive: true })
@@ -304,20 +316,21 @@ function generateCrudRoutes() {
         fs.writeFileSync(path.join(idRouteDir, 'route.ts'), idRouteContent)
 
         console.log(`✅ ${model.name} CRUD-Routen erstellt:`)
-        console.log(`   GET,POST /api/${pluralName}`)
-        console.log(`   GET,PUT,DELETE /api/${pluralName}/[id]`)
+        console.log(`   GET,POST /api/db/${routeName}`)
+        console.log(`   GET,PUT,DELETE /api/db/${routeName}/[id]`)
     })
 
     console.log('\n🎉 CRUD-Routen erfolgreich generiert!')
     console.log('\n📖 Verwendung:')
     models.forEach(model => {
-        const pluralName = `${model.name.toLowerCase()}s`
-        console.log(`\n${model.name} API:`)
-        console.log(`  GET    /api/${pluralName}          - Alle ${pluralName} abrufen`)
-        console.log(`  POST   /api/${pluralName}          - Neuen ${model.name} erstellen`)
-        console.log(`  GET    /api/${pluralName}/1        - ${model.name} mit ID 1 abrufen`)
-        console.log(`  PUT    /api/${pluralName}/1        - ${model.name} mit ID 1 aktualisieren`)
-        console.log(`  DELETE /api/${pluralName}/1        - ${model.name} mit ID 1 löschen`)
+        const cleanModelName = removeTablePrefix(model.name)
+        const routeName = cleanModelName.toLowerCase()
+        console.log(`\n${cleanModelName} API:`)
+        console.log(`  GET    /api/db/${routeName}          - Alle ${routeName} abrufen`)
+        console.log(`  POST   /api/db/${routeName}          - Neuen ${cleanModelName} erstellen`)
+        console.log(`  GET    /api/db/${routeName}/1        - ${cleanModelName} mit ID 1 abrufen`)
+        console.log(`  PUT    /api/db/${routeName}/1        - ${cleanModelName} mit ID 1 aktualisieren`)
+        console.log(`  DELETE /api/db/${routeName}/1        - ${cleanModelName} mit ID 1 löschen`)
     })
 }
 

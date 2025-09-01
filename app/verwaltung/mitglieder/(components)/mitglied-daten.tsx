@@ -5,8 +5,8 @@ import axios from 'axios';
 import {Card, CardContent, CardFooter, CardHeader} from "@/components/ui/card";
 import {Tabs, TabsContent, TabsList, TabsTrigger,} from "@/components/ui/tabs";
 import FormPersoenliches from "@/app/verwaltung/mitglieder/(components)/form-persoenliches";
-import {MitgliedPersoenlichesFormData} from "@/interfaces/MitgliedPersoenlichesFormData";
-import {MitgliedNotizenFormData} from "@/interfaces/MitgliedNotizenFormData";
+import {MitgliedPersoenlichesFormData} from "@/interfaces/mitglied-persoenliches-form-data";
+import {MitgliedNotizenFormData} from "@/interfaces/mitglied-notizen-form-data";
 import FormNotizen from "@/app/verwaltung/mitglieder/(components)/form-notizen";
 import {z} from "zod";
 import {toast} from "sonner";
@@ -24,7 +24,6 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    // FormData State in der Master-Komponente
     const [formDataMitgliedPersoenliches, setFormDataMitgliedPersoenliches] = useState<MitgliedPersoenlichesFormData>({
         Vorname: "",
         Nachname: "",
@@ -44,6 +43,8 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
     useEffect(() => {
         //console.log('Props MitgliedID changed:', MitgliedID);
         setCurrentMitgliedID(MitgliedID);
+
+        return () => {} //Cleanup function
     }, [MitgliedID]);
 
     // Funktion zum Aktualisieren der FormData

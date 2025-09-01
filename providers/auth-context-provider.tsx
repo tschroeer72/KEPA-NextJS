@@ -17,7 +17,11 @@ export const AuthContextProvider=({children}:{children:ReactNode}) =>{
                 // API-Endpoint erstellen, der den Token-Status prüft
                 const response = await axios.get('/api/auth/verify');
                 //console.log('AuthContext - Verify Response:', response.status, response.data);
-                setIsLogin(true);
+                if (response.status === 200) {
+                    setIsLogin(true);
+                } else {
+                    setIsLogin(false);
+                }
             } catch (error) {
                 //console.log('AuthContext - Verify Error:', error.response?.status, error.response?.data);
                 setIsLogin(false);

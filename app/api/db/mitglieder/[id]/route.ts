@@ -1,117 +1,168 @@
-﻿import { NextRequest } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { NextRequest, NextResponse } from 'next/server'
+import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
+// GET - Einzelnen Mitglieder abrufen
 export async function GET(
-    request: NextRequest,
-    { params }: { params: Promise<{ id: string }> }
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
-    try {
-        const resolvedParams = await params;
-        const mitgliedId = parseInt(resolvedParams.id);
-
-        if (isNaN(mitgliedId)) {
-            return Response.json({ error: 'Invalid ID' }, { status: 400 });
-        }
-
-        const mitglied = await prisma.tblMitglieder.findFirst({
-            where: {
-                ID: mitgliedId
-            }
-        });
-
-        if (!mitglied) {
-            return Response.json({ error: 'Mitglied nicht gefunden' }, { status: 404 });
-        }
-
-        //console.log('Mitglied erfolgreich abgerufen:', mitglied);
-        return Response.json(mitglied);
-    } catch (error) {
-        console.error('Error fetching mitglied:', error);
-        return Response.json({ error: 'Internal server error' }, { status: 500 });
+  try {
+    const { id: idString } = await params
+    const id = parseInt(idString)
+    
+    if (isNaN(id)) {
+      return NextResponse.json(
+        { error: 'Ungültige ID' },
+        { status: 400 }
+      )
     }
+
+    const dataMitglieder = await prisma.tblMitglieder.findUnique({
+      where: { ID: id }
+    })
+
+    if (!dataMitglieder) {
+      return NextResponse.json(
+        { error: 'Mitglieder nicht gefunden' },
+        { status: 404 }
+      )
+    }
+
+    return NextResponse.json(dataMitglieder)
+  } catch (error) {
+    console.error('Database error:', error)
+    return NextResponse.json(
+      { error: 'Fehler beim Abrufen des Mitglieder' },
+      { status: 500 }
+    )
+  } finally {
+    await prisma.$disconnect()
+  }
 }
 
+// PUT - Mitglieder aktualisieren
 export async function PUT(
-    request: NextRequest,
-    { params }: { params: Promise<{ id: string }> }
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
-    try {
-        const resolvedParams = await params;
-        const mitgliedId = parseInt(resolvedParams.id);
-        const body = await request.json();
-
-        if (isNaN(mitgliedId)) {
-            return Response.json({ error: 'Ungültige ID' }, { status: 400 });
-        }
-
-        // Validierung der Pflichtfelder
-        if (!body.Vorname || !body.Nachname) {
-            return Response.json(
-                { error: 'Vorname und Nachname sind Pflichtfelder' },
-                { status: 400 }
-            );
-        }
-
-        // Prüfen ob Mitglied existiert
-        const existingMitglied = await prisma.tblMitglieder.findUnique({
-            where: { ID: mitgliedId }
-        });
-
-        if (!existingMitglied) {
-            return Response.json(
-                { error: 'Mitglied nicht gefunden' },
-                { status: 404 }
-            );
-        }
-
-        // Daten für das Update vorbereiten
-        const updateData: Partial<Mitglied> = {};
-
-        // Nur definierte Werte übernehmen
-        if (body.Anrede !== undefined) updateData.Anrede = body.Anrede;
-        if (body.Vorname !== undefined) updateData.Vorname = body.Vorname;
-        if (body.Nachname !== undefined) updateData.Nachname = body.Nachname;
-        if (body.Spitzname !== undefined) updateData.Spitzname = body.Spitzname;
-        if (body.Strasse !== undefined) updateData.Strasse = body.Strasse;
-        if (body.PLZ !== undefined) updateData.PLZ = body.PLZ;
-        if (body.Ort !== undefined) updateData.Ort = body.Ort;
-        if (body.TelefonPrivat !== undefined) updateData.TelefonPrivat = body.TelefonPrivat;
-        if (body.TelefonMobil !== undefined) updateData.TelefonMobil = body.TelefonMobil;
-        if (body.EMail !== undefined) updateData.EMail = body.EMail;
-        if (body.Ehemaliger !== undefined) updateData.Ehemaliger = body.Ehemaliger;
-
-        // Datumsfelder behandeln
-        if (body.Geburtsdatum !== undefined) {
-            updateData.Geburtsdatum = body.Geburtsdatum ? new Date(body.Geburtsdatum) : undefined;
-        }
-        if (body.MitgliedSeit !== undefined) {
-            updateData.MitgliedSeit = new Date(body.MitgliedSeit);
-        }
-        if (body.PassivSeit !== undefined) {
-            updateData.PassivSeit = body.PassivSeit ? new Date(body.PassivSeit) : undefined;
-        }
-        if (body.AusgeschiedenAm !== undefined) {
-            updateData.AusgeschiedenAm = body.AusgeschiedenAm ? new Date(body.AusgeschiedenAm) : undefined;
-        }
-
-        // Mitglied aktualisieren
-        const updatedMitglied = await prisma.tblMitglieder.update({
-            where: { ID: mitgliedId },
-            data: updateData
-        });
-
-        console.log('Mitglied erfolgreich aktualisiert:', updatedMitglied);
-        return Response.json(updatedMitglied);
-
-    } catch (error) {
-        console.error('Fehler beim Aktualisieren des Mitglieds:', error);
-        return Response.json(
-            { error: 'Fehler beim Aktualisieren der Mitgliederdaten' },
-            { status: 500 }
-        );
-    } finally {
-        await prisma.$disconnect();
+  try {
+    const { id: idString } = await params
+    const id = parseInt(idString)
+    const body = await request.json()
+    
+    if (isNaN(id)) {
+      return NextResponse.json(
+        { error: 'Ungültige ID' },
+        { status: 400 }
+      )
     }
+
+    // Prüfen ob Mitglieder existiert
+    const existingMitglieder = await prisma.tblMitglieder.findUnique({
+      where: { ID: id }
+    })
+
+    if (!existingMitglieder) {
+      return NextResponse.json(
+        { error: 'Mitglieder nicht gefunden' },
+        { status: 404 }
+      )
+    }
+
+    const dataMitglieder = await prisma.tblMitglieder.update({
+      where: { ID: id },
+      data: {
+        ...(body.Vorname !== undefined && { Vorname: body.Vorname }),
+        ...(body.Nachname !== undefined && { Nachname: body.Nachname }),
+        ...(body.Spitzname !== undefined && { Spitzname: body.Spitzname }),
+        ...(body.Strasse !== undefined && { Strasse: body.Strasse }),
+        ...(body.PLZ !== undefined && { PLZ: body.PLZ }),
+        ...(body.Ort !== undefined && { Ort: body.Ort }),
+        ...(body.Geburtsdatum !== undefined && { Geburtsdatum: body.Geburtsdatum }),
+        ...(body.MitgliedSeit !== undefined && { MitgliedSeit: body.MitgliedSeit }),
+        ...(body.PassivSeit !== undefined && { PassivSeit: body.PassivSeit }),
+        ...(body.AusgeschiedenAm !== undefined && { AusgeschiedenAm: body.AusgeschiedenAm }),
+        ...(body.Ehemaliger !== undefined && { Ehemaliger: body.Ehemaliger }),
+        ...(body.Notizen !== undefined && { Notizen: body.Notizen }),
+        ...(body.Bemerkungen !== undefined && { Bemerkungen: body.Bemerkungen }),
+        ...(body.Anrede !== undefined && { Anrede: body.Anrede }),
+        ...(body.EMail !== undefined && { EMail: body.EMail }),
+        ...(body.TelefonPrivat !== undefined && { TelefonPrivat: body.TelefonPrivat }),
+        ...(body.TelefonFirma !== undefined && { TelefonFirma: body.TelefonFirma }),
+        ...(body.TelefonMobil !== undefined && { TelefonMobil: body.TelefonMobil }),
+        ...(body.Fax !== undefined && { Fax: body.Fax }),
+        ...(body.SpAnz !== undefined && { SpAnz: body.SpAnz }),
+        ...(body.SpGew !== undefined && { SpGew: body.SpGew }),
+        ...(body.SpUn !== undefined && { SpUn: body.SpUn }),
+        ...(body.SpVerl !== undefined && { SpVerl: body.SpVerl }),
+        ...(body.HolzGes !== undefined && { HolzGes: body.HolzGes }),
+        ...(body.HolzMax !== undefined && { HolzMax: body.HolzMax }),
+        ...(body.HolzMin !== undefined && { HolzMin: body.HolzMin }),
+        ...(body.Punkte !== undefined && { Punkte: body.Punkte }),
+        ...(body.Platz !== undefined && { Platz: body.Platz }),
+        ...(body.TurboDBNummer !== undefined && { TurboDBNummer: body.TurboDBNummer }),
+        ...(body.Login !== undefined && { Login: body.Login }),
+        ...(body.Password !== undefined && { Password: body.Password }),
+      }
+    })
+
+    return NextResponse.json(dataMitglieder)
+  } catch (error) {
+    console.error('Database error:', error)
+    return NextResponse.json(
+      { error: 'Fehler beim Aktualisieren des Mitglieder' },
+      { status: 500 }
+    )
+  } finally {
+    await prisma.$disconnect()
+  }
+}
+
+// DELETE - Mitglieder löschen
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id: idString } = await params
+    const id = parseInt(idString)
+    
+    if (isNaN(id)) {
+      return NextResponse.json(
+        { error: 'Ungültige ID' },
+        { status: 400 }
+      )
+    }
+
+    // Prüfen ob Mitglieder existiert
+    const existingMitglieder = await prisma.tblMitglieder.findUnique({
+      where: { ID: id }
+    })
+
+    if (!existingMitglieder) {
+      return NextResponse.json(
+        { error: 'Mitglieder nicht gefunden' },
+        { status: 404 }
+      )
+    }
+
+    await prisma.tblMitglieder.delete({
+      where: { ID: id }
+    })
+
+    return NextResponse.json(
+      { message: 'Mitglieder erfolgreich gelöscht' },
+      { status: 200 }
+    )
+  } catch (error) {
+    console.error('Database error:', error)
+    return NextResponse.json(
+      { error: 'Fehler beim Löschen des Mitglieder' },
+      { status: 500 }
+    )
+  } finally {
+    await prisma.$disconnect()
+  }
 }

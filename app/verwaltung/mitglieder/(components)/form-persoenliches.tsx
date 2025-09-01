@@ -10,7 +10,7 @@ import {Button} from "@/components/ui/button"
 import {CalendarIcon} from "lucide-react"
 import {format} from "date-fns"
 import {de} from "date-fns/locale"
-import {MitgliedPersoenlichesFormData} from "@/interfaces/MitgliedPersoenlichesFormData";
+import {MitgliedPersoenlichesFormData} from "@/interfaces/mitglied-persoenliches-form-data";
 
 interface FormPersoenlichesProps {
     formData: MitgliedPersoenlichesFormData;
