@@ -1,11 +1,11 @@
 ﻿"use client";
 
-import React, { useState, useCallback } from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 import {AktiverMitspieler} from "@/interfaces/aktiver-mitspieler";
-
+import axios from "axios";
 
 interface MitspielerProps {
     meisterschaftID: number;
@@ -13,24 +13,63 @@ interface MitspielerProps {
 
 // Mock-Daten für die Demo
 const initialAktiveMitglieder: AktiverMitspieler[] = [
-    { ID: 1, Anzeigename: "Max Mustermann", Vorname: "Max", Nachname: "Mustermann", Spitzname: "Maxi" },
-    { ID: 2, Anzeigename: "Anna Schmidt", Vorname: "Anna", Nachname: "Schmidt", Spitzname: "Anni" },
-    { ID: 3, Anzeigename: "Peter Weber", Vorname: "Peter", Nachname: "Weber", Spitzname: "Peti" },
+    // { ID: 1, Anzeigename: "Max Mustermann", Vorname: "Max", Nachname: "Mustermann", Spitzname: "Maxi" },
+    // { ID: 2, Anzeigename: "Anna Schmidt", Vorname: "Anna", Nachname: "Schmidt", Spitzname: "Anni" },
+    // { ID: 3, Anzeigename: "Peter Weber", Vorname: "Peter", Nachname: "Weber", Spitzname: "Peti" },
 ];
 
 const initialAktiveTeilnehmer: AktiverMitspieler[] = [
-    { ID: 4, Anzeigename: "Lisa Mueller", Vorname: "Lisa", Nachname: "Mueller", Spitzname: "Lisi" },
-    { ID: 5, Anzeigename: "Tom Fischer", Vorname: "Tom", Nachname: "Fischer", Spitzname: "Tommy" },
+    // { ID: 4, Anzeigename: "Lisa Mueller", Vorname: "Lisa", Nachname: "Mueller", Spitzname: "Lisi" },
+    // { ID: 5, Anzeigename: "Tom Fischer", Vorname: "Tom", Nachname: "Fischer", Spitzname: "Tommy" },
 ];
 
 export default function Mitspieler({meisterschaftID}: MitspielerProps) {
-    console.log("Mitspieler-Props:", meisterschaftID);
+    const [currentMeisterschaftsID, setCurrentMeisterschaftsID] = useState(meisterschaftID);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const [aktiveMitglieder, setAktiveMitglieder] = useState<AktiverMitspieler[]>(initialAktiveMitglieder);
     const [aktiveTeilnehmer, setAktiveTeilnehmer] = useState<AktiverMitspieler[]>(initialAktiveTeilnehmer);
     const [draggedItem, setDraggedItem] = useState<AktiverMitspieler | null>(null);
     const [draggedFromTable, setDraggedFromTable] = useState<'mitglieder' | 'teilnehmer' | null>(null);
     const [dragOverTable, setDragOverTable] = useState<'mitglieder' | 'teilnehmer' | null>(null);
+
+    // Synchronisation des lokalen State mit dem Prop
+    useEffect(() => {
+        //console.log('Props MeisterschaftID changed:', MeisterschaftID);
+        setCurrentMeisterschaftsID(meisterschaftID);
+
+        return () => {} //Cleanup function
+    }, [meisterschaftID]);
+
+    useEffect(() => {
+        const fetchMeisterschaft = async () => {
+            setLoading(true);
+            setError(null);
+
+            try{
+                const aktiveMitgliederResponse = await axios.get(`/api/db/mitglieder/aktivemitglieder?MeisterschaftID=${currentMeisterschaftsID}`);
+                const aktiveMitgliederData = aktiveMitgliederResponse.data;
+                setAktiveMitglieder(aktiveMitgliederData);
+                //console.log("Aktive Mitglieder:", aktiveMitgliederData);
+
+                const aktiveTeilnehmerResponse = await axios.get(`/api/db/teilnehmer/aktiveteilnehmer?MeisterschaftID=${currentMeisterschaftsID}`);
+                const aktiveTeilnehmerData = aktiveTeilnehmerResponse.data;
+                setAktiveTeilnehmer(aktiveTeilnehmerData);
+                //console.log("Aktive Teilnehmer:", aktiveTeilnehmerData);
+            }catch (err) {
+                if (axios.isAxiosError(err)) {
+                    setError(err.response?.data?.error || 'Fehler beim Laden der Teilnehmer');
+                } else {
+                    setError('Unbekannter Fehler');
+                }
+            }finally {
+                setLoading(false);
+            }
+        }
+
+        fetchMeisterschaft();
+    }, [currentMeisterschaftsID]);
 
     // Drag-Start Handler
     const handleDragStart = useCallback((item: AktiverMitspieler, fromTable: 'mitglieder' | 'teilnehmer') => {
@@ -57,7 +96,7 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
     }, []);
 
     // Drop Handler
-    const handleDrop = useCallback((e: React.DragEvent, targetTable: 'mitglieder' | 'teilnehmer') => {
+    const handleDrop = useCallback(async (e: React.DragEvent, targetTable: 'mitglieder' | 'teilnehmer') => {
         e.preventDefault();
 
         if (!draggedItem || !draggedFromTable) return;
@@ -74,21 +113,46 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
         if (draggedFromTable === 'mitglieder') {
             setAktiveMitglieder(prev => prev.filter(item => item.ID !== draggedItem.ID));
         } else {
-            setAktiveTeilnehmer(prev => prev.filter(item => item.ID !== draggedItem.ID));
+            //setAktiveTeilnehmer(prev => prev.filter(item => item.ID !== draggedItem.ID));
+            try {
+                await axios.delete(`/api/db/teilnehmer/delete?MeisterschaftID=${currentMeisterschaftsID}&MitgliedID=${draggedItem.ID}`);
+
+                // Teilnehmer aus der lokalen Liste entfernen
+                console.log(`Teilnehmer ${draggedItem.Anzeigename} wurde gelöscht`);
+                setAktiveTeilnehmer(prev => prev.filter(item => item.ID !== draggedItem.ID));
+            } catch (err) {
+                if (axios.isAxiosError(err)) {
+                    setError(err.response?.data?.error || 'Fehler beim Löschen des Teilnehmers');
+                } else {
+                    setError('Unbekannter Fehler beim Löschen');
+                }
+            }
         }
 
         // Item zur Zieltabelle hinzufügen
         if (targetTable === 'mitglieder') {
             setAktiveMitglieder(prev => [...prev, draggedItem]);
         } else {
-            setAktiveTeilnehmer(prev => [...prev, draggedItem]);
+            //setAktiveTeilnehmer(prev => [...prev, draggedItem]);
+            try {
+                await axios.post(`/api/db/teilnehmer/add?MeisterschaftID=${currentMeisterschaftsID}&MitgliedID=${draggedItem.ID}`);
+
+                console.log(`Teilnehmer ${draggedItem.Anzeigename} wurde geadded`);
+                setAktiveTeilnehmer(prev => [...prev, draggedItem]);
+            } catch (err) {
+                if (axios.isAxiosError(err)) {
+                    setError(err.response?.data?.error || 'Fehler beim adden des Teilnehmers');
+                } else {
+                    setError('Unbekannter Fehler beim adden');
+                }
+            }
         }
 
         // Reset drag state
         setDraggedItem(null);
         setDraggedFromTable(null);
         setDragOverTable(null);
-    }, [draggedItem, draggedFromTable]);
+    }, [currentMeisterschaftsID, draggedItem, draggedFromTable]);
 
     // Drag-End Handler
     const handleDragEnd = useCallback(() => {
@@ -96,6 +160,14 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
         setDraggedFromTable(null);
         setDragOverTable(null);
     }, []);
+
+    if (loading) {
+        return <div className="p-4">Lade Teilnehmer...</div>;
+    }
+
+    if (error) {
+        return <div className="p-4 text-red-600">Fehler: {error}</div>;
+    }
 
     return (
         <div className="p-4 space-y-6">

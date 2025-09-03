@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
+import {CreateChangeLogAsync} from "@/utils/create-change-log";
 
 const prisma = new PrismaClient()
 
@@ -12,7 +13,7 @@ export async function GET() {
       }
     })
     return NextResponse.json(dataDBChangeLog)
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Abrufen der dbchangelog' },
@@ -26,33 +27,9 @@ export async function GET() {
 // POST - Neuen DBChangeLog erstellen
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    const body: { [key: string]: string | number | boolean | Date | null | undefined } = await request.json()
     
-    // Validierung - Nur für relevante Felder
-    if (body.Computername === undefined || body.Computername === null) {
-      return NextResponse.json(
-        { error: 'Computername ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.Tablename === undefined || body.Tablename === null) {
-      return NextResponse.json(
-        { error: 'Tablename ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.Changetype === undefined || body.Changetype === null) {
-      return NextResponse.json(
-        { error: 'Changetype ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.Command === undefined || body.Command === null) {
-      return NextResponse.json(
-        { error: 'Command ist erforderlich' },
-        { status: 400 }
-      )
-    }
+    // Validierung - Nur für erforderliche Felder
     if (body.Zeitstempel === undefined || body.Zeitstempel === null) {
       return NextResponse.json(
         { error: 'Zeitstempel ist erforderlich' },
@@ -62,16 +39,20 @@ export async function POST(request: NextRequest) {
 
     const dataDBChangeLog = await prisma.tblDBChangeLog.create({
       data: {
-        Computername: body.Computername,
-        Tablename: body.Tablename,
-        Changetype: body.Changetype,
-        Command: body.Command,
-        Zeitstempel: body.Zeitstempel,
+        Computername: String(body.Computername),
+        Tablename: String(body.Tablename),
+        Changetype: String(body.Changetype),
+        Command: String(body.Command),
+        Zeitstempel: new Date(body.Zeitstempel as string | number | Date),
       }
     })
+    
+    // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
+    const insertCommand = `insert into tblDBChangeLog(ID, Computername, Tablename, Changetype, Command, Zeitstempel) values (${dataDBChangeLog.ID}, '${body.Computername}', '${body.Tablename}', '${body.Changetype}', '${body.Command}', '${new Date(body.Zeitstempel as string | number | Date).toISOString().slice(0, 19).replace('T', ' ')}')`
+    await CreateChangeLogAsync(request, "tblDBChangeLog", "insert", insertCommand)
 
     return NextResponse.json(dataDBChangeLog, { status: 201 })
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Erstellen des DBChangeLog' },

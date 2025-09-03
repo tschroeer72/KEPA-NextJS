@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
+import {CreateChangeLogAsync} from "@/utils/create-change-log";
 
 const prisma = new PrismaClient()
 
@@ -12,7 +13,7 @@ export async function GET() {
       }
     })
     return NextResponse.json(data9erRatten)
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Abrufen der 9erratten' },
@@ -26,9 +27,9 @@ export async function GET() {
 // POST - Neuen 9erRatten erstellen
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    const body: { [key: string]: string | number | boolean | Date | null | undefined } = await request.json()
     
-    // Validierung - Nur für relevante Felder
+    // Validierung - Nur für erforderliche Felder
     if (body.SpieltagID === undefined || body.SpieltagID === null) {
       return NextResponse.json(
         { error: 'SpieltagID ist erforderlich' },
@@ -56,15 +57,19 @@ export async function POST(request: NextRequest) {
 
     const data9erRatten = await prisma.tbl9erRatten.create({
       data: {
-        SpieltagID: body.SpieltagID,
-        SpielerID: body.SpielerID,
-        Neuner: body.Neuner,
-        Ratten: body.Ratten,
+        SpieltagID: Number(body.SpieltagID),
+        SpielerID: Number(body.SpielerID),
+        Neuner: Number(body.Neuner),
+        Ratten: Number(body.Ratten),
       }
     })
+    
+    // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
+    const insertCommand = `insert into tbl9erRatten(ID, SpieltagID, SpielerID, Neuner, Ratten) values (${data9erRatten.ID}, ${body.SpieltagID}, ${body.SpielerID}, ${body.Neuner}, ${body.Ratten})`
+    await CreateChangeLogAsync(request, "tbl9erRatten", "insert", insertCommand)
 
     return NextResponse.json(data9erRatten, { status: 201 })
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Erstellen des 9erRatten' },

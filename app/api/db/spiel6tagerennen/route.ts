@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
+import {CreateChangeLogAsync} from "@/utils/create-change-log";
 
 const prisma = new PrismaClient()
 
@@ -12,7 +13,7 @@ export async function GET() {
       }
     })
     return NextResponse.json(dataSpiel6TageRennen)
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Abrufen der spiel6tagerennen' },
@@ -26,9 +27,9 @@ export async function GET() {
 // POST - Neuen Spiel6TageRennen erstellen
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    const body: { [key: string]: string | number | boolean | Date | null | undefined } = await request.json()
     
-    // Validierung - Nur für relevante Felder
+    // Validierung - Nur für erforderliche Felder
     if (body.SpieltagID === undefined || body.SpieltagID === null) {
       return NextResponse.json(
         { error: 'SpieltagID ist erforderlich' },
@@ -59,26 +60,24 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
-    if (body.Spielnummer === undefined || body.Spielnummer === null) {
-      return NextResponse.json(
-        { error: 'Spielnummer ist erforderlich' },
-        { status: 400 }
-      )
-    }
 
     const dataSpiel6TageRennen = await prisma.tblSpiel6TageRennen.create({
       data: {
-        SpieltagID: body.SpieltagID,
-        SpielerID1: body.SpielerID1,
-        SpielerID2: body.SpielerID2,
-        Runden: body.Runden,
-        Punkte: body.Punkte,
-        Spielnummer: body.Spielnummer,
+        SpieltagID: Number(body.SpieltagID),
+        SpielerID1: Number(body.SpielerID1),
+        SpielerID2: Number(body.SpielerID2),
+        Runden: Number(body.Runden),
+        Punkte: Number(body.Punkte),
+        Spielnummer: Number(body.Spielnummer),
       }
     })
+    
+    // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
+    const insertCommand = `insert into tblSpiel6TageRennen(ID, SpieltagID, SpielerID1, SpielerID2, Runden, Punkte, Spielnummer) values (${dataSpiel6TageRennen.ID}, ${body.SpieltagID}, ${body.SpielerID1}, ${body.SpielerID2}, ${body.Runden}, ${body.Punkte}, ${body.Spielnummer})`
+    await CreateChangeLogAsync(request, "tblSpiel6TageRennen", "insert", insertCommand)
 
     return NextResponse.json(dataSpiel6TageRennen, { status: 201 })
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Erstellen des Spiel6TageRennen' },

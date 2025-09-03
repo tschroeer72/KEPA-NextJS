@@ -9,11 +9,10 @@ import {useState} from "react";
 
 interface MeisterschaftlisteProps {
     lstMeisterschaften: Meisterschaftliste[];
-    onDataChange: () => void;
     onMeisterschaftSelect?: (id: number) => void;
 }
 
-export default function Meisterschaftliste({ lstMeisterschaften, onDataChange, onMeisterschaftSelect }: MeisterschaftlisteProps) {
+export default function Meisterschaftliste({ lstMeisterschaften, onMeisterschaftSelect }: MeisterschaftlisteProps) {
     const [selectedId, setSelectedId] = useState<number>(-1);
 
     const handleRowClick = (meisterschaft: Meisterschaftliste) => {

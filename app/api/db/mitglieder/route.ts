@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
+import {CreateChangeLogAsync} from "@/utils/create-change-log";
 
 const prisma = new PrismaClient()
 
@@ -12,7 +13,7 @@ export async function GET() {
       }
     })
     return NextResponse.json(dataMitglieder)
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Abrufen der mitglieder' },
@@ -26,9 +27,9 @@ export async function GET() {
 // POST - Neuen Mitglieder erstellen
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    const body: { [key: string]: string | number | boolean | Date | null | undefined } = await request.json()
     
-    // Validierung - Nur für relevante Felder
+    // Validierung - Nur für erforderliche Felder
     if (body.Vorname === undefined || body.Vorname === null) {
       return NextResponse.json(
         { error: 'Vorname ist erforderlich' },
@@ -41,51 +42,9 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
-    if (body.Spitzname === undefined || body.Spitzname === null) {
-      return NextResponse.json(
-        { error: 'Spitzname ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.Strasse === undefined || body.Strasse === null) {
-      return NextResponse.json(
-        { error: 'Strasse ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.PLZ === undefined || body.PLZ === null) {
-      return NextResponse.json(
-        { error: 'PLZ ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.Ort === undefined || body.Ort === null) {
-      return NextResponse.json(
-        { error: 'Ort ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.Geburtsdatum === undefined || body.Geburtsdatum === null) {
-      return NextResponse.json(
-        { error: 'Geburtsdatum ist erforderlich' },
-        { status: 400 }
-      )
-    }
     if (body.MitgliedSeit === undefined || body.MitgliedSeit === null) {
       return NextResponse.json(
         { error: 'MitgliedSeit ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.PassivSeit === undefined || body.PassivSeit === null) {
-      return NextResponse.json(
-        { error: 'PassivSeit ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.AusgeschiedenAm === undefined || body.AusgeschiedenAm === null) {
-      return NextResponse.json(
-        { error: 'AusgeschiedenAm ist erforderlich' },
         { status: 400 }
       )
     }
@@ -95,165 +54,49 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
-    if (body.Notizen === undefined || body.Notizen === null) {
-      return NextResponse.json(
-        { error: 'Notizen ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.Bemerkungen === undefined || body.Bemerkungen === null) {
-      return NextResponse.json(
-        { error: 'Bemerkungen ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.Anrede === undefined || body.Anrede === null) {
-      return NextResponse.json(
-        { error: 'Anrede ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.EMail === undefined || body.EMail === null) {
-      return NextResponse.json(
-        { error: 'EMail ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.TelefonPrivat === undefined || body.TelefonPrivat === null) {
-      return NextResponse.json(
-        { error: 'TelefonPrivat ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.TelefonFirma === undefined || body.TelefonFirma === null) {
-      return NextResponse.json(
-        { error: 'TelefonFirma ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.TelefonMobil === undefined || body.TelefonMobil === null) {
-      return NextResponse.json(
-        { error: 'TelefonMobil ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.Fax === undefined || body.Fax === null) {
-      return NextResponse.json(
-        { error: 'Fax ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.SpAnz === undefined || body.SpAnz === null) {
-      return NextResponse.json(
-        { error: 'SpAnz ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.SpGew === undefined || body.SpGew === null) {
-      return NextResponse.json(
-        { error: 'SpGew ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.SpUn === undefined || body.SpUn === null) {
-      return NextResponse.json(
-        { error: 'SpUn ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.SpVerl === undefined || body.SpVerl === null) {
-      return NextResponse.json(
-        { error: 'SpVerl ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.HolzGes === undefined || body.HolzGes === null) {
-      return NextResponse.json(
-        { error: 'HolzGes ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.HolzMax === undefined || body.HolzMax === null) {
-      return NextResponse.json(
-        { error: 'HolzMax ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.HolzMin === undefined || body.HolzMin === null) {
-      return NextResponse.json(
-        { error: 'HolzMin ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.Punkte === undefined || body.Punkte === null) {
-      return NextResponse.json(
-        { error: 'Punkte ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.Platz === undefined || body.Platz === null) {
-      return NextResponse.json(
-        { error: 'Platz ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.TurboDBNummer === undefined || body.TurboDBNummer === null) {
-      return NextResponse.json(
-        { error: 'TurboDBNummer ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.Login === undefined || body.Login === null) {
-      return NextResponse.json(
-        { error: 'Login ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.Password === undefined || body.Password === null) {
-      return NextResponse.json(
-        { error: 'Password ist erforderlich' },
-        { status: 400 }
-      )
-    }
 
     const dataMitglieder = await prisma.tblMitglieder.create({
       data: {
-        Vorname: body.Vorname,
-        Nachname: body.Nachname,
-        Spitzname: body.Spitzname,
-        Strasse: body.Strasse,
-        PLZ: body.PLZ,
-        Ort: body.Ort,
-        Geburtsdatum: body.Geburtsdatum,
-        MitgliedSeit: body.MitgliedSeit,
-        PassivSeit: body.PassivSeit,
-        AusgeschiedenAm: body.AusgeschiedenAm,
-        Ehemaliger: body.Ehemaliger,
-        Notizen: body.Notizen,
-        Bemerkungen: body.Bemerkungen,
-        Anrede: body.Anrede,
-        EMail: body.EMail,
-        TelefonPrivat: body.TelefonPrivat,
-        TelefonFirma: body.TelefonFirma,
-        TelefonMobil: body.TelefonMobil,
-        Fax: body.Fax,
-        SpAnz: body.SpAnz,
-        SpGew: body.SpGew,
-        SpUn: body.SpUn,
-        SpVerl: body.SpVerl,
-        HolzGes: body.HolzGes,
-        HolzMax: body.HolzMax,
-        HolzMin: body.HolzMin,
-        Punkte: body.Punkte,
-        Platz: body.Platz,
-        TurboDBNummer: body.TurboDBNummer,
-        Login: body.Login,
-        Password: body.Password,
+        Vorname: String(body.Vorname),
+        Nachname: String(body.Nachname),
+        Spitzname: String(body.Spitzname),
+        Strasse: String(body.Strasse),
+        PLZ: String(body.PLZ),
+        Ort: String(body.Ort),
+        Geburtsdatum: new Date(body.Geburtsdatum as string | number | Date),
+        MitgliedSeit: new Date(body.MitgliedSeit as string | number | Date),
+        PassivSeit: new Date(body.PassivSeit as string | number | Date),
+        AusgeschiedenAm: new Date(body.AusgeschiedenAm as string | number | Date),
+        Ehemaliger: Boolean(body.Ehemaliger),
+        Notizen: String(body.Notizen),
+        Bemerkungen: String(body.Bemerkungen),
+        Anrede: String(body.Anrede),
+        EMail: String(body.EMail),
+        TelefonPrivat: String(body.TelefonPrivat),
+        TelefonFirma: String(body.TelefonFirma),
+        TelefonMobil: String(body.TelefonMobil),
+        Fax: String(body.Fax),
+        SpAnz: Number(body.SpAnz),
+        SpGew: Number(body.SpGew),
+        SpUn: Number(body.SpUn),
+        SpVerl: Number(body.SpVerl),
+        HolzGes: Number(body.HolzGes),
+        HolzMax: Number(body.HolzMax),
+        HolzMin: Number(body.HolzMin),
+        Punkte: Number(body.Punkte),
+        Platz: String(body.Platz),
+        TurboDBNummer: Number(body.TurboDBNummer),
+        Login: String(body.Login),
+        Password: String(body.Password),
       }
     })
+    
+    // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
+    const insertCommand = `insert into tblMitglieder(ID, Vorname, Nachname, Spitzname, Strasse, PLZ, Ort, Geburtsdatum, MitgliedSeit, PassivSeit, AusgeschiedenAm, Ehemaliger, Notizen, Bemerkungen, Anrede, EMail, TelefonPrivat, TelefonFirma, TelefonMobil, Fax, SpAnz, SpGew, SpUn, SpVerl, HolzGes, HolzMax, HolzMin, Punkte, Platz, TurboDBNummer, Login, Password) values (${dataMitglieder.ID}, '${body.Vorname}', '${body.Nachname}', '${body.Spitzname}', '${body.Strasse}', '${body.PLZ}', '${body.Ort}', '${new Date(body.Geburtsdatum as string | number | Date).toISOString().slice(0, 19).replace('T', ' ')}', '${new Date(body.MitgliedSeit as string | number | Date).toISOString().slice(0, 19).replace('T', ' ')}', '${new Date(body.PassivSeit as string | number | Date).toISOString().slice(0, 19).replace('T', ' ')}', '${new Date(body.AusgeschiedenAm as string | number | Date).toISOString().slice(0, 19).replace('T', ' ')}', ${body.Ehemaliger ? 1 : 0}, '${body.Notizen}', '${body.Bemerkungen}', '${body.Anrede}', '${body.EMail}', '${body.TelefonPrivat}', '${body.TelefonFirma}', '${body.TelefonMobil}', '${body.Fax}', ${body.SpAnz}, ${body.SpGew}, ${body.SpUn}, ${body.SpVerl}, ${body.HolzGes}, ${body.HolzMax}, ${body.HolzMin}, ${body.Punkte}, '${body.Platz}', ${body.TurboDBNummer}, '${body.Login}', '${body.Password}')`
+    await CreateChangeLogAsync(request, "tblMitglieder", "insert", insertCommand)
 
     return NextResponse.json(dataMitglieder, { status: 201 })
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Erstellen des Mitglieder' },

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
+import {CreateChangeLogAsync} from "@/utils/create-change-log";
 
 const prisma = new PrismaClient()
 
@@ -12,7 +13,7 @@ export async function GET() {
       }
     })
     return NextResponse.json(dataMeisterschaftstyp)
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Abrufen der meisterschaftstyp' },
@@ -26,9 +27,9 @@ export async function GET() {
 // POST - Neuen Meisterschaftstyp erstellen
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    const body: { [key: string]: string | number | boolean | Date | null | undefined } = await request.json()
     
-    // Validierung - Nur für relevante Felder
+    // Validierung - Nur für erforderliche Felder
     if (body.Meisterschaftstyp === undefined || body.Meisterschaftstyp === null) {
       return NextResponse.json(
         { error: 'Meisterschaftstyp ist erforderlich' },
@@ -38,12 +39,16 @@ export async function POST(request: NextRequest) {
 
     const dataMeisterschaftstyp = await prisma.tblMeisterschaftstyp.create({
       data: {
-        Meisterschaftstyp: body.Meisterschaftstyp,
+        Meisterschaftstyp: String(body.Meisterschaftstyp),
       }
     })
+    
+    // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
+    const insertCommand = `insert into tblMeisterschaftstyp(ID, Meisterschaftstyp) values (${dataMeisterschaftstyp.ID}, '${body.Meisterschaftstyp}')`
+    await CreateChangeLogAsync(request, "tblMeisterschaftstyp", "insert", insertCommand)
 
     return NextResponse.json(dataMeisterschaftstyp, { status: 201 })
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Erstellen des Meisterschaftstyp' },

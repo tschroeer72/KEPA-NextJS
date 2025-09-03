@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
+import {CreateChangeLogAsync} from "@/utils/create-change-log";
 
 const prisma = new PrismaClient()
 
@@ -12,7 +13,7 @@ export async function GET() {
       }
     })
     return NextResponse.json(dataSpielMeisterschaft)
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Abrufen der spielmeisterschaft' },
@@ -26,9 +27,9 @@ export async function GET() {
 // POST - Neuen SpielMeisterschaft erstellen
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    const body: { [key: string]: string | number | boolean | Date | null | undefined } = await request.json()
     
-    // Validierung - Nur für relevante Felder
+    // Validierung - Nur für erforderliche Felder
     if (body.SpieltagID === undefined || body.SpieltagID === null) {
       return NextResponse.json(
         { error: 'SpieltagID ist erforderlich' },
@@ -68,17 +69,21 @@ export async function POST(request: NextRequest) {
 
     const dataSpielMeisterschaft = await prisma.tblSpielMeisterschaft.create({
       data: {
-        SpieltagID: body.SpieltagID,
-        SpielerID1: body.SpielerID1,
-        SpielerID2: body.SpielerID2,
-        HolzSpieler1: body.HolzSpieler1,
-        HolzSpieler2: body.HolzSpieler2,
-        HinR_ckrunde: body.HinR_ckrunde,
+        SpieltagID: Number(body.SpieltagID),
+        SpielerID1: Number(body.SpielerID1),
+        SpielerID2: Number(body.SpielerID2),
+        HolzSpieler1: Number(body.HolzSpieler1),
+        HolzSpieler2: Number(body.HolzSpieler2),
+        HinR_ckrunde: Number(body.HinR_ckrunde),
       }
     })
+    
+    // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
+    const insertCommand = `insert into tblSpielMeisterschaft(ID, SpieltagID, SpielerID1, SpielerID2, HolzSpieler1, HolzSpieler2, HinR_ckrunde) values (${dataSpielMeisterschaft.ID}, ${body.SpieltagID}, ${body.SpielerID1}, ${body.SpielerID2}, ${body.HolzSpieler1}, ${body.HolzSpieler2}, ${body.HinR_ckrunde})`
+    await CreateChangeLogAsync(request, "tblSpielMeisterschaft", "insert", insertCommand)
 
     return NextResponse.json(dataSpielMeisterschaft, { status: 201 })
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Erstellen des SpielMeisterschaft' },

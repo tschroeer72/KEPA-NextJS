@@ -60,7 +60,6 @@ export default function Meisterschaften() {
                 <div className="w-full lg:w-1/2">
                     <Meisterschaftliste
                         lstMeisterschaften={meisterschaftenliste}
-                        onDataChange={handleDataChange}
                         onMeisterschaftSelect={handleMeisterschaftSelect}
                     />
                 </div>

@@ -190,7 +190,7 @@ const FormMeisterschaftDaten: React.FC<FormMeisterschaftDatenProps> = ({
                         <Checkbox
                             id="aktiv"
                             checked={formData.Aktiv === 1}
-                            onCheckedChange={(checked) => handleInputChange('Aktiv', checked as boolean)}
+                            onCheckedChange={(checked) => handleInputChange('Aktiv', checked ? 1 : 0)}
                             disabled={!isEditable}
                         />
                         <Label
@@ -199,6 +199,21 @@ const FormMeisterschaftDaten: React.FC<FormMeisterschaftDatenProps> = ({
                         >
                             Aktiv
                         </Label>
+                    </div>
+
+                    {/* Bezeichnung */}
+                    <div className="space-y-2">
+                        <Label htmlFor="Bezeichnung">Bemerkungen</Label>
+                        <Input
+                            id="bemerkungen"
+                            value={formData.Bemerkungen || ""}
+                            onChange={(e) => handleInputChange('Bemerkungen', e.target.value)}
+                            placeholder="Bemerkungen"
+                            disabled={!isEditable}
+                        />
+                        {validationErrors.Bemerkungen && (
+                            <p className="text-sm text-red-500">{validationErrors.Bemerkungen}</p>
+                        )}
                     </div>
                 </div>
             </CardContent>

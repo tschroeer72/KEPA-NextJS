@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
+import {CreateChangeLogAsync} from "@/utils/create-change-log";
 
 const prisma = new PrismaClient()
 
@@ -12,7 +13,7 @@ export async function GET() {
       }
     })
     return NextResponse.json(dataSettings)
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Abrufen der settings' },
@@ -26,9 +27,9 @@ export async function GET() {
 // POST - Neuen Settings erstellen
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    const body: { [key: string]: string | number | boolean | Date | null | undefined } = await request.json()
     
-    // Validierung - Nur für relevante Felder
+    // Validierung - Nur für erforderliche Felder
     if (body.Computername === undefined || body.Computername === null) {
       return NextResponse.json(
         { error: 'Computername ist erforderlich' },
@@ -50,14 +51,18 @@ export async function POST(request: NextRequest) {
 
     const dataSettings = await prisma.tblSettings.create({
       data: {
-        Computername: body.Computername,
-        Parametername: body.Parametername,
-        Parameterwert: body.Parameterwert,
+        Computername: String(body.Computername),
+        Parametername: String(body.Parametername),
+        Parameterwert: String(body.Parameterwert),
       }
     })
+    
+    // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
+    const insertCommand = `insert into tblSettings(ID, Computername, Parametername, Parameterwert) values (${dataSettings.ID}, '${body.Computername}', '${body.Parametername}', '${body.Parameterwert}')`
+    await CreateChangeLogAsync(request, "tblSettings", "insert", insertCommand)
 
     return NextResponse.json(dataSettings, { status: 201 })
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Erstellen des Settings' },

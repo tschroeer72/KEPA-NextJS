@@ -242,8 +242,8 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
                 ...formDataNotizen
             };
 
-            console.log("currentMitgliedID:", currentMitgliedID);
-            console.log('Speichere Mitgliederdaten:', completeFormData);
+            //console.log("currentMitgliedID:", currentMitgliedID);
+            //console.log('Speichere Mitgliederdaten:', completeFormData);
 
             setLoading(true);
 

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
+import {CreateChangeLogAsync} from "@/utils/create-change-log";
 
 const prisma = new PrismaClient()
 
@@ -12,7 +13,7 @@ export async function GET() {
       }
     })
     return NextResponse.json(dataSpieltag)
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Abrufen der spieltag' },
@@ -26,9 +27,9 @@ export async function GET() {
 // POST - Neuen Spieltag erstellen
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    const body: { [key: string]: string | number | boolean | Date | null | undefined } = await request.json()
     
-    // Validierung - Nur für relevante Felder
+    // Validierung - Nur für erforderliche Felder
     if (body.MeisterschaftsID === undefined || body.MeisterschaftsID === null) {
       return NextResponse.json(
         { error: 'MeisterschaftsID ist erforderlich' },
@@ -50,14 +51,18 @@ export async function POST(request: NextRequest) {
 
     const dataSpieltag = await prisma.tblSpieltag.create({
       data: {
-        MeisterschaftsID: body.MeisterschaftsID,
-        Spieltag: body.Spieltag,
-        InBearbeitung: body.InBearbeitung,
+        MeisterschaftsID: Number(body.MeisterschaftsID),
+        Spieltag: new Date(body.Spieltag as string | number | Date),
+        InBearbeitung: Boolean(body.InBearbeitung),
       }
     })
+    
+    // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
+    const insertCommand = `insert into tblSpieltag(ID, MeisterschaftsID, Spieltag, InBearbeitung) values (${dataSpieltag.ID}, ${body.MeisterschaftsID}, '${new Date(body.Spieltag as string | number | Date).toISOString().slice(0, 19).replace('T', ' ')}', ${body.InBearbeitung ? 1 : 0})`
+    await CreateChangeLogAsync(request, "tblSpieltag", "insert", insertCommand)
 
     return NextResponse.json(dataSpieltag, { status: 201 })
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Erstellen des Spieltag' },

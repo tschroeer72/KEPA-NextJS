@@ -1,5 +1,27 @@
-﻿import fs from 'fs'
+﻿
+import fs from 'fs'
 import path from 'path'
+
+interface FieldInfo {
+    name: string
+    type: string
+    isOptional: boolean
+}
+
+interface Model {
+    name: string
+    fields: FieldInfo[]
+}
+
+// Interface für Request Body Typ
+interface RequestBody {
+    [key: string]: string | number | boolean | Date | null | undefined
+}
+
+// Interface für Update-Daten
+interface UpdateData {
+    [key: string]: string | number | boolean | Date
+}
 
 // Funktion zum Lesen des Prisma Schemas
 function parsePrismaSchema(): Model[] {
@@ -15,20 +37,21 @@ function parsePrismaSchema(): Model[] {
 
     // Einfacher Parser für Prisma Models
     const modelRegex = /model\s+(\w+)\s*{([^}]+)}/g
-    let match
+    let match: RegExpExecArray | null
 
     while ((match = modelRegex.exec(schemaContent)) !== null) {
         const modelName = match[1]
         const modelBody = match[2]
 
         // Felder extrahieren (ohne id, createdAt, updatedAt, Relations)
-        const fieldRegex = /(\w+)\s+(\w+)(?:\?)?(?:\s+@[^@\n]*)?/g
-        const fields: string[] = []
-        let fieldMatch
+        const fieldRegex = /(\w+)\s+(\w+)(\?)?(?:\s+@[^@\n]*)?/g
+        const fields: FieldInfo[] = []
+        let fieldMatch: RegExpExecArray | null
 
         while ((fieldMatch = fieldRegex.exec(modelBody)) !== null) {
             const fieldName = fieldMatch[1]
             const fieldType = fieldMatch[2]
+            const isOptional = fieldMatch[3] === '?'
 
             // System-Felder und Relations überspringen
             if (
@@ -39,7 +62,11 @@ function parsePrismaSchema(): Model[] {
                 !fieldType.includes('[]') && // Arrays (Relations) überspringen
                 !modelBody.includes(`${fieldName}.*@relation`) // Relations überspringen
             ) {
-                fields.push(fieldName)
+                fields.push({
+                    name: fieldName,
+                    type: fieldType,
+                    isOptional
+                })
             }
         }
 
@@ -51,23 +78,59 @@ function parsePrismaSchema(): Model[] {
     return models
 }
 
-interface Model {
-    name: string
-    fields: string[]
-}
-
 // Funktion zum Entfernen des "tbl" Präfixes für Route-Namen
 function removeTablePrefix(modelName: string): string {
     return modelName.startsWith('tbl') ? modelName.substring(3) : modelName
 }
 
-function generateRouteTemplate(modelName: string, fields: string[]): string {
+// Funktion zur Bestimmung des korrekten Datentyps für TypeScript/JavaScript
+function getCorrectValue(fieldType: string, fieldName: string): string {
+    const lowerType = fieldType.toLowerCase()
+
+    if (lowerType === 'int') {
+        return `Number(body.${fieldName})`
+    }
+    if (lowerType === 'float' || lowerType === 'double' || lowerType === 'decimal') {
+        return `Number(body.${fieldName})`
+    }
+    if (lowerType === 'boolean' || lowerType === 'bool') {
+        return `Boolean(body.${fieldName})`
+    }
+    if (lowerType === 'datetime') {
+        return `new Date(body.${fieldName} as string | number | Date)`
+    }
+
+    // Alle anderen Typen (String, VarChar, Text, etc.) als String
+    return `String(body.${fieldName})`
+}
+
+// Funktion zur korrekten Darstellung in SQL-Queries
+function getSqlValue(fieldType: string, fieldName: string): string {
+    const lowerType = fieldType.toLowerCase()
+
+    if (lowerType === 'int' || lowerType === 'float' || lowerType === 'double' || lowerType === 'decimal') {
+        return `\${body.${fieldName}}`
+    }
+    if (lowerType === 'boolean' || lowerType === 'bool') {
+        return `\${body.${fieldName} ? 1 : 0}`
+    }
+    if (lowerType === 'datetime') {
+        return `'\${new Date(body.${fieldName} as string | number | Date).toISOString().slice(0, 19).replace('T', ' ')}'`
+    }
+
+    // Alle String-Typen in Anführungszeichen
+    return `'\${body.${fieldName}}'`
+}
+
+function generateRouteTemplate(modelName: string, fields: FieldInfo[]): string {
     const cleanModelName = removeTablePrefix(modelName)
     const routeName = cleanModelName.toLowerCase()
     const variableName = `data${cleanModelName}`
+    const fieldsForInsert = fields.filter(field => !field.name.includes('tbl'))
 
     return `import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
+import {CreateChangeLogAsync} from "@/utils/create-change-log";
 
 const prisma = new PrismaClient()
 
@@ -80,7 +143,7 @@ export async function GET() {
       }
     })
     return NextResponse.json(${variableName})
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Abrufen der ${routeName}' },
@@ -94,24 +157,28 @@ export async function GET() {
 // POST - Neuen ${cleanModelName} erstellen
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    const body: { [key: string]: string | number | boolean | Date | null | undefined } = await request.json()
     
-    // Validierung - Nur für relevante Felder
-    ${fields.filter(field => !field.includes('tbl')).map(field => `if (body.${field} === undefined || body.${field} === null) {
+    // Validierung - Nur für erforderliche Felder
+    ${fieldsForInsert.filter(field => !field.isOptional).map(field => `if (body.${field.name} === undefined || body.${field.name} === null) {
       return NextResponse.json(
-        { error: '${field} ist erforderlich' },
+        { error: '${field.name} ist erforderlich' },
         { status: 400 }
       )
     }`).join('\n    ')}
 
     const ${variableName} = await prisma.${modelName}.create({
       data: {
-        ${fields.filter(field => !field.includes('tbl')).map(field => `${field}: body.${field}`).join(',\n        ')},
+        ${fieldsForInsert.map(field => `${field.name}: ${getCorrectValue(field.type, field.name)}`).join(',\n        ')},
       }
     })
+    
+    // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
+    const insertCommand = \`insert into ${modelName}(ID, ${fieldsForInsert.map(f => f.name).join(', ')}) values (\${${variableName}.ID}, ${fieldsForInsert.map(field => getSqlValue(field.type, field.name)).join(', ')})\`
+    await CreateChangeLogAsync(request, "${modelName}", "insert", insertCommand)
 
     return NextResponse.json(${variableName}, { status: 201 })
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Erstellen des ${cleanModelName}' },
@@ -124,15 +191,20 @@ export async function POST(request: NextRequest) {
 `
 }
 
-function generateIdRouteTemplate(modelName: string, fields: string[]): string {
+function generateIdRouteTemplate(modelName: string, fields: FieldInfo[]): string {
     const cleanModelName = removeTablePrefix(modelName)
     const routeName = cleanModelName.toLowerCase()
     const variableName = `data${cleanModelName}`
+    const fieldsForUpdate = fields.filter(field => !field.name.includes('tbl'))
 
     return `import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
+import {CreateChangeLogAsync} from "@/utils/create-change-log";
 
 const prisma = new PrismaClient()
+
+// Feldtypen für Update-Verarbeitung
+const fieldsForUpdate: Array<{ name: string; type: string; isOptional: boolean }> = ${JSON.stringify(fieldsForUpdate, null, 2)};
 
 // GET - Einzelnen ${cleanModelName} abrufen
 export async function GET(
@@ -162,7 +234,7 @@ export async function GET(
     }
 
     return NextResponse.json(${variableName})
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Abrufen des ${cleanModelName}' },
@@ -181,7 +253,7 @@ export async function PUT(
   try {
     const { id: idString } = await params
     const id = parseInt(idString)
-    const body = await request.json()
+    const body: { [key: string]: string | number | boolean | Date | null | undefined } = await request.json()
     
     if (isNaN(id)) {
       return NextResponse.json(
@@ -202,15 +274,42 @@ export async function PUT(
       )
     }
 
+    const updateData: { [key: string]: string | number | boolean | Date } = {}
+    ${fieldsForUpdate.map(field => `if (body.${field.name} !== undefined && body.${field.name} !== null) {
+      updateData.${field.name} = ${getCorrectValue(field.type, field.name)}
+    }`).join('\n    ')}
+
     const ${variableName} = await prisma.${modelName}.update({
       where: { ID: id },
-      data: {
-        ${fields.filter(field => !field.includes('tbl')).map(field => `...(body.${field} !== undefined && { ${field}: body.${field} })`).join(',\n        ')},
-      }
+      data: updateData
     })
 
+    // Erfolgreicher PUT - Jetzt Changelog-Eintrag erstellen
+    const updateFields = Object.entries(body)
+      .filter(([key, value]) => key !== 'ID' && value !== undefined && value !== null)
+      .map(([key, value]) => {
+        const field = fieldsForUpdate.find((f: { name: string; type: string; isOptional: boolean }) => f.name === key)
+        if (!field) return \`\${key}='\${value}'\`
+        
+        const fieldType = field.type.toLowerCase()
+        if (fieldType === 'int' || fieldType === 'float' || fieldType === 'double' || fieldType === 'decimal') {
+          return \`\${key}=\${value}\`
+        }
+        if (fieldType === 'boolean' || fieldType === 'bool') {
+          return \`\${key}=\${value ? 1 : 0}\`
+        }
+        if (fieldType === 'datetime') {
+          return \`\${key}='\${new Date(value as string | number | Date).toISOString().slice(0, 19).replace('T', ' ')}'\`
+        }
+        return \`\${key}='\${value}'\`
+      })
+      .join(', ')
+    
+    const updateCommand = \`update ${modelName} set \${updateFields} where ID=\${id}\`
+    await CreateChangeLogAsync(request, "${modelName}", "update", updateCommand)
+
     return NextResponse.json(${variableName})
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Aktualisieren des ${cleanModelName}' },
@@ -253,11 +352,15 @@ export async function DELETE(
       where: { ID: id }
     })
 
+    // Erfolgreiches DELETE - Jetzt Changelog-Eintrag erstellen
+    const deleteCommand = \`delete from ${modelName} where ID=\${id}\`
+    await CreateChangeLogAsync(request, "${modelName}", "delete", deleteCommand)
+
     return NextResponse.json(
       { message: '${cleanModelName} erfolgreich gelöscht' },
       { status: 200 }
     )
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Löschen des ${cleanModelName}' },
@@ -271,7 +374,7 @@ export async function DELETE(
 }
 
 // Haupt-Funktion
-function generateCrudRoutes() {
+function generateCrudRoutes(): void {
     console.log('🚀 Starte CRUD-Route Generierung...\n')
 
     // Prisma Schema analysieren
@@ -284,7 +387,7 @@ function generateCrudRoutes() {
 
     console.log('📋 Gefundene Modelle:')
     models.forEach(model => {
-        console.log(`  - ${model.name}: [${model.fields.join(', ')}]`)
+        console.log(`  - ${model.name}: [${model.fields.map(f => `${f.name}:${f.type}${f.isOptional ? '?' : ''}`).join(', ')}]`)
     })
     console.log()
 

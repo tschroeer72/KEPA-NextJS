@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
+import {CreateChangeLogAsync} from "@/utils/create-change-log";
 
 const prisma = new PrismaClient()
 
@@ -12,7 +13,7 @@ export async function GET() {
       }
     })
     return NextResponse.json(dataSpielKombimeisterschaft)
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Abrufen der spielkombimeisterschaft' },
@@ -26,9 +27,9 @@ export async function GET() {
 // POST - Neuen SpielKombimeisterschaft erstellen
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    const body: { [key: string]: string | number | boolean | Date | null | undefined } = await request.json()
     
-    // Validierung - Nur für relevante Felder
+    // Validierung - Nur für erforderliche Felder
     if (body.SpieltagID === undefined || body.SpieltagID === null) {
       return NextResponse.json(
         { error: 'SpieltagID ist erforderlich' },
@@ -80,19 +81,23 @@ export async function POST(request: NextRequest) {
 
     const dataSpielKombimeisterschaft = await prisma.tblSpielKombimeisterschaft.create({
       data: {
-        SpieltagID: body.SpieltagID,
-        SpielerID1: body.SpielerID1,
-        SpielerID2: body.SpielerID2,
-        Spieler1Punkte3bis8: body.Spieler1Punkte3bis8,
-        Spieler1Punkte5Kugeln: body.Spieler1Punkte5Kugeln,
-        Spieler2Punkte3bis8: body.Spieler2Punkte3bis8,
-        Spieler2Punkte5Kugeln: body.Spieler2Punkte5Kugeln,
-        HinR_ckrunde: body.HinR_ckrunde,
+        SpieltagID: Number(body.SpieltagID),
+        SpielerID1: Number(body.SpielerID1),
+        SpielerID2: Number(body.SpielerID2),
+        Spieler1Punkte3bis8: Number(body.Spieler1Punkte3bis8),
+        Spieler1Punkte5Kugeln: Number(body.Spieler1Punkte5Kugeln),
+        Spieler2Punkte3bis8: Number(body.Spieler2Punkte3bis8),
+        Spieler2Punkte5Kugeln: Number(body.Spieler2Punkte5Kugeln),
+        HinR_ckrunde: Number(body.HinR_ckrunde),
       }
     })
+    
+    // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
+    const insertCommand = `insert into tblSpielKombimeisterschaft(ID, SpieltagID, SpielerID1, SpielerID2, Spieler1Punkte3bis8, Spieler1Punkte5Kugeln, Spieler2Punkte3bis8, Spieler2Punkte5Kugeln, HinR_ckrunde) values (${dataSpielKombimeisterschaft.ID}, ${body.SpieltagID}, ${body.SpielerID1}, ${body.SpielerID2}, ${body.Spieler1Punkte3bis8}, ${body.Spieler1Punkte5Kugeln}, ${body.Spieler2Punkte3bis8}, ${body.Spieler2Punkte5Kugeln}, ${body.HinR_ckrunde})`
+    await CreateChangeLogAsync(request, "tblSpielKombimeisterschaft", "insert", insertCommand)
 
     return NextResponse.json(dataSpielKombimeisterschaft, { status: 201 })
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Erstellen des SpielKombimeisterschaft' },

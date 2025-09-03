@@ -6,6 +6,8 @@ import {useState, useEffect, useCallback} from "react";
 import {toast} from "sonner";
 import axios from "axios";
 import Mitspieler from "@/app/verwaltung/meisterschaften/(components)/mitspieler";
+import {meisterschaftsSchema} from "@/zod/meisterschaftSchema";
+import {z} from "zod";
 
 interface MeisterschaftdatenProps {
     MeisterschaftID: number;
@@ -14,8 +16,6 @@ interface MeisterschaftdatenProps {
 
 export default function Meisterschaftsdaten({MeisterschaftID, onDataChange}: MeisterschaftdatenProps) {
     //console.log('Meisterschaftsdaten: MeisterschaftID:', MeisterschaftID);
-
-    const [currentMeisterschaftsID, setCurrentMeisterschaftsID] = useState(MeisterschaftID);
 
     const [formData, setFormData] = useState<MeisterschaftDatenFormDataFormData>({
         Bezeichnung: "",
@@ -38,79 +38,74 @@ export default function Meisterschaftsdaten({MeisterschaftID, onDataChange}: Mei
 
     // Synchronisation des lokalen State mit dem Prop
     useEffect(() => {
-        //console.log('Props MeisterschaftID changed:', MeisterschaftID);
-        setCurrentMeisterschaftsID(MeisterschaftID);
+        const loadMeisterschaftsdaten = async () => {
+            // Zurücksetzen bei ungültiger ID
+            if (MeisterschaftID < 0) {
+                setMeisterschaft(null);
+                setFormData({
+                    Bezeichnung: "",
+                    Beginn: new Date(),
+                    Ende: undefined,
+                    MeisterschaftstypID: 1,
+                    Aktiv: 1,
+                    Bemerkungen: ""
+                });
+                setError(null);
+                setBtnBearbeitenEnabled(false);
+                return;
+            }
 
-        return () => {} //Cleanup function
-    }, [MeisterschaftID]);
+            // Neue Meisterschaft erstellen
+            if (MeisterschaftID === 0) {
+                const newMeisterschaft = {
+                    Bezeichnung: "",
+                    Beginn: new Date(),
+                    Ende: undefined,
+                    MeisterschaftstypID: 1,
+                    Aktiv: 1,
+                    Bemerkungen: ""
+                } as MeisterschaftCreate;
 
-    useEffect(() => {
-        if (currentMeisterschaftsID < 0){
-            setMeisterschaft(null);
+                setMeisterschaft(newMeisterschaft);
+                setFormData({
+                    Bezeichnung: "",
+                    Beginn: new Date(),
+                    Ende: undefined,
+                    MeisterschaftstypID: 1,
+                    Aktiv: 1,
+                    Bemerkungen: ""
+                });
+                setError(null);
+                setBtnBearbeitenEnabled(false);
+                return;
+            }
 
-            // FormData zurücksetzen
-            setFormData({
-                Bezeichnung: "",
-                Beginn: new Date(),
-                Ende: undefined,
-                MeisterschaftstypID: 1,
-                Aktiv: 1,
-                Bemerkungen: ""
-            });
-        }
-
-        if (currentMeisterschaftsID === 0) {
-            const newMeister = {
-                Bezeichnung: "",
-                Beginn: new Date(),
-                Ende: undefined,
-                MeisterschaftstypID: 1,
-                Aktiv: 1,
-                Bemerkungen: ""
-            } as MeisterschaftCreate;
-            setMeisterschaft(newMeister);
-
-            // FormData zurücksetzen
-            setFormData({
-                Bezeichnung: "",
-                Beginn: new Date(),
-                Ende: undefined,
-                MeisterschaftstypID: 1,
-                Aktiv: 1,
-                Bemerkungen: ""
-            });
-
-            return;
-        }
-
-        const fetchMeisterschaft = async () => {
+            // Existierende Meisterschaft laden
             setLoading(true);
             setError(null);
 
             try {
-                //console.log('Lade Mitglied mit ID:', currentMitgliedID);
                 const response = await axios.get(`/api/db/meisterschaften/${MeisterschaftID}`);
                 const meisterschaftData = response.data;
                 setMeisterschaft(meisterschaftData);
 
-                // FormData mit Mitgliederdaten befüllen
+                // FormData mit Meisterschaftsdaten befüllen
                 setFormData({
                     Bezeichnung: meisterschaftData.Bezeichnung || "",
-                    Beginn: meisterschaftData.Beginn = new Date(meisterschaftData.Beginn),
+                    Beginn: new Date(meisterschaftData.Beginn),
                     Ende: meisterschaftData.Ende ? new Date(meisterschaftData.Ende) : undefined,
                     MeisterschaftstypID: meisterschaftData.MeisterschaftstypID || 1,
-                    Aktiv: meisterschaftData.Aktiv || false,
+                    Aktiv: meisterschaftData.Aktiv || 0,
                     Bemerkungen: meisterschaftData.Bemerkungen || ""
                 });
-
-                //console.log('Mitgliederdaten geladen:', response.data);
 
                 setBtnNeuEnabled(true);
                 setBtnBearbeitenEnabled(true);
                 setBtnSpeichernEnabled(false);
+                setIsEditable(false);
             } catch (err) {
                 if (axios.isAxiosError(err)) {
-                    setError(err.response?.data?.error || 'Fehler beim Laden der Mitgliederdaten');
+                    setError(err.response?.data?.error || 'Fehler beim Laden der Meisterschaftsdaten');
                 } else {
                     setError('Unbekannter Fehler');
                 }
@@ -123,10 +118,29 @@ export default function Meisterschaftsdaten({MeisterschaftID, onDataChange}: Mei
             }
         };
 
-        fetchMeisterschaft();
+        loadMeisterschaftsdaten();
+    }, [MeisterschaftID]); // Nur MeisterschaftID als Dependency
 
-        return () => {} //Cleanup function
-    },[MeisterschaftID, currentMeisterschaftsID]);
+    // Validierungsfunktion
+    const validateForm = useCallback(() => {
+        try {
+            meisterschaftsSchema.parse(formData);
+            setValidationErrors({});
+            return { isValid: true };
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                const errors: Record<string, string> = {};
+                error.issues.forEach(err => {
+                    if (err.path.length > 0) {
+                        errors[err.path[0].toString()] = err.message;
+                    }
+                });
+                setValidationErrors(errors);
+                return { isValid: false, errors: error };
+            }
+            return { isValid: false };
+        }
+    }, [formData]);
 
     const handleNeuClick = () => {
         // setCurrentMitgliedID(0);
@@ -172,72 +186,58 @@ export default function Meisterschaftsdaten({MeisterschaftID, onDataChange}: Mei
 
     const handleSpeichernClick = useCallback(async () => {
         try {
-            //     // Validierung
-            //     const validation = validateForm();
-            //
-            //     if (!validation.isValid) {
-            //         const firstError = validation.errors?.issues[0];
-            //         console.log('Validierungsfehler:', validation.errors?.issues);
-            //         toast.error(`Validierungsfehler: ${firstError?.message || 'Bitte korrigieren Sie die Eingabefehler!'}`);
-            //         return;
-            //     }
-            //
-            //     // Daten zu einem vollständigen Mitglied-Objekt zusammenführen
-            //     const completeFormData = {
-            //         ...formDataMitgliedPersoenliches,
-            //         ...formDataNotizen
-            //     };
-            //
-            //     console.log("currentMitgliedID:", currentMitgliedID);
-            //     console.log('Speichere Mitgliederdaten:', completeFormData);
-            //
-            //     setLoading(true);
-            //
-            //     if (currentMitgliedID > 0) {
-            //         // Update existierendes Mitglied
-            //         const response = await axios.put(`/api/db/mitglieder/${currentMitgliedID}`, completeFormData);
-            //         //console.log('Mitglied erfolgreich aktualisiert:', response.data);
-            //
-            //         // Aktualisiere lokalen State mit den neuen Daten
-            //         setMitglied(response.data);
-            //         // Erfolgreiche Speicherung anzeigen
-            //         toast.success('Mitglied wurde erfolgreich angelegt!');
-            //     } else {
-            //         // Neues Mitglied erstellen
-            //         const response = await axios.post(`/api/db/mitglieder`, completeFormData);
-            //         //console.log('Neues Mitglied erstellt:', response.data);
-            //
-            //         setMitglied(response.data);
-            //
-            //         // Erfolgreiche Speicherung anzeigen
-            //         toast.success('Mitgliederdaten wurden erfolgreich geändert!');
-            //     }
-            //
-            //     // // Erfolgreiche Speicherung anzeigen
-            //     // toast.success('Mitgliederdaten wurden erfolgreich gespeichert!');
-            //
-                setBtnNeuEnabled(true);
-                setBtnBearbeitenEnabled(true);
-                setBtnSpeichernEnabled(false);
-                setIsEditable(false);
+            // Validierung
+            const validation = validateForm();
 
-                // Nach dem Speichern die übergeordnete Komponente über die Änderung informieren
-                if (onDataChange) {
-                    onDataChange();
-                }
+            if (!validation.isValid) {
+                const firstError = validation.errors?.issues[0];
+                //console.log('Validierungsfehler:', validation.errors?.issues);
+                toast.error(`Validierungsfehler: ${firstError?.message || 'Bitte korrigieren Sie die Eingabefehler!'}`);
+                return;
+            }
+
+            //console.log("MeisterschaftID:", MeisterschaftID);
+            //console.log('Speichere Meisterschaftsdaten:', formData);
+
+            setLoading(true);
+
+            if (MeisterschaftID > 0) {
+                // Update existierende Meisterschaft
+                const response = await axios.put(`/api/db/meisterschaften/${MeisterschaftID}`, formData);
+
+                // Aktualisiere lokalen State mit den neuen Daten
+                setMeisterschaft(response.data);
+                toast.success('Meisterschaftsdaten wurden erfolgreich geändert!');
+            } else {
+                // Neue Meisterschaft erstellen
+                const response = await axios.post(`/api/db/meisterschaften`, formData);
+
+                setMeisterschaft(response.data);
+                toast.success('Meisterschaft wurde erfolgreich angelegt!');
+            }
+
+            setBtnNeuEnabled(true);
+            setBtnBearbeitenEnabled(true);
+            setBtnSpeichernEnabled(false);
+            setIsEditable(false);
+
+            // Nach dem Speichern die übergeordnete Komponente über die Änderung informieren
+            if (onDataChange) {
+                onDataChange();
+            }
         } catch (err) {
-                console.error('Fehler beim Speichern:', err);
-                if (axios.isAxiosError(err)) {
-                    setError(err.response?.data?.error || 'Fehler beim Speichern der Mitgliederdaten');
-                    toast.error(err.response?.data?.error || 'Fehler beim Speichern der Mitgliederdaten');
-                } else {
-                    setError('Unbekannter Fehler beim Speichern');
-                    toast.error('Unbekannter Fehler beim Speichern');
-                }
-            } finally {
-                setLoading(false);
+            //console.error('Fehler beim Speichern:', err);
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data?.error || 'Fehler beim Speichern der Meisterschaftsdaten');
+                toast.error(err.response?.data?.error || 'Fehler beim Speichern der Meisterschaftsdaten');
+            } else {
+                setError('Unbekannter Fehler beim Speichern');
+                toast.error('Unbekannter Fehler beim Speichern');
+            }
+        } finally {
+            setLoading(false);
         }
-    }, []);
+    }, [MeisterschaftID, formData, validateForm, onDataChange]);
 
     const handleFormDataChange = (field: keyof MeisterschaftDatenFormDataFormData, value: string | number | Date | boolean) => {
         setFormData(prev => ({
@@ -246,7 +246,7 @@ export default function Meisterschaftsdaten({MeisterschaftID, onDataChange}: Mei
         }));
     };
 
-    if (currentMeisterschaftsID < 0) {
+    if (MeisterschaftID < 0) {
         return (
             <Card className="w-full gap-0">
                 <CardContent className="pt-2 p-4">
@@ -435,7 +435,7 @@ export default function Meisterschaftsdaten({MeisterschaftID, onDataChange}: Mei
                     </div>
 
                     <TabsContent value="mitspieler">
-                        <Mitspieler meisterschaftID={currentMeisterschaftsID} />
+                        <Mitspieler meisterschaftID={MeisterschaftID} />
                     </TabsContent>
 
                 </Tabs>

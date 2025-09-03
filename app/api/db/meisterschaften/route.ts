@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
+import {CreateChangeLogAsync} from "@/utils/create-change-log";
 
 const prisma = new PrismaClient()
 
@@ -12,7 +13,7 @@ export async function GET() {
       }
     })
     return NextResponse.json(dataMeisterschaften)
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Abrufen der meisterschaften' },
@@ -26,9 +27,9 @@ export async function GET() {
 // POST - Neuen Meisterschaften erstellen
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    const body: { [key: string]: string | number | boolean | Date | null | undefined } = await request.json()
     
-    // Validierung - Nur für relevante Felder
+    // Validierung - Nur für erforderliche Felder
     if (body.Bezeichnung === undefined || body.Bezeichnung === null) {
       return NextResponse.json(
         { error: 'Bezeichnung ist erforderlich' },
@@ -41,21 +42,9 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
-    if (body.Ende === undefined || body.Ende === null) {
-      return NextResponse.json(
-        { error: 'Ende ist erforderlich' },
-        { status: 400 }
-      )
-    }
     if (body.MeisterschaftstypID === undefined || body.MeisterschaftstypID === null) {
       return NextResponse.json(
         { error: 'MeisterschaftstypID ist erforderlich' },
-        { status: 400 }
-      )
-    }
-    if (body.TurboDBNummer === undefined || body.TurboDBNummer === null) {
-      return NextResponse.json(
-        { error: 'TurboDBNummer ist erforderlich' },
         { status: 400 }
       )
     }
@@ -65,27 +54,25 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
-    if (body.Bemerkungen === undefined || body.Bemerkungen === null) {
-      return NextResponse.json(
-        { error: 'Bemerkungen ist erforderlich' },
-        { status: 400 }
-      )
-    }
 
     const dataMeisterschaften = await prisma.tblMeisterschaften.create({
       data: {
-        Bezeichnung: body.Bezeichnung,
-        Beginn: body.Beginn,
-        Ende: body.Ende,
-        MeisterschaftstypID: body.MeisterschaftstypID,
-        TurboDBNummer: body.TurboDBNummer,
-        Aktiv: body.Aktiv,
-        Bemerkungen: body.Bemerkungen,
+        Bezeichnung: String(body.Bezeichnung),
+        Beginn: new Date(body.Beginn as string | number | Date),
+        Ende: new Date(body.Ende as string | number | Date),
+        MeisterschaftstypID: Number(body.MeisterschaftstypID),
+        TurboDBNummer: Number(body.TurboDBNummer),
+        Aktiv: Number(body.Aktiv),
+        Bemerkungen: String(body.Bemerkungen),
       }
     })
+    
+    // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
+    const insertCommand = `insert into tblMeisterschaften(ID, Bezeichnung, Beginn, Ende, MeisterschaftstypID, TurboDBNummer, Aktiv, Bemerkungen) values (${dataMeisterschaften.ID}, '${body.Bezeichnung}', '${new Date(body.Beginn as string | number | Date).toISOString().slice(0, 19).replace('T', ' ')}', '${new Date(body.Ende as string | number | Date).toISOString().slice(0, 19).replace('T', ' ')}', ${body.MeisterschaftstypID}, ${body.TurboDBNummer}, ${body.Aktiv}, '${body.Bemerkungen}')`
+    await CreateChangeLogAsync(request, "tblMeisterschaften", "insert", insertCommand)
 
     return NextResponse.json(dataMeisterschaften, { status: 201 })
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Database error:', error)
     return NextResponse.json(
       { error: 'Fehler beim Erstellen des Meisterschaften' },
