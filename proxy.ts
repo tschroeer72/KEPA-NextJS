@@ -2,7 +2,7 @@
 import { jwtVerify } from 'jose';
 
 // Öffentliche Routen, die keine Authentifizierung benötigen
-const publicRoutes = ['/login', '/impressum', '/kontakt', '/aktuelles', '/termine'];
+const publicRoutes = ['/', '/login', '/impressum', '/kontakt', '/aktuelles', '/termine'];
 
 export async function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
