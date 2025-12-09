@@ -1,17 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
 import {CreateChangeLogAsync} from "@/utils/create-change-log";
-
-const prisma = new PrismaClient()
 
 // GET - Alle spielpokal abrufen
 export async function GET() {
   try {
     const dataSpielPokal = await prisma.tblSpielPokal.findMany({
       orderBy: {
-        ID: 'desc'
-      }
-    })
+        ID: "desc",
+      },
+    });
     return NextResponse.json(dataSpielPokal)
   } catch (error: unknown) {
     console.error('Database error:', error)
@@ -20,7 +18,7 @@ export async function GET() {
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
 
@@ -54,8 +52,8 @@ export async function POST(request: NextRequest) {
         SpieltagID: Number(body.SpieltagID),
         SpielerID: Number(body.SpielerID),
         Platzierung: Number(body.Platzierung),
-      }
-    })
+      },
+    });
     
     // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
     const insertCommand = `insert into tblSpielPokal(ID, SpieltagID, SpielerID, Platzierung) values (${dataSpielPokal.ID}, ${body.SpieltagID}, ${body.SpielerID}, ${body.Platzierung})`
@@ -69,6 +67,6 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }

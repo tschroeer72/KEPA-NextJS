@@ -1,17 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
 import {CreateChangeLogAsync} from "@/utils/create-change-log";
-
-const prisma = new PrismaClient()
 
 // GET - Alle spielblitztunier abrufen
 export async function GET() {
   try {
     const dataSpielBlitztunier = await prisma.tblSpielBlitztunier.findMany({
       orderBy: {
-        ID: 'desc'
-      }
-    })
+        ID: "desc",
+      },
+    });
     return NextResponse.json(dataSpielBlitztunier)
   } catch (error: unknown) {
     console.error('Database error:', error)
@@ -20,7 +18,7 @@ export async function GET() {
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
 
@@ -75,8 +73,8 @@ export async function POST(request: NextRequest) {
         PunkteSpieler1: Number(body.PunkteSpieler1),
         PunkteSpieler2: Number(body.PunkteSpieler2),
         HinR_ckrunde: Number(body.HinR_ckrunde),
-      }
-    })
+      },
+    });
     
     // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
     const insertCommand = `insert into tblSpielBlitztunier(ID, SpieltagID, SpielerID1, SpielerID2, PunkteSpieler1, PunkteSpieler2, HinR_ckrunde) values (${dataSpielBlitztunier.ID}, ${body.SpieltagID}, ${body.SpielerID1}, ${body.SpielerID2}, ${body.PunkteSpieler1}, ${body.PunkteSpieler2}, ${body.HinR_ckrunde})`
@@ -90,6 +88,6 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }

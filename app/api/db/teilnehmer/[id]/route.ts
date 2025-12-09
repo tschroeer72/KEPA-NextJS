@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from "@/lib/prisma";
 import {CreateChangeLogAsync} from "@/utils/create-change-log";
-
-const prisma = new PrismaClient()
 
 // Feldtypen für Update-Verarbeitung
 const fieldsForUpdate: Array<{ name: string; type: string; isOptional: boolean }> = [
@@ -35,8 +33,8 @@ export async function GET(
     }
 
     const dataTeilnehmer = await prisma.tblTeilnehmer.findUnique({
-      where: { ID: id }
-    })
+      where: { ID: id },
+    });
 
     if (!dataTeilnehmer) {
       return NextResponse.json(
@@ -53,7 +51,7 @@ export async function GET(
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
 
@@ -76,8 +74,8 @@ export async function PUT(
 
     // Prüfen ob Teilnehmer existiert
     const existingTeilnehmer = await prisma.tblTeilnehmer.findUnique({
-      where: { ID: id }
-    })
+      where: { ID: id },
+    });
 
     if (!existingTeilnehmer) {
       return NextResponse.json(
@@ -96,8 +94,8 @@ export async function PUT(
 
     const dataTeilnehmer = await prisma.tblTeilnehmer.update({
       where: { ID: id },
-      data: updateData
-    })
+      data: updateData,
+    });
 
     // Erfolgreicher PUT - Jetzt Changelog-Eintrag erstellen
     const updateFields = Object.entries(body)
@@ -131,7 +129,7 @@ export async function PUT(
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
 
@@ -153,8 +151,8 @@ export async function DELETE(
 
     // Prüfen ob Teilnehmer existiert
     const existingTeilnehmer = await prisma.tblTeilnehmer.findUnique({
-      where: { ID: id }
-    })
+      where: { ID: id },
+    });
 
     if (!existingTeilnehmer) {
       return NextResponse.json(
@@ -164,8 +162,8 @@ export async function DELETE(
     }
 
     await prisma.tblTeilnehmer.delete({
-      where: { ID: id }
-    })
+      where: { ID: id },
+    });
 
     // Erfolgreiches DELETE - Jetzt Changelog-Eintrag erstellen
     const deleteCommand = `delete from tblTeilnehmer where ID=${id}`
@@ -182,6 +180,6 @@ export async function DELETE(
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }

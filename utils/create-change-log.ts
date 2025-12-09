@@ -1,8 +1,6 @@
 ﻿import {getComputerInfo} from "@/utils/get-computer-info";
 import {NextRequest} from "next/server";
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from "@/lib/prisma";
 
 export async function CreateChangeLogAsync(request: NextRequest, tablename:string, changeType: string, sql: string) {
     const computerInfo = getComputerInfo(request)

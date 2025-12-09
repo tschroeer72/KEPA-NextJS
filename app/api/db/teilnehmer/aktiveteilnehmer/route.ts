@@ -1,8 +1,6 @@
 ﻿import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
 import { AktiverMitspieler } from '@/interfaces/aktiver-mitspieler'
-
-const prisma = new PrismaClient()
 
 // GET - Aktive Teilnehmer für eine spezifische Meisterschaft abrufen
 export async function GET(request: NextRequest) {
@@ -26,27 +24,33 @@ export async function GET(request: NextRequest) {
             )
         }
 
-        // Join zwischen TblTeilnehmer und TblMitglieder über die SpielerId
-        const aktiveTeilnehmer = await prisma.tblTeilnehmer.findMany({
-            where: {
-                MeisterschaftsID: meisterschaftsIdNumber
-            },
-            include: {
-                // Annahme: Es gibt eine Relation zu TblMitglieder über SpielerId
-                tblMitglieder: {
-                    select: {
-                        ID: true,
-                        Vorname: true,
-                        Nachname: true,
-                        Spitzname: true
-                    }
-                }
-            }
-        })
+        // Da im Prisma-Schema keine Relationen definiert sind, führen wir die "Join"-Logik manuell aus
+        const teilnehmer = await prisma.tblTeilnehmer.findMany({
+          where: { MeisterschaftsID: meisterschaftsIdNumber },
+          select: {
+            SpielerID: true,
+          },
+        });
+
+        const spielerIds = Array.from(new Set(teilnehmer.map(t => t.SpielerID)));
+        if (spielerIds.length === 0) {
+          return NextResponse.json([]);
+        }
+
+        const mitglieder = await prisma.tblMitglieder.findMany({
+          where: { ID: { in: spielerIds } },
+          select: {
+            ID: true,
+            Vorname: true,
+            Nachname: true,
+            Spitzname: true,
+          },
+        });
+        const mitgliederMap = new Map(mitglieder.map(m => [m.ID, m]));
 
         // Transformiere die Daten entsprechend dem AktiverMitspieler Interface
-        const aktiveSpieler: AktiverMitspieler[] = aktiveTeilnehmer.map(teilnehmer => {
-            const mitglied = teilnehmer.tblMitglieder
+        const aktiveSpieler: AktiverMitspieler[] = teilnehmer.map((t) => {
+            const mitglied = mitgliederMap.get(t.SpielerID) || null
 
             if (!mitglied) {
                 return null // Skip if no member found
@@ -63,7 +67,7 @@ export async function GET(request: NextRequest) {
                 Spitzname: mitglied.Spitzname || '',
                 Anzeigename: anzeigename
             }
-        }).filter(spieler => spieler !== null) // Entferne null-Werte
+        }).filter((spieler): spieler is AktiverMitspieler => spieler !== null) // Entferne null-Werte
 
         return NextResponse.json(aktiveSpieler)
 
@@ -74,6 +78,6 @@ export async function GET(request: NextRequest) {
             { status: 500 }
         )
     } finally {
-        await prisma.$disconnect()
+        await prisma.$disconnect();
     }
 }

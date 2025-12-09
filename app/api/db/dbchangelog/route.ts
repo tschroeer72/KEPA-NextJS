@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
 import {CreateChangeLogAsync} from "@/utils/create-change-log";
-
-const prisma = new PrismaClient()
 
 // GET - Alle dbchangelog abrufen
 export async function GET() {
@@ -19,8 +17,6 @@ export async function GET() {
       { error: 'Fehler beim Abrufen der dbchangelog' },
       { status: 500 }
     )
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
@@ -58,7 +54,5 @@ export async function POST(request: NextRequest) {
       { error: 'Fehler beim Erstellen des DBChangeLog' },
       { status: 500 }
     )
-  } finally {
-    await prisma.$disconnect()
   }
 }

@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
 import {CreateChangeLogAsync} from "@/utils/create-change-log";
-
-const prisma = new PrismaClient()
 
 // Feldtypen für Update-Verarbeitung
 const fieldsForUpdate: Array<{ name: string; type: string; isOptional: boolean }> = [
@@ -55,8 +53,8 @@ export async function GET(
     }
 
     const dataSpielMeisterschaft = await prisma.tblSpielMeisterschaft.findUnique({
-      where: { ID: id }
-    })
+      where: { ID: id },
+    });
 
     if (!dataSpielMeisterschaft) {
       return NextResponse.json(
@@ -73,7 +71,7 @@ export async function GET(
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
 
@@ -96,8 +94,8 @@ export async function PUT(
 
     // Prüfen ob SpielMeisterschaft existiert
     const existingSpielMeisterschaft = await prisma.tblSpielMeisterschaft.findUnique({
-      where: { ID: id }
-    })
+      where: { ID: id },
+    });
 
     if (!existingSpielMeisterschaft) {
       return NextResponse.json(
@@ -128,8 +126,8 @@ export async function PUT(
 
     const dataSpielMeisterschaft = await prisma.tblSpielMeisterschaft.update({
       where: { ID: id },
-      data: updateData
-    })
+      data: updateData,
+    });
 
     // Erfolgreicher PUT - Jetzt Changelog-Eintrag erstellen
     const updateFields = Object.entries(body)
@@ -163,7 +161,7 @@ export async function PUT(
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
 
@@ -185,8 +183,8 @@ export async function DELETE(
 
     // Prüfen ob SpielMeisterschaft existiert
     const existingSpielMeisterschaft = await prisma.tblSpielMeisterschaft.findUnique({
-      where: { ID: id }
-    })
+      where: { ID: id },
+    });
 
     if (!existingSpielMeisterschaft) {
       return NextResponse.json(
@@ -196,8 +194,8 @@ export async function DELETE(
     }
 
     await prisma.tblSpielMeisterschaft.delete({
-      where: { ID: id }
-    })
+      where: { ID: id },
+    });
 
     // Erfolgreiches DELETE - Jetzt Changelog-Eintrag erstellen
     const deleteCommand = `delete from tblSpielMeisterschaft where ID=${id}`
@@ -214,6 +212,6 @@ export async function DELETE(
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }

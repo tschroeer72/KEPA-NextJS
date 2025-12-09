@@ -1,8 +1,8 @@
 ﻿import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
 import { AktiverMitspieler } from '@/interfaces/aktiver-mitspieler'
 
-const prisma = new PrismaClient()
+// use shared prisma client
 
 export async function GET(request: NextRequest) {
     try {
@@ -10,7 +10,8 @@ export async function GET(request: NextRequest) {
         const { searchParams } = url
         const meisterschaftsId = await Promise.resolve(searchParams.get('MeisterschaftID'))
 
-        let dataMitglieder
+        // Typisierung der aus der Datenbank selektierten Felder, damit map() nicht auf any arbeitet
+        let dataMitglieder: { ID: number; Vorname: string; Nachname: string; Spitzname: string | null }[]
 
         if (meisterschaftsId) {
             // Wenn MeisterschaftID übergeben wird, nur aktive Mitglieder zurückgeben,
@@ -49,6 +50,15 @@ export async function GET(request: NextRequest) {
                 })
             } else {
                 // Wenn Teilnehmer existieren, nur die ausschließen, die bereits teilnehmen
+                // Hinweis: Da in Prisma-Schema keine Relationen zwischen tblMitglieder und tblTeilnehmer definiert sind,
+                // kann nicht direkt über eine Relation (tblTeilnehmer: some ...) gefiltert werden.
+                // Deshalb werden zuerst die Teilnehmer-IDs geholt und anschließend per notIn ausgeschlossen.
+                const teilnehmer = await prisma.tblTeilnehmer.findMany({
+                    where: { MeisterschaftsID: meisterschaftsIdNumber },
+                    select: { SpielerID: true }
+                })
+                const excludeIds = teilnehmer.map(t => t.SpielerID)
+
                 dataMitglieder = await prisma.tblMitglieder.findMany({
                     orderBy: [
                         { Nachname: 'asc' },
@@ -57,13 +67,7 @@ export async function GET(request: NextRequest) {
                     where: {
                         PassivSeit: null,
                         // Mitglieder ausschließen, die bereits in tblTeilnehmer für diese Meisterschaft sind
-                        NOT: {
-                            tblTeilnehmer: {
-                                some: {
-                                    MeisterschaftsID: meisterschaftsIdNumber
-                                }
-                            }
-                        }
+                        ...(excludeIds.length > 0 ? { ID: { notIn: excludeIds } } : {})
                     },
                     select: {
                         ID: true,
@@ -96,7 +100,7 @@ export async function GET(request: NextRequest) {
         }
 
         // Transformiere die Daten entsprechend dem AktiverMitspieler Interface
-        const aktiveMitglieder: AktiverMitspieler[] = dataMitglieder.map(mitglied => {
+        const aktiveMitglieder: AktiverMitspieler[] = dataMitglieder.map((mitglied) => {
             const anzeigename = mitglied.Spitzname && mitglied.Spitzname.trim() !== ''
                 ? mitglied.Spitzname
                 : mitglied.Vorname
@@ -117,7 +121,5 @@ export async function GET(request: NextRequest) {
             { error: 'Fehler beim Abrufen der Mitglieder' },
             { status: 500 }
         )
-    } finally {
-        await prisma.$disconnect()
     }
 }

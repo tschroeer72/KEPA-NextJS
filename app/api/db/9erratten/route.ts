@@ -1,17 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
 import {CreateChangeLogAsync} from "@/utils/create-change-log";
-
-const prisma = new PrismaClient()
 
 // GET - Alle 9erratten abrufen
 export async function GET() {
   try {
     const data9erRatten = await prisma.tbl9erRatten.findMany({
       orderBy: {
-        ID: 'desc'
-      }
-    })
+        ID: "desc",
+      },
+    });
     return NextResponse.json(data9erRatten)
   } catch (error: unknown) {
     console.error('Database error:', error)
@@ -19,8 +17,6 @@ export async function GET() {
       { error: 'Fehler beim Abrufen der 9erratten' },
       { status: 500 }
     )
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
@@ -75,7 +71,5 @@ export async function POST(request: NextRequest) {
       { error: 'Fehler beim Erstellen des 9erRatten' },
       { status: 500 }
     )
-  } finally {
-    await prisma.$disconnect()
   }
 }

@@ -1,17 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
 import {CreateChangeLogAsync} from "@/utils/create-change-log";
-
-const prisma = new PrismaClient()
 
 // GET - Alle spielkombimeisterschaft abrufen
 export async function GET() {
   try {
     const dataSpielKombimeisterschaft = await prisma.tblSpielKombimeisterschaft.findMany({
       orderBy: {
-        ID: 'desc'
-      }
-    })
+        ID: "desc",
+      },
+    });
     return NextResponse.json(dataSpielKombimeisterschaft)
   } catch (error: unknown) {
     console.error('Database error:', error)
@@ -20,7 +18,7 @@ export async function GET() {
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
 
@@ -88,9 +86,9 @@ export async function POST(request: NextRequest) {
         Spieler1Punkte5Kugeln: Number(body.Spieler1Punkte5Kugeln),
         Spieler2Punkte3bis8: Number(body.Spieler2Punkte3bis8),
         Spieler2Punkte5Kugeln: Number(body.Spieler2Punkte5Kugeln),
-        HinR_ckrunde: Number(body.HinR_ckrunde),
-      }
-    })
+        HinRueckrunde: Number(body.HinRueckrunde),
+      },
+    });
     
     // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
     const insertCommand = `insert into tblSpielKombimeisterschaft(ID, SpieltagID, SpielerID1, SpielerID2, Spieler1Punkte3bis8, Spieler1Punkte5Kugeln, Spieler2Punkte3bis8, Spieler2Punkte5Kugeln, HinR_ckrunde) values (${dataSpielKombimeisterschaft.ID}, ${body.SpieltagID}, ${body.SpielerID1}, ${body.SpielerID2}, ${body.Spieler1Punkte3bis8}, ${body.Spieler1Punkte5Kugeln}, ${body.Spieler2Punkte3bis8}, ${body.Spieler2Punkte5Kugeln}, ${body.HinR_ckrunde})`
@@ -104,6 +102,6 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }

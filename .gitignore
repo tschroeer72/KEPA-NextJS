@@ -51,3 +51,9 @@ C:/Users/*/AppData/**
 /.npm-cache/
 /.npm-cache/_cacache/
 /.npm-cache/_logs/
+
+/lib/generated/prisma
+
+/lib/generated/prisma
+
+/lib/generated/prisma

@@ -1,8 +1,6 @@
-﻿import { PrismaClient } from '@prisma/client'
+﻿import { prisma } from '@/lib/prisma'
 import {NextRequest, NextResponse} from "next/server";
 import { CreateChangeLogAsync } from "@/utils/create-change-log";
-
-const prisma = new PrismaClient()
 
 export async function DELETE(request: NextRequest) {
     try {
@@ -29,11 +27,11 @@ export async function DELETE(request: NextRequest) {
         }
 // Prüfen ob Teilnehmer existiert
         const existingTeilnehmer = await prisma.tblTeilnehmer.findFirst({
-            where: {
-                MeisterschaftsID: meisterschaftsIDInt,
-                SpielerID: spielerIDInt
-            }
-        })
+          where: {
+            MeisterschaftsID: meisterschaftsIDInt,
+            SpielerID: spielerIDInt,
+          },
+        });
 
         if (!existingTeilnehmer) {
             return NextResponse.json(
@@ -43,10 +41,10 @@ export async function DELETE(request: NextRequest) {
         }
 
         await prisma.tblTeilnehmer.delete({
-            where: {
-                ID: existingTeilnehmer.ID
-            }
-        })
+          where: {
+            ID: existingTeilnehmer.ID,
+          },
+        });
 
         // Erfolgreiches DELETE - Jetzt Changelog-Eintrag erstellen
         const deleteCommand = `delete from tblTeilnehmer where MeisterschaftsID=${meisterschaftsIDInt} and SpielerID=${spielerIDInt}`
@@ -66,6 +64,6 @@ export async function DELETE(request: NextRequest) {
             { status: 500 }
         )
     } finally {
-        await prisma.$disconnect()
+        await prisma.$disconnect();
     }
 }

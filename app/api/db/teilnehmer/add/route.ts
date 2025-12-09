@@ -1,8 +1,6 @@
-﻿import { PrismaClient } from '@prisma/client'
+﻿import { prisma } from '@/lib/prisma'
 import {NextRequest, NextResponse} from "next/server";
 import { CreateChangeLogAsync } from "@/utils/create-change-log";
-
-const prisma = new PrismaClient()
 
 export async function POST(request: NextRequest) {
     try {
@@ -30,11 +28,11 @@ export async function POST(request: NextRequest) {
 
         // Prüfen ob Teilnehmer bereits existiert
         const existingTeilnehmer = await prisma.tblTeilnehmer.findFirst({
-            where: {
-                MeisterschaftsID: meisterschaftsIDInt,
-                SpielerID: spielerIDInt
-            }
-        })
+          where: {
+            MeisterschaftsID: meisterschaftsIDInt,
+            SpielerID: spielerIDInt,
+          },
+        });
 
         if (existingTeilnehmer) {
             return NextResponse.json(
@@ -45,8 +43,8 @@ export async function POST(request: NextRequest) {
 
         // Prüfen ob Meisterschaft existiert
         const meisterschaft = await prisma.tblMeisterschaften.findUnique({
-            where: { ID: meisterschaftsIDInt }
-        })
+          where: { ID: meisterschaftsIDInt },
+        });
 
         if (!meisterschaft) {
             return NextResponse.json(
@@ -57,8 +55,8 @@ export async function POST(request: NextRequest) {
 
         // Prüfen ob Spieler/Mitglied existiert
         const spieler = await prisma.tblMitglieder.findUnique({
-            where: { ID: spielerIDInt }
-        })
+          where: { ID: spielerIDInt },
+        });
 
         if (!spieler) {
             return NextResponse.json(
@@ -67,29 +65,39 @@ export async function POST(request: NextRequest) {
             )
         }
 
-        // Teilnehmer hinzufügen
+        // Teilnehmer hinzufügen (ohne include – Prisma-Schema hat keine Relationen)
         const neuerTeilnehmer = await prisma.tblTeilnehmer.create({
             data: {
                 MeisterschaftsID: meisterschaftsIDInt,
-                SpielerID: spielerIDInt
+                SpielerID: spielerIDInt,
             },
-            include: {
-                tblMitglieder: {
-                    select: {
-                        ID: true,
-                        Vorname: true,
-                        Nachname: true,
-                        Spitzname: true
-                    }
-                },
-                tblMeisterschaften: {
-                    select: {
-                        ID: true,
-                        Bezeichnung: true
-                    }
-                }
-            }
         })
+
+        // Zugehörige Datensätze manuell laden
+        const [mitglied, meisterschaftKurz] = await Promise.all([
+            prisma.tblMitglieder.findUnique({
+                where: { ID: spielerIDInt },
+                select: {
+                    ID: true,
+                    Vorname: true,
+                    Nachname: true,
+                    Spitzname: true,
+                },
+            }),
+            prisma.tblMeisterschaften.findUnique({
+                where: { ID: meisterschaftsIDInt },
+                select: {
+                    ID: true,
+                    Bezeichnung: true,
+                },
+            }),
+        ])
+
+        const teilnehmerResponse = {
+            ...neuerTeilnehmer,
+            tblMitglieder: mitglied ?? null,
+            tblMeisterschaften: meisterschaftKurz ?? null,
+        }
 
         // Erfolgreiches POST - Jetzt Changelog-Eintrag erstellen
         const insertCommand = `insert into tblTeilnehmer(MeisterschaftsID, SpielerID) values (${meisterschaftsIDInt}, ${spielerIDInt})`
@@ -98,17 +106,17 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(
             {
                 message: 'Teilnehmer erfolgreich hinzugefügt',
-                teilnehmer: neuerTeilnehmer
+                teilnehmer: teilnehmerResponse,
             },
             { status: 201 }
         )
     } catch (error) {
         console.error('Database error:', error)
         return NextResponse.json(
-            { error: 'Fehler beim Löschen eines Teilnehmer' },
+            { error: 'Fehler beim Hinzufügen eines Teilnehmers' },
             { status: 500 }
         )
     } finally {
-        await prisma.$disconnect()
+        await prisma.$disconnect();
     }
 }

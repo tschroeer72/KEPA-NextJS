@@ -1,10 +1,9 @@
 ﻿import { NextResponse, NextRequest } from 'next/server';
 import {serialize} from 'cookie';
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 
-const prisma = new PrismaClient()
 
 export async function POST(request: NextRequest) {
     const body = await request.json();
@@ -16,12 +15,11 @@ export async function POST(request: NextRequest) {
     //console.log(hashedPassword)
 
     const usr = await prisma.tblMitglieder.findFirst({
-            where: {
-                Login: benutzer,
-                Password: hashedPassword
-            }
-        }
-    );
+      where: {
+        Login: benutzer,
+        Password: hashedPassword,
+      },
+    });
 
     if (usr !== null && usr !== undefined) {
         //console.log('Login Route - Benutzer gefunden, erstelle Token');

@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
 import {CreateChangeLogAsync} from "@/utils/create-change-log";
-
-const prisma = new PrismaClient()
 
 // Feldtypen für Update-Verarbeitung
 const fieldsForUpdate: Array<{ name: string; type: string; isOptional: boolean }> = [
@@ -62,8 +60,6 @@ export async function GET(
       { error: 'Fehler beim Abrufen des 9erRatten' },
       { status: 500 }
     )
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
@@ -146,8 +142,6 @@ export async function PUT(
       { error: 'Fehler beim Aktualisieren des 9erRatten' },
       { status: 500 }
     )
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
@@ -197,7 +191,5 @@ export async function DELETE(
       { error: 'Fehler beim Löschen des 9erRatten' },
       { status: 500 }
     )
-  } finally {
-    await prisma.$disconnect()
   }
 }

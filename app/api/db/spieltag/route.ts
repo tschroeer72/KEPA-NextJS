@@ -1,17 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
 import {CreateChangeLogAsync} from "@/utils/create-change-log";
-
-const prisma = new PrismaClient()
 
 // GET - Alle spieltag abrufen
 export async function GET() {
   try {
     const dataSpieltag = await prisma.tblSpieltag.findMany({
       orderBy: {
-        ID: 'desc'
-      }
-    })
+        ID: "desc",
+      },
+    });
     return NextResponse.json(dataSpieltag)
   } catch (error: unknown) {
     console.error('Database error:', error)
@@ -20,7 +18,7 @@ export async function GET() {
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
 
@@ -54,8 +52,8 @@ export async function POST(request: NextRequest) {
         MeisterschaftsID: Number(body.MeisterschaftsID),
         Spieltag: new Date(body.Spieltag as string | number | Date),
         InBearbeitung: Boolean(body.InBearbeitung),
-      }
-    })
+      },
+    });
     
     // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
     const insertCommand = `insert into tblSpieltag(ID, MeisterschaftsID, Spieltag, InBearbeitung) values (${dataSpieltag.ID}, ${body.MeisterschaftsID}, '${new Date(body.Spieltag as string | number | Date).toISOString().slice(0, 19).replace('T', ' ')}', ${body.InBearbeitung ? 1 : 0})`
@@ -69,6 +67,6 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }

@@ -1,17 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
 import {CreateChangeLogAsync} from "@/utils/create-change-log";
-
-const prisma = new PrismaClient()
 
 // GET - Alle spielmeisterschaft abrufen
 export async function GET() {
   try {
     const dataSpielMeisterschaft = await prisma.tblSpielMeisterschaft.findMany({
       orderBy: {
-        ID: 'desc'
-      }
-    })
+        ID: "desc",
+      },
+    });
     return NextResponse.json(dataSpielMeisterschaft)
   } catch (error: unknown) {
     console.error('Database error:', error)
@@ -20,7 +18,7 @@ export async function GET() {
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
 
@@ -60,9 +58,9 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
-    if (body.HinR_ckrunde === undefined || body.HinR_ckrunde === null) {
+    if (body.HinRueckrunde === undefined || body.HinRueckrunde === null) {
       return NextResponse.json(
-        { error: 'HinR_ckrunde ist erforderlich' },
+        { error: 'HinRueckrunde ist erforderlich' },
         { status: 400 }
       )
     }
@@ -74,9 +72,9 @@ export async function POST(request: NextRequest) {
         SpielerID2: Number(body.SpielerID2),
         HolzSpieler1: Number(body.HolzSpieler1),
         HolzSpieler2: Number(body.HolzSpieler2),
-        HinR_ckrunde: Number(body.HinR_ckrunde),
-      }
-    })
+        HinRueckrunde: Number(body.HinRueckrunde),
+      },
+    });
     
     // Erfolgreicher POST - Jetzt Changelog-Eintrag erstellen
     const insertCommand = `insert into tblSpielMeisterschaft(ID, SpieltagID, SpielerID1, SpielerID2, HolzSpieler1, HolzSpieler2, HinR_ckrunde) values (${dataSpielMeisterschaft.ID}, ${body.SpieltagID}, ${body.SpielerID1}, ${body.SpielerID2}, ${body.HolzSpieler1}, ${body.HolzSpieler2}, ${body.HinR_ckrunde})`
@@ -90,6 +88,6 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
