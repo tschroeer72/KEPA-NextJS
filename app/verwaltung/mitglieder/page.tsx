@@ -1,10 +1,10 @@
 ﻿"use client";
 
 import { useEffect, useState } from 'react';
-import MitgliederClient from "@/app/verwaltung/mitglieder/(components)/mitglieder-client";
-import axios from 'axios';
+import MitgliederClient from "@/app/verwaltung/mitglieder/_components/mitglieder-client";
+import { getMitglieder } from '@/app/actions/db/mitglieder/actions';
 
-export default function Mitglieder() {
+export default function MitgliederPage() {
     const [mitgliederListe, setMitgliederListe] = useState<Mitglied[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -12,8 +12,12 @@ export default function Mitglieder() {
     const loadMitglieder = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('/api/db/mitglieder/liste');
-            setMitgliederListe(response.data);
+            const result = await getMitglieder();
+            if (result.success && result.data) {
+                setMitgliederListe(result.data as any);
+            } else {
+                setError(result.error || 'Fehler beim Laden der Mitgliederliste');
+            }
         } catch (err) {
             setError('Fehler beim Laden der Mitgliederliste');
             console.error(err);

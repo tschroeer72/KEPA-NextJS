@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "prisma generate && next build",
+    "build": "next build",
+    "build:prisma": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "generate:crud": "npx ts-node scripts/generate-crud-routes.ts",
@@ -13,9 +14,9 @@
     "prisma:generate": "npx prisma generate"
   },
   "dependencies": {
-    "@prisma/adapter-mariadb": "^7.1.0",
-    "@prisma/client": "^7.1.0",
-    "@prisma/internals": "7.1.0",
+    "@prisma/adapter-mariadb": "^7.4.0",
+    "@prisma/client": "^7.4.0",
+    "@prisma/internals": "7.4.0",
     "@radix-ui/react-checkbox": "^1.3.3",
     "@radix-ui/react-label": "^2.1.8",
     "@radix-ui/react-navigation-menu": "^1.2.14",
@@ -52,6 +53,7 @@
     "@types/node": "^24.10.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "baseline-browser-mapping": "^2.9.19",
     "eslint": "^9",
     "eslint-config-next": "^16.0.7",
     "prisma": "^7.1.0",

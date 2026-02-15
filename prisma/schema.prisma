@@ -1,6 +1,5 @@
 generator client {
-  provider = "prisma-client"
-  output   = "./generated"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -38,12 +37,19 @@ model tblMeisterschaften {
   Aktiv               Int
   Bemerkungen         String?   @db.LongText
 
+  // Relation: viele Meisterschaften gehören zu einem Meisterschaftstyp
+  tblMeisterschaftstyp tblMeisterschaftstyp @relation(fields: [MeisterschaftstypID], references: [ID])
+  tblTeilnehmer        tblTeilnehmer[]
+
   @@index([MeisterschaftstypID], map: "FK_tblMeisterschaften_tblMeisterschaftstyp")
 }
 
 model tblMeisterschaftstyp {
   ID                Int    @id @default(autoincrement())
   Meisterschaftstyp String @db.VarChar(100)
+
+  // Back-Relation: ein Meisterschaftstyp hat viele Meisterschaften
+  tblMeisterschaften tblMeisterschaften[]
 }
 
 model tblMitglieder {
@@ -79,6 +85,8 @@ model tblMitglieder {
   TurboDBNummer   Int?
   Login           String?   @db.VarChar(255)
   Password        String?   @db.VarChar(255)
+
+  tblTeilnehmer tblTeilnehmer[]
 }
 
 model tblSettings {
@@ -179,6 +187,9 @@ model tblTeilnehmer {
   ID               Int @id @default(autoincrement())
   MeisterschaftsID Int
   SpielerID        Int
+
+  tblMeisterschaften tblMeisterschaften @relation(fields: [MeisterschaftsID], references: [ID])
+  tblMitglieder      tblMitglieder      @relation(fields: [SpielerID], references: [ID])
 
   @@index([MeisterschaftsID], map: "FK_tblTeilnehmer_tblMeisterschaften")
   @@index([SpielerID], map: "FK_tblTeilnehmer_tblMitglieder")

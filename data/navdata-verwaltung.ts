@@ -49,7 +49,7 @@ export const NavDataVordrucke: NavDataVordrucke[] = [
             },
             {
                 subtitle: "Kombimeisterschaft",
-                href: "dummy"
+                href: "/vorlagen/spiele/Kombimeisterschaft.pdf"
             },
             {
                 subtitle: "Meisterschaft",

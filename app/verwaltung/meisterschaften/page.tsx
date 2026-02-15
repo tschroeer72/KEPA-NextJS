@@ -1,11 +1,11 @@
 ﻿"use client";
 
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import Meisterschaftliste from "@/app/verwaltung/meisterschaften/(components)/meisterschaftliste";
-import Meisterschaftsdaten from "@/app/verwaltung/meisterschaften/(components)/meisterschaft-daten";
+import { getMeisterschaften } from '@/app/actions/db/meisterschaften/actions';
+import Meisterschaftliste from "@/app/verwaltung/meisterschaften/_components/meisterschaftliste";
+import Meisterschaftsdaten from "@/app/verwaltung/meisterschaften/_components/meisterschaft-daten";
 
-export default function Meisterschaften() {
+export default function MeisterschaftenPage() {
     const [meisterschaftenliste, setMeisterschaftenliste] = useState<Meisterschaft[]>([]);
     const [selectedMeisterschaftId, setSelectedMeisterschaftId] = useState<number>(-1);
     const [loading, setLoading] = useState(true);
@@ -14,8 +14,12 @@ export default function Meisterschaften() {
     const loadMeisterschaften = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('/api/db/meisterschaften/liste');
-            setMeisterschaftenliste(response.data);
+            const result = await getMeisterschaften();
+            if (result.success && result.data) {
+                setMeisterschaftenliste(result.data as any);
+            } else {
+                setError(result.error || 'Fehler beim Laden der Meisterschaftenliste');
+            }
         } catch (err) {
             setError('Fehler beim Laden der Meisterschaftenliste');
             console.error(err);

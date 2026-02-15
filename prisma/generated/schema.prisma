@@ -1,0 +1,197 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model tbl9erRatten {
+  ID         Int @id @default(autoincrement())
+  SpieltagID Int
+  SpielerID  Int
+  Neuner     Int @default(0)
+  Ratten     Int @default(0)
+  Kranzacht  Int @default(0)
+
+  @@index([SpielerID], map: "FK_tbl9erRatten_tblMitglieder")
+  @@index([SpieltagID], map: "FK_tbl9erRatten_tblSpieltag")
+}
+
+model tblDBChangeLog {
+  ID           Int      @id @default(autoincrement())
+  Computername String?  @db.LongText
+  Tablename    String?  @db.LongText
+  Changetype   String?  @db.LongText
+  Command      String?  @db.LongText
+  Zeitstempel  DateTime @db.DateTime(0)
+}
+
+model tblMeisterschaften {
+  ID                  Int       @id @default(autoincrement())
+  Bezeichnung         String    @db.VarChar(100)
+  Beginn              DateTime  @db.DateTime(0)
+  Ende                DateTime? @db.DateTime(0)
+  MeisterschaftstypID Int
+  TurboDBNummer       Int?
+  Aktiv               Int
+  Bemerkungen         String?   @db.LongText
+
+  // Relation: viele Meisterschaften gehören zu einem Meisterschaftstyp
+  tblMeisterschaftstyp tblMeisterschaftstyp @relation(fields: [MeisterschaftstypID], references: [ID])
+  tblTeilnehmer        tblTeilnehmer[]
+
+  @@index([MeisterschaftstypID], map: "FK_tblMeisterschaften_tblMeisterschaftstyp")
+}
+
+model tblMeisterschaftstyp {
+  ID                Int    @id @default(autoincrement())
+  Meisterschaftstyp String @db.VarChar(100)
+
+  // Back-Relation: ein Meisterschaftstyp hat viele Meisterschaften
+  tblMeisterschaften tblMeisterschaften[]
+}
+
+model tblMitglieder {
+  ID              Int       @id @default(autoincrement())
+  Vorname         String    @db.VarChar(50)
+  Nachname        String    @db.VarChar(50)
+  Spitzname       String?   @db.VarChar(50)
+  Strasse         String?   @db.VarChar(50)
+  PLZ             String?   @db.VarChar(5)
+  Ort             String?   @db.VarChar(50)
+  Geburtsdatum    DateTime? @db.DateTime(0)
+  MitgliedSeit    DateTime  @db.DateTime(0)
+  PassivSeit      DateTime? @db.DateTime(0)
+  AusgeschiedenAm DateTime? @db.DateTime(0)
+  Ehemaliger      Boolean   @db.Bit(1)
+  Notizen         String?   @db.LongText
+  Bemerkungen     String?   @db.LongText
+  Anrede          String?   @db.VarChar(50)
+  EMail           String?   @db.VarChar(100)
+  TelefonPrivat   String?   @db.VarChar(50)
+  TelefonFirma    String?   @db.VarChar(50)
+  TelefonMobil    String?   @db.VarChar(50)
+  Fax             String?   @db.VarChar(50)
+  SpAnz           Int?
+  SpGew           Int?
+  SpUn            Int?
+  SpVerl          Int?
+  HolzGes         Int?
+  HolzMax         Int?
+  HolzMin         Int?
+  Punkte          Int?
+  Platz           String?   @db.VarChar(255)
+  TurboDBNummer   Int?
+  Login           String?   @db.VarChar(255)
+  Password        String?   @db.VarChar(255)
+
+  tblTeilnehmer tblTeilnehmer[]
+}
+
+model tblSettings {
+  ID            Int    @id @default(autoincrement())
+  Computername  String @db.VarChar(50)
+  Parametername String @db.VarChar(100)
+  Parameterwert String @db.VarChar(4000)
+}
+
+model tblSpiel6TageRennen {
+  ID          Int  @id @default(autoincrement())
+  SpieltagID  Int
+  SpielerID1  Int
+  SpielerID2  Int
+  Runden      Int
+  Punkte      Int
+  Spielnummer Int? @default(1)
+
+  @@index([SpielerID1], map: "FK_tblSpiel6TageRennen_tblMitglieder")
+  @@index([SpielerID2], map: "FK_tblSpiel6TageRennen_tblMitglieder1")
+  @@index([SpieltagID], map: "FK_tblSpiel6TageRennen_tblSpieltag")
+}
+
+model tblSpielBlitztunier {
+  ID             Int @id @default(autoincrement())
+  SpieltagID     Int
+  SpielerID1     Int
+  SpielerID2     Int
+  PunkteSpieler1 Int
+  PunkteSpieler2 Int
+  HinR_ckrunde   Int @map("HinRückrunde")
+
+  @@index([SpielerID1], map: "FK_tblSpielBlitztunier_tblMitglieder")
+  @@index([SpielerID2], map: "FK_tblSpielBlitztunier_tblMitglieder1")
+  @@index([SpieltagID], map: "FK_tblSpielBlitztunier_tblSpieltag")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model tblSpielKombimeisterschaft {
+  ID                    Int @id @default(autoincrement())
+  SpieltagID            Int
+  SpielerID1            Int
+  SpielerID2            Int
+  Spieler1Punkte3bis8   Int @default(0)
+  Spieler1Punkte5Kugeln Int @default(0)
+  Spieler2Punkte3bis8   Int
+  Spieler2Punkte5Kugeln Int
+  HinRueckrunde         Int @default(0)
+
+  @@index([SpielerID1], map: "FK_tblSpielKombimeisterschaft_tblMitglieder")
+  @@index([SpielerID2], map: "FK_tblSpielKombimeisterschaft_tblMitglieder1")
+}
+
+model tblSpielMeisterschaft {
+  ID            Int @id @default(autoincrement())
+  SpieltagID    Int
+  SpielerID1    Int
+  SpielerID2    Int
+  HolzSpieler1  Int
+  HolzSpieler2  Int
+  HinRueckrunde Int
+
+  @@index([SpielerID1], map: "FK_tblSpielMeisterschaft_tblMitglieder")
+  @@index([SpielerID2], map: "FK_tblSpielMeisterschaft_tblMitglieder1")
+  @@index([SpieltagID], map: "FK_tblSpielMeisterschaft_tblSpieltag")
+}
+
+model tblSpielPokal {
+  ID          Int @id @default(autoincrement())
+  SpieltagID  Int
+  SpielerID   Int
+  Platzierung Int @default(0)
+
+  @@index([SpieltagID], map: "FK_tblSpielPokal__tblSpieltag")
+  @@index([SpielerID], map: "FK_tblSpielPokal_tblMitglieder")
+}
+
+model tblSpielSargKegeln {
+  ID          Int @id @default(autoincrement())
+  SpieltagID  Int
+  SpielerID   Int
+  Platzierung Int
+
+  @@index([SpielerID], map: "FK_tblSargKegeln_tblMitglieder")
+  @@index([SpieltagID], map: "FK_tblSargKegeln_tblSpieltag")
+}
+
+model tblSpieltag {
+  ID               Int      @id @default(autoincrement())
+  MeisterschaftsID Int
+  Spieltag         DateTime @db.DateTime(0)
+  InBearbeitung    Boolean  @db.Bit(1)
+
+  @@index([MeisterschaftsID], map: "FK_tblSpieltag_tblMeisterschaften")
+}
+
+model tblTeilnehmer {
+  ID               Int @id @default(autoincrement())
+  MeisterschaftsID Int
+  SpielerID        Int
+
+  tblMeisterschaften tblMeisterschaften @relation(fields: [MeisterschaftsID], references: [ID])
+  tblMitglieder      tblMitglieder      @relation(fields: [SpielerID], references: [ID])
+
+  @@index([MeisterschaftsID], map: "FK_tblTeilnehmer_tblMeisterschaften")
+  @@index([SpielerID], map: "FK_tblTeilnehmer_tblMitglieder")
+}

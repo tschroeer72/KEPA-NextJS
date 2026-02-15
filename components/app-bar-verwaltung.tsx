@@ -90,14 +90,15 @@ export default function AppBarVerwaltung() {
                                                     <div className="space-y-1">
                                                         {category.subtitle.map((item) => (
                                                             <NavigationMenuLink key={item.subtitle} asChild>
-                                                                <Link
+                                                                <a
                                                                     href={item.href}
+                                                                    download
                                                                     className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                                                                 >
                                                                     <div className="text-sm font-medium leading-none">
                                                                         {item.subtitle}
                                                                     </div>
-                                                                </Link>
+                                                                </a>
                                                             </NavigationMenuLink>
                                                         ))}
                                                     </div>
@@ -183,9 +184,10 @@ export default function AppBarVerwaltung() {
                                             </div>
                                             <div className="space-y-1">
                                                 {category.subtitle.map((item) => (
-                                                    <Link
+                                                    <a
                                                         key={item.subtitle}
                                                         href={item.href}
+                                                        download
                                                         className="block px-3 py-1 text-sm text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 rounded transition-all"
                                                         onClick={() => {
                                                             setIsMobileMenuOpen(false);
@@ -193,7 +195,7 @@ export default function AppBarVerwaltung() {
                                                         }}
                                                     >
                                                         {item.subtitle}
-                                                    </Link>
+                                                    </a>
                                                 ))}
                                             </div>
                                         </div>

@@ -1,7 +1,8 @@
 ﻿// src/lib/prisma.ts
+import "server-only";
 import "dotenv/config";
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
-import { PrismaClient } from "@/prisma/generated/client";
+import { PrismaClient } from "@prisma/client";
 
 const connectionString = process.env.DATABASE_URL!; // s.o.
 

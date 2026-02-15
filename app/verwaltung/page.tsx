@@ -1,6 +1,6 @@
 ﻿import Image from "next/image";
 
-export default function Verwaltung() {
+export default function VerwaltungPage() {
     return (
         <div className="flex flex-col items-center justify-center h-full">
             <h1 className="mb-3 text-3xl font-bold">Verwaltung</h1>

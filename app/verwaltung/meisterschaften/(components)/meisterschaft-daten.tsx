@@ -4,7 +4,7 @@ import FormMeisterschaftsdaten from "./form-meisterschaft-daten";
 import {MeisterschaftDatenFormDataFormData} from "@/interfaces/meisterschaft-daten-form-data";
 import {useState, useEffect, useCallback} from "react";
 import {toast} from "sonner";
-import axios from "axios";
+import { getMeisterschaftById, updateMeisterschaft, createMeisterschaft } from "@/app/actions/db/meisterschaften/actions";
 import Mitspieler from "@/app/verwaltung/meisterschaften/(components)/mitspieler";
 import {meisterschaftsSchema} from "@/zod/meisterschaftSchema";
 import {z} from "zod";
@@ -85,30 +85,34 @@ export default function Meisterschaftsdaten({MeisterschaftID, onDataChange}: Mei
             setError(null);
 
             try {
-                const response = await axios.get(`/api/db/meisterschaften/${MeisterschaftID}`);
-                const meisterschaftData = response.data;
-                setMeisterschaft(meisterschaftData);
+                const result = await getMeisterschaftById(MeisterschaftID);
+                if (result.success && result.data) {
+                    const meisterschaftData = result.data;
+                    setMeisterschaft(meisterschaftData as any);
 
-                // FormData mit Meisterschaftsdaten befüllen
-                setFormData({
-                    Bezeichnung: meisterschaftData.Bezeichnung || "",
-                    Beginn: new Date(meisterschaftData.Beginn),
-                    Ende: meisterschaftData.Ende ? new Date(meisterschaftData.Ende) : undefined,
-                    MeisterschaftstypID: meisterschaftData.MeisterschaftstypID || 1,
-                    Aktiv: meisterschaftData.Aktiv || 0,
-                    Bemerkungen: meisterschaftData.Bemerkungen || ""
-                });
+                    // FormData mit Meisterschaftsdaten befüllen
+                    setFormData({
+                        Bezeichnung: meisterschaftData.Bezeichnung || "",
+                        Beginn: new Date(meisterschaftData.Beginn),
+                        Ende: meisterschaftData.Ende ? new Date(meisterschaftData.Ende) : undefined,
+                        MeisterschaftstypID: meisterschaftData.MeisterschaftstypID || 1,
+                        Aktiv: meisterschaftData.Aktiv || 0,
+                        Bemerkungen: meisterschaftData.Bemerkungen || ""
+                    });
 
-                setBtnNeuEnabled(true);
-                setBtnBearbeitenEnabled(true);
-                setBtnSpeichernEnabled(false);
-                setIsEditable(false);
-            } catch (err) {
-                if (axios.isAxiosError(err)) {
-                    setError(err.response?.data?.error || 'Fehler beim Laden der Meisterschaftsdaten');
+                    setBtnNeuEnabled(true);
+                    setBtnBearbeitenEnabled(true);
+                    setBtnSpeichernEnabled(false);
+                    setIsEditable(false);
                 } else {
-                    setError('Unbekannter Fehler');
+                    setError(result.error || 'Fehler beim Laden der Meisterschaftsdaten');
+
+                    setBtnNeuEnabled(true);
+                    setBtnBearbeitenEnabled(false);
+                    setBtnSpeichernEnabled(false);
                 }
+            } catch (err: any) {
+                setError(err.message || 'Unbekannter Fehler');
 
                 setBtnNeuEnabled(true);
                 setBtnBearbeitenEnabled(false);
@@ -203,17 +207,23 @@ export default function Meisterschaftsdaten({MeisterschaftID, onDataChange}: Mei
 
             if (MeisterschaftID > 0) {
                 // Update existierende Meisterschaft
-                const response = await axios.put(`/api/db/meisterschaften/${MeisterschaftID}`, formData);
-
-                // Aktualisiere lokalen State mit den neuen Daten
-                setMeisterschaft(response.data);
-                toast.success('Meisterschaftsdaten wurden erfolgreich geändert!');
+                const result = await updateMeisterschaft(MeisterschaftID, formData);
+                if (result.success && result.data) {
+                    // Aktualisiere lokalen State mit den neuen Daten
+                    setMeisterschaft(result.data as any);
+                    toast.success('Meisterschaftsdaten wurden erfolgreich geändert!');
+                } else {
+                    throw new Error(result.error || 'Fehler beim Aktualisieren der Meisterschaft');
+                }
             } else {
                 // Neue Meisterschaft erstellen
-                const response = await axios.post(`/api/db/meisterschaften`, formData);
-
-                setMeisterschaft(response.data);
-                toast.success('Meisterschaft wurde erfolgreich angelegt!');
+                const result = await createMeisterschaft(formData);
+                if (result.success && result.data) {
+                    setMeisterschaft(result.data as any);
+                    toast.success('Meisterschaft wurde erfolgreich angelegt!');
+                } else {
+                    throw new Error(result.error || 'Fehler beim Erstellen der Meisterschaft');
+                }
             }
 
             setBtnNeuEnabled(true);
@@ -225,15 +235,9 @@ export default function Meisterschaftsdaten({MeisterschaftID, onDataChange}: Mei
             if (onDataChange) {
                 onDataChange();
             }
-        } catch (err) {
-            //console.error('Fehler beim Speichern:', err);
-            if (axios.isAxiosError(err)) {
-                setError(err.response?.data?.error || 'Fehler beim Speichern der Meisterschaftsdaten');
-                toast.error(err.response?.data?.error || 'Fehler beim Speichern der Meisterschaftsdaten');
-            } else {
-                setError('Unbekannter Fehler beim Speichern');
-                toast.error('Unbekannter Fehler beim Speichern');
-            }
+        } catch (err: any) {
+            setError(err.message || 'Fehler beim Speichern der Meisterschaftsdaten');
+            toast.error(err.message || 'Fehler beim Speichern der Meisterschaftsdaten');
         } finally {
             setLoading(false);
         }

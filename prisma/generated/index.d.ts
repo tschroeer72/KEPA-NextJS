@@ -1,0 +1,19733 @@
+
+/**
+ * Client
+**/
+
+import * as runtime from './runtime/client.js';
+import $Types = runtime.Types // general types
+import $Public = runtime.Types.Public
+import $Utils = runtime.Types.Utils
+import $Extensions = runtime.Types.Extensions
+import $Result = runtime.Types.Result
+
+export type PrismaPromise<T> = $Public.PrismaPromise<T>
+
+
+/**
+ * Model tbl9erRatten
+ * 
+ */
+export type tbl9erRatten = $Result.DefaultSelection<Prisma.$tbl9erRattenPayload>
+/**
+ * Model tblDBChangeLog
+ * 
+ */
+export type tblDBChangeLog = $Result.DefaultSelection<Prisma.$tblDBChangeLogPayload>
+/**
+ * Model tblMeisterschaften
+ * 
+ */
+export type tblMeisterschaften = $Result.DefaultSelection<Prisma.$tblMeisterschaftenPayload>
+/**
+ * Model tblMeisterschaftstyp
+ * 
+ */
+export type tblMeisterschaftstyp = $Result.DefaultSelection<Prisma.$tblMeisterschaftstypPayload>
+/**
+ * Model tblMitglieder
+ * 
+ */
+export type tblMitglieder = $Result.DefaultSelection<Prisma.$tblMitgliederPayload>
+/**
+ * Model tblSettings
+ * 
+ */
+export type tblSettings = $Result.DefaultSelection<Prisma.$tblSettingsPayload>
+/**
+ * Model tblSpiel6TageRennen
+ * 
+ */
+export type tblSpiel6TageRennen = $Result.DefaultSelection<Prisma.$tblSpiel6TageRennenPayload>
+/**
+ * Model tblSpielBlitztunier
+ * 
+ */
+export type tblSpielBlitztunier = $Result.DefaultSelection<Prisma.$tblSpielBlitztunierPayload>
+/**
+ * Model tblSpielKombimeisterschaft
+ * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ */
+export type tblSpielKombimeisterschaft = $Result.DefaultSelection<Prisma.$tblSpielKombimeisterschaftPayload>
+/**
+ * Model tblSpielMeisterschaft
+ * 
+ */
+export type tblSpielMeisterschaft = $Result.DefaultSelection<Prisma.$tblSpielMeisterschaftPayload>
+/**
+ * Model tblSpielPokal
+ * 
+ */
+export type tblSpielPokal = $Result.DefaultSelection<Prisma.$tblSpielPokalPayload>
+/**
+ * Model tblSpielSargKegeln
+ * 
+ */
+export type tblSpielSargKegeln = $Result.DefaultSelection<Prisma.$tblSpielSargKegelnPayload>
+/**
+ * Model tblSpieltag
+ * 
+ */
+export type tblSpieltag = $Result.DefaultSelection<Prisma.$tblSpieltagPayload>
+/**
+ * Model tblTeilnehmer
+ * 
+ */
+export type tblTeilnehmer = $Result.DefaultSelection<Prisma.$tblTeilnehmerPayload>
+
+/**
+ * ##  Prisma Client ʲˢ
+ *
+ * Type-safe database client for TypeScript & Node.js
+ * @example
+ * ```
+ * const prisma = new PrismaClient()
+ * // Fetch zero or more Tbl9erRattens
+ * const tbl9erRattens = await prisma.tbl9erRatten.findMany()
+ * ```
+ *
+ *
+ * Read more in our [docs](https://pris.ly/d/client).
+ */
+export class PrismaClient<
+  ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
+  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
+> {
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
+
+    /**
+   * ##  Prisma Client ʲˢ
+   *
+   * Type-safe database client for TypeScript & Node.js
+   * @example
+   * ```
+   * const prisma = new PrismaClient()
+   * // Fetch zero or more Tbl9erRattens
+   * const tbl9erRattens = await prisma.tbl9erRatten.findMany()
+   * ```
+   *
+   *
+   * Read more in our [docs](https://pris.ly/d/client).
+   */
+
+  constructor(optionsArg ?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>);
+  $on<V extends U>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void): PrismaClient;
+
+  /**
+   * Connect with the database
+   */
+  $connect(): $Utils.JsPromise<void>;
+
+  /**
+   * Disconnect from the database
+   */
+  $disconnect(): $Utils.JsPromise<void>;
+
+/**
+   * Executes a prepared raw query and returns the number of affected rows.
+   * @example
+   * ```
+   * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
+   * ```
+   *
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   */
+  $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
+
+  /**
+   * Executes a raw query and returns the number of affected rows.
+   * Susceptible to SQL injections, see documentation.
+   * @example
+   * ```
+   * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
+   * ```
+   *
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   */
+  $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
+
+  /**
+   * Performs a prepared raw query and returns the `SELECT` data.
+   * @example
+   * ```
+   * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
+   * ```
+   *
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   */
+  $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
+
+  /**
+   * Performs a raw query and returns the `SELECT` data.
+   * Susceptible to SQL injections, see documentation.
+   * @example
+   * ```
+   * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
+   * ```
+   *
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   */
+  $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
+
+
+  /**
+   * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
+   * @example
+   * ```
+   * const [george, bob, alice] = await prisma.$transaction([
+   *   prisma.user.create({ data: { name: 'George' } }),
+   *   prisma.user.create({ data: { name: 'Bob' } }),
+   *   prisma.user.create({ data: { name: 'Alice' } }),
+   * ])
+   * ```
+   * 
+   * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
+   */
+  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
+
+  $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
+
+  $extends: $Extensions.ExtendsHook<"extends", Prisma.TypeMapCb<ClientOptions>, ExtArgs, $Utils.Call<Prisma.TypeMapCb<ClientOptions>, {
+    extArgs: ExtArgs
+  }>>
+
+      /**
+   * `prisma.tbl9erRatten`: Exposes CRUD operations for the **tbl9erRatten** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tbl9erRattens
+    * const tbl9erRattens = await prisma.tbl9erRatten.findMany()
+    * ```
+    */
+  get tbl9erRatten(): Prisma.tbl9erRattenDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tblDBChangeLog`: Exposes CRUD operations for the **tblDBChangeLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TblDBChangeLogs
+    * const tblDBChangeLogs = await prisma.tblDBChangeLog.findMany()
+    * ```
+    */
+  get tblDBChangeLog(): Prisma.tblDBChangeLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tblMeisterschaften`: Exposes CRUD operations for the **tblMeisterschaften** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TblMeisterschaftens
+    * const tblMeisterschaftens = await prisma.tblMeisterschaften.findMany()
+    * ```
+    */
+  get tblMeisterschaften(): Prisma.tblMeisterschaftenDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tblMeisterschaftstyp`: Exposes CRUD operations for the **tblMeisterschaftstyp** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TblMeisterschaftstyps
+    * const tblMeisterschaftstyps = await prisma.tblMeisterschaftstyp.findMany()
+    * ```
+    */
+  get tblMeisterschaftstyp(): Prisma.tblMeisterschaftstypDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tblMitglieder`: Exposes CRUD operations for the **tblMitglieder** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TblMitglieders
+    * const tblMitglieders = await prisma.tblMitglieder.findMany()
+    * ```
+    */
+  get tblMitglieder(): Prisma.tblMitgliederDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tblSettings`: Exposes CRUD operations for the **tblSettings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TblSettings
+    * const tblSettings = await prisma.tblSettings.findMany()
+    * ```
+    */
+  get tblSettings(): Prisma.tblSettingsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tblSpiel6TageRennen`: Exposes CRUD operations for the **tblSpiel6TageRennen** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TblSpiel6TageRennens
+    * const tblSpiel6TageRennens = await prisma.tblSpiel6TageRennen.findMany()
+    * ```
+    */
+  get tblSpiel6TageRennen(): Prisma.tblSpiel6TageRennenDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tblSpielBlitztunier`: Exposes CRUD operations for the **tblSpielBlitztunier** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TblSpielBlitztuniers
+    * const tblSpielBlitztuniers = await prisma.tblSpielBlitztunier.findMany()
+    * ```
+    */
+  get tblSpielBlitztunier(): Prisma.tblSpielBlitztunierDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tblSpielKombimeisterschaft`: Exposes CRUD operations for the **tblSpielKombimeisterschaft** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TblSpielKombimeisterschafts
+    * const tblSpielKombimeisterschafts = await prisma.tblSpielKombimeisterschaft.findMany()
+    * ```
+    */
+  get tblSpielKombimeisterschaft(): Prisma.tblSpielKombimeisterschaftDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tblSpielMeisterschaft`: Exposes CRUD operations for the **tblSpielMeisterschaft** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TblSpielMeisterschafts
+    * const tblSpielMeisterschafts = await prisma.tblSpielMeisterschaft.findMany()
+    * ```
+    */
+  get tblSpielMeisterschaft(): Prisma.tblSpielMeisterschaftDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tblSpielPokal`: Exposes CRUD operations for the **tblSpielPokal** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TblSpielPokals
+    * const tblSpielPokals = await prisma.tblSpielPokal.findMany()
+    * ```
+    */
+  get tblSpielPokal(): Prisma.tblSpielPokalDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tblSpielSargKegeln`: Exposes CRUD operations for the **tblSpielSargKegeln** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TblSpielSargKegelns
+    * const tblSpielSargKegelns = await prisma.tblSpielSargKegeln.findMany()
+    * ```
+    */
+  get tblSpielSargKegeln(): Prisma.tblSpielSargKegelnDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tblSpieltag`: Exposes CRUD operations for the **tblSpieltag** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TblSpieltags
+    * const tblSpieltags = await prisma.tblSpieltag.findMany()
+    * ```
+    */
+  get tblSpieltag(): Prisma.tblSpieltagDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tblTeilnehmer`: Exposes CRUD operations for the **tblTeilnehmer** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TblTeilnehmers
+    * const tblTeilnehmers = await prisma.tblTeilnehmer.findMany()
+    * ```
+    */
+  get tblTeilnehmer(): Prisma.tblTeilnehmerDelegate<ExtArgs, ClientOptions>;
+}
+
+export namespace Prisma {
+  export import DMMF = runtime.DMMF
+
+  export type PrismaPromise<T> = $Public.PrismaPromise<T>
+
+  /**
+   * Validator
+   */
+  export import validator = runtime.Public.validator
+
+  /**
+   * Prisma Errors
+   */
+  export import PrismaClientKnownRequestError = runtime.PrismaClientKnownRequestError
+  export import PrismaClientUnknownRequestError = runtime.PrismaClientUnknownRequestError
+  export import PrismaClientRustPanicError = runtime.PrismaClientRustPanicError
+  export import PrismaClientInitializationError = runtime.PrismaClientInitializationError
+  export import PrismaClientValidationError = runtime.PrismaClientValidationError
+
+  /**
+   * Re-export of sql-template-tag
+   */
+  export import sql = runtime.sqltag
+  export import empty = runtime.empty
+  export import join = runtime.join
+  export import raw = runtime.raw
+  export import Sql = runtime.Sql
+
+
+
+  /**
+   * Decimal.js
+   */
+  export import Decimal = runtime.Decimal
+
+  export type DecimalJsLike = runtime.DecimalJsLike
+
+  /**
+  * Extensions
+  */
+  export import Extension = $Extensions.UserArgs
+  export import getExtensionContext = runtime.Extensions.getExtensionContext
+  export import Args = $Public.Args
+  export import Payload = $Public.Payload
+  export import Result = $Public.Result
+  export import Exact = $Public.Exact
+
+  /**
+   * Prisma Client JS version: 7.4.0
+   * Query Engine version: ab56fe763f921d033a6c195e7ddeb3e255bdbb57
+   */
+  export type PrismaVersion = {
+    client: string
+    engine: string
+  }
+
+  export const prismaVersion: PrismaVersion
+
+  /**
+   * Utility Types
+   */
+
+
+  export import Bytes = runtime.Bytes
+  export import JsonObject = runtime.JsonObject
+  export import JsonArray = runtime.JsonArray
+  export import JsonValue = runtime.JsonValue
+  export import InputJsonObject = runtime.InputJsonObject
+  export import InputJsonArray = runtime.InputJsonArray
+  export import InputJsonValue = runtime.InputJsonValue
+
+  /**
+   * Types of the values used to represent different kinds of `null` values when working with JSON fields.
+   *
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  namespace NullTypes {
+    /**
+    * Type of `Prisma.DbNull`.
+    *
+    * You cannot use other instances of this class. Please use the `Prisma.DbNull` value.
+    *
+    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+    */
+    class DbNull {
+      private DbNull: never
+      private constructor()
+    }
+
+    /**
+    * Type of `Prisma.JsonNull`.
+    *
+    * You cannot use other instances of this class. Please use the `Prisma.JsonNull` value.
+    *
+    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+    */
+    class JsonNull {
+      private JsonNull: never
+      private constructor()
+    }
+
+    /**
+    * Type of `Prisma.AnyNull`.
+    *
+    * You cannot use other instances of this class. Please use the `Prisma.AnyNull` value.
+    *
+    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+    */
+    class AnyNull {
+      private AnyNull: never
+      private constructor()
+    }
+  }
+
+  /**
+   * Helper for filtering JSON entries that have `null` on the database (empty on the db)
+   *
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  export const DbNull: NullTypes.DbNull
+
+  /**
+   * Helper for filtering JSON entries that have JSON `null` values (not empty on the db)
+   *
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  export const JsonNull: NullTypes.JsonNull
+
+  /**
+   * Helper for filtering JSON entries that are `Prisma.DbNull` or `Prisma.JsonNull`
+   *
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  export const AnyNull: NullTypes.AnyNull
+
+  type SelectAndInclude = {
+    select: any
+    include: any
+  }
+
+  type SelectAndOmit = {
+    select: any
+    omit: any
+  }
+
+  /**
+   * Get the type of the value, that the Promise holds.
+   */
+  export type PromiseType<T extends PromiseLike<any>> = T extends PromiseLike<infer U> ? U : T;
+
+  /**
+   * Get the return type of a function which returns a Promise.
+   */
+  export type PromiseReturnType<T extends (...args: any) => $Utils.JsPromise<any>> = PromiseType<ReturnType<T>>
+
+  /**
+   * From T, pick a set of properties whose keys are in the union K
+   */
+  type Prisma__Pick<T, K extends keyof T> = {
+      [P in K]: T[P];
+  };
+
+
+  export type Enumerable<T> = T | Array<T>;
+
+  export type RequiredKeys<T> = {
+    [K in keyof T]-?: {} extends Prisma__Pick<T, K> ? never : K
+  }[keyof T]
+
+  export type TruthyKeys<T> = keyof {
+    [K in keyof T as T[K] extends false | undefined | null ? never : K]: K
+  }
+
+  export type TrueKeys<T> = TruthyKeys<Prisma__Pick<T, RequiredKeys<T>>>
+
+  /**
+   * Subset
+   * @desc From `T` pick properties that exist in `U`. Simple version of Intersection
+   */
+  export type Subset<T, U> = {
+    [key in keyof T]: key extends keyof U ? T[key] : never;
+  };
+
+  /**
+   * SelectSubset
+   * @desc From `T` pick properties that exist in `U`. Simple version of Intersection.
+   * Additionally, it validates, if both select and include are present. If the case, it errors.
+   */
+  export type SelectSubset<T, U> = {
+    [key in keyof T]: key extends keyof U ? T[key] : never
+  } &
+    (T extends SelectAndInclude
+      ? 'Please either choose `select` or `include`.'
+      : T extends SelectAndOmit
+        ? 'Please either choose `select` or `omit`.'
+        : {})
+
+  /**
+   * Subset + Intersection
+   * @desc From `T` pick properties that exist in `U` and intersect `K`
+   */
+  export type SubsetIntersection<T, U, K> = {
+    [key in keyof T]: key extends keyof U ? T[key] : never
+  } &
+    K
+
+  type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
+
+  /**
+   * XOR is needed to have a real mutually exclusive union type
+   * https://stackoverflow.com/questions/42123407/does-typescript-support-mutually-exclusive-types
+   */
+  type XOR<T, U> =
+    T extends object ?
+    U extends object ?
+      (Without<T, U> & U) | (Without<U, T> & T)
+    : U : T
+
+
+  /**
+   * Is T a Record?
+   */
+  type IsObject<T extends any> = T extends Array<any>
+  ? False
+  : T extends Date
+  ? False
+  : T extends Uint8Array
+  ? False
+  : T extends BigInt
+  ? False
+  : T extends object
+  ? True
+  : False
+
+
+  /**
+   * If it's T[], return T
+   */
+  export type UnEnumerate<T extends unknown> = T extends Array<infer U> ? U : T
+
+  /**
+   * From ts-toolbelt
+   */
+
+  type __Either<O extends object, K extends Key> = Omit<O, K> &
+    {
+      // Merge all but K
+      [P in K]: Prisma__Pick<O, P & keyof O> // With K possibilities
+    }[K]
+
+  type EitherStrict<O extends object, K extends Key> = Strict<__Either<O, K>>
+
+  type EitherLoose<O extends object, K extends Key> = ComputeRaw<__Either<O, K>>
+
+  type _Either<
+    O extends object,
+    K extends Key,
+    strict extends Boolean
+  > = {
+    1: EitherStrict<O, K>
+    0: EitherLoose<O, K>
+  }[strict]
+
+  type Either<
+    O extends object,
+    K extends Key,
+    strict extends Boolean = 1
+  > = O extends unknown ? _Either<O, K, strict> : never
+
+  export type Union = any
+
+  type PatchUndefined<O extends object, O1 extends object> = {
+    [K in keyof O]: O[K] extends undefined ? At<O1, K> : O[K]
+  } & {}
+
+  /** Helper Types for "Merge" **/
+  export type IntersectOf<U extends Union> = (
+    U extends unknown ? (k: U) => void : never
+  ) extends (k: infer I) => void
+    ? I
+    : never
+
+  export type Overwrite<O extends object, O1 extends object> = {
+      [K in keyof O]: K extends keyof O1 ? O1[K] : O[K];
+  } & {};
+
+  type _Merge<U extends object> = IntersectOf<Overwrite<U, {
+      [K in keyof U]-?: At<U, K>;
+  }>>;
+
+  type Key = string | number | symbol;
+  type AtBasic<O extends object, K extends Key> = K extends keyof O ? O[K] : never;
+  type AtStrict<O extends object, K extends Key> = O[K & keyof O];
+  type AtLoose<O extends object, K extends Key> = O extends unknown ? AtStrict<O, K> : never;
+  export type At<O extends object, K extends Key, strict extends Boolean = 1> = {
+      1: AtStrict<O, K>;
+      0: AtLoose<O, K>;
+  }[strict];
+
+  export type ComputeRaw<A extends any> = A extends Function ? A : {
+    [K in keyof A]: A[K];
+  } & {};
+
+  export type OptionalFlat<O> = {
+    [K in keyof O]?: O[K];
+  } & {};
+
+  type _Record<K extends keyof any, T> = {
+    [P in K]: T;
+  };
+
+  // cause typescript not to expand types and preserve names
+  type NoExpand<T> = T extends unknown ? T : never;
+
+  // this type assumes the passed object is entirely optional
+  type AtLeast<O extends object, K extends string> = NoExpand<
+    O extends unknown
+    ? | (K extends keyof O ? { [P in K]: O[P] } & O : O)
+      | {[P in keyof O as P extends K ? P : never]-?: O[P]} & O
+    : never>;
+
+  type _Strict<U, _U = U> = U extends unknown ? U & OptionalFlat<_Record<Exclude<Keys<_U>, keyof U>, never>> : never;
+
+  export type Strict<U extends object> = ComputeRaw<_Strict<U>>;
+  /** End Helper Types for "Merge" **/
+
+  export type Merge<U extends object> = ComputeRaw<_Merge<Strict<U>>>;
+
+  /**
+  A [[Boolean]]
+  */
+  export type Boolean = True | False
+
+  // /**
+  // 1
+  // */
+  export type True = 1
+
+  /**
+  0
+  */
+  export type False = 0
+
+  export type Not<B extends Boolean> = {
+    0: 1
+    1: 0
+  }[B]
+
+  export type Extends<A1 extends any, A2 extends any> = [A1] extends [never]
+    ? 0 // anything `never` is false
+    : A1 extends A2
+    ? 1
+    : 0
+
+  export type Has<U extends Union, U1 extends Union> = Not<
+    Extends<Exclude<U1, U>, U1>
+  >
+
+  export type Or<B1 extends Boolean, B2 extends Boolean> = {
+    0: {
+      0: 0
+      1: 1
+    }
+    1: {
+      0: 1
+      1: 1
+    }
+  }[B1][B2]
+
+  export type Keys<U extends Union> = U extends unknown ? keyof U : never
+
+  type Cast<A, B> = A extends B ? A : B;
+
+  export const type: unique symbol;
+
+
+
+  /**
+   * Used by group by
+   */
+
+  export type GetScalarType<T, O> = O extends object ? {
+    [P in keyof T]: P extends keyof O
+      ? O[P]
+      : never
+  } : never
+
+  type FieldPaths<
+    T,
+    U = Omit<T, '_avg' | '_sum' | '_count' | '_min' | '_max'>
+  > = IsObject<T> extends True ? U : T
+
+  type GetHavingFields<T> = {
+    [K in keyof T]: Or<
+      Or<Extends<'OR', K>, Extends<'AND', K>>,
+      Extends<'NOT', K>
+    > extends True
+      ? // infer is only needed to not hit TS limit
+        // based on the brilliant idea of Pierre-Antoine Mills
+        // https://github.com/microsoft/TypeScript/issues/30188#issuecomment-478938437
+        T[K] extends infer TK
+        ? GetHavingFields<UnEnumerate<TK> extends object ? Merge<UnEnumerate<TK>> : never>
+        : never
+      : {} extends FieldPaths<T[K]>
+      ? never
+      : K
+  }[keyof T]
+
+  /**
+   * Convert tuple to union
+   */
+  type _TupleToUnion<T> = T extends (infer E)[] ? E : never
+  type TupleToUnion<K extends readonly any[]> = _TupleToUnion<K>
+  type MaybeTupleToUnion<T> = T extends any[] ? TupleToUnion<T> : T
+
+  /**
+   * Like `Pick`, but additionally can also accept an array of keys
+   */
+  type PickEnumerable<T, K extends Enumerable<keyof T> | keyof T> = Prisma__Pick<T, MaybeTupleToUnion<K>>
+
+  /**
+   * Exclude all keys with underscores
+   */
+  type ExcludeUnderscoreKeys<T extends string> = T extends `_${string}` ? never : T
+
+
+  export type FieldRef<Model, FieldType> = runtime.FieldRef<Model, FieldType>
+
+  type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRef<Model, FieldType>
+
+
+  export const ModelName: {
+    tbl9erRatten: 'tbl9erRatten',
+    tblDBChangeLog: 'tblDBChangeLog',
+    tblMeisterschaften: 'tblMeisterschaften',
+    tblMeisterschaftstyp: 'tblMeisterschaftstyp',
+    tblMitglieder: 'tblMitglieder',
+    tblSettings: 'tblSettings',
+    tblSpiel6TageRennen: 'tblSpiel6TageRennen',
+    tblSpielBlitztunier: 'tblSpielBlitztunier',
+    tblSpielKombimeisterschaft: 'tblSpielKombimeisterschaft',
+    tblSpielMeisterschaft: 'tblSpielMeisterschaft',
+    tblSpielPokal: 'tblSpielPokal',
+    tblSpielSargKegeln: 'tblSpielSargKegeln',
+    tblSpieltag: 'tblSpieltag',
+    tblTeilnehmer: 'tblTeilnehmer'
+  };
+
+  export type ModelName = (typeof ModelName)[keyof typeof ModelName]
+
+
+
+  interface TypeMapCb<ClientOptions = {}> extends $Utils.Fn<{extArgs: $Extensions.InternalArgs }, $Utils.Record<string, any>> {
+    returns: Prisma.TypeMap<this['params']['extArgs'], ClientOptions extends { omit: infer OmitOptions } ? OmitOptions : {}>
+  }
+
+  export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> = {
+    globalOmitOptions: {
+      omit: GlobalOmitOptions
+    }
+    meta: {
+      modelProps: "tbl9erRatten" | "tblDBChangeLog" | "tblMeisterschaften" | "tblMeisterschaftstyp" | "tblMitglieder" | "tblSettings" | "tblSpiel6TageRennen" | "tblSpielBlitztunier" | "tblSpielKombimeisterschaft" | "tblSpielMeisterschaft" | "tblSpielPokal" | "tblSpielSargKegeln" | "tblSpieltag" | "tblTeilnehmer"
+      txIsolationLevel: Prisma.TransactionIsolationLevel
+    }
+    model: {
+      tbl9erRatten: {
+        payload: Prisma.$tbl9erRattenPayload<ExtArgs>
+        fields: Prisma.tbl9erRattenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tbl9erRattenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tbl9erRattenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tbl9erRattenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tbl9erRattenPayload>
+          }
+          findFirst: {
+            args: Prisma.tbl9erRattenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tbl9erRattenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tbl9erRattenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tbl9erRattenPayload>
+          }
+          findMany: {
+            args: Prisma.tbl9erRattenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tbl9erRattenPayload>[]
+          }
+          create: {
+            args: Prisma.tbl9erRattenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tbl9erRattenPayload>
+          }
+          createMany: {
+            args: Prisma.tbl9erRattenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.tbl9erRattenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tbl9erRattenPayload>
+          }
+          update: {
+            args: Prisma.tbl9erRattenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tbl9erRattenPayload>
+          }
+          deleteMany: {
+            args: Prisma.tbl9erRattenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tbl9erRattenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.tbl9erRattenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tbl9erRattenPayload>
+          }
+          aggregate: {
+            args: Prisma.Tbl9erRattenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTbl9erRatten>
+          }
+          groupBy: {
+            args: Prisma.tbl9erRattenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Tbl9erRattenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tbl9erRattenCountArgs<ExtArgs>
+            result: $Utils.Optional<Tbl9erRattenCountAggregateOutputType> | number
+          }
+        }
+      }
+      tblDBChangeLog: {
+        payload: Prisma.$tblDBChangeLogPayload<ExtArgs>
+        fields: Prisma.tblDBChangeLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tblDBChangeLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblDBChangeLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tblDBChangeLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblDBChangeLogPayload>
+          }
+          findFirst: {
+            args: Prisma.tblDBChangeLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblDBChangeLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tblDBChangeLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblDBChangeLogPayload>
+          }
+          findMany: {
+            args: Prisma.tblDBChangeLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblDBChangeLogPayload>[]
+          }
+          create: {
+            args: Prisma.tblDBChangeLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblDBChangeLogPayload>
+          }
+          createMany: {
+            args: Prisma.tblDBChangeLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.tblDBChangeLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblDBChangeLogPayload>
+          }
+          update: {
+            args: Prisma.tblDBChangeLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblDBChangeLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.tblDBChangeLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tblDBChangeLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.tblDBChangeLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblDBChangeLogPayload>
+          }
+          aggregate: {
+            args: Prisma.TblDBChangeLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTblDBChangeLog>
+          }
+          groupBy: {
+            args: Prisma.tblDBChangeLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TblDBChangeLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tblDBChangeLogCountArgs<ExtArgs>
+            result: $Utils.Optional<TblDBChangeLogCountAggregateOutputType> | number
+          }
+        }
+      }
+      tblMeisterschaften: {
+        payload: Prisma.$tblMeisterschaftenPayload<ExtArgs>
+        fields: Prisma.tblMeisterschaftenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tblMeisterschaftenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tblMeisterschaftenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftenPayload>
+          }
+          findFirst: {
+            args: Prisma.tblMeisterschaftenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tblMeisterschaftenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftenPayload>
+          }
+          findMany: {
+            args: Prisma.tblMeisterschaftenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftenPayload>[]
+          }
+          create: {
+            args: Prisma.tblMeisterschaftenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftenPayload>
+          }
+          createMany: {
+            args: Prisma.tblMeisterschaftenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.tblMeisterschaftenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftenPayload>
+          }
+          update: {
+            args: Prisma.tblMeisterschaftenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftenPayload>
+          }
+          deleteMany: {
+            args: Prisma.tblMeisterschaftenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tblMeisterschaftenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.tblMeisterschaftenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftenPayload>
+          }
+          aggregate: {
+            args: Prisma.TblMeisterschaftenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTblMeisterschaften>
+          }
+          groupBy: {
+            args: Prisma.tblMeisterschaftenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TblMeisterschaftenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tblMeisterschaftenCountArgs<ExtArgs>
+            result: $Utils.Optional<TblMeisterschaftenCountAggregateOutputType> | number
+          }
+        }
+      }
+      tblMeisterschaftstyp: {
+        payload: Prisma.$tblMeisterschaftstypPayload<ExtArgs>
+        fields: Prisma.tblMeisterschaftstypFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tblMeisterschaftstypFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftstypPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tblMeisterschaftstypFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftstypPayload>
+          }
+          findFirst: {
+            args: Prisma.tblMeisterschaftstypFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftstypPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tblMeisterschaftstypFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftstypPayload>
+          }
+          findMany: {
+            args: Prisma.tblMeisterschaftstypFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftstypPayload>[]
+          }
+          create: {
+            args: Prisma.tblMeisterschaftstypCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftstypPayload>
+          }
+          createMany: {
+            args: Prisma.tblMeisterschaftstypCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.tblMeisterschaftstypDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftstypPayload>
+          }
+          update: {
+            args: Prisma.tblMeisterschaftstypUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftstypPayload>
+          }
+          deleteMany: {
+            args: Prisma.tblMeisterschaftstypDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tblMeisterschaftstypUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.tblMeisterschaftstypUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMeisterschaftstypPayload>
+          }
+          aggregate: {
+            args: Prisma.TblMeisterschaftstypAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTblMeisterschaftstyp>
+          }
+          groupBy: {
+            args: Prisma.tblMeisterschaftstypGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TblMeisterschaftstypGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tblMeisterschaftstypCountArgs<ExtArgs>
+            result: $Utils.Optional<TblMeisterschaftstypCountAggregateOutputType> | number
+          }
+        }
+      }
+      tblMitglieder: {
+        payload: Prisma.$tblMitgliederPayload<ExtArgs>
+        fields: Prisma.tblMitgliederFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tblMitgliederFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMitgliederPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tblMitgliederFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMitgliederPayload>
+          }
+          findFirst: {
+            args: Prisma.tblMitgliederFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMitgliederPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tblMitgliederFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMitgliederPayload>
+          }
+          findMany: {
+            args: Prisma.tblMitgliederFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMitgliederPayload>[]
+          }
+          create: {
+            args: Prisma.tblMitgliederCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMitgliederPayload>
+          }
+          createMany: {
+            args: Prisma.tblMitgliederCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.tblMitgliederDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMitgliederPayload>
+          }
+          update: {
+            args: Prisma.tblMitgliederUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMitgliederPayload>
+          }
+          deleteMany: {
+            args: Prisma.tblMitgliederDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tblMitgliederUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.tblMitgliederUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblMitgliederPayload>
+          }
+          aggregate: {
+            args: Prisma.TblMitgliederAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTblMitglieder>
+          }
+          groupBy: {
+            args: Prisma.tblMitgliederGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TblMitgliederGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tblMitgliederCountArgs<ExtArgs>
+            result: $Utils.Optional<TblMitgliederCountAggregateOutputType> | number
+          }
+        }
+      }
+      tblSettings: {
+        payload: Prisma.$tblSettingsPayload<ExtArgs>
+        fields: Prisma.tblSettingsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tblSettingsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSettingsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tblSettingsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSettingsPayload>
+          }
+          findFirst: {
+            args: Prisma.tblSettingsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSettingsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tblSettingsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSettingsPayload>
+          }
+          findMany: {
+            args: Prisma.tblSettingsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSettingsPayload>[]
+          }
+          create: {
+            args: Prisma.tblSettingsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSettingsPayload>
+          }
+          createMany: {
+            args: Prisma.tblSettingsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.tblSettingsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSettingsPayload>
+          }
+          update: {
+            args: Prisma.tblSettingsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSettingsPayload>
+          }
+          deleteMany: {
+            args: Prisma.tblSettingsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tblSettingsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.tblSettingsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSettingsPayload>
+          }
+          aggregate: {
+            args: Prisma.TblSettingsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTblSettings>
+          }
+          groupBy: {
+            args: Prisma.tblSettingsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TblSettingsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tblSettingsCountArgs<ExtArgs>
+            result: $Utils.Optional<TblSettingsCountAggregateOutputType> | number
+          }
+        }
+      }
+      tblSpiel6TageRennen: {
+        payload: Prisma.$tblSpiel6TageRennenPayload<ExtArgs>
+        fields: Prisma.tblSpiel6TageRennenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tblSpiel6TageRennenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpiel6TageRennenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tblSpiel6TageRennenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpiel6TageRennenPayload>
+          }
+          findFirst: {
+            args: Prisma.tblSpiel6TageRennenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpiel6TageRennenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tblSpiel6TageRennenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpiel6TageRennenPayload>
+          }
+          findMany: {
+            args: Prisma.tblSpiel6TageRennenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpiel6TageRennenPayload>[]
+          }
+          create: {
+            args: Prisma.tblSpiel6TageRennenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpiel6TageRennenPayload>
+          }
+          createMany: {
+            args: Prisma.tblSpiel6TageRennenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.tblSpiel6TageRennenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpiel6TageRennenPayload>
+          }
+          update: {
+            args: Prisma.tblSpiel6TageRennenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpiel6TageRennenPayload>
+          }
+          deleteMany: {
+            args: Prisma.tblSpiel6TageRennenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tblSpiel6TageRennenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.tblSpiel6TageRennenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpiel6TageRennenPayload>
+          }
+          aggregate: {
+            args: Prisma.TblSpiel6TageRennenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTblSpiel6TageRennen>
+          }
+          groupBy: {
+            args: Prisma.tblSpiel6TageRennenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TblSpiel6TageRennenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tblSpiel6TageRennenCountArgs<ExtArgs>
+            result: $Utils.Optional<TblSpiel6TageRennenCountAggregateOutputType> | number
+          }
+        }
+      }
+      tblSpielBlitztunier: {
+        payload: Prisma.$tblSpielBlitztunierPayload<ExtArgs>
+        fields: Prisma.tblSpielBlitztunierFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tblSpielBlitztunierFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielBlitztunierPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tblSpielBlitztunierFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielBlitztunierPayload>
+          }
+          findFirst: {
+            args: Prisma.tblSpielBlitztunierFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielBlitztunierPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tblSpielBlitztunierFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielBlitztunierPayload>
+          }
+          findMany: {
+            args: Prisma.tblSpielBlitztunierFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielBlitztunierPayload>[]
+          }
+          create: {
+            args: Prisma.tblSpielBlitztunierCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielBlitztunierPayload>
+          }
+          createMany: {
+            args: Prisma.tblSpielBlitztunierCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.tblSpielBlitztunierDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielBlitztunierPayload>
+          }
+          update: {
+            args: Prisma.tblSpielBlitztunierUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielBlitztunierPayload>
+          }
+          deleteMany: {
+            args: Prisma.tblSpielBlitztunierDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tblSpielBlitztunierUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.tblSpielBlitztunierUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielBlitztunierPayload>
+          }
+          aggregate: {
+            args: Prisma.TblSpielBlitztunierAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTblSpielBlitztunier>
+          }
+          groupBy: {
+            args: Prisma.tblSpielBlitztunierGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TblSpielBlitztunierGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tblSpielBlitztunierCountArgs<ExtArgs>
+            result: $Utils.Optional<TblSpielBlitztunierCountAggregateOutputType> | number
+          }
+        }
+      }
+      tblSpielKombimeisterschaft: {
+        payload: Prisma.$tblSpielKombimeisterschaftPayload<ExtArgs>
+        fields: Prisma.tblSpielKombimeisterschaftFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tblSpielKombimeisterschaftFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielKombimeisterschaftPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tblSpielKombimeisterschaftFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielKombimeisterschaftPayload>
+          }
+          findFirst: {
+            args: Prisma.tblSpielKombimeisterschaftFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielKombimeisterschaftPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tblSpielKombimeisterschaftFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielKombimeisterschaftPayload>
+          }
+          findMany: {
+            args: Prisma.tblSpielKombimeisterschaftFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielKombimeisterschaftPayload>[]
+          }
+          create: {
+            args: Prisma.tblSpielKombimeisterschaftCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielKombimeisterschaftPayload>
+          }
+          createMany: {
+            args: Prisma.tblSpielKombimeisterschaftCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.tblSpielKombimeisterschaftDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielKombimeisterschaftPayload>
+          }
+          update: {
+            args: Prisma.tblSpielKombimeisterschaftUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielKombimeisterschaftPayload>
+          }
+          deleteMany: {
+            args: Prisma.tblSpielKombimeisterschaftDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tblSpielKombimeisterschaftUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.tblSpielKombimeisterschaftUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielKombimeisterschaftPayload>
+          }
+          aggregate: {
+            args: Prisma.TblSpielKombimeisterschaftAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTblSpielKombimeisterschaft>
+          }
+          groupBy: {
+            args: Prisma.tblSpielKombimeisterschaftGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TblSpielKombimeisterschaftGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tblSpielKombimeisterschaftCountArgs<ExtArgs>
+            result: $Utils.Optional<TblSpielKombimeisterschaftCountAggregateOutputType> | number
+          }
+        }
+      }
+      tblSpielMeisterschaft: {
+        payload: Prisma.$tblSpielMeisterschaftPayload<ExtArgs>
+        fields: Prisma.tblSpielMeisterschaftFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tblSpielMeisterschaftFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielMeisterschaftPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tblSpielMeisterschaftFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielMeisterschaftPayload>
+          }
+          findFirst: {
+            args: Prisma.tblSpielMeisterschaftFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielMeisterschaftPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tblSpielMeisterschaftFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielMeisterschaftPayload>
+          }
+          findMany: {
+            args: Prisma.tblSpielMeisterschaftFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielMeisterschaftPayload>[]
+          }
+          create: {
+            args: Prisma.tblSpielMeisterschaftCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielMeisterschaftPayload>
+          }
+          createMany: {
+            args: Prisma.tblSpielMeisterschaftCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.tblSpielMeisterschaftDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielMeisterschaftPayload>
+          }
+          update: {
+            args: Prisma.tblSpielMeisterschaftUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielMeisterschaftPayload>
+          }
+          deleteMany: {
+            args: Prisma.tblSpielMeisterschaftDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tblSpielMeisterschaftUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.tblSpielMeisterschaftUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielMeisterschaftPayload>
+          }
+          aggregate: {
+            args: Prisma.TblSpielMeisterschaftAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTblSpielMeisterschaft>
+          }
+          groupBy: {
+            args: Prisma.tblSpielMeisterschaftGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TblSpielMeisterschaftGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tblSpielMeisterschaftCountArgs<ExtArgs>
+            result: $Utils.Optional<TblSpielMeisterschaftCountAggregateOutputType> | number
+          }
+        }
+      }
+      tblSpielPokal: {
+        payload: Prisma.$tblSpielPokalPayload<ExtArgs>
+        fields: Prisma.tblSpielPokalFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tblSpielPokalFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielPokalPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tblSpielPokalFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielPokalPayload>
+          }
+          findFirst: {
+            args: Prisma.tblSpielPokalFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielPokalPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tblSpielPokalFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielPokalPayload>
+          }
+          findMany: {
+            args: Prisma.tblSpielPokalFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielPokalPayload>[]
+          }
+          create: {
+            args: Prisma.tblSpielPokalCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielPokalPayload>
+          }
+          createMany: {
+            args: Prisma.tblSpielPokalCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.tblSpielPokalDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielPokalPayload>
+          }
+          update: {
+            args: Prisma.tblSpielPokalUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielPokalPayload>
+          }
+          deleteMany: {
+            args: Prisma.tblSpielPokalDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tblSpielPokalUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.tblSpielPokalUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielPokalPayload>
+          }
+          aggregate: {
+            args: Prisma.TblSpielPokalAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTblSpielPokal>
+          }
+          groupBy: {
+            args: Prisma.tblSpielPokalGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TblSpielPokalGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tblSpielPokalCountArgs<ExtArgs>
+            result: $Utils.Optional<TblSpielPokalCountAggregateOutputType> | number
+          }
+        }
+      }
+      tblSpielSargKegeln: {
+        payload: Prisma.$tblSpielSargKegelnPayload<ExtArgs>
+        fields: Prisma.tblSpielSargKegelnFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tblSpielSargKegelnFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielSargKegelnPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tblSpielSargKegelnFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielSargKegelnPayload>
+          }
+          findFirst: {
+            args: Prisma.tblSpielSargKegelnFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielSargKegelnPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tblSpielSargKegelnFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielSargKegelnPayload>
+          }
+          findMany: {
+            args: Prisma.tblSpielSargKegelnFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielSargKegelnPayload>[]
+          }
+          create: {
+            args: Prisma.tblSpielSargKegelnCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielSargKegelnPayload>
+          }
+          createMany: {
+            args: Prisma.tblSpielSargKegelnCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.tblSpielSargKegelnDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielSargKegelnPayload>
+          }
+          update: {
+            args: Prisma.tblSpielSargKegelnUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielSargKegelnPayload>
+          }
+          deleteMany: {
+            args: Prisma.tblSpielSargKegelnDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tblSpielSargKegelnUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.tblSpielSargKegelnUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpielSargKegelnPayload>
+          }
+          aggregate: {
+            args: Prisma.TblSpielSargKegelnAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTblSpielSargKegeln>
+          }
+          groupBy: {
+            args: Prisma.tblSpielSargKegelnGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TblSpielSargKegelnGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tblSpielSargKegelnCountArgs<ExtArgs>
+            result: $Utils.Optional<TblSpielSargKegelnCountAggregateOutputType> | number
+          }
+        }
+      }
+      tblSpieltag: {
+        payload: Prisma.$tblSpieltagPayload<ExtArgs>
+        fields: Prisma.tblSpieltagFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tblSpieltagFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpieltagPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tblSpieltagFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpieltagPayload>
+          }
+          findFirst: {
+            args: Prisma.tblSpieltagFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpieltagPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tblSpieltagFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpieltagPayload>
+          }
+          findMany: {
+            args: Prisma.tblSpieltagFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpieltagPayload>[]
+          }
+          create: {
+            args: Prisma.tblSpieltagCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpieltagPayload>
+          }
+          createMany: {
+            args: Prisma.tblSpieltagCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.tblSpieltagDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpieltagPayload>
+          }
+          update: {
+            args: Prisma.tblSpieltagUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpieltagPayload>
+          }
+          deleteMany: {
+            args: Prisma.tblSpieltagDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tblSpieltagUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.tblSpieltagUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblSpieltagPayload>
+          }
+          aggregate: {
+            args: Prisma.TblSpieltagAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTblSpieltag>
+          }
+          groupBy: {
+            args: Prisma.tblSpieltagGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TblSpieltagGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tblSpieltagCountArgs<ExtArgs>
+            result: $Utils.Optional<TblSpieltagCountAggregateOutputType> | number
+          }
+        }
+      }
+      tblTeilnehmer: {
+        payload: Prisma.$tblTeilnehmerPayload<ExtArgs>
+        fields: Prisma.tblTeilnehmerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tblTeilnehmerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblTeilnehmerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tblTeilnehmerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblTeilnehmerPayload>
+          }
+          findFirst: {
+            args: Prisma.tblTeilnehmerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblTeilnehmerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tblTeilnehmerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblTeilnehmerPayload>
+          }
+          findMany: {
+            args: Prisma.tblTeilnehmerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblTeilnehmerPayload>[]
+          }
+          create: {
+            args: Prisma.tblTeilnehmerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblTeilnehmerPayload>
+          }
+          createMany: {
+            args: Prisma.tblTeilnehmerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.tblTeilnehmerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblTeilnehmerPayload>
+          }
+          update: {
+            args: Prisma.tblTeilnehmerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblTeilnehmerPayload>
+          }
+          deleteMany: {
+            args: Prisma.tblTeilnehmerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tblTeilnehmerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.tblTeilnehmerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tblTeilnehmerPayload>
+          }
+          aggregate: {
+            args: Prisma.TblTeilnehmerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTblTeilnehmer>
+          }
+          groupBy: {
+            args: Prisma.tblTeilnehmerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TblTeilnehmerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tblTeilnehmerCountArgs<ExtArgs>
+            result: $Utils.Optional<TblTeilnehmerCountAggregateOutputType> | number
+          }
+        }
+      }
+    }
+  } & {
+    other: {
+      payload: any
+      operations: {
+        $executeRaw: {
+          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
+          result: any
+        }
+        $executeRawUnsafe: {
+          args: [query: string, ...values: any[]],
+          result: any
+        }
+        $queryRaw: {
+          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
+          result: any
+        }
+        $queryRawUnsafe: {
+          args: [query: string, ...values: any[]],
+          result: any
+        }
+      }
+    }
+  }
+  export const defineExtension: $Extensions.ExtendsHook<"define", Prisma.TypeMapCb, $Extensions.DefaultArgs>
+  export type DefaultPrismaClient = PrismaClient
+  export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
+  export interface PrismaClientOptions {
+    /**
+     * @default "colorless"
+     */
+    errorFormat?: ErrorFormat
+    /**
+     * @example
+     * ```
+     * // Shorthand for `emit: 'stdout'`
+     * log: ['query', 'info', 'warn', 'error']
+     * 
+     * // Emit as events only
+     * log: [
+     *   { emit: 'event', level: 'query' },
+     *   { emit: 'event', level: 'info' },
+     *   { emit: 'event', level: 'warn' }
+     *   { emit: 'event', level: 'error' }
+     * ]
+     * 
+     * / Emit as events and log to stdout
+     * og: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     *  { emit: 'stdout', level: 'error' }
+     * 
+     * ```
+     * Read more in our [docs](https://pris.ly/d/logging).
+     */
+    log?: (LogLevel | LogDefinition)[]
+    /**
+     * The default values for transactionOptions
+     * maxWait ?= 2000
+     * timeout ?= 5000
+     */
+    transactionOptions?: {
+      maxWait?: number
+      timeout?: number
+      isolationLevel?: Prisma.TransactionIsolationLevel
+    }
+    /**
+     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
+     */
+    adapter?: runtime.SqlDriverAdapterFactory
+    /**
+     * Prisma Accelerate URL allowing the client to connect through Accelerate instead of a direct database.
+     */
+    accelerateUrl?: string
+    /**
+     * Global configuration for omitting model fields by default.
+     * 
+     * @example
+     * ```
+     * const prisma = new PrismaClient({
+     *   omit: {
+     *     user: {
+     *       password: true
+     *     }
+     *   }
+     * })
+     * ```
+     */
+    omit?: Prisma.GlobalOmitConfig
+    /**
+     * SQL commenter plugins that add metadata to SQL queries as comments.
+     * Comments follow the sqlcommenter format: https://google.github.io/sqlcommenter/
+     * 
+     * @example
+     * ```
+     * const prisma = new PrismaClient({
+     *   adapter,
+     *   comments: [
+     *     traceContext(),
+     *     queryInsights(),
+     *   ],
+     * })
+     * ```
+     */
+    comments?: runtime.SqlCommenterPlugin[]
+  }
+  export type GlobalOmitConfig = {
+    tbl9erRatten?: tbl9erRattenOmit
+    tblDBChangeLog?: tblDBChangeLogOmit
+    tblMeisterschaften?: tblMeisterschaftenOmit
+    tblMeisterschaftstyp?: tblMeisterschaftstypOmit
+    tblMitglieder?: tblMitgliederOmit
+    tblSettings?: tblSettingsOmit
+    tblSpiel6TageRennen?: tblSpiel6TageRennenOmit
+    tblSpielBlitztunier?: tblSpielBlitztunierOmit
+    tblSpielKombimeisterschaft?: tblSpielKombimeisterschaftOmit
+    tblSpielMeisterschaft?: tblSpielMeisterschaftOmit
+    tblSpielPokal?: tblSpielPokalOmit
+    tblSpielSargKegeln?: tblSpielSargKegelnOmit
+    tblSpieltag?: tblSpieltagOmit
+    tblTeilnehmer?: tblTeilnehmerOmit
+  }
+
+  /* Types for Logging */
+  export type LogLevel = 'info' | 'query' | 'warn' | 'error'
+  export type LogDefinition = {
+    level: LogLevel
+    emit: 'stdout' | 'event'
+  }
+
+  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
+
+  export type GetLogType<T> = CheckIsLogLevel<
+    T extends LogDefinition ? T['level'] : T
+  >;
+
+  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
+    ? GetLogType<T[number]>
+    : never;
+
+  export type QueryEvent = {
+    timestamp: Date
+    query: string
+    params: string
+    duration: number
+    target: string
+  }
+
+  export type LogEvent = {
+    timestamp: Date
+    message: string
+    target: string
+  }
+  /* End Types for Logging */
+
+
+  export type PrismaAction =
+    | 'findUnique'
+    | 'findUniqueOrThrow'
+    | 'findMany'
+    | 'findFirst'
+    | 'findFirstOrThrow'
+    | 'create'
+    | 'createMany'
+    | 'createManyAndReturn'
+    | 'update'
+    | 'updateMany'
+    | 'updateManyAndReturn'
+    | 'upsert'
+    | 'delete'
+    | 'deleteMany'
+    | 'executeRaw'
+    | 'queryRaw'
+    | 'aggregate'
+    | 'count'
+    | 'runCommandRaw'
+    | 'findRaw'
+    | 'groupBy'
+
+  // tested in getLogLevel.test.ts
+  export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
+
+  /**
+   * `PrismaClient` proxy available in interactive transactions.
+   */
+  export type TransactionClient = Omit<Prisma.DefaultPrismaClient, runtime.ITXClientDenyList>
+
+  export type Datasource = {
+    url?: string
+  }
+
+  /**
+   * Count Types
+   */
+
+
+  /**
+   * Count Type TblMeisterschaftenCountOutputType
+   */
+
+  export type TblMeisterschaftenCountOutputType = {
+    tblTeilnehmer: number
+  }
+
+  export type TblMeisterschaftenCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tblTeilnehmer?: boolean | TblMeisterschaftenCountOutputTypeCountTblTeilnehmerArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TblMeisterschaftenCountOutputType without action
+   */
+  export type TblMeisterschaftenCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TblMeisterschaftenCountOutputType
+     */
+    select?: TblMeisterschaftenCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TblMeisterschaftenCountOutputType without action
+   */
+  export type TblMeisterschaftenCountOutputTypeCountTblTeilnehmerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblTeilnehmerWhereInput
+  }
+
+
+  /**
+   * Count Type TblMeisterschaftstypCountOutputType
+   */
+
+  export type TblMeisterschaftstypCountOutputType = {
+    tblMeisterschaften: number
+  }
+
+  export type TblMeisterschaftstypCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tblMeisterschaften?: boolean | TblMeisterschaftstypCountOutputTypeCountTblMeisterschaftenArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TblMeisterschaftstypCountOutputType without action
+   */
+  export type TblMeisterschaftstypCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TblMeisterschaftstypCountOutputType
+     */
+    select?: TblMeisterschaftstypCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TblMeisterschaftstypCountOutputType without action
+   */
+  export type TblMeisterschaftstypCountOutputTypeCountTblMeisterschaftenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblMeisterschaftenWhereInput
+  }
+
+
+  /**
+   * Count Type TblMitgliederCountOutputType
+   */
+
+  export type TblMitgliederCountOutputType = {
+    tblTeilnehmer: number
+  }
+
+  export type TblMitgliederCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tblTeilnehmer?: boolean | TblMitgliederCountOutputTypeCountTblTeilnehmerArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TblMitgliederCountOutputType without action
+   */
+  export type TblMitgliederCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TblMitgliederCountOutputType
+     */
+    select?: TblMitgliederCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TblMitgliederCountOutputType without action
+   */
+  export type TblMitgliederCountOutputTypeCountTblTeilnehmerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblTeilnehmerWhereInput
+  }
+
+
+  /**
+   * Models
+   */
+
+  /**
+   * Model tbl9erRatten
+   */
+
+  export type AggregateTbl9erRatten = {
+    _count: Tbl9erRattenCountAggregateOutputType | null
+    _avg: Tbl9erRattenAvgAggregateOutputType | null
+    _sum: Tbl9erRattenSumAggregateOutputType | null
+    _min: Tbl9erRattenMinAggregateOutputType | null
+    _max: Tbl9erRattenMaxAggregateOutputType | null
+  }
+
+  export type Tbl9erRattenAvgAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID: number | null
+    Neuner: number | null
+    Ratten: number | null
+    Kranzacht: number | null
+  }
+
+  export type Tbl9erRattenSumAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID: number | null
+    Neuner: number | null
+    Ratten: number | null
+    Kranzacht: number | null
+  }
+
+  export type Tbl9erRattenMinAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID: number | null
+    Neuner: number | null
+    Ratten: number | null
+    Kranzacht: number | null
+  }
+
+  export type Tbl9erRattenMaxAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID: number | null
+    Neuner: number | null
+    Ratten: number | null
+    Kranzacht: number | null
+  }
+
+  export type Tbl9erRattenCountAggregateOutputType = {
+    ID: number
+    SpieltagID: number
+    SpielerID: number
+    Neuner: number
+    Ratten: number
+    Kranzacht: number
+    _all: number
+  }
+
+
+  export type Tbl9erRattenAvgAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID?: true
+    Neuner?: true
+    Ratten?: true
+    Kranzacht?: true
+  }
+
+  export type Tbl9erRattenSumAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID?: true
+    Neuner?: true
+    Ratten?: true
+    Kranzacht?: true
+  }
+
+  export type Tbl9erRattenMinAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID?: true
+    Neuner?: true
+    Ratten?: true
+    Kranzacht?: true
+  }
+
+  export type Tbl9erRattenMaxAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID?: true
+    Neuner?: true
+    Ratten?: true
+    Kranzacht?: true
+  }
+
+  export type Tbl9erRattenCountAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID?: true
+    Neuner?: true
+    Ratten?: true
+    Kranzacht?: true
+    _all?: true
+  }
+
+  export type Tbl9erRattenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tbl9erRatten to aggregate.
+     */
+    where?: tbl9erRattenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tbl9erRattens to fetch.
+     */
+    orderBy?: tbl9erRattenOrderByWithRelationInput | tbl9erRattenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tbl9erRattenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tbl9erRattens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tbl9erRattens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tbl9erRattens
+    **/
+    _count?: true | Tbl9erRattenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Tbl9erRattenAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Tbl9erRattenSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Tbl9erRattenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Tbl9erRattenMaxAggregateInputType
+  }
+
+  export type GetTbl9erRattenAggregateType<T extends Tbl9erRattenAggregateArgs> = {
+        [P in keyof T & keyof AggregateTbl9erRatten]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTbl9erRatten[P]>
+      : GetScalarType<T[P], AggregateTbl9erRatten[P]>
+  }
+
+
+
+
+  export type tbl9erRattenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tbl9erRattenWhereInput
+    orderBy?: tbl9erRattenOrderByWithAggregationInput | tbl9erRattenOrderByWithAggregationInput[]
+    by: Tbl9erRattenScalarFieldEnum[] | Tbl9erRattenScalarFieldEnum
+    having?: tbl9erRattenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Tbl9erRattenCountAggregateInputType | true
+    _avg?: Tbl9erRattenAvgAggregateInputType
+    _sum?: Tbl9erRattenSumAggregateInputType
+    _min?: Tbl9erRattenMinAggregateInputType
+    _max?: Tbl9erRattenMaxAggregateInputType
+  }
+
+  export type Tbl9erRattenGroupByOutputType = {
+    ID: number
+    SpieltagID: number
+    SpielerID: number
+    Neuner: number
+    Ratten: number
+    Kranzacht: number
+    _count: Tbl9erRattenCountAggregateOutputType | null
+    _avg: Tbl9erRattenAvgAggregateOutputType | null
+    _sum: Tbl9erRattenSumAggregateOutputType | null
+    _min: Tbl9erRattenMinAggregateOutputType | null
+    _max: Tbl9erRattenMaxAggregateOutputType | null
+  }
+
+  type GetTbl9erRattenGroupByPayload<T extends tbl9erRattenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Tbl9erRattenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Tbl9erRattenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Tbl9erRattenGroupByOutputType[P]>
+            : GetScalarType<T[P], Tbl9erRattenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tbl9erRattenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ID?: boolean
+    SpieltagID?: boolean
+    SpielerID?: boolean
+    Neuner?: boolean
+    Ratten?: boolean
+    Kranzacht?: boolean
+  }, ExtArgs["result"]["tbl9erRatten"]>
+
+
+
+  export type tbl9erRattenSelectScalar = {
+    ID?: boolean
+    SpieltagID?: boolean
+    SpielerID?: boolean
+    Neuner?: boolean
+    Ratten?: boolean
+    Kranzacht?: boolean
+  }
+
+  export type tbl9erRattenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"ID" | "SpieltagID" | "SpielerID" | "Neuner" | "Ratten" | "Kranzacht", ExtArgs["result"]["tbl9erRatten"]>
+
+  export type $tbl9erRattenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tbl9erRatten"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      ID: number
+      SpieltagID: number
+      SpielerID: number
+      Neuner: number
+      Ratten: number
+      Kranzacht: number
+    }, ExtArgs["result"]["tbl9erRatten"]>
+    composites: {}
+  }
+
+  type tbl9erRattenGetPayload<S extends boolean | null | undefined | tbl9erRattenDefaultArgs> = $Result.GetResult<Prisma.$tbl9erRattenPayload, S>
+
+  type tbl9erRattenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tbl9erRattenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Tbl9erRattenCountAggregateInputType | true
+    }
+
+  export interface tbl9erRattenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tbl9erRatten'], meta: { name: 'tbl9erRatten' } }
+    /**
+     * Find zero or one Tbl9erRatten that matches the filter.
+     * @param {tbl9erRattenFindUniqueArgs} args - Arguments to find a Tbl9erRatten
+     * @example
+     * // Get one Tbl9erRatten
+     * const tbl9erRatten = await prisma.tbl9erRatten.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tbl9erRattenFindUniqueArgs>(args: SelectSubset<T, tbl9erRattenFindUniqueArgs<ExtArgs>>): Prisma__tbl9erRattenClient<$Result.GetResult<Prisma.$tbl9erRattenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Tbl9erRatten that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tbl9erRattenFindUniqueOrThrowArgs} args - Arguments to find a Tbl9erRatten
+     * @example
+     * // Get one Tbl9erRatten
+     * const tbl9erRatten = await prisma.tbl9erRatten.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tbl9erRattenFindUniqueOrThrowArgs>(args: SelectSubset<T, tbl9erRattenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tbl9erRattenClient<$Result.GetResult<Prisma.$tbl9erRattenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tbl9erRatten that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tbl9erRattenFindFirstArgs} args - Arguments to find a Tbl9erRatten
+     * @example
+     * // Get one Tbl9erRatten
+     * const tbl9erRatten = await prisma.tbl9erRatten.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tbl9erRattenFindFirstArgs>(args?: SelectSubset<T, tbl9erRattenFindFirstArgs<ExtArgs>>): Prisma__tbl9erRattenClient<$Result.GetResult<Prisma.$tbl9erRattenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tbl9erRatten that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tbl9erRattenFindFirstOrThrowArgs} args - Arguments to find a Tbl9erRatten
+     * @example
+     * // Get one Tbl9erRatten
+     * const tbl9erRatten = await prisma.tbl9erRatten.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tbl9erRattenFindFirstOrThrowArgs>(args?: SelectSubset<T, tbl9erRattenFindFirstOrThrowArgs<ExtArgs>>): Prisma__tbl9erRattenClient<$Result.GetResult<Prisma.$tbl9erRattenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Tbl9erRattens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tbl9erRattenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Tbl9erRattens
+     * const tbl9erRattens = await prisma.tbl9erRatten.findMany()
+     * 
+     * // Get first 10 Tbl9erRattens
+     * const tbl9erRattens = await prisma.tbl9erRatten.findMany({ take: 10 })
+     * 
+     * // Only select the `ID`
+     * const tbl9erRattenWithIDOnly = await prisma.tbl9erRatten.findMany({ select: { ID: true } })
+     * 
+     */
+    findMany<T extends tbl9erRattenFindManyArgs>(args?: SelectSubset<T, tbl9erRattenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tbl9erRattenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Tbl9erRatten.
+     * @param {tbl9erRattenCreateArgs} args - Arguments to create a Tbl9erRatten.
+     * @example
+     * // Create one Tbl9erRatten
+     * const Tbl9erRatten = await prisma.tbl9erRatten.create({
+     *   data: {
+     *     // ... data to create a Tbl9erRatten
+     *   }
+     * })
+     * 
+     */
+    create<T extends tbl9erRattenCreateArgs>(args: SelectSubset<T, tbl9erRattenCreateArgs<ExtArgs>>): Prisma__tbl9erRattenClient<$Result.GetResult<Prisma.$tbl9erRattenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Tbl9erRattens.
+     * @param {tbl9erRattenCreateManyArgs} args - Arguments to create many Tbl9erRattens.
+     * @example
+     * // Create many Tbl9erRattens
+     * const tbl9erRatten = await prisma.tbl9erRatten.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tbl9erRattenCreateManyArgs>(args?: SelectSubset<T, tbl9erRattenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Tbl9erRatten.
+     * @param {tbl9erRattenDeleteArgs} args - Arguments to delete one Tbl9erRatten.
+     * @example
+     * // Delete one Tbl9erRatten
+     * const Tbl9erRatten = await prisma.tbl9erRatten.delete({
+     *   where: {
+     *     // ... filter to delete one Tbl9erRatten
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tbl9erRattenDeleteArgs>(args: SelectSubset<T, tbl9erRattenDeleteArgs<ExtArgs>>): Prisma__tbl9erRattenClient<$Result.GetResult<Prisma.$tbl9erRattenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Tbl9erRatten.
+     * @param {tbl9erRattenUpdateArgs} args - Arguments to update one Tbl9erRatten.
+     * @example
+     * // Update one Tbl9erRatten
+     * const tbl9erRatten = await prisma.tbl9erRatten.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tbl9erRattenUpdateArgs>(args: SelectSubset<T, tbl9erRattenUpdateArgs<ExtArgs>>): Prisma__tbl9erRattenClient<$Result.GetResult<Prisma.$tbl9erRattenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Tbl9erRattens.
+     * @param {tbl9erRattenDeleteManyArgs} args - Arguments to filter Tbl9erRattens to delete.
+     * @example
+     * // Delete a few Tbl9erRattens
+     * const { count } = await prisma.tbl9erRatten.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tbl9erRattenDeleteManyArgs>(args?: SelectSubset<T, tbl9erRattenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tbl9erRattens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tbl9erRattenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Tbl9erRattens
+     * const tbl9erRatten = await prisma.tbl9erRatten.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tbl9erRattenUpdateManyArgs>(args: SelectSubset<T, tbl9erRattenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Tbl9erRatten.
+     * @param {tbl9erRattenUpsertArgs} args - Arguments to update or create a Tbl9erRatten.
+     * @example
+     * // Update or create a Tbl9erRatten
+     * const tbl9erRatten = await prisma.tbl9erRatten.upsert({
+     *   create: {
+     *     // ... data to create a Tbl9erRatten
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Tbl9erRatten we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tbl9erRattenUpsertArgs>(args: SelectSubset<T, tbl9erRattenUpsertArgs<ExtArgs>>): Prisma__tbl9erRattenClient<$Result.GetResult<Prisma.$tbl9erRattenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Tbl9erRattens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tbl9erRattenCountArgs} args - Arguments to filter Tbl9erRattens to count.
+     * @example
+     * // Count the number of Tbl9erRattens
+     * const count = await prisma.tbl9erRatten.count({
+     *   where: {
+     *     // ... the filter for the Tbl9erRattens we want to count
+     *   }
+     * })
+    **/
+    count<T extends tbl9erRattenCountArgs>(
+      args?: Subset<T, tbl9erRattenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Tbl9erRattenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Tbl9erRatten.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Tbl9erRattenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Tbl9erRattenAggregateArgs>(args: Subset<T, Tbl9erRattenAggregateArgs>): Prisma.PrismaPromise<GetTbl9erRattenAggregateType<T>>
+
+    /**
+     * Group by Tbl9erRatten.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tbl9erRattenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tbl9erRattenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tbl9erRattenGroupByArgs['orderBy'] }
+        : { orderBy?: tbl9erRattenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tbl9erRattenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTbl9erRattenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tbl9erRatten model
+   */
+  readonly fields: tbl9erRattenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tbl9erRatten.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tbl9erRattenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tbl9erRatten model
+   */
+  interface tbl9erRattenFieldRefs {
+    readonly ID: FieldRef<"tbl9erRatten", 'Int'>
+    readonly SpieltagID: FieldRef<"tbl9erRatten", 'Int'>
+    readonly SpielerID: FieldRef<"tbl9erRatten", 'Int'>
+    readonly Neuner: FieldRef<"tbl9erRatten", 'Int'>
+    readonly Ratten: FieldRef<"tbl9erRatten", 'Int'>
+    readonly Kranzacht: FieldRef<"tbl9erRatten", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tbl9erRatten findUnique
+   */
+  export type tbl9erRattenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tbl9erRatten
+     */
+    select?: tbl9erRattenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tbl9erRatten
+     */
+    omit?: tbl9erRattenOmit<ExtArgs> | null
+    /**
+     * Filter, which tbl9erRatten to fetch.
+     */
+    where: tbl9erRattenWhereUniqueInput
+  }
+
+  /**
+   * tbl9erRatten findUniqueOrThrow
+   */
+  export type tbl9erRattenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tbl9erRatten
+     */
+    select?: tbl9erRattenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tbl9erRatten
+     */
+    omit?: tbl9erRattenOmit<ExtArgs> | null
+    /**
+     * Filter, which tbl9erRatten to fetch.
+     */
+    where: tbl9erRattenWhereUniqueInput
+  }
+
+  /**
+   * tbl9erRatten findFirst
+   */
+  export type tbl9erRattenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tbl9erRatten
+     */
+    select?: tbl9erRattenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tbl9erRatten
+     */
+    omit?: tbl9erRattenOmit<ExtArgs> | null
+    /**
+     * Filter, which tbl9erRatten to fetch.
+     */
+    where?: tbl9erRattenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tbl9erRattens to fetch.
+     */
+    orderBy?: tbl9erRattenOrderByWithRelationInput | tbl9erRattenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tbl9erRattens.
+     */
+    cursor?: tbl9erRattenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tbl9erRattens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tbl9erRattens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tbl9erRattens.
+     */
+    distinct?: Tbl9erRattenScalarFieldEnum | Tbl9erRattenScalarFieldEnum[]
+  }
+
+  /**
+   * tbl9erRatten findFirstOrThrow
+   */
+  export type tbl9erRattenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tbl9erRatten
+     */
+    select?: tbl9erRattenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tbl9erRatten
+     */
+    omit?: tbl9erRattenOmit<ExtArgs> | null
+    /**
+     * Filter, which tbl9erRatten to fetch.
+     */
+    where?: tbl9erRattenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tbl9erRattens to fetch.
+     */
+    orderBy?: tbl9erRattenOrderByWithRelationInput | tbl9erRattenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tbl9erRattens.
+     */
+    cursor?: tbl9erRattenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tbl9erRattens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tbl9erRattens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tbl9erRattens.
+     */
+    distinct?: Tbl9erRattenScalarFieldEnum | Tbl9erRattenScalarFieldEnum[]
+  }
+
+  /**
+   * tbl9erRatten findMany
+   */
+  export type tbl9erRattenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tbl9erRatten
+     */
+    select?: tbl9erRattenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tbl9erRatten
+     */
+    omit?: tbl9erRattenOmit<ExtArgs> | null
+    /**
+     * Filter, which tbl9erRattens to fetch.
+     */
+    where?: tbl9erRattenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tbl9erRattens to fetch.
+     */
+    orderBy?: tbl9erRattenOrderByWithRelationInput | tbl9erRattenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tbl9erRattens.
+     */
+    cursor?: tbl9erRattenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tbl9erRattens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tbl9erRattens.
+     */
+    skip?: number
+    distinct?: Tbl9erRattenScalarFieldEnum | Tbl9erRattenScalarFieldEnum[]
+  }
+
+  /**
+   * tbl9erRatten create
+   */
+  export type tbl9erRattenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tbl9erRatten
+     */
+    select?: tbl9erRattenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tbl9erRatten
+     */
+    omit?: tbl9erRattenOmit<ExtArgs> | null
+    /**
+     * The data needed to create a tbl9erRatten.
+     */
+    data: XOR<tbl9erRattenCreateInput, tbl9erRattenUncheckedCreateInput>
+  }
+
+  /**
+   * tbl9erRatten createMany
+   */
+  export type tbl9erRattenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tbl9erRattens.
+     */
+    data: tbl9erRattenCreateManyInput | tbl9erRattenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tbl9erRatten update
+   */
+  export type tbl9erRattenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tbl9erRatten
+     */
+    select?: tbl9erRattenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tbl9erRatten
+     */
+    omit?: tbl9erRattenOmit<ExtArgs> | null
+    /**
+     * The data needed to update a tbl9erRatten.
+     */
+    data: XOR<tbl9erRattenUpdateInput, tbl9erRattenUncheckedUpdateInput>
+    /**
+     * Choose, which tbl9erRatten to update.
+     */
+    where: tbl9erRattenWhereUniqueInput
+  }
+
+  /**
+   * tbl9erRatten updateMany
+   */
+  export type tbl9erRattenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tbl9erRattens.
+     */
+    data: XOR<tbl9erRattenUpdateManyMutationInput, tbl9erRattenUncheckedUpdateManyInput>
+    /**
+     * Filter which tbl9erRattens to update
+     */
+    where?: tbl9erRattenWhereInput
+    /**
+     * Limit how many tbl9erRattens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tbl9erRatten upsert
+   */
+  export type tbl9erRattenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tbl9erRatten
+     */
+    select?: tbl9erRattenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tbl9erRatten
+     */
+    omit?: tbl9erRattenOmit<ExtArgs> | null
+    /**
+     * The filter to search for the tbl9erRatten to update in case it exists.
+     */
+    where: tbl9erRattenWhereUniqueInput
+    /**
+     * In case the tbl9erRatten found by the `where` argument doesn't exist, create a new tbl9erRatten with this data.
+     */
+    create: XOR<tbl9erRattenCreateInput, tbl9erRattenUncheckedCreateInput>
+    /**
+     * In case the tbl9erRatten was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tbl9erRattenUpdateInput, tbl9erRattenUncheckedUpdateInput>
+  }
+
+  /**
+   * tbl9erRatten delete
+   */
+  export type tbl9erRattenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tbl9erRatten
+     */
+    select?: tbl9erRattenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tbl9erRatten
+     */
+    omit?: tbl9erRattenOmit<ExtArgs> | null
+    /**
+     * Filter which tbl9erRatten to delete.
+     */
+    where: tbl9erRattenWhereUniqueInput
+  }
+
+  /**
+   * tbl9erRatten deleteMany
+   */
+  export type tbl9erRattenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tbl9erRattens to delete
+     */
+    where?: tbl9erRattenWhereInput
+    /**
+     * Limit how many tbl9erRattens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tbl9erRatten without action
+   */
+  export type tbl9erRattenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tbl9erRatten
+     */
+    select?: tbl9erRattenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tbl9erRatten
+     */
+    omit?: tbl9erRattenOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model tblDBChangeLog
+   */
+
+  export type AggregateTblDBChangeLog = {
+    _count: TblDBChangeLogCountAggregateOutputType | null
+    _avg: TblDBChangeLogAvgAggregateOutputType | null
+    _sum: TblDBChangeLogSumAggregateOutputType | null
+    _min: TblDBChangeLogMinAggregateOutputType | null
+    _max: TblDBChangeLogMaxAggregateOutputType | null
+  }
+
+  export type TblDBChangeLogAvgAggregateOutputType = {
+    ID: number | null
+  }
+
+  export type TblDBChangeLogSumAggregateOutputType = {
+    ID: number | null
+  }
+
+  export type TblDBChangeLogMinAggregateOutputType = {
+    ID: number | null
+    Computername: string | null
+    Tablename: string | null
+    Changetype: string | null
+    Command: string | null
+    Zeitstempel: Date | null
+  }
+
+  export type TblDBChangeLogMaxAggregateOutputType = {
+    ID: number | null
+    Computername: string | null
+    Tablename: string | null
+    Changetype: string | null
+    Command: string | null
+    Zeitstempel: Date | null
+  }
+
+  export type TblDBChangeLogCountAggregateOutputType = {
+    ID: number
+    Computername: number
+    Tablename: number
+    Changetype: number
+    Command: number
+    Zeitstempel: number
+    _all: number
+  }
+
+
+  export type TblDBChangeLogAvgAggregateInputType = {
+    ID?: true
+  }
+
+  export type TblDBChangeLogSumAggregateInputType = {
+    ID?: true
+  }
+
+  export type TblDBChangeLogMinAggregateInputType = {
+    ID?: true
+    Computername?: true
+    Tablename?: true
+    Changetype?: true
+    Command?: true
+    Zeitstempel?: true
+  }
+
+  export type TblDBChangeLogMaxAggregateInputType = {
+    ID?: true
+    Computername?: true
+    Tablename?: true
+    Changetype?: true
+    Command?: true
+    Zeitstempel?: true
+  }
+
+  export type TblDBChangeLogCountAggregateInputType = {
+    ID?: true
+    Computername?: true
+    Tablename?: true
+    Changetype?: true
+    Command?: true
+    Zeitstempel?: true
+    _all?: true
+  }
+
+  export type TblDBChangeLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblDBChangeLog to aggregate.
+     */
+    where?: tblDBChangeLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblDBChangeLogs to fetch.
+     */
+    orderBy?: tblDBChangeLogOrderByWithRelationInput | tblDBChangeLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tblDBChangeLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblDBChangeLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblDBChangeLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tblDBChangeLogs
+    **/
+    _count?: true | TblDBChangeLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TblDBChangeLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TblDBChangeLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TblDBChangeLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TblDBChangeLogMaxAggregateInputType
+  }
+
+  export type GetTblDBChangeLogAggregateType<T extends TblDBChangeLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateTblDBChangeLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTblDBChangeLog[P]>
+      : GetScalarType<T[P], AggregateTblDBChangeLog[P]>
+  }
+
+
+
+
+  export type tblDBChangeLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblDBChangeLogWhereInput
+    orderBy?: tblDBChangeLogOrderByWithAggregationInput | tblDBChangeLogOrderByWithAggregationInput[]
+    by: TblDBChangeLogScalarFieldEnum[] | TblDBChangeLogScalarFieldEnum
+    having?: tblDBChangeLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TblDBChangeLogCountAggregateInputType | true
+    _avg?: TblDBChangeLogAvgAggregateInputType
+    _sum?: TblDBChangeLogSumAggregateInputType
+    _min?: TblDBChangeLogMinAggregateInputType
+    _max?: TblDBChangeLogMaxAggregateInputType
+  }
+
+  export type TblDBChangeLogGroupByOutputType = {
+    ID: number
+    Computername: string | null
+    Tablename: string | null
+    Changetype: string | null
+    Command: string | null
+    Zeitstempel: Date
+    _count: TblDBChangeLogCountAggregateOutputType | null
+    _avg: TblDBChangeLogAvgAggregateOutputType | null
+    _sum: TblDBChangeLogSumAggregateOutputType | null
+    _min: TblDBChangeLogMinAggregateOutputType | null
+    _max: TblDBChangeLogMaxAggregateOutputType | null
+  }
+
+  type GetTblDBChangeLogGroupByPayload<T extends tblDBChangeLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TblDBChangeLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TblDBChangeLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TblDBChangeLogGroupByOutputType[P]>
+            : GetScalarType<T[P], TblDBChangeLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tblDBChangeLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ID?: boolean
+    Computername?: boolean
+    Tablename?: boolean
+    Changetype?: boolean
+    Command?: boolean
+    Zeitstempel?: boolean
+  }, ExtArgs["result"]["tblDBChangeLog"]>
+
+
+
+  export type tblDBChangeLogSelectScalar = {
+    ID?: boolean
+    Computername?: boolean
+    Tablename?: boolean
+    Changetype?: boolean
+    Command?: boolean
+    Zeitstempel?: boolean
+  }
+
+  export type tblDBChangeLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"ID" | "Computername" | "Tablename" | "Changetype" | "Command" | "Zeitstempel", ExtArgs["result"]["tblDBChangeLog"]>
+
+  export type $tblDBChangeLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tblDBChangeLog"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      ID: number
+      Computername: string | null
+      Tablename: string | null
+      Changetype: string | null
+      Command: string | null
+      Zeitstempel: Date
+    }, ExtArgs["result"]["tblDBChangeLog"]>
+    composites: {}
+  }
+
+  type tblDBChangeLogGetPayload<S extends boolean | null | undefined | tblDBChangeLogDefaultArgs> = $Result.GetResult<Prisma.$tblDBChangeLogPayload, S>
+
+  type tblDBChangeLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tblDBChangeLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TblDBChangeLogCountAggregateInputType | true
+    }
+
+  export interface tblDBChangeLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tblDBChangeLog'], meta: { name: 'tblDBChangeLog' } }
+    /**
+     * Find zero or one TblDBChangeLog that matches the filter.
+     * @param {tblDBChangeLogFindUniqueArgs} args - Arguments to find a TblDBChangeLog
+     * @example
+     * // Get one TblDBChangeLog
+     * const tblDBChangeLog = await prisma.tblDBChangeLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tblDBChangeLogFindUniqueArgs>(args: SelectSubset<T, tblDBChangeLogFindUniqueArgs<ExtArgs>>): Prisma__tblDBChangeLogClient<$Result.GetResult<Prisma.$tblDBChangeLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TblDBChangeLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tblDBChangeLogFindUniqueOrThrowArgs} args - Arguments to find a TblDBChangeLog
+     * @example
+     * // Get one TblDBChangeLog
+     * const tblDBChangeLog = await prisma.tblDBChangeLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tblDBChangeLogFindUniqueOrThrowArgs>(args: SelectSubset<T, tblDBChangeLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tblDBChangeLogClient<$Result.GetResult<Prisma.$tblDBChangeLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblDBChangeLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblDBChangeLogFindFirstArgs} args - Arguments to find a TblDBChangeLog
+     * @example
+     * // Get one TblDBChangeLog
+     * const tblDBChangeLog = await prisma.tblDBChangeLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tblDBChangeLogFindFirstArgs>(args?: SelectSubset<T, tblDBChangeLogFindFirstArgs<ExtArgs>>): Prisma__tblDBChangeLogClient<$Result.GetResult<Prisma.$tblDBChangeLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblDBChangeLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblDBChangeLogFindFirstOrThrowArgs} args - Arguments to find a TblDBChangeLog
+     * @example
+     * // Get one TblDBChangeLog
+     * const tblDBChangeLog = await prisma.tblDBChangeLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tblDBChangeLogFindFirstOrThrowArgs>(args?: SelectSubset<T, tblDBChangeLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__tblDBChangeLogClient<$Result.GetResult<Prisma.$tblDBChangeLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TblDBChangeLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblDBChangeLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TblDBChangeLogs
+     * const tblDBChangeLogs = await prisma.tblDBChangeLog.findMany()
+     * 
+     * // Get first 10 TblDBChangeLogs
+     * const tblDBChangeLogs = await prisma.tblDBChangeLog.findMany({ take: 10 })
+     * 
+     * // Only select the `ID`
+     * const tblDBChangeLogWithIDOnly = await prisma.tblDBChangeLog.findMany({ select: { ID: true } })
+     * 
+     */
+    findMany<T extends tblDBChangeLogFindManyArgs>(args?: SelectSubset<T, tblDBChangeLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblDBChangeLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TblDBChangeLog.
+     * @param {tblDBChangeLogCreateArgs} args - Arguments to create a TblDBChangeLog.
+     * @example
+     * // Create one TblDBChangeLog
+     * const TblDBChangeLog = await prisma.tblDBChangeLog.create({
+     *   data: {
+     *     // ... data to create a TblDBChangeLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends tblDBChangeLogCreateArgs>(args: SelectSubset<T, tblDBChangeLogCreateArgs<ExtArgs>>): Prisma__tblDBChangeLogClient<$Result.GetResult<Prisma.$tblDBChangeLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TblDBChangeLogs.
+     * @param {tblDBChangeLogCreateManyArgs} args - Arguments to create many TblDBChangeLogs.
+     * @example
+     * // Create many TblDBChangeLogs
+     * const tblDBChangeLog = await prisma.tblDBChangeLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tblDBChangeLogCreateManyArgs>(args?: SelectSubset<T, tblDBChangeLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a TblDBChangeLog.
+     * @param {tblDBChangeLogDeleteArgs} args - Arguments to delete one TblDBChangeLog.
+     * @example
+     * // Delete one TblDBChangeLog
+     * const TblDBChangeLog = await prisma.tblDBChangeLog.delete({
+     *   where: {
+     *     // ... filter to delete one TblDBChangeLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tblDBChangeLogDeleteArgs>(args: SelectSubset<T, tblDBChangeLogDeleteArgs<ExtArgs>>): Prisma__tblDBChangeLogClient<$Result.GetResult<Prisma.$tblDBChangeLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TblDBChangeLog.
+     * @param {tblDBChangeLogUpdateArgs} args - Arguments to update one TblDBChangeLog.
+     * @example
+     * // Update one TblDBChangeLog
+     * const tblDBChangeLog = await prisma.tblDBChangeLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tblDBChangeLogUpdateArgs>(args: SelectSubset<T, tblDBChangeLogUpdateArgs<ExtArgs>>): Prisma__tblDBChangeLogClient<$Result.GetResult<Prisma.$tblDBChangeLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TblDBChangeLogs.
+     * @param {tblDBChangeLogDeleteManyArgs} args - Arguments to filter TblDBChangeLogs to delete.
+     * @example
+     * // Delete a few TblDBChangeLogs
+     * const { count } = await prisma.tblDBChangeLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tblDBChangeLogDeleteManyArgs>(args?: SelectSubset<T, tblDBChangeLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TblDBChangeLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblDBChangeLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TblDBChangeLogs
+     * const tblDBChangeLog = await prisma.tblDBChangeLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tblDBChangeLogUpdateManyArgs>(args: SelectSubset<T, tblDBChangeLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TblDBChangeLog.
+     * @param {tblDBChangeLogUpsertArgs} args - Arguments to update or create a TblDBChangeLog.
+     * @example
+     * // Update or create a TblDBChangeLog
+     * const tblDBChangeLog = await prisma.tblDBChangeLog.upsert({
+     *   create: {
+     *     // ... data to create a TblDBChangeLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TblDBChangeLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tblDBChangeLogUpsertArgs>(args: SelectSubset<T, tblDBChangeLogUpsertArgs<ExtArgs>>): Prisma__tblDBChangeLogClient<$Result.GetResult<Prisma.$tblDBChangeLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TblDBChangeLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblDBChangeLogCountArgs} args - Arguments to filter TblDBChangeLogs to count.
+     * @example
+     * // Count the number of TblDBChangeLogs
+     * const count = await prisma.tblDBChangeLog.count({
+     *   where: {
+     *     // ... the filter for the TblDBChangeLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends tblDBChangeLogCountArgs>(
+      args?: Subset<T, tblDBChangeLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TblDBChangeLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TblDBChangeLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TblDBChangeLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TblDBChangeLogAggregateArgs>(args: Subset<T, TblDBChangeLogAggregateArgs>): Prisma.PrismaPromise<GetTblDBChangeLogAggregateType<T>>
+
+    /**
+     * Group by TblDBChangeLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblDBChangeLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tblDBChangeLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tblDBChangeLogGroupByArgs['orderBy'] }
+        : { orderBy?: tblDBChangeLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tblDBChangeLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTblDBChangeLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tblDBChangeLog model
+   */
+  readonly fields: tblDBChangeLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tblDBChangeLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tblDBChangeLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tblDBChangeLog model
+   */
+  interface tblDBChangeLogFieldRefs {
+    readonly ID: FieldRef<"tblDBChangeLog", 'Int'>
+    readonly Computername: FieldRef<"tblDBChangeLog", 'String'>
+    readonly Tablename: FieldRef<"tblDBChangeLog", 'String'>
+    readonly Changetype: FieldRef<"tblDBChangeLog", 'String'>
+    readonly Command: FieldRef<"tblDBChangeLog", 'String'>
+    readonly Zeitstempel: FieldRef<"tblDBChangeLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tblDBChangeLog findUnique
+   */
+  export type tblDBChangeLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblDBChangeLog
+     */
+    select?: tblDBChangeLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblDBChangeLog
+     */
+    omit?: tblDBChangeLogOmit<ExtArgs> | null
+    /**
+     * Filter, which tblDBChangeLog to fetch.
+     */
+    where: tblDBChangeLogWhereUniqueInput
+  }
+
+  /**
+   * tblDBChangeLog findUniqueOrThrow
+   */
+  export type tblDBChangeLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblDBChangeLog
+     */
+    select?: tblDBChangeLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblDBChangeLog
+     */
+    omit?: tblDBChangeLogOmit<ExtArgs> | null
+    /**
+     * Filter, which tblDBChangeLog to fetch.
+     */
+    where: tblDBChangeLogWhereUniqueInput
+  }
+
+  /**
+   * tblDBChangeLog findFirst
+   */
+  export type tblDBChangeLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblDBChangeLog
+     */
+    select?: tblDBChangeLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblDBChangeLog
+     */
+    omit?: tblDBChangeLogOmit<ExtArgs> | null
+    /**
+     * Filter, which tblDBChangeLog to fetch.
+     */
+    where?: tblDBChangeLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblDBChangeLogs to fetch.
+     */
+    orderBy?: tblDBChangeLogOrderByWithRelationInput | tblDBChangeLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblDBChangeLogs.
+     */
+    cursor?: tblDBChangeLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblDBChangeLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblDBChangeLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblDBChangeLogs.
+     */
+    distinct?: TblDBChangeLogScalarFieldEnum | TblDBChangeLogScalarFieldEnum[]
+  }
+
+  /**
+   * tblDBChangeLog findFirstOrThrow
+   */
+  export type tblDBChangeLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblDBChangeLog
+     */
+    select?: tblDBChangeLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblDBChangeLog
+     */
+    omit?: tblDBChangeLogOmit<ExtArgs> | null
+    /**
+     * Filter, which tblDBChangeLog to fetch.
+     */
+    where?: tblDBChangeLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblDBChangeLogs to fetch.
+     */
+    orderBy?: tblDBChangeLogOrderByWithRelationInput | tblDBChangeLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblDBChangeLogs.
+     */
+    cursor?: tblDBChangeLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblDBChangeLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblDBChangeLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblDBChangeLogs.
+     */
+    distinct?: TblDBChangeLogScalarFieldEnum | TblDBChangeLogScalarFieldEnum[]
+  }
+
+  /**
+   * tblDBChangeLog findMany
+   */
+  export type tblDBChangeLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblDBChangeLog
+     */
+    select?: tblDBChangeLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblDBChangeLog
+     */
+    omit?: tblDBChangeLogOmit<ExtArgs> | null
+    /**
+     * Filter, which tblDBChangeLogs to fetch.
+     */
+    where?: tblDBChangeLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblDBChangeLogs to fetch.
+     */
+    orderBy?: tblDBChangeLogOrderByWithRelationInput | tblDBChangeLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tblDBChangeLogs.
+     */
+    cursor?: tblDBChangeLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblDBChangeLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblDBChangeLogs.
+     */
+    skip?: number
+    distinct?: TblDBChangeLogScalarFieldEnum | TblDBChangeLogScalarFieldEnum[]
+  }
+
+  /**
+   * tblDBChangeLog create
+   */
+  export type tblDBChangeLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblDBChangeLog
+     */
+    select?: tblDBChangeLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblDBChangeLog
+     */
+    omit?: tblDBChangeLogOmit<ExtArgs> | null
+    /**
+     * The data needed to create a tblDBChangeLog.
+     */
+    data: XOR<tblDBChangeLogCreateInput, tblDBChangeLogUncheckedCreateInput>
+  }
+
+  /**
+   * tblDBChangeLog createMany
+   */
+  export type tblDBChangeLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tblDBChangeLogs.
+     */
+    data: tblDBChangeLogCreateManyInput | tblDBChangeLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tblDBChangeLog update
+   */
+  export type tblDBChangeLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblDBChangeLog
+     */
+    select?: tblDBChangeLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblDBChangeLog
+     */
+    omit?: tblDBChangeLogOmit<ExtArgs> | null
+    /**
+     * The data needed to update a tblDBChangeLog.
+     */
+    data: XOR<tblDBChangeLogUpdateInput, tblDBChangeLogUncheckedUpdateInput>
+    /**
+     * Choose, which tblDBChangeLog to update.
+     */
+    where: tblDBChangeLogWhereUniqueInput
+  }
+
+  /**
+   * tblDBChangeLog updateMany
+   */
+  export type tblDBChangeLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tblDBChangeLogs.
+     */
+    data: XOR<tblDBChangeLogUpdateManyMutationInput, tblDBChangeLogUncheckedUpdateManyInput>
+    /**
+     * Filter which tblDBChangeLogs to update
+     */
+    where?: tblDBChangeLogWhereInput
+    /**
+     * Limit how many tblDBChangeLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblDBChangeLog upsert
+   */
+  export type tblDBChangeLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblDBChangeLog
+     */
+    select?: tblDBChangeLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblDBChangeLog
+     */
+    omit?: tblDBChangeLogOmit<ExtArgs> | null
+    /**
+     * The filter to search for the tblDBChangeLog to update in case it exists.
+     */
+    where: tblDBChangeLogWhereUniqueInput
+    /**
+     * In case the tblDBChangeLog found by the `where` argument doesn't exist, create a new tblDBChangeLog with this data.
+     */
+    create: XOR<tblDBChangeLogCreateInput, tblDBChangeLogUncheckedCreateInput>
+    /**
+     * In case the tblDBChangeLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tblDBChangeLogUpdateInput, tblDBChangeLogUncheckedUpdateInput>
+  }
+
+  /**
+   * tblDBChangeLog delete
+   */
+  export type tblDBChangeLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblDBChangeLog
+     */
+    select?: tblDBChangeLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblDBChangeLog
+     */
+    omit?: tblDBChangeLogOmit<ExtArgs> | null
+    /**
+     * Filter which tblDBChangeLog to delete.
+     */
+    where: tblDBChangeLogWhereUniqueInput
+  }
+
+  /**
+   * tblDBChangeLog deleteMany
+   */
+  export type tblDBChangeLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblDBChangeLogs to delete
+     */
+    where?: tblDBChangeLogWhereInput
+    /**
+     * Limit how many tblDBChangeLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblDBChangeLog without action
+   */
+  export type tblDBChangeLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblDBChangeLog
+     */
+    select?: tblDBChangeLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblDBChangeLog
+     */
+    omit?: tblDBChangeLogOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model tblMeisterschaften
+   */
+
+  export type AggregateTblMeisterschaften = {
+    _count: TblMeisterschaftenCountAggregateOutputType | null
+    _avg: TblMeisterschaftenAvgAggregateOutputType | null
+    _sum: TblMeisterschaftenSumAggregateOutputType | null
+    _min: TblMeisterschaftenMinAggregateOutputType | null
+    _max: TblMeisterschaftenMaxAggregateOutputType | null
+  }
+
+  export type TblMeisterschaftenAvgAggregateOutputType = {
+    ID: number | null
+    MeisterschaftstypID: number | null
+    TurboDBNummer: number | null
+    Aktiv: number | null
+  }
+
+  export type TblMeisterschaftenSumAggregateOutputType = {
+    ID: number | null
+    MeisterschaftstypID: number | null
+    TurboDBNummer: number | null
+    Aktiv: number | null
+  }
+
+  export type TblMeisterschaftenMinAggregateOutputType = {
+    ID: number | null
+    Bezeichnung: string | null
+    Beginn: Date | null
+    Ende: Date | null
+    MeisterschaftstypID: number | null
+    TurboDBNummer: number | null
+    Aktiv: number | null
+    Bemerkungen: string | null
+  }
+
+  export type TblMeisterschaftenMaxAggregateOutputType = {
+    ID: number | null
+    Bezeichnung: string | null
+    Beginn: Date | null
+    Ende: Date | null
+    MeisterschaftstypID: number | null
+    TurboDBNummer: number | null
+    Aktiv: number | null
+    Bemerkungen: string | null
+  }
+
+  export type TblMeisterschaftenCountAggregateOutputType = {
+    ID: number
+    Bezeichnung: number
+    Beginn: number
+    Ende: number
+    MeisterschaftstypID: number
+    TurboDBNummer: number
+    Aktiv: number
+    Bemerkungen: number
+    _all: number
+  }
+
+
+  export type TblMeisterschaftenAvgAggregateInputType = {
+    ID?: true
+    MeisterschaftstypID?: true
+    TurboDBNummer?: true
+    Aktiv?: true
+  }
+
+  export type TblMeisterschaftenSumAggregateInputType = {
+    ID?: true
+    MeisterschaftstypID?: true
+    TurboDBNummer?: true
+    Aktiv?: true
+  }
+
+  export type TblMeisterschaftenMinAggregateInputType = {
+    ID?: true
+    Bezeichnung?: true
+    Beginn?: true
+    Ende?: true
+    MeisterschaftstypID?: true
+    TurboDBNummer?: true
+    Aktiv?: true
+    Bemerkungen?: true
+  }
+
+  export type TblMeisterschaftenMaxAggregateInputType = {
+    ID?: true
+    Bezeichnung?: true
+    Beginn?: true
+    Ende?: true
+    MeisterschaftstypID?: true
+    TurboDBNummer?: true
+    Aktiv?: true
+    Bemerkungen?: true
+  }
+
+  export type TblMeisterschaftenCountAggregateInputType = {
+    ID?: true
+    Bezeichnung?: true
+    Beginn?: true
+    Ende?: true
+    MeisterschaftstypID?: true
+    TurboDBNummer?: true
+    Aktiv?: true
+    Bemerkungen?: true
+    _all?: true
+  }
+
+  export type TblMeisterschaftenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblMeisterschaften to aggregate.
+     */
+    where?: tblMeisterschaftenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblMeisterschaftens to fetch.
+     */
+    orderBy?: tblMeisterschaftenOrderByWithRelationInput | tblMeisterschaftenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tblMeisterschaftenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblMeisterschaftens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblMeisterschaftens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tblMeisterschaftens
+    **/
+    _count?: true | TblMeisterschaftenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TblMeisterschaftenAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TblMeisterschaftenSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TblMeisterschaftenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TblMeisterschaftenMaxAggregateInputType
+  }
+
+  export type GetTblMeisterschaftenAggregateType<T extends TblMeisterschaftenAggregateArgs> = {
+        [P in keyof T & keyof AggregateTblMeisterschaften]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTblMeisterschaften[P]>
+      : GetScalarType<T[P], AggregateTblMeisterschaften[P]>
+  }
+
+
+
+
+  export type tblMeisterschaftenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblMeisterschaftenWhereInput
+    orderBy?: tblMeisterschaftenOrderByWithAggregationInput | tblMeisterschaftenOrderByWithAggregationInput[]
+    by: TblMeisterschaftenScalarFieldEnum[] | TblMeisterschaftenScalarFieldEnum
+    having?: tblMeisterschaftenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TblMeisterschaftenCountAggregateInputType | true
+    _avg?: TblMeisterschaftenAvgAggregateInputType
+    _sum?: TblMeisterschaftenSumAggregateInputType
+    _min?: TblMeisterschaftenMinAggregateInputType
+    _max?: TblMeisterschaftenMaxAggregateInputType
+  }
+
+  export type TblMeisterschaftenGroupByOutputType = {
+    ID: number
+    Bezeichnung: string
+    Beginn: Date
+    Ende: Date | null
+    MeisterschaftstypID: number
+    TurboDBNummer: number | null
+    Aktiv: number
+    Bemerkungen: string | null
+    _count: TblMeisterschaftenCountAggregateOutputType | null
+    _avg: TblMeisterschaftenAvgAggregateOutputType | null
+    _sum: TblMeisterschaftenSumAggregateOutputType | null
+    _min: TblMeisterschaftenMinAggregateOutputType | null
+    _max: TblMeisterschaftenMaxAggregateOutputType | null
+  }
+
+  type GetTblMeisterschaftenGroupByPayload<T extends tblMeisterschaftenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TblMeisterschaftenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TblMeisterschaftenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TblMeisterschaftenGroupByOutputType[P]>
+            : GetScalarType<T[P], TblMeisterschaftenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tblMeisterschaftenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ID?: boolean
+    Bezeichnung?: boolean
+    Beginn?: boolean
+    Ende?: boolean
+    MeisterschaftstypID?: boolean
+    TurboDBNummer?: boolean
+    Aktiv?: boolean
+    Bemerkungen?: boolean
+    tblMeisterschaftstyp?: boolean | tblMeisterschaftstypDefaultArgs<ExtArgs>
+    tblTeilnehmer?: boolean | tblMeisterschaften$tblTeilnehmerArgs<ExtArgs>
+    _count?: boolean | TblMeisterschaftenCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tblMeisterschaften"]>
+
+
+
+  export type tblMeisterschaftenSelectScalar = {
+    ID?: boolean
+    Bezeichnung?: boolean
+    Beginn?: boolean
+    Ende?: boolean
+    MeisterschaftstypID?: boolean
+    TurboDBNummer?: boolean
+    Aktiv?: boolean
+    Bemerkungen?: boolean
+  }
+
+  export type tblMeisterschaftenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"ID" | "Bezeichnung" | "Beginn" | "Ende" | "MeisterschaftstypID" | "TurboDBNummer" | "Aktiv" | "Bemerkungen", ExtArgs["result"]["tblMeisterschaften"]>
+  export type tblMeisterschaftenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tblMeisterschaftstyp?: boolean | tblMeisterschaftstypDefaultArgs<ExtArgs>
+    tblTeilnehmer?: boolean | tblMeisterschaften$tblTeilnehmerArgs<ExtArgs>
+    _count?: boolean | TblMeisterschaftenCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $tblMeisterschaftenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tblMeisterschaften"
+    objects: {
+      tblMeisterschaftstyp: Prisma.$tblMeisterschaftstypPayload<ExtArgs>
+      tblTeilnehmer: Prisma.$tblTeilnehmerPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      ID: number
+      Bezeichnung: string
+      Beginn: Date
+      Ende: Date | null
+      MeisterschaftstypID: number
+      TurboDBNummer: number | null
+      Aktiv: number
+      Bemerkungen: string | null
+    }, ExtArgs["result"]["tblMeisterschaften"]>
+    composites: {}
+  }
+
+  type tblMeisterschaftenGetPayload<S extends boolean | null | undefined | tblMeisterschaftenDefaultArgs> = $Result.GetResult<Prisma.$tblMeisterschaftenPayload, S>
+
+  type tblMeisterschaftenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tblMeisterschaftenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TblMeisterschaftenCountAggregateInputType | true
+    }
+
+  export interface tblMeisterschaftenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tblMeisterschaften'], meta: { name: 'tblMeisterschaften' } }
+    /**
+     * Find zero or one TblMeisterschaften that matches the filter.
+     * @param {tblMeisterschaftenFindUniqueArgs} args - Arguments to find a TblMeisterschaften
+     * @example
+     * // Get one TblMeisterschaften
+     * const tblMeisterschaften = await prisma.tblMeisterschaften.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tblMeisterschaftenFindUniqueArgs>(args: SelectSubset<T, tblMeisterschaftenFindUniqueArgs<ExtArgs>>): Prisma__tblMeisterschaftenClient<$Result.GetResult<Prisma.$tblMeisterschaftenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TblMeisterschaften that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tblMeisterschaftenFindUniqueOrThrowArgs} args - Arguments to find a TblMeisterschaften
+     * @example
+     * // Get one TblMeisterschaften
+     * const tblMeisterschaften = await prisma.tblMeisterschaften.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tblMeisterschaftenFindUniqueOrThrowArgs>(args: SelectSubset<T, tblMeisterschaftenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tblMeisterschaftenClient<$Result.GetResult<Prisma.$tblMeisterschaftenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblMeisterschaften that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMeisterschaftenFindFirstArgs} args - Arguments to find a TblMeisterschaften
+     * @example
+     * // Get one TblMeisterschaften
+     * const tblMeisterschaften = await prisma.tblMeisterschaften.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tblMeisterschaftenFindFirstArgs>(args?: SelectSubset<T, tblMeisterschaftenFindFirstArgs<ExtArgs>>): Prisma__tblMeisterschaftenClient<$Result.GetResult<Prisma.$tblMeisterschaftenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblMeisterschaften that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMeisterschaftenFindFirstOrThrowArgs} args - Arguments to find a TblMeisterschaften
+     * @example
+     * // Get one TblMeisterschaften
+     * const tblMeisterschaften = await prisma.tblMeisterschaften.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tblMeisterschaftenFindFirstOrThrowArgs>(args?: SelectSubset<T, tblMeisterschaftenFindFirstOrThrowArgs<ExtArgs>>): Prisma__tblMeisterschaftenClient<$Result.GetResult<Prisma.$tblMeisterschaftenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TblMeisterschaftens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMeisterschaftenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TblMeisterschaftens
+     * const tblMeisterschaftens = await prisma.tblMeisterschaften.findMany()
+     * 
+     * // Get first 10 TblMeisterschaftens
+     * const tblMeisterschaftens = await prisma.tblMeisterschaften.findMany({ take: 10 })
+     * 
+     * // Only select the `ID`
+     * const tblMeisterschaftenWithIDOnly = await prisma.tblMeisterschaften.findMany({ select: { ID: true } })
+     * 
+     */
+    findMany<T extends tblMeisterschaftenFindManyArgs>(args?: SelectSubset<T, tblMeisterschaftenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblMeisterschaftenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TblMeisterschaften.
+     * @param {tblMeisterschaftenCreateArgs} args - Arguments to create a TblMeisterschaften.
+     * @example
+     * // Create one TblMeisterschaften
+     * const TblMeisterschaften = await prisma.tblMeisterschaften.create({
+     *   data: {
+     *     // ... data to create a TblMeisterschaften
+     *   }
+     * })
+     * 
+     */
+    create<T extends tblMeisterschaftenCreateArgs>(args: SelectSubset<T, tblMeisterschaftenCreateArgs<ExtArgs>>): Prisma__tblMeisterschaftenClient<$Result.GetResult<Prisma.$tblMeisterschaftenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TblMeisterschaftens.
+     * @param {tblMeisterschaftenCreateManyArgs} args - Arguments to create many TblMeisterschaftens.
+     * @example
+     * // Create many TblMeisterschaftens
+     * const tblMeisterschaften = await prisma.tblMeisterschaften.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tblMeisterschaftenCreateManyArgs>(args?: SelectSubset<T, tblMeisterschaftenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a TblMeisterschaften.
+     * @param {tblMeisterschaftenDeleteArgs} args - Arguments to delete one TblMeisterschaften.
+     * @example
+     * // Delete one TblMeisterschaften
+     * const TblMeisterschaften = await prisma.tblMeisterschaften.delete({
+     *   where: {
+     *     // ... filter to delete one TblMeisterschaften
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tblMeisterschaftenDeleteArgs>(args: SelectSubset<T, tblMeisterschaftenDeleteArgs<ExtArgs>>): Prisma__tblMeisterschaftenClient<$Result.GetResult<Prisma.$tblMeisterschaftenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TblMeisterschaften.
+     * @param {tblMeisterschaftenUpdateArgs} args - Arguments to update one TblMeisterschaften.
+     * @example
+     * // Update one TblMeisterschaften
+     * const tblMeisterschaften = await prisma.tblMeisterschaften.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tblMeisterschaftenUpdateArgs>(args: SelectSubset<T, tblMeisterschaftenUpdateArgs<ExtArgs>>): Prisma__tblMeisterschaftenClient<$Result.GetResult<Prisma.$tblMeisterschaftenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TblMeisterschaftens.
+     * @param {tblMeisterschaftenDeleteManyArgs} args - Arguments to filter TblMeisterschaftens to delete.
+     * @example
+     * // Delete a few TblMeisterschaftens
+     * const { count } = await prisma.tblMeisterschaften.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tblMeisterschaftenDeleteManyArgs>(args?: SelectSubset<T, tblMeisterschaftenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TblMeisterschaftens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMeisterschaftenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TblMeisterschaftens
+     * const tblMeisterschaften = await prisma.tblMeisterschaften.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tblMeisterschaftenUpdateManyArgs>(args: SelectSubset<T, tblMeisterschaftenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TblMeisterschaften.
+     * @param {tblMeisterschaftenUpsertArgs} args - Arguments to update or create a TblMeisterschaften.
+     * @example
+     * // Update or create a TblMeisterschaften
+     * const tblMeisterschaften = await prisma.tblMeisterschaften.upsert({
+     *   create: {
+     *     // ... data to create a TblMeisterschaften
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TblMeisterschaften we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tblMeisterschaftenUpsertArgs>(args: SelectSubset<T, tblMeisterschaftenUpsertArgs<ExtArgs>>): Prisma__tblMeisterschaftenClient<$Result.GetResult<Prisma.$tblMeisterschaftenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TblMeisterschaftens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMeisterschaftenCountArgs} args - Arguments to filter TblMeisterschaftens to count.
+     * @example
+     * // Count the number of TblMeisterschaftens
+     * const count = await prisma.tblMeisterschaften.count({
+     *   where: {
+     *     // ... the filter for the TblMeisterschaftens we want to count
+     *   }
+     * })
+    **/
+    count<T extends tblMeisterschaftenCountArgs>(
+      args?: Subset<T, tblMeisterschaftenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TblMeisterschaftenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TblMeisterschaften.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TblMeisterschaftenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TblMeisterschaftenAggregateArgs>(args: Subset<T, TblMeisterschaftenAggregateArgs>): Prisma.PrismaPromise<GetTblMeisterschaftenAggregateType<T>>
+
+    /**
+     * Group by TblMeisterschaften.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMeisterschaftenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tblMeisterschaftenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tblMeisterschaftenGroupByArgs['orderBy'] }
+        : { orderBy?: tblMeisterschaftenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tblMeisterschaftenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTblMeisterschaftenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tblMeisterschaften model
+   */
+  readonly fields: tblMeisterschaftenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tblMeisterschaften.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tblMeisterschaftenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tblMeisterschaftstyp<T extends tblMeisterschaftstypDefaultArgs<ExtArgs> = {}>(args?: Subset<T, tblMeisterschaftstypDefaultArgs<ExtArgs>>): Prisma__tblMeisterschaftstypClient<$Result.GetResult<Prisma.$tblMeisterschaftstypPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tblTeilnehmer<T extends tblMeisterschaften$tblTeilnehmerArgs<ExtArgs> = {}>(args?: Subset<T, tblMeisterschaften$tblTeilnehmerArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblTeilnehmerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tblMeisterschaften model
+   */
+  interface tblMeisterschaftenFieldRefs {
+    readonly ID: FieldRef<"tblMeisterschaften", 'Int'>
+    readonly Bezeichnung: FieldRef<"tblMeisterschaften", 'String'>
+    readonly Beginn: FieldRef<"tblMeisterschaften", 'DateTime'>
+    readonly Ende: FieldRef<"tblMeisterschaften", 'DateTime'>
+    readonly MeisterschaftstypID: FieldRef<"tblMeisterschaften", 'Int'>
+    readonly TurboDBNummer: FieldRef<"tblMeisterschaften", 'Int'>
+    readonly Aktiv: FieldRef<"tblMeisterschaften", 'Int'>
+    readonly Bemerkungen: FieldRef<"tblMeisterschaften", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tblMeisterschaften findUnique
+   */
+  export type tblMeisterschaftenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaften
+     */
+    select?: tblMeisterschaftenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaften
+     */
+    omit?: tblMeisterschaftenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftenInclude<ExtArgs> | null
+    /**
+     * Filter, which tblMeisterschaften to fetch.
+     */
+    where: tblMeisterschaftenWhereUniqueInput
+  }
+
+  /**
+   * tblMeisterschaften findUniqueOrThrow
+   */
+  export type tblMeisterschaftenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaften
+     */
+    select?: tblMeisterschaftenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaften
+     */
+    omit?: tblMeisterschaftenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftenInclude<ExtArgs> | null
+    /**
+     * Filter, which tblMeisterschaften to fetch.
+     */
+    where: tblMeisterschaftenWhereUniqueInput
+  }
+
+  /**
+   * tblMeisterschaften findFirst
+   */
+  export type tblMeisterschaftenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaften
+     */
+    select?: tblMeisterschaftenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaften
+     */
+    omit?: tblMeisterschaftenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftenInclude<ExtArgs> | null
+    /**
+     * Filter, which tblMeisterschaften to fetch.
+     */
+    where?: tblMeisterschaftenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblMeisterschaftens to fetch.
+     */
+    orderBy?: tblMeisterschaftenOrderByWithRelationInput | tblMeisterschaftenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblMeisterschaftens.
+     */
+    cursor?: tblMeisterschaftenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblMeisterschaftens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblMeisterschaftens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblMeisterschaftens.
+     */
+    distinct?: TblMeisterschaftenScalarFieldEnum | TblMeisterschaftenScalarFieldEnum[]
+  }
+
+  /**
+   * tblMeisterschaften findFirstOrThrow
+   */
+  export type tblMeisterschaftenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaften
+     */
+    select?: tblMeisterschaftenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaften
+     */
+    omit?: tblMeisterschaftenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftenInclude<ExtArgs> | null
+    /**
+     * Filter, which tblMeisterschaften to fetch.
+     */
+    where?: tblMeisterschaftenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblMeisterschaftens to fetch.
+     */
+    orderBy?: tblMeisterschaftenOrderByWithRelationInput | tblMeisterschaftenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblMeisterschaftens.
+     */
+    cursor?: tblMeisterschaftenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblMeisterschaftens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblMeisterschaftens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblMeisterschaftens.
+     */
+    distinct?: TblMeisterschaftenScalarFieldEnum | TblMeisterschaftenScalarFieldEnum[]
+  }
+
+  /**
+   * tblMeisterschaften findMany
+   */
+  export type tblMeisterschaftenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaften
+     */
+    select?: tblMeisterschaftenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaften
+     */
+    omit?: tblMeisterschaftenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftenInclude<ExtArgs> | null
+    /**
+     * Filter, which tblMeisterschaftens to fetch.
+     */
+    where?: tblMeisterschaftenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblMeisterschaftens to fetch.
+     */
+    orderBy?: tblMeisterschaftenOrderByWithRelationInput | tblMeisterschaftenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tblMeisterschaftens.
+     */
+    cursor?: tblMeisterschaftenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblMeisterschaftens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblMeisterschaftens.
+     */
+    skip?: number
+    distinct?: TblMeisterschaftenScalarFieldEnum | TblMeisterschaftenScalarFieldEnum[]
+  }
+
+  /**
+   * tblMeisterschaften create
+   */
+  export type tblMeisterschaftenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaften
+     */
+    select?: tblMeisterschaftenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaften
+     */
+    omit?: tblMeisterschaftenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftenInclude<ExtArgs> | null
+    /**
+     * The data needed to create a tblMeisterschaften.
+     */
+    data: XOR<tblMeisterschaftenCreateInput, tblMeisterschaftenUncheckedCreateInput>
+  }
+
+  /**
+   * tblMeisterschaften createMany
+   */
+  export type tblMeisterschaftenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tblMeisterschaftens.
+     */
+    data: tblMeisterschaftenCreateManyInput | tblMeisterschaftenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tblMeisterschaften update
+   */
+  export type tblMeisterschaftenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaften
+     */
+    select?: tblMeisterschaftenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaften
+     */
+    omit?: tblMeisterschaftenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftenInclude<ExtArgs> | null
+    /**
+     * The data needed to update a tblMeisterschaften.
+     */
+    data: XOR<tblMeisterschaftenUpdateInput, tblMeisterschaftenUncheckedUpdateInput>
+    /**
+     * Choose, which tblMeisterschaften to update.
+     */
+    where: tblMeisterschaftenWhereUniqueInput
+  }
+
+  /**
+   * tblMeisterschaften updateMany
+   */
+  export type tblMeisterschaftenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tblMeisterschaftens.
+     */
+    data: XOR<tblMeisterschaftenUpdateManyMutationInput, tblMeisterschaftenUncheckedUpdateManyInput>
+    /**
+     * Filter which tblMeisterschaftens to update
+     */
+    where?: tblMeisterschaftenWhereInput
+    /**
+     * Limit how many tblMeisterschaftens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblMeisterschaften upsert
+   */
+  export type tblMeisterschaftenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaften
+     */
+    select?: tblMeisterschaftenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaften
+     */
+    omit?: tblMeisterschaftenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftenInclude<ExtArgs> | null
+    /**
+     * The filter to search for the tblMeisterschaften to update in case it exists.
+     */
+    where: tblMeisterschaftenWhereUniqueInput
+    /**
+     * In case the tblMeisterschaften found by the `where` argument doesn't exist, create a new tblMeisterschaften with this data.
+     */
+    create: XOR<tblMeisterschaftenCreateInput, tblMeisterschaftenUncheckedCreateInput>
+    /**
+     * In case the tblMeisterschaften was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tblMeisterschaftenUpdateInput, tblMeisterschaftenUncheckedUpdateInput>
+  }
+
+  /**
+   * tblMeisterschaften delete
+   */
+  export type tblMeisterschaftenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaften
+     */
+    select?: tblMeisterschaftenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaften
+     */
+    omit?: tblMeisterschaftenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftenInclude<ExtArgs> | null
+    /**
+     * Filter which tblMeisterschaften to delete.
+     */
+    where: tblMeisterschaftenWhereUniqueInput
+  }
+
+  /**
+   * tblMeisterschaften deleteMany
+   */
+  export type tblMeisterschaftenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblMeisterschaftens to delete
+     */
+    where?: tblMeisterschaftenWhereInput
+    /**
+     * Limit how many tblMeisterschaftens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblMeisterschaften.tblTeilnehmer
+   */
+  export type tblMeisterschaften$tblTeilnehmerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblTeilnehmer
+     */
+    select?: tblTeilnehmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblTeilnehmer
+     */
+    omit?: tblTeilnehmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblTeilnehmerInclude<ExtArgs> | null
+    where?: tblTeilnehmerWhereInput
+    orderBy?: tblTeilnehmerOrderByWithRelationInput | tblTeilnehmerOrderByWithRelationInput[]
+    cursor?: tblTeilnehmerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TblTeilnehmerScalarFieldEnum | TblTeilnehmerScalarFieldEnum[]
+  }
+
+  /**
+   * tblMeisterschaften without action
+   */
+  export type tblMeisterschaftenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaften
+     */
+    select?: tblMeisterschaftenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaften
+     */
+    omit?: tblMeisterschaftenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftenInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model tblMeisterschaftstyp
+   */
+
+  export type AggregateTblMeisterschaftstyp = {
+    _count: TblMeisterschaftstypCountAggregateOutputType | null
+    _avg: TblMeisterschaftstypAvgAggregateOutputType | null
+    _sum: TblMeisterschaftstypSumAggregateOutputType | null
+    _min: TblMeisterschaftstypMinAggregateOutputType | null
+    _max: TblMeisterschaftstypMaxAggregateOutputType | null
+  }
+
+  export type TblMeisterschaftstypAvgAggregateOutputType = {
+    ID: number | null
+  }
+
+  export type TblMeisterschaftstypSumAggregateOutputType = {
+    ID: number | null
+  }
+
+  export type TblMeisterschaftstypMinAggregateOutputType = {
+    ID: number | null
+    Meisterschaftstyp: string | null
+  }
+
+  export type TblMeisterschaftstypMaxAggregateOutputType = {
+    ID: number | null
+    Meisterschaftstyp: string | null
+  }
+
+  export type TblMeisterschaftstypCountAggregateOutputType = {
+    ID: number
+    Meisterschaftstyp: number
+    _all: number
+  }
+
+
+  export type TblMeisterschaftstypAvgAggregateInputType = {
+    ID?: true
+  }
+
+  export type TblMeisterschaftstypSumAggregateInputType = {
+    ID?: true
+  }
+
+  export type TblMeisterschaftstypMinAggregateInputType = {
+    ID?: true
+    Meisterschaftstyp?: true
+  }
+
+  export type TblMeisterschaftstypMaxAggregateInputType = {
+    ID?: true
+    Meisterschaftstyp?: true
+  }
+
+  export type TblMeisterschaftstypCountAggregateInputType = {
+    ID?: true
+    Meisterschaftstyp?: true
+    _all?: true
+  }
+
+  export type TblMeisterschaftstypAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblMeisterschaftstyp to aggregate.
+     */
+    where?: tblMeisterschaftstypWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblMeisterschaftstyps to fetch.
+     */
+    orderBy?: tblMeisterschaftstypOrderByWithRelationInput | tblMeisterschaftstypOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tblMeisterschaftstypWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblMeisterschaftstyps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblMeisterschaftstyps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tblMeisterschaftstyps
+    **/
+    _count?: true | TblMeisterschaftstypCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TblMeisterschaftstypAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TblMeisterschaftstypSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TblMeisterschaftstypMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TblMeisterschaftstypMaxAggregateInputType
+  }
+
+  export type GetTblMeisterschaftstypAggregateType<T extends TblMeisterschaftstypAggregateArgs> = {
+        [P in keyof T & keyof AggregateTblMeisterschaftstyp]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTblMeisterschaftstyp[P]>
+      : GetScalarType<T[P], AggregateTblMeisterschaftstyp[P]>
+  }
+
+
+
+
+  export type tblMeisterschaftstypGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblMeisterschaftstypWhereInput
+    orderBy?: tblMeisterschaftstypOrderByWithAggregationInput | tblMeisterschaftstypOrderByWithAggregationInput[]
+    by: TblMeisterschaftstypScalarFieldEnum[] | TblMeisterschaftstypScalarFieldEnum
+    having?: tblMeisterschaftstypScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TblMeisterschaftstypCountAggregateInputType | true
+    _avg?: TblMeisterschaftstypAvgAggregateInputType
+    _sum?: TblMeisterschaftstypSumAggregateInputType
+    _min?: TblMeisterschaftstypMinAggregateInputType
+    _max?: TblMeisterschaftstypMaxAggregateInputType
+  }
+
+  export type TblMeisterschaftstypGroupByOutputType = {
+    ID: number
+    Meisterschaftstyp: string
+    _count: TblMeisterschaftstypCountAggregateOutputType | null
+    _avg: TblMeisterschaftstypAvgAggregateOutputType | null
+    _sum: TblMeisterschaftstypSumAggregateOutputType | null
+    _min: TblMeisterschaftstypMinAggregateOutputType | null
+    _max: TblMeisterschaftstypMaxAggregateOutputType | null
+  }
+
+  type GetTblMeisterschaftstypGroupByPayload<T extends tblMeisterschaftstypGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TblMeisterschaftstypGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TblMeisterschaftstypGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TblMeisterschaftstypGroupByOutputType[P]>
+            : GetScalarType<T[P], TblMeisterschaftstypGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tblMeisterschaftstypSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ID?: boolean
+    Meisterschaftstyp?: boolean
+    tblMeisterschaften?: boolean | tblMeisterschaftstyp$tblMeisterschaftenArgs<ExtArgs>
+    _count?: boolean | TblMeisterschaftstypCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tblMeisterschaftstyp"]>
+
+
+
+  export type tblMeisterschaftstypSelectScalar = {
+    ID?: boolean
+    Meisterschaftstyp?: boolean
+  }
+
+  export type tblMeisterschaftstypOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"ID" | "Meisterschaftstyp", ExtArgs["result"]["tblMeisterschaftstyp"]>
+  export type tblMeisterschaftstypInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tblMeisterschaften?: boolean | tblMeisterschaftstyp$tblMeisterschaftenArgs<ExtArgs>
+    _count?: boolean | TblMeisterschaftstypCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $tblMeisterschaftstypPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tblMeisterschaftstyp"
+    objects: {
+      tblMeisterschaften: Prisma.$tblMeisterschaftenPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      ID: number
+      Meisterschaftstyp: string
+    }, ExtArgs["result"]["tblMeisterschaftstyp"]>
+    composites: {}
+  }
+
+  type tblMeisterschaftstypGetPayload<S extends boolean | null | undefined | tblMeisterschaftstypDefaultArgs> = $Result.GetResult<Prisma.$tblMeisterschaftstypPayload, S>
+
+  type tblMeisterschaftstypCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tblMeisterschaftstypFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TblMeisterschaftstypCountAggregateInputType | true
+    }
+
+  export interface tblMeisterschaftstypDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tblMeisterschaftstyp'], meta: { name: 'tblMeisterschaftstyp' } }
+    /**
+     * Find zero or one TblMeisterschaftstyp that matches the filter.
+     * @param {tblMeisterschaftstypFindUniqueArgs} args - Arguments to find a TblMeisterschaftstyp
+     * @example
+     * // Get one TblMeisterschaftstyp
+     * const tblMeisterschaftstyp = await prisma.tblMeisterschaftstyp.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tblMeisterschaftstypFindUniqueArgs>(args: SelectSubset<T, tblMeisterschaftstypFindUniqueArgs<ExtArgs>>): Prisma__tblMeisterschaftstypClient<$Result.GetResult<Prisma.$tblMeisterschaftstypPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TblMeisterschaftstyp that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tblMeisterschaftstypFindUniqueOrThrowArgs} args - Arguments to find a TblMeisterschaftstyp
+     * @example
+     * // Get one TblMeisterschaftstyp
+     * const tblMeisterschaftstyp = await prisma.tblMeisterschaftstyp.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tblMeisterschaftstypFindUniqueOrThrowArgs>(args: SelectSubset<T, tblMeisterschaftstypFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tblMeisterschaftstypClient<$Result.GetResult<Prisma.$tblMeisterschaftstypPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblMeisterschaftstyp that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMeisterschaftstypFindFirstArgs} args - Arguments to find a TblMeisterschaftstyp
+     * @example
+     * // Get one TblMeisterschaftstyp
+     * const tblMeisterschaftstyp = await prisma.tblMeisterschaftstyp.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tblMeisterschaftstypFindFirstArgs>(args?: SelectSubset<T, tblMeisterschaftstypFindFirstArgs<ExtArgs>>): Prisma__tblMeisterschaftstypClient<$Result.GetResult<Prisma.$tblMeisterschaftstypPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblMeisterschaftstyp that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMeisterschaftstypFindFirstOrThrowArgs} args - Arguments to find a TblMeisterschaftstyp
+     * @example
+     * // Get one TblMeisterschaftstyp
+     * const tblMeisterschaftstyp = await prisma.tblMeisterschaftstyp.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tblMeisterschaftstypFindFirstOrThrowArgs>(args?: SelectSubset<T, tblMeisterschaftstypFindFirstOrThrowArgs<ExtArgs>>): Prisma__tblMeisterschaftstypClient<$Result.GetResult<Prisma.$tblMeisterschaftstypPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TblMeisterschaftstyps that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMeisterschaftstypFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TblMeisterschaftstyps
+     * const tblMeisterschaftstyps = await prisma.tblMeisterschaftstyp.findMany()
+     * 
+     * // Get first 10 TblMeisterschaftstyps
+     * const tblMeisterschaftstyps = await prisma.tblMeisterschaftstyp.findMany({ take: 10 })
+     * 
+     * // Only select the `ID`
+     * const tblMeisterschaftstypWithIDOnly = await prisma.tblMeisterschaftstyp.findMany({ select: { ID: true } })
+     * 
+     */
+    findMany<T extends tblMeisterschaftstypFindManyArgs>(args?: SelectSubset<T, tblMeisterschaftstypFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblMeisterschaftstypPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TblMeisterschaftstyp.
+     * @param {tblMeisterschaftstypCreateArgs} args - Arguments to create a TblMeisterschaftstyp.
+     * @example
+     * // Create one TblMeisterschaftstyp
+     * const TblMeisterschaftstyp = await prisma.tblMeisterschaftstyp.create({
+     *   data: {
+     *     // ... data to create a TblMeisterschaftstyp
+     *   }
+     * })
+     * 
+     */
+    create<T extends tblMeisterschaftstypCreateArgs>(args: SelectSubset<T, tblMeisterschaftstypCreateArgs<ExtArgs>>): Prisma__tblMeisterschaftstypClient<$Result.GetResult<Prisma.$tblMeisterschaftstypPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TblMeisterschaftstyps.
+     * @param {tblMeisterschaftstypCreateManyArgs} args - Arguments to create many TblMeisterschaftstyps.
+     * @example
+     * // Create many TblMeisterschaftstyps
+     * const tblMeisterschaftstyp = await prisma.tblMeisterschaftstyp.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tblMeisterschaftstypCreateManyArgs>(args?: SelectSubset<T, tblMeisterschaftstypCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a TblMeisterschaftstyp.
+     * @param {tblMeisterschaftstypDeleteArgs} args - Arguments to delete one TblMeisterschaftstyp.
+     * @example
+     * // Delete one TblMeisterschaftstyp
+     * const TblMeisterschaftstyp = await prisma.tblMeisterschaftstyp.delete({
+     *   where: {
+     *     // ... filter to delete one TblMeisterschaftstyp
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tblMeisterschaftstypDeleteArgs>(args: SelectSubset<T, tblMeisterschaftstypDeleteArgs<ExtArgs>>): Prisma__tblMeisterschaftstypClient<$Result.GetResult<Prisma.$tblMeisterschaftstypPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TblMeisterschaftstyp.
+     * @param {tblMeisterschaftstypUpdateArgs} args - Arguments to update one TblMeisterschaftstyp.
+     * @example
+     * // Update one TblMeisterschaftstyp
+     * const tblMeisterschaftstyp = await prisma.tblMeisterschaftstyp.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tblMeisterschaftstypUpdateArgs>(args: SelectSubset<T, tblMeisterschaftstypUpdateArgs<ExtArgs>>): Prisma__tblMeisterschaftstypClient<$Result.GetResult<Prisma.$tblMeisterschaftstypPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TblMeisterschaftstyps.
+     * @param {tblMeisterschaftstypDeleteManyArgs} args - Arguments to filter TblMeisterschaftstyps to delete.
+     * @example
+     * // Delete a few TblMeisterschaftstyps
+     * const { count } = await prisma.tblMeisterschaftstyp.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tblMeisterschaftstypDeleteManyArgs>(args?: SelectSubset<T, tblMeisterschaftstypDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TblMeisterschaftstyps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMeisterschaftstypUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TblMeisterschaftstyps
+     * const tblMeisterschaftstyp = await prisma.tblMeisterschaftstyp.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tblMeisterschaftstypUpdateManyArgs>(args: SelectSubset<T, tblMeisterschaftstypUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TblMeisterschaftstyp.
+     * @param {tblMeisterschaftstypUpsertArgs} args - Arguments to update or create a TblMeisterschaftstyp.
+     * @example
+     * // Update or create a TblMeisterschaftstyp
+     * const tblMeisterschaftstyp = await prisma.tblMeisterschaftstyp.upsert({
+     *   create: {
+     *     // ... data to create a TblMeisterschaftstyp
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TblMeisterschaftstyp we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tblMeisterschaftstypUpsertArgs>(args: SelectSubset<T, tblMeisterschaftstypUpsertArgs<ExtArgs>>): Prisma__tblMeisterschaftstypClient<$Result.GetResult<Prisma.$tblMeisterschaftstypPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TblMeisterschaftstyps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMeisterschaftstypCountArgs} args - Arguments to filter TblMeisterschaftstyps to count.
+     * @example
+     * // Count the number of TblMeisterschaftstyps
+     * const count = await prisma.tblMeisterschaftstyp.count({
+     *   where: {
+     *     // ... the filter for the TblMeisterschaftstyps we want to count
+     *   }
+     * })
+    **/
+    count<T extends tblMeisterschaftstypCountArgs>(
+      args?: Subset<T, tblMeisterschaftstypCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TblMeisterschaftstypCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TblMeisterschaftstyp.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TblMeisterschaftstypAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TblMeisterschaftstypAggregateArgs>(args: Subset<T, TblMeisterschaftstypAggregateArgs>): Prisma.PrismaPromise<GetTblMeisterschaftstypAggregateType<T>>
+
+    /**
+     * Group by TblMeisterschaftstyp.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMeisterschaftstypGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tblMeisterschaftstypGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tblMeisterschaftstypGroupByArgs['orderBy'] }
+        : { orderBy?: tblMeisterschaftstypGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tblMeisterschaftstypGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTblMeisterschaftstypGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tblMeisterschaftstyp model
+   */
+  readonly fields: tblMeisterschaftstypFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tblMeisterschaftstyp.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tblMeisterschaftstypClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tblMeisterschaften<T extends tblMeisterschaftstyp$tblMeisterschaftenArgs<ExtArgs> = {}>(args?: Subset<T, tblMeisterschaftstyp$tblMeisterschaftenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblMeisterschaftenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tblMeisterschaftstyp model
+   */
+  interface tblMeisterschaftstypFieldRefs {
+    readonly ID: FieldRef<"tblMeisterschaftstyp", 'Int'>
+    readonly Meisterschaftstyp: FieldRef<"tblMeisterschaftstyp", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tblMeisterschaftstyp findUnique
+   */
+  export type tblMeisterschaftstypFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaftstyp
+     */
+    select?: tblMeisterschaftstypSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaftstyp
+     */
+    omit?: tblMeisterschaftstypOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftstypInclude<ExtArgs> | null
+    /**
+     * Filter, which tblMeisterschaftstyp to fetch.
+     */
+    where: tblMeisterschaftstypWhereUniqueInput
+  }
+
+  /**
+   * tblMeisterschaftstyp findUniqueOrThrow
+   */
+  export type tblMeisterschaftstypFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaftstyp
+     */
+    select?: tblMeisterschaftstypSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaftstyp
+     */
+    omit?: tblMeisterschaftstypOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftstypInclude<ExtArgs> | null
+    /**
+     * Filter, which tblMeisterschaftstyp to fetch.
+     */
+    where: tblMeisterschaftstypWhereUniqueInput
+  }
+
+  /**
+   * tblMeisterschaftstyp findFirst
+   */
+  export type tblMeisterschaftstypFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaftstyp
+     */
+    select?: tblMeisterschaftstypSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaftstyp
+     */
+    omit?: tblMeisterschaftstypOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftstypInclude<ExtArgs> | null
+    /**
+     * Filter, which tblMeisterschaftstyp to fetch.
+     */
+    where?: tblMeisterschaftstypWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblMeisterschaftstyps to fetch.
+     */
+    orderBy?: tblMeisterschaftstypOrderByWithRelationInput | tblMeisterschaftstypOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblMeisterschaftstyps.
+     */
+    cursor?: tblMeisterschaftstypWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblMeisterschaftstyps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblMeisterschaftstyps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblMeisterschaftstyps.
+     */
+    distinct?: TblMeisterschaftstypScalarFieldEnum | TblMeisterschaftstypScalarFieldEnum[]
+  }
+
+  /**
+   * tblMeisterschaftstyp findFirstOrThrow
+   */
+  export type tblMeisterschaftstypFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaftstyp
+     */
+    select?: tblMeisterschaftstypSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaftstyp
+     */
+    omit?: tblMeisterschaftstypOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftstypInclude<ExtArgs> | null
+    /**
+     * Filter, which tblMeisterschaftstyp to fetch.
+     */
+    where?: tblMeisterschaftstypWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblMeisterschaftstyps to fetch.
+     */
+    orderBy?: tblMeisterschaftstypOrderByWithRelationInput | tblMeisterschaftstypOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblMeisterschaftstyps.
+     */
+    cursor?: tblMeisterschaftstypWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblMeisterschaftstyps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblMeisterschaftstyps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblMeisterschaftstyps.
+     */
+    distinct?: TblMeisterschaftstypScalarFieldEnum | TblMeisterschaftstypScalarFieldEnum[]
+  }
+
+  /**
+   * tblMeisterschaftstyp findMany
+   */
+  export type tblMeisterschaftstypFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaftstyp
+     */
+    select?: tblMeisterschaftstypSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaftstyp
+     */
+    omit?: tblMeisterschaftstypOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftstypInclude<ExtArgs> | null
+    /**
+     * Filter, which tblMeisterschaftstyps to fetch.
+     */
+    where?: tblMeisterschaftstypWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblMeisterschaftstyps to fetch.
+     */
+    orderBy?: tblMeisterschaftstypOrderByWithRelationInput | tblMeisterschaftstypOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tblMeisterschaftstyps.
+     */
+    cursor?: tblMeisterschaftstypWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblMeisterschaftstyps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblMeisterschaftstyps.
+     */
+    skip?: number
+    distinct?: TblMeisterschaftstypScalarFieldEnum | TblMeisterschaftstypScalarFieldEnum[]
+  }
+
+  /**
+   * tblMeisterschaftstyp create
+   */
+  export type tblMeisterschaftstypCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaftstyp
+     */
+    select?: tblMeisterschaftstypSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaftstyp
+     */
+    omit?: tblMeisterschaftstypOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftstypInclude<ExtArgs> | null
+    /**
+     * The data needed to create a tblMeisterschaftstyp.
+     */
+    data: XOR<tblMeisterschaftstypCreateInput, tblMeisterschaftstypUncheckedCreateInput>
+  }
+
+  /**
+   * tblMeisterschaftstyp createMany
+   */
+  export type tblMeisterschaftstypCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tblMeisterschaftstyps.
+     */
+    data: tblMeisterschaftstypCreateManyInput | tblMeisterschaftstypCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tblMeisterschaftstyp update
+   */
+  export type tblMeisterschaftstypUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaftstyp
+     */
+    select?: tblMeisterschaftstypSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaftstyp
+     */
+    omit?: tblMeisterschaftstypOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftstypInclude<ExtArgs> | null
+    /**
+     * The data needed to update a tblMeisterschaftstyp.
+     */
+    data: XOR<tblMeisterschaftstypUpdateInput, tblMeisterschaftstypUncheckedUpdateInput>
+    /**
+     * Choose, which tblMeisterschaftstyp to update.
+     */
+    where: tblMeisterschaftstypWhereUniqueInput
+  }
+
+  /**
+   * tblMeisterschaftstyp updateMany
+   */
+  export type tblMeisterschaftstypUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tblMeisterschaftstyps.
+     */
+    data: XOR<tblMeisterschaftstypUpdateManyMutationInput, tblMeisterschaftstypUncheckedUpdateManyInput>
+    /**
+     * Filter which tblMeisterschaftstyps to update
+     */
+    where?: tblMeisterschaftstypWhereInput
+    /**
+     * Limit how many tblMeisterschaftstyps to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblMeisterschaftstyp upsert
+   */
+  export type tblMeisterschaftstypUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaftstyp
+     */
+    select?: tblMeisterschaftstypSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaftstyp
+     */
+    omit?: tblMeisterschaftstypOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftstypInclude<ExtArgs> | null
+    /**
+     * The filter to search for the tblMeisterschaftstyp to update in case it exists.
+     */
+    where: tblMeisterschaftstypWhereUniqueInput
+    /**
+     * In case the tblMeisterschaftstyp found by the `where` argument doesn't exist, create a new tblMeisterschaftstyp with this data.
+     */
+    create: XOR<tblMeisterschaftstypCreateInput, tblMeisterschaftstypUncheckedCreateInput>
+    /**
+     * In case the tblMeisterschaftstyp was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tblMeisterschaftstypUpdateInput, tblMeisterschaftstypUncheckedUpdateInput>
+  }
+
+  /**
+   * tblMeisterschaftstyp delete
+   */
+  export type tblMeisterschaftstypDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaftstyp
+     */
+    select?: tblMeisterschaftstypSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaftstyp
+     */
+    omit?: tblMeisterschaftstypOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftstypInclude<ExtArgs> | null
+    /**
+     * Filter which tblMeisterschaftstyp to delete.
+     */
+    where: tblMeisterschaftstypWhereUniqueInput
+  }
+
+  /**
+   * tblMeisterschaftstyp deleteMany
+   */
+  export type tblMeisterschaftstypDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblMeisterschaftstyps to delete
+     */
+    where?: tblMeisterschaftstypWhereInput
+    /**
+     * Limit how many tblMeisterschaftstyps to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblMeisterschaftstyp.tblMeisterschaften
+   */
+  export type tblMeisterschaftstyp$tblMeisterschaftenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaften
+     */
+    select?: tblMeisterschaftenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaften
+     */
+    omit?: tblMeisterschaftenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftenInclude<ExtArgs> | null
+    where?: tblMeisterschaftenWhereInput
+    orderBy?: tblMeisterschaftenOrderByWithRelationInput | tblMeisterschaftenOrderByWithRelationInput[]
+    cursor?: tblMeisterschaftenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TblMeisterschaftenScalarFieldEnum | TblMeisterschaftenScalarFieldEnum[]
+  }
+
+  /**
+   * tblMeisterschaftstyp without action
+   */
+  export type tblMeisterschaftstypDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMeisterschaftstyp
+     */
+    select?: tblMeisterschaftstypSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMeisterschaftstyp
+     */
+    omit?: tblMeisterschaftstypOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMeisterschaftstypInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model tblMitglieder
+   */
+
+  export type AggregateTblMitglieder = {
+    _count: TblMitgliederCountAggregateOutputType | null
+    _avg: TblMitgliederAvgAggregateOutputType | null
+    _sum: TblMitgliederSumAggregateOutputType | null
+    _min: TblMitgliederMinAggregateOutputType | null
+    _max: TblMitgliederMaxAggregateOutputType | null
+  }
+
+  export type TblMitgliederAvgAggregateOutputType = {
+    ID: number | null
+    SpAnz: number | null
+    SpGew: number | null
+    SpUn: number | null
+    SpVerl: number | null
+    HolzGes: number | null
+    HolzMax: number | null
+    HolzMin: number | null
+    Punkte: number | null
+    TurboDBNummer: number | null
+  }
+
+  export type TblMitgliederSumAggregateOutputType = {
+    ID: number | null
+    SpAnz: number | null
+    SpGew: number | null
+    SpUn: number | null
+    SpVerl: number | null
+    HolzGes: number | null
+    HolzMax: number | null
+    HolzMin: number | null
+    Punkte: number | null
+    TurboDBNummer: number | null
+  }
+
+  export type TblMitgliederMinAggregateOutputType = {
+    ID: number | null
+    Vorname: string | null
+    Nachname: string | null
+    Spitzname: string | null
+    Strasse: string | null
+    PLZ: string | null
+    Ort: string | null
+    Geburtsdatum: Date | null
+    MitgliedSeit: Date | null
+    PassivSeit: Date | null
+    AusgeschiedenAm: Date | null
+    Ehemaliger: boolean | null
+    Notizen: string | null
+    Bemerkungen: string | null
+    Anrede: string | null
+    EMail: string | null
+    TelefonPrivat: string | null
+    TelefonFirma: string | null
+    TelefonMobil: string | null
+    Fax: string | null
+    SpAnz: number | null
+    SpGew: number | null
+    SpUn: number | null
+    SpVerl: number | null
+    HolzGes: number | null
+    HolzMax: number | null
+    HolzMin: number | null
+    Punkte: number | null
+    Platz: string | null
+    TurboDBNummer: number | null
+    Login: string | null
+    Password: string | null
+  }
+
+  export type TblMitgliederMaxAggregateOutputType = {
+    ID: number | null
+    Vorname: string | null
+    Nachname: string | null
+    Spitzname: string | null
+    Strasse: string | null
+    PLZ: string | null
+    Ort: string | null
+    Geburtsdatum: Date | null
+    MitgliedSeit: Date | null
+    PassivSeit: Date | null
+    AusgeschiedenAm: Date | null
+    Ehemaliger: boolean | null
+    Notizen: string | null
+    Bemerkungen: string | null
+    Anrede: string | null
+    EMail: string | null
+    TelefonPrivat: string | null
+    TelefonFirma: string | null
+    TelefonMobil: string | null
+    Fax: string | null
+    SpAnz: number | null
+    SpGew: number | null
+    SpUn: number | null
+    SpVerl: number | null
+    HolzGes: number | null
+    HolzMax: number | null
+    HolzMin: number | null
+    Punkte: number | null
+    Platz: string | null
+    TurboDBNummer: number | null
+    Login: string | null
+    Password: string | null
+  }
+
+  export type TblMitgliederCountAggregateOutputType = {
+    ID: number
+    Vorname: number
+    Nachname: number
+    Spitzname: number
+    Strasse: number
+    PLZ: number
+    Ort: number
+    Geburtsdatum: number
+    MitgliedSeit: number
+    PassivSeit: number
+    AusgeschiedenAm: number
+    Ehemaliger: number
+    Notizen: number
+    Bemerkungen: number
+    Anrede: number
+    EMail: number
+    TelefonPrivat: number
+    TelefonFirma: number
+    TelefonMobil: number
+    Fax: number
+    SpAnz: number
+    SpGew: number
+    SpUn: number
+    SpVerl: number
+    HolzGes: number
+    HolzMax: number
+    HolzMin: number
+    Punkte: number
+    Platz: number
+    TurboDBNummer: number
+    Login: number
+    Password: number
+    _all: number
+  }
+
+
+  export type TblMitgliederAvgAggregateInputType = {
+    ID?: true
+    SpAnz?: true
+    SpGew?: true
+    SpUn?: true
+    SpVerl?: true
+    HolzGes?: true
+    HolzMax?: true
+    HolzMin?: true
+    Punkte?: true
+    TurboDBNummer?: true
+  }
+
+  export type TblMitgliederSumAggregateInputType = {
+    ID?: true
+    SpAnz?: true
+    SpGew?: true
+    SpUn?: true
+    SpVerl?: true
+    HolzGes?: true
+    HolzMax?: true
+    HolzMin?: true
+    Punkte?: true
+    TurboDBNummer?: true
+  }
+
+  export type TblMitgliederMinAggregateInputType = {
+    ID?: true
+    Vorname?: true
+    Nachname?: true
+    Spitzname?: true
+    Strasse?: true
+    PLZ?: true
+    Ort?: true
+    Geburtsdatum?: true
+    MitgliedSeit?: true
+    PassivSeit?: true
+    AusgeschiedenAm?: true
+    Ehemaliger?: true
+    Notizen?: true
+    Bemerkungen?: true
+    Anrede?: true
+    EMail?: true
+    TelefonPrivat?: true
+    TelefonFirma?: true
+    TelefonMobil?: true
+    Fax?: true
+    SpAnz?: true
+    SpGew?: true
+    SpUn?: true
+    SpVerl?: true
+    HolzGes?: true
+    HolzMax?: true
+    HolzMin?: true
+    Punkte?: true
+    Platz?: true
+    TurboDBNummer?: true
+    Login?: true
+    Password?: true
+  }
+
+  export type TblMitgliederMaxAggregateInputType = {
+    ID?: true
+    Vorname?: true
+    Nachname?: true
+    Spitzname?: true
+    Strasse?: true
+    PLZ?: true
+    Ort?: true
+    Geburtsdatum?: true
+    MitgliedSeit?: true
+    PassivSeit?: true
+    AusgeschiedenAm?: true
+    Ehemaliger?: true
+    Notizen?: true
+    Bemerkungen?: true
+    Anrede?: true
+    EMail?: true
+    TelefonPrivat?: true
+    TelefonFirma?: true
+    TelefonMobil?: true
+    Fax?: true
+    SpAnz?: true
+    SpGew?: true
+    SpUn?: true
+    SpVerl?: true
+    HolzGes?: true
+    HolzMax?: true
+    HolzMin?: true
+    Punkte?: true
+    Platz?: true
+    TurboDBNummer?: true
+    Login?: true
+    Password?: true
+  }
+
+  export type TblMitgliederCountAggregateInputType = {
+    ID?: true
+    Vorname?: true
+    Nachname?: true
+    Spitzname?: true
+    Strasse?: true
+    PLZ?: true
+    Ort?: true
+    Geburtsdatum?: true
+    MitgliedSeit?: true
+    PassivSeit?: true
+    AusgeschiedenAm?: true
+    Ehemaliger?: true
+    Notizen?: true
+    Bemerkungen?: true
+    Anrede?: true
+    EMail?: true
+    TelefonPrivat?: true
+    TelefonFirma?: true
+    TelefonMobil?: true
+    Fax?: true
+    SpAnz?: true
+    SpGew?: true
+    SpUn?: true
+    SpVerl?: true
+    HolzGes?: true
+    HolzMax?: true
+    HolzMin?: true
+    Punkte?: true
+    Platz?: true
+    TurboDBNummer?: true
+    Login?: true
+    Password?: true
+    _all?: true
+  }
+
+  export type TblMitgliederAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblMitglieder to aggregate.
+     */
+    where?: tblMitgliederWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblMitglieders to fetch.
+     */
+    orderBy?: tblMitgliederOrderByWithRelationInput | tblMitgliederOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tblMitgliederWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblMitglieders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblMitglieders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tblMitglieders
+    **/
+    _count?: true | TblMitgliederCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TblMitgliederAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TblMitgliederSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TblMitgliederMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TblMitgliederMaxAggregateInputType
+  }
+
+  export type GetTblMitgliederAggregateType<T extends TblMitgliederAggregateArgs> = {
+        [P in keyof T & keyof AggregateTblMitglieder]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTblMitglieder[P]>
+      : GetScalarType<T[P], AggregateTblMitglieder[P]>
+  }
+
+
+
+
+  export type tblMitgliederGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblMitgliederWhereInput
+    orderBy?: tblMitgliederOrderByWithAggregationInput | tblMitgliederOrderByWithAggregationInput[]
+    by: TblMitgliederScalarFieldEnum[] | TblMitgliederScalarFieldEnum
+    having?: tblMitgliederScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TblMitgliederCountAggregateInputType | true
+    _avg?: TblMitgliederAvgAggregateInputType
+    _sum?: TblMitgliederSumAggregateInputType
+    _min?: TblMitgliederMinAggregateInputType
+    _max?: TblMitgliederMaxAggregateInputType
+  }
+
+  export type TblMitgliederGroupByOutputType = {
+    ID: number
+    Vorname: string
+    Nachname: string
+    Spitzname: string | null
+    Strasse: string | null
+    PLZ: string | null
+    Ort: string | null
+    Geburtsdatum: Date | null
+    MitgliedSeit: Date
+    PassivSeit: Date | null
+    AusgeschiedenAm: Date | null
+    Ehemaliger: boolean
+    Notizen: string | null
+    Bemerkungen: string | null
+    Anrede: string | null
+    EMail: string | null
+    TelefonPrivat: string | null
+    TelefonFirma: string | null
+    TelefonMobil: string | null
+    Fax: string | null
+    SpAnz: number | null
+    SpGew: number | null
+    SpUn: number | null
+    SpVerl: number | null
+    HolzGes: number | null
+    HolzMax: number | null
+    HolzMin: number | null
+    Punkte: number | null
+    Platz: string | null
+    TurboDBNummer: number | null
+    Login: string | null
+    Password: string | null
+    _count: TblMitgliederCountAggregateOutputType | null
+    _avg: TblMitgliederAvgAggregateOutputType | null
+    _sum: TblMitgliederSumAggregateOutputType | null
+    _min: TblMitgliederMinAggregateOutputType | null
+    _max: TblMitgliederMaxAggregateOutputType | null
+  }
+
+  type GetTblMitgliederGroupByPayload<T extends tblMitgliederGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TblMitgliederGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TblMitgliederGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TblMitgliederGroupByOutputType[P]>
+            : GetScalarType<T[P], TblMitgliederGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tblMitgliederSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ID?: boolean
+    Vorname?: boolean
+    Nachname?: boolean
+    Spitzname?: boolean
+    Strasse?: boolean
+    PLZ?: boolean
+    Ort?: boolean
+    Geburtsdatum?: boolean
+    MitgliedSeit?: boolean
+    PassivSeit?: boolean
+    AusgeschiedenAm?: boolean
+    Ehemaliger?: boolean
+    Notizen?: boolean
+    Bemerkungen?: boolean
+    Anrede?: boolean
+    EMail?: boolean
+    TelefonPrivat?: boolean
+    TelefonFirma?: boolean
+    TelefonMobil?: boolean
+    Fax?: boolean
+    SpAnz?: boolean
+    SpGew?: boolean
+    SpUn?: boolean
+    SpVerl?: boolean
+    HolzGes?: boolean
+    HolzMax?: boolean
+    HolzMin?: boolean
+    Punkte?: boolean
+    Platz?: boolean
+    TurboDBNummer?: boolean
+    Login?: boolean
+    Password?: boolean
+    tblTeilnehmer?: boolean | tblMitglieder$tblTeilnehmerArgs<ExtArgs>
+    _count?: boolean | TblMitgliederCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tblMitglieder"]>
+
+
+
+  export type tblMitgliederSelectScalar = {
+    ID?: boolean
+    Vorname?: boolean
+    Nachname?: boolean
+    Spitzname?: boolean
+    Strasse?: boolean
+    PLZ?: boolean
+    Ort?: boolean
+    Geburtsdatum?: boolean
+    MitgliedSeit?: boolean
+    PassivSeit?: boolean
+    AusgeschiedenAm?: boolean
+    Ehemaliger?: boolean
+    Notizen?: boolean
+    Bemerkungen?: boolean
+    Anrede?: boolean
+    EMail?: boolean
+    TelefonPrivat?: boolean
+    TelefonFirma?: boolean
+    TelefonMobil?: boolean
+    Fax?: boolean
+    SpAnz?: boolean
+    SpGew?: boolean
+    SpUn?: boolean
+    SpVerl?: boolean
+    HolzGes?: boolean
+    HolzMax?: boolean
+    HolzMin?: boolean
+    Punkte?: boolean
+    Platz?: boolean
+    TurboDBNummer?: boolean
+    Login?: boolean
+    Password?: boolean
+  }
+
+  export type tblMitgliederOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"ID" | "Vorname" | "Nachname" | "Spitzname" | "Strasse" | "PLZ" | "Ort" | "Geburtsdatum" | "MitgliedSeit" | "PassivSeit" | "AusgeschiedenAm" | "Ehemaliger" | "Notizen" | "Bemerkungen" | "Anrede" | "EMail" | "TelefonPrivat" | "TelefonFirma" | "TelefonMobil" | "Fax" | "SpAnz" | "SpGew" | "SpUn" | "SpVerl" | "HolzGes" | "HolzMax" | "HolzMin" | "Punkte" | "Platz" | "TurboDBNummer" | "Login" | "Password", ExtArgs["result"]["tblMitglieder"]>
+  export type tblMitgliederInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tblTeilnehmer?: boolean | tblMitglieder$tblTeilnehmerArgs<ExtArgs>
+    _count?: boolean | TblMitgliederCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $tblMitgliederPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tblMitglieder"
+    objects: {
+      tblTeilnehmer: Prisma.$tblTeilnehmerPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      ID: number
+      Vorname: string
+      Nachname: string
+      Spitzname: string | null
+      Strasse: string | null
+      PLZ: string | null
+      Ort: string | null
+      Geburtsdatum: Date | null
+      MitgliedSeit: Date
+      PassivSeit: Date | null
+      AusgeschiedenAm: Date | null
+      Ehemaliger: boolean
+      Notizen: string | null
+      Bemerkungen: string | null
+      Anrede: string | null
+      EMail: string | null
+      TelefonPrivat: string | null
+      TelefonFirma: string | null
+      TelefonMobil: string | null
+      Fax: string | null
+      SpAnz: number | null
+      SpGew: number | null
+      SpUn: number | null
+      SpVerl: number | null
+      HolzGes: number | null
+      HolzMax: number | null
+      HolzMin: number | null
+      Punkte: number | null
+      Platz: string | null
+      TurboDBNummer: number | null
+      Login: string | null
+      Password: string | null
+    }, ExtArgs["result"]["tblMitglieder"]>
+    composites: {}
+  }
+
+  type tblMitgliederGetPayload<S extends boolean | null | undefined | tblMitgliederDefaultArgs> = $Result.GetResult<Prisma.$tblMitgliederPayload, S>
+
+  type tblMitgliederCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tblMitgliederFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TblMitgliederCountAggregateInputType | true
+    }
+
+  export interface tblMitgliederDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tblMitglieder'], meta: { name: 'tblMitglieder' } }
+    /**
+     * Find zero or one TblMitglieder that matches the filter.
+     * @param {tblMitgliederFindUniqueArgs} args - Arguments to find a TblMitglieder
+     * @example
+     * // Get one TblMitglieder
+     * const tblMitglieder = await prisma.tblMitglieder.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tblMitgliederFindUniqueArgs>(args: SelectSubset<T, tblMitgliederFindUniqueArgs<ExtArgs>>): Prisma__tblMitgliederClient<$Result.GetResult<Prisma.$tblMitgliederPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TblMitglieder that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tblMitgliederFindUniqueOrThrowArgs} args - Arguments to find a TblMitglieder
+     * @example
+     * // Get one TblMitglieder
+     * const tblMitglieder = await prisma.tblMitglieder.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tblMitgliederFindUniqueOrThrowArgs>(args: SelectSubset<T, tblMitgliederFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tblMitgliederClient<$Result.GetResult<Prisma.$tblMitgliederPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblMitglieder that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMitgliederFindFirstArgs} args - Arguments to find a TblMitglieder
+     * @example
+     * // Get one TblMitglieder
+     * const tblMitglieder = await prisma.tblMitglieder.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tblMitgliederFindFirstArgs>(args?: SelectSubset<T, tblMitgliederFindFirstArgs<ExtArgs>>): Prisma__tblMitgliederClient<$Result.GetResult<Prisma.$tblMitgliederPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblMitglieder that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMitgliederFindFirstOrThrowArgs} args - Arguments to find a TblMitglieder
+     * @example
+     * // Get one TblMitglieder
+     * const tblMitglieder = await prisma.tblMitglieder.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tblMitgliederFindFirstOrThrowArgs>(args?: SelectSubset<T, tblMitgliederFindFirstOrThrowArgs<ExtArgs>>): Prisma__tblMitgliederClient<$Result.GetResult<Prisma.$tblMitgliederPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TblMitglieders that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMitgliederFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TblMitglieders
+     * const tblMitglieders = await prisma.tblMitglieder.findMany()
+     * 
+     * // Get first 10 TblMitglieders
+     * const tblMitglieders = await prisma.tblMitglieder.findMany({ take: 10 })
+     * 
+     * // Only select the `ID`
+     * const tblMitgliederWithIDOnly = await prisma.tblMitglieder.findMany({ select: { ID: true } })
+     * 
+     */
+    findMany<T extends tblMitgliederFindManyArgs>(args?: SelectSubset<T, tblMitgliederFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblMitgliederPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TblMitglieder.
+     * @param {tblMitgliederCreateArgs} args - Arguments to create a TblMitglieder.
+     * @example
+     * // Create one TblMitglieder
+     * const TblMitglieder = await prisma.tblMitglieder.create({
+     *   data: {
+     *     // ... data to create a TblMitglieder
+     *   }
+     * })
+     * 
+     */
+    create<T extends tblMitgliederCreateArgs>(args: SelectSubset<T, tblMitgliederCreateArgs<ExtArgs>>): Prisma__tblMitgliederClient<$Result.GetResult<Prisma.$tblMitgliederPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TblMitglieders.
+     * @param {tblMitgliederCreateManyArgs} args - Arguments to create many TblMitglieders.
+     * @example
+     * // Create many TblMitglieders
+     * const tblMitglieder = await prisma.tblMitglieder.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tblMitgliederCreateManyArgs>(args?: SelectSubset<T, tblMitgliederCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a TblMitglieder.
+     * @param {tblMitgliederDeleteArgs} args - Arguments to delete one TblMitglieder.
+     * @example
+     * // Delete one TblMitglieder
+     * const TblMitglieder = await prisma.tblMitglieder.delete({
+     *   where: {
+     *     // ... filter to delete one TblMitglieder
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tblMitgliederDeleteArgs>(args: SelectSubset<T, tblMitgliederDeleteArgs<ExtArgs>>): Prisma__tblMitgliederClient<$Result.GetResult<Prisma.$tblMitgliederPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TblMitglieder.
+     * @param {tblMitgliederUpdateArgs} args - Arguments to update one TblMitglieder.
+     * @example
+     * // Update one TblMitglieder
+     * const tblMitglieder = await prisma.tblMitglieder.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tblMitgliederUpdateArgs>(args: SelectSubset<T, tblMitgliederUpdateArgs<ExtArgs>>): Prisma__tblMitgliederClient<$Result.GetResult<Prisma.$tblMitgliederPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TblMitglieders.
+     * @param {tblMitgliederDeleteManyArgs} args - Arguments to filter TblMitglieders to delete.
+     * @example
+     * // Delete a few TblMitglieders
+     * const { count } = await prisma.tblMitglieder.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tblMitgliederDeleteManyArgs>(args?: SelectSubset<T, tblMitgliederDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TblMitglieders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMitgliederUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TblMitglieders
+     * const tblMitglieder = await prisma.tblMitglieder.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tblMitgliederUpdateManyArgs>(args: SelectSubset<T, tblMitgliederUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TblMitglieder.
+     * @param {tblMitgliederUpsertArgs} args - Arguments to update or create a TblMitglieder.
+     * @example
+     * // Update or create a TblMitglieder
+     * const tblMitglieder = await prisma.tblMitglieder.upsert({
+     *   create: {
+     *     // ... data to create a TblMitglieder
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TblMitglieder we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tblMitgliederUpsertArgs>(args: SelectSubset<T, tblMitgliederUpsertArgs<ExtArgs>>): Prisma__tblMitgliederClient<$Result.GetResult<Prisma.$tblMitgliederPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TblMitglieders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMitgliederCountArgs} args - Arguments to filter TblMitglieders to count.
+     * @example
+     * // Count the number of TblMitglieders
+     * const count = await prisma.tblMitglieder.count({
+     *   where: {
+     *     // ... the filter for the TblMitglieders we want to count
+     *   }
+     * })
+    **/
+    count<T extends tblMitgliederCountArgs>(
+      args?: Subset<T, tblMitgliederCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TblMitgliederCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TblMitglieder.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TblMitgliederAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TblMitgliederAggregateArgs>(args: Subset<T, TblMitgliederAggregateArgs>): Prisma.PrismaPromise<GetTblMitgliederAggregateType<T>>
+
+    /**
+     * Group by TblMitglieder.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblMitgliederGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tblMitgliederGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tblMitgliederGroupByArgs['orderBy'] }
+        : { orderBy?: tblMitgliederGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tblMitgliederGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTblMitgliederGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tblMitglieder model
+   */
+  readonly fields: tblMitgliederFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tblMitglieder.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tblMitgliederClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tblTeilnehmer<T extends tblMitglieder$tblTeilnehmerArgs<ExtArgs> = {}>(args?: Subset<T, tblMitglieder$tblTeilnehmerArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblTeilnehmerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tblMitglieder model
+   */
+  interface tblMitgliederFieldRefs {
+    readonly ID: FieldRef<"tblMitglieder", 'Int'>
+    readonly Vorname: FieldRef<"tblMitglieder", 'String'>
+    readonly Nachname: FieldRef<"tblMitglieder", 'String'>
+    readonly Spitzname: FieldRef<"tblMitglieder", 'String'>
+    readonly Strasse: FieldRef<"tblMitglieder", 'String'>
+    readonly PLZ: FieldRef<"tblMitglieder", 'String'>
+    readonly Ort: FieldRef<"tblMitglieder", 'String'>
+    readonly Geburtsdatum: FieldRef<"tblMitglieder", 'DateTime'>
+    readonly MitgliedSeit: FieldRef<"tblMitglieder", 'DateTime'>
+    readonly PassivSeit: FieldRef<"tblMitglieder", 'DateTime'>
+    readonly AusgeschiedenAm: FieldRef<"tblMitglieder", 'DateTime'>
+    readonly Ehemaliger: FieldRef<"tblMitglieder", 'Boolean'>
+    readonly Notizen: FieldRef<"tblMitglieder", 'String'>
+    readonly Bemerkungen: FieldRef<"tblMitglieder", 'String'>
+    readonly Anrede: FieldRef<"tblMitglieder", 'String'>
+    readonly EMail: FieldRef<"tblMitglieder", 'String'>
+    readonly TelefonPrivat: FieldRef<"tblMitglieder", 'String'>
+    readonly TelefonFirma: FieldRef<"tblMitglieder", 'String'>
+    readonly TelefonMobil: FieldRef<"tblMitglieder", 'String'>
+    readonly Fax: FieldRef<"tblMitglieder", 'String'>
+    readonly SpAnz: FieldRef<"tblMitglieder", 'Int'>
+    readonly SpGew: FieldRef<"tblMitglieder", 'Int'>
+    readonly SpUn: FieldRef<"tblMitglieder", 'Int'>
+    readonly SpVerl: FieldRef<"tblMitglieder", 'Int'>
+    readonly HolzGes: FieldRef<"tblMitglieder", 'Int'>
+    readonly HolzMax: FieldRef<"tblMitglieder", 'Int'>
+    readonly HolzMin: FieldRef<"tblMitglieder", 'Int'>
+    readonly Punkte: FieldRef<"tblMitglieder", 'Int'>
+    readonly Platz: FieldRef<"tblMitglieder", 'String'>
+    readonly TurboDBNummer: FieldRef<"tblMitglieder", 'Int'>
+    readonly Login: FieldRef<"tblMitglieder", 'String'>
+    readonly Password: FieldRef<"tblMitglieder", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tblMitglieder findUnique
+   */
+  export type tblMitgliederFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMitglieder
+     */
+    select?: tblMitgliederSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMitglieder
+     */
+    omit?: tblMitgliederOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMitgliederInclude<ExtArgs> | null
+    /**
+     * Filter, which tblMitglieder to fetch.
+     */
+    where: tblMitgliederWhereUniqueInput
+  }
+
+  /**
+   * tblMitglieder findUniqueOrThrow
+   */
+  export type tblMitgliederFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMitglieder
+     */
+    select?: tblMitgliederSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMitglieder
+     */
+    omit?: tblMitgliederOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMitgliederInclude<ExtArgs> | null
+    /**
+     * Filter, which tblMitglieder to fetch.
+     */
+    where: tblMitgliederWhereUniqueInput
+  }
+
+  /**
+   * tblMitglieder findFirst
+   */
+  export type tblMitgliederFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMitglieder
+     */
+    select?: tblMitgliederSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMitglieder
+     */
+    omit?: tblMitgliederOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMitgliederInclude<ExtArgs> | null
+    /**
+     * Filter, which tblMitglieder to fetch.
+     */
+    where?: tblMitgliederWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblMitglieders to fetch.
+     */
+    orderBy?: tblMitgliederOrderByWithRelationInput | tblMitgliederOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblMitglieders.
+     */
+    cursor?: tblMitgliederWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblMitglieders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblMitglieders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblMitglieders.
+     */
+    distinct?: TblMitgliederScalarFieldEnum | TblMitgliederScalarFieldEnum[]
+  }
+
+  /**
+   * tblMitglieder findFirstOrThrow
+   */
+  export type tblMitgliederFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMitglieder
+     */
+    select?: tblMitgliederSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMitglieder
+     */
+    omit?: tblMitgliederOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMitgliederInclude<ExtArgs> | null
+    /**
+     * Filter, which tblMitglieder to fetch.
+     */
+    where?: tblMitgliederWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblMitglieders to fetch.
+     */
+    orderBy?: tblMitgliederOrderByWithRelationInput | tblMitgliederOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblMitglieders.
+     */
+    cursor?: tblMitgliederWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblMitglieders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblMitglieders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblMitglieders.
+     */
+    distinct?: TblMitgliederScalarFieldEnum | TblMitgliederScalarFieldEnum[]
+  }
+
+  /**
+   * tblMitglieder findMany
+   */
+  export type tblMitgliederFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMitglieder
+     */
+    select?: tblMitgliederSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMitglieder
+     */
+    omit?: tblMitgliederOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMitgliederInclude<ExtArgs> | null
+    /**
+     * Filter, which tblMitglieders to fetch.
+     */
+    where?: tblMitgliederWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblMitglieders to fetch.
+     */
+    orderBy?: tblMitgliederOrderByWithRelationInput | tblMitgliederOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tblMitglieders.
+     */
+    cursor?: tblMitgliederWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblMitglieders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblMitglieders.
+     */
+    skip?: number
+    distinct?: TblMitgliederScalarFieldEnum | TblMitgliederScalarFieldEnum[]
+  }
+
+  /**
+   * tblMitglieder create
+   */
+  export type tblMitgliederCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMitglieder
+     */
+    select?: tblMitgliederSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMitglieder
+     */
+    omit?: tblMitgliederOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMitgliederInclude<ExtArgs> | null
+    /**
+     * The data needed to create a tblMitglieder.
+     */
+    data: XOR<tblMitgliederCreateInput, tblMitgliederUncheckedCreateInput>
+  }
+
+  /**
+   * tblMitglieder createMany
+   */
+  export type tblMitgliederCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tblMitglieders.
+     */
+    data: tblMitgliederCreateManyInput | tblMitgliederCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tblMitglieder update
+   */
+  export type tblMitgliederUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMitglieder
+     */
+    select?: tblMitgliederSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMitglieder
+     */
+    omit?: tblMitgliederOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMitgliederInclude<ExtArgs> | null
+    /**
+     * The data needed to update a tblMitglieder.
+     */
+    data: XOR<tblMitgliederUpdateInput, tblMitgliederUncheckedUpdateInput>
+    /**
+     * Choose, which tblMitglieder to update.
+     */
+    where: tblMitgliederWhereUniqueInput
+  }
+
+  /**
+   * tblMitglieder updateMany
+   */
+  export type tblMitgliederUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tblMitglieders.
+     */
+    data: XOR<tblMitgliederUpdateManyMutationInput, tblMitgliederUncheckedUpdateManyInput>
+    /**
+     * Filter which tblMitglieders to update
+     */
+    where?: tblMitgliederWhereInput
+    /**
+     * Limit how many tblMitglieders to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblMitglieder upsert
+   */
+  export type tblMitgliederUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMitglieder
+     */
+    select?: tblMitgliederSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMitglieder
+     */
+    omit?: tblMitgliederOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMitgliederInclude<ExtArgs> | null
+    /**
+     * The filter to search for the tblMitglieder to update in case it exists.
+     */
+    where: tblMitgliederWhereUniqueInput
+    /**
+     * In case the tblMitglieder found by the `where` argument doesn't exist, create a new tblMitglieder with this data.
+     */
+    create: XOR<tblMitgliederCreateInput, tblMitgliederUncheckedCreateInput>
+    /**
+     * In case the tblMitglieder was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tblMitgliederUpdateInput, tblMitgliederUncheckedUpdateInput>
+  }
+
+  /**
+   * tblMitglieder delete
+   */
+  export type tblMitgliederDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMitglieder
+     */
+    select?: tblMitgliederSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMitglieder
+     */
+    omit?: tblMitgliederOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMitgliederInclude<ExtArgs> | null
+    /**
+     * Filter which tblMitglieder to delete.
+     */
+    where: tblMitgliederWhereUniqueInput
+  }
+
+  /**
+   * tblMitglieder deleteMany
+   */
+  export type tblMitgliederDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblMitglieders to delete
+     */
+    where?: tblMitgliederWhereInput
+    /**
+     * Limit how many tblMitglieders to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblMitglieder.tblTeilnehmer
+   */
+  export type tblMitglieder$tblTeilnehmerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblTeilnehmer
+     */
+    select?: tblTeilnehmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblTeilnehmer
+     */
+    omit?: tblTeilnehmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblTeilnehmerInclude<ExtArgs> | null
+    where?: tblTeilnehmerWhereInput
+    orderBy?: tblTeilnehmerOrderByWithRelationInput | tblTeilnehmerOrderByWithRelationInput[]
+    cursor?: tblTeilnehmerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TblTeilnehmerScalarFieldEnum | TblTeilnehmerScalarFieldEnum[]
+  }
+
+  /**
+   * tblMitglieder without action
+   */
+  export type tblMitgliederDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblMitglieder
+     */
+    select?: tblMitgliederSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblMitglieder
+     */
+    omit?: tblMitgliederOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblMitgliederInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model tblSettings
+   */
+
+  export type AggregateTblSettings = {
+    _count: TblSettingsCountAggregateOutputType | null
+    _avg: TblSettingsAvgAggregateOutputType | null
+    _sum: TblSettingsSumAggregateOutputType | null
+    _min: TblSettingsMinAggregateOutputType | null
+    _max: TblSettingsMaxAggregateOutputType | null
+  }
+
+  export type TblSettingsAvgAggregateOutputType = {
+    ID: number | null
+  }
+
+  export type TblSettingsSumAggregateOutputType = {
+    ID: number | null
+  }
+
+  export type TblSettingsMinAggregateOutputType = {
+    ID: number | null
+    Computername: string | null
+    Parametername: string | null
+    Parameterwert: string | null
+  }
+
+  export type TblSettingsMaxAggregateOutputType = {
+    ID: number | null
+    Computername: string | null
+    Parametername: string | null
+    Parameterwert: string | null
+  }
+
+  export type TblSettingsCountAggregateOutputType = {
+    ID: number
+    Computername: number
+    Parametername: number
+    Parameterwert: number
+    _all: number
+  }
+
+
+  export type TblSettingsAvgAggregateInputType = {
+    ID?: true
+  }
+
+  export type TblSettingsSumAggregateInputType = {
+    ID?: true
+  }
+
+  export type TblSettingsMinAggregateInputType = {
+    ID?: true
+    Computername?: true
+    Parametername?: true
+    Parameterwert?: true
+  }
+
+  export type TblSettingsMaxAggregateInputType = {
+    ID?: true
+    Computername?: true
+    Parametername?: true
+    Parameterwert?: true
+  }
+
+  export type TblSettingsCountAggregateInputType = {
+    ID?: true
+    Computername?: true
+    Parametername?: true
+    Parameterwert?: true
+    _all?: true
+  }
+
+  export type TblSettingsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSettings to aggregate.
+     */
+    where?: tblSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSettings to fetch.
+     */
+    orderBy?: tblSettingsOrderByWithRelationInput | tblSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tblSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tblSettings
+    **/
+    _count?: true | TblSettingsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TblSettingsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TblSettingsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TblSettingsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TblSettingsMaxAggregateInputType
+  }
+
+  export type GetTblSettingsAggregateType<T extends TblSettingsAggregateArgs> = {
+        [P in keyof T & keyof AggregateTblSettings]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTblSettings[P]>
+      : GetScalarType<T[P], AggregateTblSettings[P]>
+  }
+
+
+
+
+  export type tblSettingsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblSettingsWhereInput
+    orderBy?: tblSettingsOrderByWithAggregationInput | tblSettingsOrderByWithAggregationInput[]
+    by: TblSettingsScalarFieldEnum[] | TblSettingsScalarFieldEnum
+    having?: tblSettingsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TblSettingsCountAggregateInputType | true
+    _avg?: TblSettingsAvgAggregateInputType
+    _sum?: TblSettingsSumAggregateInputType
+    _min?: TblSettingsMinAggregateInputType
+    _max?: TblSettingsMaxAggregateInputType
+  }
+
+  export type TblSettingsGroupByOutputType = {
+    ID: number
+    Computername: string
+    Parametername: string
+    Parameterwert: string
+    _count: TblSettingsCountAggregateOutputType | null
+    _avg: TblSettingsAvgAggregateOutputType | null
+    _sum: TblSettingsSumAggregateOutputType | null
+    _min: TblSettingsMinAggregateOutputType | null
+    _max: TblSettingsMaxAggregateOutputType | null
+  }
+
+  type GetTblSettingsGroupByPayload<T extends tblSettingsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TblSettingsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TblSettingsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TblSettingsGroupByOutputType[P]>
+            : GetScalarType<T[P], TblSettingsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tblSettingsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ID?: boolean
+    Computername?: boolean
+    Parametername?: boolean
+    Parameterwert?: boolean
+  }, ExtArgs["result"]["tblSettings"]>
+
+
+
+  export type tblSettingsSelectScalar = {
+    ID?: boolean
+    Computername?: boolean
+    Parametername?: boolean
+    Parameterwert?: boolean
+  }
+
+  export type tblSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"ID" | "Computername" | "Parametername" | "Parameterwert", ExtArgs["result"]["tblSettings"]>
+
+  export type $tblSettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tblSettings"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      ID: number
+      Computername: string
+      Parametername: string
+      Parameterwert: string
+    }, ExtArgs["result"]["tblSettings"]>
+    composites: {}
+  }
+
+  type tblSettingsGetPayload<S extends boolean | null | undefined | tblSettingsDefaultArgs> = $Result.GetResult<Prisma.$tblSettingsPayload, S>
+
+  type tblSettingsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tblSettingsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TblSettingsCountAggregateInputType | true
+    }
+
+  export interface tblSettingsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tblSettings'], meta: { name: 'tblSettings' } }
+    /**
+     * Find zero or one TblSettings that matches the filter.
+     * @param {tblSettingsFindUniqueArgs} args - Arguments to find a TblSettings
+     * @example
+     * // Get one TblSettings
+     * const tblSettings = await prisma.tblSettings.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tblSettingsFindUniqueArgs>(args: SelectSubset<T, tblSettingsFindUniqueArgs<ExtArgs>>): Prisma__tblSettingsClient<$Result.GetResult<Prisma.$tblSettingsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TblSettings that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tblSettingsFindUniqueOrThrowArgs} args - Arguments to find a TblSettings
+     * @example
+     * // Get one TblSettings
+     * const tblSettings = await prisma.tblSettings.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tblSettingsFindUniqueOrThrowArgs>(args: SelectSubset<T, tblSettingsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tblSettingsClient<$Result.GetResult<Prisma.$tblSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSettingsFindFirstArgs} args - Arguments to find a TblSettings
+     * @example
+     * // Get one TblSettings
+     * const tblSettings = await prisma.tblSettings.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tblSettingsFindFirstArgs>(args?: SelectSubset<T, tblSettingsFindFirstArgs<ExtArgs>>): Prisma__tblSettingsClient<$Result.GetResult<Prisma.$tblSettingsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSettings that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSettingsFindFirstOrThrowArgs} args - Arguments to find a TblSettings
+     * @example
+     * // Get one TblSettings
+     * const tblSettings = await prisma.tblSettings.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tblSettingsFindFirstOrThrowArgs>(args?: SelectSubset<T, tblSettingsFindFirstOrThrowArgs<ExtArgs>>): Prisma__tblSettingsClient<$Result.GetResult<Prisma.$tblSettingsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TblSettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSettingsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TblSettings
+     * const tblSettings = await prisma.tblSettings.findMany()
+     * 
+     * // Get first 10 TblSettings
+     * const tblSettings = await prisma.tblSettings.findMany({ take: 10 })
+     * 
+     * // Only select the `ID`
+     * const tblSettingsWithIDOnly = await prisma.tblSettings.findMany({ select: { ID: true } })
+     * 
+     */
+    findMany<T extends tblSettingsFindManyArgs>(args?: SelectSubset<T, tblSettingsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblSettingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TblSettings.
+     * @param {tblSettingsCreateArgs} args - Arguments to create a TblSettings.
+     * @example
+     * // Create one TblSettings
+     * const TblSettings = await prisma.tblSettings.create({
+     *   data: {
+     *     // ... data to create a TblSettings
+     *   }
+     * })
+     * 
+     */
+    create<T extends tblSettingsCreateArgs>(args: SelectSubset<T, tblSettingsCreateArgs<ExtArgs>>): Prisma__tblSettingsClient<$Result.GetResult<Prisma.$tblSettingsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TblSettings.
+     * @param {tblSettingsCreateManyArgs} args - Arguments to create many TblSettings.
+     * @example
+     * // Create many TblSettings
+     * const tblSettings = await prisma.tblSettings.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tblSettingsCreateManyArgs>(args?: SelectSubset<T, tblSettingsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a TblSettings.
+     * @param {tblSettingsDeleteArgs} args - Arguments to delete one TblSettings.
+     * @example
+     * // Delete one TblSettings
+     * const TblSettings = await prisma.tblSettings.delete({
+     *   where: {
+     *     // ... filter to delete one TblSettings
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tblSettingsDeleteArgs>(args: SelectSubset<T, tblSettingsDeleteArgs<ExtArgs>>): Prisma__tblSettingsClient<$Result.GetResult<Prisma.$tblSettingsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TblSettings.
+     * @param {tblSettingsUpdateArgs} args - Arguments to update one TblSettings.
+     * @example
+     * // Update one TblSettings
+     * const tblSettings = await prisma.tblSettings.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tblSettingsUpdateArgs>(args: SelectSubset<T, tblSettingsUpdateArgs<ExtArgs>>): Prisma__tblSettingsClient<$Result.GetResult<Prisma.$tblSettingsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TblSettings.
+     * @param {tblSettingsDeleteManyArgs} args - Arguments to filter TblSettings to delete.
+     * @example
+     * // Delete a few TblSettings
+     * const { count } = await prisma.tblSettings.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tblSettingsDeleteManyArgs>(args?: SelectSubset<T, tblSettingsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TblSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSettingsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TblSettings
+     * const tblSettings = await prisma.tblSettings.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tblSettingsUpdateManyArgs>(args: SelectSubset<T, tblSettingsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TblSettings.
+     * @param {tblSettingsUpsertArgs} args - Arguments to update or create a TblSettings.
+     * @example
+     * // Update or create a TblSettings
+     * const tblSettings = await prisma.tblSettings.upsert({
+     *   create: {
+     *     // ... data to create a TblSettings
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TblSettings we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tblSettingsUpsertArgs>(args: SelectSubset<T, tblSettingsUpsertArgs<ExtArgs>>): Prisma__tblSettingsClient<$Result.GetResult<Prisma.$tblSettingsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TblSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSettingsCountArgs} args - Arguments to filter TblSettings to count.
+     * @example
+     * // Count the number of TblSettings
+     * const count = await prisma.tblSettings.count({
+     *   where: {
+     *     // ... the filter for the TblSettings we want to count
+     *   }
+     * })
+    **/
+    count<T extends tblSettingsCountArgs>(
+      args?: Subset<T, tblSettingsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TblSettingsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TblSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TblSettingsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TblSettingsAggregateArgs>(args: Subset<T, TblSettingsAggregateArgs>): Prisma.PrismaPromise<GetTblSettingsAggregateType<T>>
+
+    /**
+     * Group by TblSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSettingsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tblSettingsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tblSettingsGroupByArgs['orderBy'] }
+        : { orderBy?: tblSettingsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tblSettingsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTblSettingsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tblSettings model
+   */
+  readonly fields: tblSettingsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tblSettings.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tblSettingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tblSettings model
+   */
+  interface tblSettingsFieldRefs {
+    readonly ID: FieldRef<"tblSettings", 'Int'>
+    readonly Computername: FieldRef<"tblSettings", 'String'>
+    readonly Parametername: FieldRef<"tblSettings", 'String'>
+    readonly Parameterwert: FieldRef<"tblSettings", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tblSettings findUnique
+   */
+  export type tblSettingsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSettings
+     */
+    select?: tblSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSettings
+     */
+    omit?: tblSettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSettings to fetch.
+     */
+    where: tblSettingsWhereUniqueInput
+  }
+
+  /**
+   * tblSettings findUniqueOrThrow
+   */
+  export type tblSettingsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSettings
+     */
+    select?: tblSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSettings
+     */
+    omit?: tblSettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSettings to fetch.
+     */
+    where: tblSettingsWhereUniqueInput
+  }
+
+  /**
+   * tblSettings findFirst
+   */
+  export type tblSettingsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSettings
+     */
+    select?: tblSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSettings
+     */
+    omit?: tblSettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSettings to fetch.
+     */
+    where?: tblSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSettings to fetch.
+     */
+    orderBy?: tblSettingsOrderByWithRelationInput | tblSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSettings.
+     */
+    cursor?: tblSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSettings.
+     */
+    distinct?: TblSettingsScalarFieldEnum | TblSettingsScalarFieldEnum[]
+  }
+
+  /**
+   * tblSettings findFirstOrThrow
+   */
+  export type tblSettingsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSettings
+     */
+    select?: tblSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSettings
+     */
+    omit?: tblSettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSettings to fetch.
+     */
+    where?: tblSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSettings to fetch.
+     */
+    orderBy?: tblSettingsOrderByWithRelationInput | tblSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSettings.
+     */
+    cursor?: tblSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSettings.
+     */
+    distinct?: TblSettingsScalarFieldEnum | TblSettingsScalarFieldEnum[]
+  }
+
+  /**
+   * tblSettings findMany
+   */
+  export type tblSettingsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSettings
+     */
+    select?: tblSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSettings
+     */
+    omit?: tblSettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSettings to fetch.
+     */
+    where?: tblSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSettings to fetch.
+     */
+    orderBy?: tblSettingsOrderByWithRelationInput | tblSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tblSettings.
+     */
+    cursor?: tblSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSettings.
+     */
+    skip?: number
+    distinct?: TblSettingsScalarFieldEnum | TblSettingsScalarFieldEnum[]
+  }
+
+  /**
+   * tblSettings create
+   */
+  export type tblSettingsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSettings
+     */
+    select?: tblSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSettings
+     */
+    omit?: tblSettingsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a tblSettings.
+     */
+    data: XOR<tblSettingsCreateInput, tblSettingsUncheckedCreateInput>
+  }
+
+  /**
+   * tblSettings createMany
+   */
+  export type tblSettingsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tblSettings.
+     */
+    data: tblSettingsCreateManyInput | tblSettingsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tblSettings update
+   */
+  export type tblSettingsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSettings
+     */
+    select?: tblSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSettings
+     */
+    omit?: tblSettingsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a tblSettings.
+     */
+    data: XOR<tblSettingsUpdateInput, tblSettingsUncheckedUpdateInput>
+    /**
+     * Choose, which tblSettings to update.
+     */
+    where: tblSettingsWhereUniqueInput
+  }
+
+  /**
+   * tblSettings updateMany
+   */
+  export type tblSettingsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tblSettings.
+     */
+    data: XOR<tblSettingsUpdateManyMutationInput, tblSettingsUncheckedUpdateManyInput>
+    /**
+     * Filter which tblSettings to update
+     */
+    where?: tblSettingsWhereInput
+    /**
+     * Limit how many tblSettings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSettings upsert
+   */
+  export type tblSettingsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSettings
+     */
+    select?: tblSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSettings
+     */
+    omit?: tblSettingsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the tblSettings to update in case it exists.
+     */
+    where: tblSettingsWhereUniqueInput
+    /**
+     * In case the tblSettings found by the `where` argument doesn't exist, create a new tblSettings with this data.
+     */
+    create: XOR<tblSettingsCreateInput, tblSettingsUncheckedCreateInput>
+    /**
+     * In case the tblSettings was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tblSettingsUpdateInput, tblSettingsUncheckedUpdateInput>
+  }
+
+  /**
+   * tblSettings delete
+   */
+  export type tblSettingsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSettings
+     */
+    select?: tblSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSettings
+     */
+    omit?: tblSettingsOmit<ExtArgs> | null
+    /**
+     * Filter which tblSettings to delete.
+     */
+    where: tblSettingsWhereUniqueInput
+  }
+
+  /**
+   * tblSettings deleteMany
+   */
+  export type tblSettingsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSettings to delete
+     */
+    where?: tblSettingsWhereInput
+    /**
+     * Limit how many tblSettings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSettings without action
+   */
+  export type tblSettingsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSettings
+     */
+    select?: tblSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSettings
+     */
+    omit?: tblSettingsOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model tblSpiel6TageRennen
+   */
+
+  export type AggregateTblSpiel6TageRennen = {
+    _count: TblSpiel6TageRennenCountAggregateOutputType | null
+    _avg: TblSpiel6TageRennenAvgAggregateOutputType | null
+    _sum: TblSpiel6TageRennenSumAggregateOutputType | null
+    _min: TblSpiel6TageRennenMinAggregateOutputType | null
+    _max: TblSpiel6TageRennenMaxAggregateOutputType | null
+  }
+
+  export type TblSpiel6TageRennenAvgAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    Runden: number | null
+    Punkte: number | null
+    Spielnummer: number | null
+  }
+
+  export type TblSpiel6TageRennenSumAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    Runden: number | null
+    Punkte: number | null
+    Spielnummer: number | null
+  }
+
+  export type TblSpiel6TageRennenMinAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    Runden: number | null
+    Punkte: number | null
+    Spielnummer: number | null
+  }
+
+  export type TblSpiel6TageRennenMaxAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    Runden: number | null
+    Punkte: number | null
+    Spielnummer: number | null
+  }
+
+  export type TblSpiel6TageRennenCountAggregateOutputType = {
+    ID: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    Runden: number
+    Punkte: number
+    Spielnummer: number
+    _all: number
+  }
+
+
+  export type TblSpiel6TageRennenAvgAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    Runden?: true
+    Punkte?: true
+    Spielnummer?: true
+  }
+
+  export type TblSpiel6TageRennenSumAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    Runden?: true
+    Punkte?: true
+    Spielnummer?: true
+  }
+
+  export type TblSpiel6TageRennenMinAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    Runden?: true
+    Punkte?: true
+    Spielnummer?: true
+  }
+
+  export type TblSpiel6TageRennenMaxAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    Runden?: true
+    Punkte?: true
+    Spielnummer?: true
+  }
+
+  export type TblSpiel6TageRennenCountAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    Runden?: true
+    Punkte?: true
+    Spielnummer?: true
+    _all?: true
+  }
+
+  export type TblSpiel6TageRennenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSpiel6TageRennen to aggregate.
+     */
+    where?: tblSpiel6TageRennenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpiel6TageRennens to fetch.
+     */
+    orderBy?: tblSpiel6TageRennenOrderByWithRelationInput | tblSpiel6TageRennenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tblSpiel6TageRennenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpiel6TageRennens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpiel6TageRennens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tblSpiel6TageRennens
+    **/
+    _count?: true | TblSpiel6TageRennenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TblSpiel6TageRennenAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TblSpiel6TageRennenSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TblSpiel6TageRennenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TblSpiel6TageRennenMaxAggregateInputType
+  }
+
+  export type GetTblSpiel6TageRennenAggregateType<T extends TblSpiel6TageRennenAggregateArgs> = {
+        [P in keyof T & keyof AggregateTblSpiel6TageRennen]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTblSpiel6TageRennen[P]>
+      : GetScalarType<T[P], AggregateTblSpiel6TageRennen[P]>
+  }
+
+
+
+
+  export type tblSpiel6TageRennenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblSpiel6TageRennenWhereInput
+    orderBy?: tblSpiel6TageRennenOrderByWithAggregationInput | tblSpiel6TageRennenOrderByWithAggregationInput[]
+    by: TblSpiel6TageRennenScalarFieldEnum[] | TblSpiel6TageRennenScalarFieldEnum
+    having?: tblSpiel6TageRennenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TblSpiel6TageRennenCountAggregateInputType | true
+    _avg?: TblSpiel6TageRennenAvgAggregateInputType
+    _sum?: TblSpiel6TageRennenSumAggregateInputType
+    _min?: TblSpiel6TageRennenMinAggregateInputType
+    _max?: TblSpiel6TageRennenMaxAggregateInputType
+  }
+
+  export type TblSpiel6TageRennenGroupByOutputType = {
+    ID: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    Runden: number
+    Punkte: number
+    Spielnummer: number | null
+    _count: TblSpiel6TageRennenCountAggregateOutputType | null
+    _avg: TblSpiel6TageRennenAvgAggregateOutputType | null
+    _sum: TblSpiel6TageRennenSumAggregateOutputType | null
+    _min: TblSpiel6TageRennenMinAggregateOutputType | null
+    _max: TblSpiel6TageRennenMaxAggregateOutputType | null
+  }
+
+  type GetTblSpiel6TageRennenGroupByPayload<T extends tblSpiel6TageRennenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TblSpiel6TageRennenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TblSpiel6TageRennenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TblSpiel6TageRennenGroupByOutputType[P]>
+            : GetScalarType<T[P], TblSpiel6TageRennenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tblSpiel6TageRennenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ID?: boolean
+    SpieltagID?: boolean
+    SpielerID1?: boolean
+    SpielerID2?: boolean
+    Runden?: boolean
+    Punkte?: boolean
+    Spielnummer?: boolean
+  }, ExtArgs["result"]["tblSpiel6TageRennen"]>
+
+
+
+  export type tblSpiel6TageRennenSelectScalar = {
+    ID?: boolean
+    SpieltagID?: boolean
+    SpielerID1?: boolean
+    SpielerID2?: boolean
+    Runden?: boolean
+    Punkte?: boolean
+    Spielnummer?: boolean
+  }
+
+  export type tblSpiel6TageRennenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"ID" | "SpieltagID" | "SpielerID1" | "SpielerID2" | "Runden" | "Punkte" | "Spielnummer", ExtArgs["result"]["tblSpiel6TageRennen"]>
+
+  export type $tblSpiel6TageRennenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tblSpiel6TageRennen"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      ID: number
+      SpieltagID: number
+      SpielerID1: number
+      SpielerID2: number
+      Runden: number
+      Punkte: number
+      Spielnummer: number | null
+    }, ExtArgs["result"]["tblSpiel6TageRennen"]>
+    composites: {}
+  }
+
+  type tblSpiel6TageRennenGetPayload<S extends boolean | null | undefined | tblSpiel6TageRennenDefaultArgs> = $Result.GetResult<Prisma.$tblSpiel6TageRennenPayload, S>
+
+  type tblSpiel6TageRennenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tblSpiel6TageRennenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TblSpiel6TageRennenCountAggregateInputType | true
+    }
+
+  export interface tblSpiel6TageRennenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tblSpiel6TageRennen'], meta: { name: 'tblSpiel6TageRennen' } }
+    /**
+     * Find zero or one TblSpiel6TageRennen that matches the filter.
+     * @param {tblSpiel6TageRennenFindUniqueArgs} args - Arguments to find a TblSpiel6TageRennen
+     * @example
+     * // Get one TblSpiel6TageRennen
+     * const tblSpiel6TageRennen = await prisma.tblSpiel6TageRennen.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tblSpiel6TageRennenFindUniqueArgs>(args: SelectSubset<T, tblSpiel6TageRennenFindUniqueArgs<ExtArgs>>): Prisma__tblSpiel6TageRennenClient<$Result.GetResult<Prisma.$tblSpiel6TageRennenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TblSpiel6TageRennen that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tblSpiel6TageRennenFindUniqueOrThrowArgs} args - Arguments to find a TblSpiel6TageRennen
+     * @example
+     * // Get one TblSpiel6TageRennen
+     * const tblSpiel6TageRennen = await prisma.tblSpiel6TageRennen.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tblSpiel6TageRennenFindUniqueOrThrowArgs>(args: SelectSubset<T, tblSpiel6TageRennenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tblSpiel6TageRennenClient<$Result.GetResult<Prisma.$tblSpiel6TageRennenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSpiel6TageRennen that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpiel6TageRennenFindFirstArgs} args - Arguments to find a TblSpiel6TageRennen
+     * @example
+     * // Get one TblSpiel6TageRennen
+     * const tblSpiel6TageRennen = await prisma.tblSpiel6TageRennen.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tblSpiel6TageRennenFindFirstArgs>(args?: SelectSubset<T, tblSpiel6TageRennenFindFirstArgs<ExtArgs>>): Prisma__tblSpiel6TageRennenClient<$Result.GetResult<Prisma.$tblSpiel6TageRennenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSpiel6TageRennen that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpiel6TageRennenFindFirstOrThrowArgs} args - Arguments to find a TblSpiel6TageRennen
+     * @example
+     * // Get one TblSpiel6TageRennen
+     * const tblSpiel6TageRennen = await prisma.tblSpiel6TageRennen.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tblSpiel6TageRennenFindFirstOrThrowArgs>(args?: SelectSubset<T, tblSpiel6TageRennenFindFirstOrThrowArgs<ExtArgs>>): Prisma__tblSpiel6TageRennenClient<$Result.GetResult<Prisma.$tblSpiel6TageRennenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TblSpiel6TageRennens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpiel6TageRennenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TblSpiel6TageRennens
+     * const tblSpiel6TageRennens = await prisma.tblSpiel6TageRennen.findMany()
+     * 
+     * // Get first 10 TblSpiel6TageRennens
+     * const tblSpiel6TageRennens = await prisma.tblSpiel6TageRennen.findMany({ take: 10 })
+     * 
+     * // Only select the `ID`
+     * const tblSpiel6TageRennenWithIDOnly = await prisma.tblSpiel6TageRennen.findMany({ select: { ID: true } })
+     * 
+     */
+    findMany<T extends tblSpiel6TageRennenFindManyArgs>(args?: SelectSubset<T, tblSpiel6TageRennenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblSpiel6TageRennenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TblSpiel6TageRennen.
+     * @param {tblSpiel6TageRennenCreateArgs} args - Arguments to create a TblSpiel6TageRennen.
+     * @example
+     * // Create one TblSpiel6TageRennen
+     * const TblSpiel6TageRennen = await prisma.tblSpiel6TageRennen.create({
+     *   data: {
+     *     // ... data to create a TblSpiel6TageRennen
+     *   }
+     * })
+     * 
+     */
+    create<T extends tblSpiel6TageRennenCreateArgs>(args: SelectSubset<T, tblSpiel6TageRennenCreateArgs<ExtArgs>>): Prisma__tblSpiel6TageRennenClient<$Result.GetResult<Prisma.$tblSpiel6TageRennenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TblSpiel6TageRennens.
+     * @param {tblSpiel6TageRennenCreateManyArgs} args - Arguments to create many TblSpiel6TageRennens.
+     * @example
+     * // Create many TblSpiel6TageRennens
+     * const tblSpiel6TageRennen = await prisma.tblSpiel6TageRennen.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tblSpiel6TageRennenCreateManyArgs>(args?: SelectSubset<T, tblSpiel6TageRennenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a TblSpiel6TageRennen.
+     * @param {tblSpiel6TageRennenDeleteArgs} args - Arguments to delete one TblSpiel6TageRennen.
+     * @example
+     * // Delete one TblSpiel6TageRennen
+     * const TblSpiel6TageRennen = await prisma.tblSpiel6TageRennen.delete({
+     *   where: {
+     *     // ... filter to delete one TblSpiel6TageRennen
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tblSpiel6TageRennenDeleteArgs>(args: SelectSubset<T, tblSpiel6TageRennenDeleteArgs<ExtArgs>>): Prisma__tblSpiel6TageRennenClient<$Result.GetResult<Prisma.$tblSpiel6TageRennenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TblSpiel6TageRennen.
+     * @param {tblSpiel6TageRennenUpdateArgs} args - Arguments to update one TblSpiel6TageRennen.
+     * @example
+     * // Update one TblSpiel6TageRennen
+     * const tblSpiel6TageRennen = await prisma.tblSpiel6TageRennen.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tblSpiel6TageRennenUpdateArgs>(args: SelectSubset<T, tblSpiel6TageRennenUpdateArgs<ExtArgs>>): Prisma__tblSpiel6TageRennenClient<$Result.GetResult<Prisma.$tblSpiel6TageRennenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TblSpiel6TageRennens.
+     * @param {tblSpiel6TageRennenDeleteManyArgs} args - Arguments to filter TblSpiel6TageRennens to delete.
+     * @example
+     * // Delete a few TblSpiel6TageRennens
+     * const { count } = await prisma.tblSpiel6TageRennen.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tblSpiel6TageRennenDeleteManyArgs>(args?: SelectSubset<T, tblSpiel6TageRennenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TblSpiel6TageRennens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpiel6TageRennenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TblSpiel6TageRennens
+     * const tblSpiel6TageRennen = await prisma.tblSpiel6TageRennen.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tblSpiel6TageRennenUpdateManyArgs>(args: SelectSubset<T, tblSpiel6TageRennenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TblSpiel6TageRennen.
+     * @param {tblSpiel6TageRennenUpsertArgs} args - Arguments to update or create a TblSpiel6TageRennen.
+     * @example
+     * // Update or create a TblSpiel6TageRennen
+     * const tblSpiel6TageRennen = await prisma.tblSpiel6TageRennen.upsert({
+     *   create: {
+     *     // ... data to create a TblSpiel6TageRennen
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TblSpiel6TageRennen we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tblSpiel6TageRennenUpsertArgs>(args: SelectSubset<T, tblSpiel6TageRennenUpsertArgs<ExtArgs>>): Prisma__tblSpiel6TageRennenClient<$Result.GetResult<Prisma.$tblSpiel6TageRennenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TblSpiel6TageRennens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpiel6TageRennenCountArgs} args - Arguments to filter TblSpiel6TageRennens to count.
+     * @example
+     * // Count the number of TblSpiel6TageRennens
+     * const count = await prisma.tblSpiel6TageRennen.count({
+     *   where: {
+     *     // ... the filter for the TblSpiel6TageRennens we want to count
+     *   }
+     * })
+    **/
+    count<T extends tblSpiel6TageRennenCountArgs>(
+      args?: Subset<T, tblSpiel6TageRennenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TblSpiel6TageRennenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TblSpiel6TageRennen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TblSpiel6TageRennenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TblSpiel6TageRennenAggregateArgs>(args: Subset<T, TblSpiel6TageRennenAggregateArgs>): Prisma.PrismaPromise<GetTblSpiel6TageRennenAggregateType<T>>
+
+    /**
+     * Group by TblSpiel6TageRennen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpiel6TageRennenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tblSpiel6TageRennenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tblSpiel6TageRennenGroupByArgs['orderBy'] }
+        : { orderBy?: tblSpiel6TageRennenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tblSpiel6TageRennenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTblSpiel6TageRennenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tblSpiel6TageRennen model
+   */
+  readonly fields: tblSpiel6TageRennenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tblSpiel6TageRennen.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tblSpiel6TageRennenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tblSpiel6TageRennen model
+   */
+  interface tblSpiel6TageRennenFieldRefs {
+    readonly ID: FieldRef<"tblSpiel6TageRennen", 'Int'>
+    readonly SpieltagID: FieldRef<"tblSpiel6TageRennen", 'Int'>
+    readonly SpielerID1: FieldRef<"tblSpiel6TageRennen", 'Int'>
+    readonly SpielerID2: FieldRef<"tblSpiel6TageRennen", 'Int'>
+    readonly Runden: FieldRef<"tblSpiel6TageRennen", 'Int'>
+    readonly Punkte: FieldRef<"tblSpiel6TageRennen", 'Int'>
+    readonly Spielnummer: FieldRef<"tblSpiel6TageRennen", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tblSpiel6TageRennen findUnique
+   */
+  export type tblSpiel6TageRennenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpiel6TageRennen
+     */
+    select?: tblSpiel6TageRennenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpiel6TageRennen
+     */
+    omit?: tblSpiel6TageRennenOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpiel6TageRennen to fetch.
+     */
+    where: tblSpiel6TageRennenWhereUniqueInput
+  }
+
+  /**
+   * tblSpiel6TageRennen findUniqueOrThrow
+   */
+  export type tblSpiel6TageRennenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpiel6TageRennen
+     */
+    select?: tblSpiel6TageRennenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpiel6TageRennen
+     */
+    omit?: tblSpiel6TageRennenOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpiel6TageRennen to fetch.
+     */
+    where: tblSpiel6TageRennenWhereUniqueInput
+  }
+
+  /**
+   * tblSpiel6TageRennen findFirst
+   */
+  export type tblSpiel6TageRennenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpiel6TageRennen
+     */
+    select?: tblSpiel6TageRennenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpiel6TageRennen
+     */
+    omit?: tblSpiel6TageRennenOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpiel6TageRennen to fetch.
+     */
+    where?: tblSpiel6TageRennenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpiel6TageRennens to fetch.
+     */
+    orderBy?: tblSpiel6TageRennenOrderByWithRelationInput | tblSpiel6TageRennenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSpiel6TageRennens.
+     */
+    cursor?: tblSpiel6TageRennenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpiel6TageRennens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpiel6TageRennens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSpiel6TageRennens.
+     */
+    distinct?: TblSpiel6TageRennenScalarFieldEnum | TblSpiel6TageRennenScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpiel6TageRennen findFirstOrThrow
+   */
+  export type tblSpiel6TageRennenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpiel6TageRennen
+     */
+    select?: tblSpiel6TageRennenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpiel6TageRennen
+     */
+    omit?: tblSpiel6TageRennenOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpiel6TageRennen to fetch.
+     */
+    where?: tblSpiel6TageRennenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpiel6TageRennens to fetch.
+     */
+    orderBy?: tblSpiel6TageRennenOrderByWithRelationInput | tblSpiel6TageRennenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSpiel6TageRennens.
+     */
+    cursor?: tblSpiel6TageRennenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpiel6TageRennens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpiel6TageRennens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSpiel6TageRennens.
+     */
+    distinct?: TblSpiel6TageRennenScalarFieldEnum | TblSpiel6TageRennenScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpiel6TageRennen findMany
+   */
+  export type tblSpiel6TageRennenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpiel6TageRennen
+     */
+    select?: tblSpiel6TageRennenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpiel6TageRennen
+     */
+    omit?: tblSpiel6TageRennenOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpiel6TageRennens to fetch.
+     */
+    where?: tblSpiel6TageRennenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpiel6TageRennens to fetch.
+     */
+    orderBy?: tblSpiel6TageRennenOrderByWithRelationInput | tblSpiel6TageRennenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tblSpiel6TageRennens.
+     */
+    cursor?: tblSpiel6TageRennenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpiel6TageRennens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpiel6TageRennens.
+     */
+    skip?: number
+    distinct?: TblSpiel6TageRennenScalarFieldEnum | TblSpiel6TageRennenScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpiel6TageRennen create
+   */
+  export type tblSpiel6TageRennenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpiel6TageRennen
+     */
+    select?: tblSpiel6TageRennenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpiel6TageRennen
+     */
+    omit?: tblSpiel6TageRennenOmit<ExtArgs> | null
+    /**
+     * The data needed to create a tblSpiel6TageRennen.
+     */
+    data: XOR<tblSpiel6TageRennenCreateInput, tblSpiel6TageRennenUncheckedCreateInput>
+  }
+
+  /**
+   * tblSpiel6TageRennen createMany
+   */
+  export type tblSpiel6TageRennenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tblSpiel6TageRennens.
+     */
+    data: tblSpiel6TageRennenCreateManyInput | tblSpiel6TageRennenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tblSpiel6TageRennen update
+   */
+  export type tblSpiel6TageRennenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpiel6TageRennen
+     */
+    select?: tblSpiel6TageRennenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpiel6TageRennen
+     */
+    omit?: tblSpiel6TageRennenOmit<ExtArgs> | null
+    /**
+     * The data needed to update a tblSpiel6TageRennen.
+     */
+    data: XOR<tblSpiel6TageRennenUpdateInput, tblSpiel6TageRennenUncheckedUpdateInput>
+    /**
+     * Choose, which tblSpiel6TageRennen to update.
+     */
+    where: tblSpiel6TageRennenWhereUniqueInput
+  }
+
+  /**
+   * tblSpiel6TageRennen updateMany
+   */
+  export type tblSpiel6TageRennenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tblSpiel6TageRennens.
+     */
+    data: XOR<tblSpiel6TageRennenUpdateManyMutationInput, tblSpiel6TageRennenUncheckedUpdateManyInput>
+    /**
+     * Filter which tblSpiel6TageRennens to update
+     */
+    where?: tblSpiel6TageRennenWhereInput
+    /**
+     * Limit how many tblSpiel6TageRennens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSpiel6TageRennen upsert
+   */
+  export type tblSpiel6TageRennenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpiel6TageRennen
+     */
+    select?: tblSpiel6TageRennenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpiel6TageRennen
+     */
+    omit?: tblSpiel6TageRennenOmit<ExtArgs> | null
+    /**
+     * The filter to search for the tblSpiel6TageRennen to update in case it exists.
+     */
+    where: tblSpiel6TageRennenWhereUniqueInput
+    /**
+     * In case the tblSpiel6TageRennen found by the `where` argument doesn't exist, create a new tblSpiel6TageRennen with this data.
+     */
+    create: XOR<tblSpiel6TageRennenCreateInput, tblSpiel6TageRennenUncheckedCreateInput>
+    /**
+     * In case the tblSpiel6TageRennen was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tblSpiel6TageRennenUpdateInput, tblSpiel6TageRennenUncheckedUpdateInput>
+  }
+
+  /**
+   * tblSpiel6TageRennen delete
+   */
+  export type tblSpiel6TageRennenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpiel6TageRennen
+     */
+    select?: tblSpiel6TageRennenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpiel6TageRennen
+     */
+    omit?: tblSpiel6TageRennenOmit<ExtArgs> | null
+    /**
+     * Filter which tblSpiel6TageRennen to delete.
+     */
+    where: tblSpiel6TageRennenWhereUniqueInput
+  }
+
+  /**
+   * tblSpiel6TageRennen deleteMany
+   */
+  export type tblSpiel6TageRennenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSpiel6TageRennens to delete
+     */
+    where?: tblSpiel6TageRennenWhereInput
+    /**
+     * Limit how many tblSpiel6TageRennens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSpiel6TageRennen without action
+   */
+  export type tblSpiel6TageRennenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpiel6TageRennen
+     */
+    select?: tblSpiel6TageRennenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpiel6TageRennen
+     */
+    omit?: tblSpiel6TageRennenOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model tblSpielBlitztunier
+   */
+
+  export type AggregateTblSpielBlitztunier = {
+    _count: TblSpielBlitztunierCountAggregateOutputType | null
+    _avg: TblSpielBlitztunierAvgAggregateOutputType | null
+    _sum: TblSpielBlitztunierSumAggregateOutputType | null
+    _min: TblSpielBlitztunierMinAggregateOutputType | null
+    _max: TblSpielBlitztunierMaxAggregateOutputType | null
+  }
+
+  export type TblSpielBlitztunierAvgAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    PunkteSpieler1: number | null
+    PunkteSpieler2: number | null
+    HinR_ckrunde: number | null
+  }
+
+  export type TblSpielBlitztunierSumAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    PunkteSpieler1: number | null
+    PunkteSpieler2: number | null
+    HinR_ckrunde: number | null
+  }
+
+  export type TblSpielBlitztunierMinAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    PunkteSpieler1: number | null
+    PunkteSpieler2: number | null
+    HinR_ckrunde: number | null
+  }
+
+  export type TblSpielBlitztunierMaxAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    PunkteSpieler1: number | null
+    PunkteSpieler2: number | null
+    HinR_ckrunde: number | null
+  }
+
+  export type TblSpielBlitztunierCountAggregateOutputType = {
+    ID: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    PunkteSpieler1: number
+    PunkteSpieler2: number
+    HinR_ckrunde: number
+    _all: number
+  }
+
+
+  export type TblSpielBlitztunierAvgAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    PunkteSpieler1?: true
+    PunkteSpieler2?: true
+    HinR_ckrunde?: true
+  }
+
+  export type TblSpielBlitztunierSumAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    PunkteSpieler1?: true
+    PunkteSpieler2?: true
+    HinR_ckrunde?: true
+  }
+
+  export type TblSpielBlitztunierMinAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    PunkteSpieler1?: true
+    PunkteSpieler2?: true
+    HinR_ckrunde?: true
+  }
+
+  export type TblSpielBlitztunierMaxAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    PunkteSpieler1?: true
+    PunkteSpieler2?: true
+    HinR_ckrunde?: true
+  }
+
+  export type TblSpielBlitztunierCountAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    PunkteSpieler1?: true
+    PunkteSpieler2?: true
+    HinR_ckrunde?: true
+    _all?: true
+  }
+
+  export type TblSpielBlitztunierAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSpielBlitztunier to aggregate.
+     */
+    where?: tblSpielBlitztunierWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielBlitztuniers to fetch.
+     */
+    orderBy?: tblSpielBlitztunierOrderByWithRelationInput | tblSpielBlitztunierOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tblSpielBlitztunierWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielBlitztuniers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielBlitztuniers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tblSpielBlitztuniers
+    **/
+    _count?: true | TblSpielBlitztunierCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TblSpielBlitztunierAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TblSpielBlitztunierSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TblSpielBlitztunierMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TblSpielBlitztunierMaxAggregateInputType
+  }
+
+  export type GetTblSpielBlitztunierAggregateType<T extends TblSpielBlitztunierAggregateArgs> = {
+        [P in keyof T & keyof AggregateTblSpielBlitztunier]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTblSpielBlitztunier[P]>
+      : GetScalarType<T[P], AggregateTblSpielBlitztunier[P]>
+  }
+
+
+
+
+  export type tblSpielBlitztunierGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblSpielBlitztunierWhereInput
+    orderBy?: tblSpielBlitztunierOrderByWithAggregationInput | tblSpielBlitztunierOrderByWithAggregationInput[]
+    by: TblSpielBlitztunierScalarFieldEnum[] | TblSpielBlitztunierScalarFieldEnum
+    having?: tblSpielBlitztunierScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TblSpielBlitztunierCountAggregateInputType | true
+    _avg?: TblSpielBlitztunierAvgAggregateInputType
+    _sum?: TblSpielBlitztunierSumAggregateInputType
+    _min?: TblSpielBlitztunierMinAggregateInputType
+    _max?: TblSpielBlitztunierMaxAggregateInputType
+  }
+
+  export type TblSpielBlitztunierGroupByOutputType = {
+    ID: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    PunkteSpieler1: number
+    PunkteSpieler2: number
+    HinR_ckrunde: number
+    _count: TblSpielBlitztunierCountAggregateOutputType | null
+    _avg: TblSpielBlitztunierAvgAggregateOutputType | null
+    _sum: TblSpielBlitztunierSumAggregateOutputType | null
+    _min: TblSpielBlitztunierMinAggregateOutputType | null
+    _max: TblSpielBlitztunierMaxAggregateOutputType | null
+  }
+
+  type GetTblSpielBlitztunierGroupByPayload<T extends tblSpielBlitztunierGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TblSpielBlitztunierGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TblSpielBlitztunierGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TblSpielBlitztunierGroupByOutputType[P]>
+            : GetScalarType<T[P], TblSpielBlitztunierGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tblSpielBlitztunierSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ID?: boolean
+    SpieltagID?: boolean
+    SpielerID1?: boolean
+    SpielerID2?: boolean
+    PunkteSpieler1?: boolean
+    PunkteSpieler2?: boolean
+    HinR_ckrunde?: boolean
+  }, ExtArgs["result"]["tblSpielBlitztunier"]>
+
+
+
+  export type tblSpielBlitztunierSelectScalar = {
+    ID?: boolean
+    SpieltagID?: boolean
+    SpielerID1?: boolean
+    SpielerID2?: boolean
+    PunkteSpieler1?: boolean
+    PunkteSpieler2?: boolean
+    HinR_ckrunde?: boolean
+  }
+
+  export type tblSpielBlitztunierOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"ID" | "SpieltagID" | "SpielerID1" | "SpielerID2" | "PunkteSpieler1" | "PunkteSpieler2" | "HinR_ckrunde", ExtArgs["result"]["tblSpielBlitztunier"]>
+
+  export type $tblSpielBlitztunierPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tblSpielBlitztunier"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      ID: number
+      SpieltagID: number
+      SpielerID1: number
+      SpielerID2: number
+      PunkteSpieler1: number
+      PunkteSpieler2: number
+      HinR_ckrunde: number
+    }, ExtArgs["result"]["tblSpielBlitztunier"]>
+    composites: {}
+  }
+
+  type tblSpielBlitztunierGetPayload<S extends boolean | null | undefined | tblSpielBlitztunierDefaultArgs> = $Result.GetResult<Prisma.$tblSpielBlitztunierPayload, S>
+
+  type tblSpielBlitztunierCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tblSpielBlitztunierFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TblSpielBlitztunierCountAggregateInputType | true
+    }
+
+  export interface tblSpielBlitztunierDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tblSpielBlitztunier'], meta: { name: 'tblSpielBlitztunier' } }
+    /**
+     * Find zero or one TblSpielBlitztunier that matches the filter.
+     * @param {tblSpielBlitztunierFindUniqueArgs} args - Arguments to find a TblSpielBlitztunier
+     * @example
+     * // Get one TblSpielBlitztunier
+     * const tblSpielBlitztunier = await prisma.tblSpielBlitztunier.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tblSpielBlitztunierFindUniqueArgs>(args: SelectSubset<T, tblSpielBlitztunierFindUniqueArgs<ExtArgs>>): Prisma__tblSpielBlitztunierClient<$Result.GetResult<Prisma.$tblSpielBlitztunierPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TblSpielBlitztunier that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tblSpielBlitztunierFindUniqueOrThrowArgs} args - Arguments to find a TblSpielBlitztunier
+     * @example
+     * // Get one TblSpielBlitztunier
+     * const tblSpielBlitztunier = await prisma.tblSpielBlitztunier.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tblSpielBlitztunierFindUniqueOrThrowArgs>(args: SelectSubset<T, tblSpielBlitztunierFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tblSpielBlitztunierClient<$Result.GetResult<Prisma.$tblSpielBlitztunierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSpielBlitztunier that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielBlitztunierFindFirstArgs} args - Arguments to find a TblSpielBlitztunier
+     * @example
+     * // Get one TblSpielBlitztunier
+     * const tblSpielBlitztunier = await prisma.tblSpielBlitztunier.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tblSpielBlitztunierFindFirstArgs>(args?: SelectSubset<T, tblSpielBlitztunierFindFirstArgs<ExtArgs>>): Prisma__tblSpielBlitztunierClient<$Result.GetResult<Prisma.$tblSpielBlitztunierPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSpielBlitztunier that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielBlitztunierFindFirstOrThrowArgs} args - Arguments to find a TblSpielBlitztunier
+     * @example
+     * // Get one TblSpielBlitztunier
+     * const tblSpielBlitztunier = await prisma.tblSpielBlitztunier.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tblSpielBlitztunierFindFirstOrThrowArgs>(args?: SelectSubset<T, tblSpielBlitztunierFindFirstOrThrowArgs<ExtArgs>>): Prisma__tblSpielBlitztunierClient<$Result.GetResult<Prisma.$tblSpielBlitztunierPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TblSpielBlitztuniers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielBlitztunierFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TblSpielBlitztuniers
+     * const tblSpielBlitztuniers = await prisma.tblSpielBlitztunier.findMany()
+     * 
+     * // Get first 10 TblSpielBlitztuniers
+     * const tblSpielBlitztuniers = await prisma.tblSpielBlitztunier.findMany({ take: 10 })
+     * 
+     * // Only select the `ID`
+     * const tblSpielBlitztunierWithIDOnly = await prisma.tblSpielBlitztunier.findMany({ select: { ID: true } })
+     * 
+     */
+    findMany<T extends tblSpielBlitztunierFindManyArgs>(args?: SelectSubset<T, tblSpielBlitztunierFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblSpielBlitztunierPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TblSpielBlitztunier.
+     * @param {tblSpielBlitztunierCreateArgs} args - Arguments to create a TblSpielBlitztunier.
+     * @example
+     * // Create one TblSpielBlitztunier
+     * const TblSpielBlitztunier = await prisma.tblSpielBlitztunier.create({
+     *   data: {
+     *     // ... data to create a TblSpielBlitztunier
+     *   }
+     * })
+     * 
+     */
+    create<T extends tblSpielBlitztunierCreateArgs>(args: SelectSubset<T, tblSpielBlitztunierCreateArgs<ExtArgs>>): Prisma__tblSpielBlitztunierClient<$Result.GetResult<Prisma.$tblSpielBlitztunierPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TblSpielBlitztuniers.
+     * @param {tblSpielBlitztunierCreateManyArgs} args - Arguments to create many TblSpielBlitztuniers.
+     * @example
+     * // Create many TblSpielBlitztuniers
+     * const tblSpielBlitztunier = await prisma.tblSpielBlitztunier.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tblSpielBlitztunierCreateManyArgs>(args?: SelectSubset<T, tblSpielBlitztunierCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a TblSpielBlitztunier.
+     * @param {tblSpielBlitztunierDeleteArgs} args - Arguments to delete one TblSpielBlitztunier.
+     * @example
+     * // Delete one TblSpielBlitztunier
+     * const TblSpielBlitztunier = await prisma.tblSpielBlitztunier.delete({
+     *   where: {
+     *     // ... filter to delete one TblSpielBlitztunier
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tblSpielBlitztunierDeleteArgs>(args: SelectSubset<T, tblSpielBlitztunierDeleteArgs<ExtArgs>>): Prisma__tblSpielBlitztunierClient<$Result.GetResult<Prisma.$tblSpielBlitztunierPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TblSpielBlitztunier.
+     * @param {tblSpielBlitztunierUpdateArgs} args - Arguments to update one TblSpielBlitztunier.
+     * @example
+     * // Update one TblSpielBlitztunier
+     * const tblSpielBlitztunier = await prisma.tblSpielBlitztunier.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tblSpielBlitztunierUpdateArgs>(args: SelectSubset<T, tblSpielBlitztunierUpdateArgs<ExtArgs>>): Prisma__tblSpielBlitztunierClient<$Result.GetResult<Prisma.$tblSpielBlitztunierPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TblSpielBlitztuniers.
+     * @param {tblSpielBlitztunierDeleteManyArgs} args - Arguments to filter TblSpielBlitztuniers to delete.
+     * @example
+     * // Delete a few TblSpielBlitztuniers
+     * const { count } = await prisma.tblSpielBlitztunier.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tblSpielBlitztunierDeleteManyArgs>(args?: SelectSubset<T, tblSpielBlitztunierDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TblSpielBlitztuniers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielBlitztunierUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TblSpielBlitztuniers
+     * const tblSpielBlitztunier = await prisma.tblSpielBlitztunier.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tblSpielBlitztunierUpdateManyArgs>(args: SelectSubset<T, tblSpielBlitztunierUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TblSpielBlitztunier.
+     * @param {tblSpielBlitztunierUpsertArgs} args - Arguments to update or create a TblSpielBlitztunier.
+     * @example
+     * // Update or create a TblSpielBlitztunier
+     * const tblSpielBlitztunier = await prisma.tblSpielBlitztunier.upsert({
+     *   create: {
+     *     // ... data to create a TblSpielBlitztunier
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TblSpielBlitztunier we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tblSpielBlitztunierUpsertArgs>(args: SelectSubset<T, tblSpielBlitztunierUpsertArgs<ExtArgs>>): Prisma__tblSpielBlitztunierClient<$Result.GetResult<Prisma.$tblSpielBlitztunierPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TblSpielBlitztuniers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielBlitztunierCountArgs} args - Arguments to filter TblSpielBlitztuniers to count.
+     * @example
+     * // Count the number of TblSpielBlitztuniers
+     * const count = await prisma.tblSpielBlitztunier.count({
+     *   where: {
+     *     // ... the filter for the TblSpielBlitztuniers we want to count
+     *   }
+     * })
+    **/
+    count<T extends tblSpielBlitztunierCountArgs>(
+      args?: Subset<T, tblSpielBlitztunierCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TblSpielBlitztunierCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TblSpielBlitztunier.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TblSpielBlitztunierAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TblSpielBlitztunierAggregateArgs>(args: Subset<T, TblSpielBlitztunierAggregateArgs>): Prisma.PrismaPromise<GetTblSpielBlitztunierAggregateType<T>>
+
+    /**
+     * Group by TblSpielBlitztunier.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielBlitztunierGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tblSpielBlitztunierGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tblSpielBlitztunierGroupByArgs['orderBy'] }
+        : { orderBy?: tblSpielBlitztunierGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tblSpielBlitztunierGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTblSpielBlitztunierGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tblSpielBlitztunier model
+   */
+  readonly fields: tblSpielBlitztunierFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tblSpielBlitztunier.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tblSpielBlitztunierClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tblSpielBlitztunier model
+   */
+  interface tblSpielBlitztunierFieldRefs {
+    readonly ID: FieldRef<"tblSpielBlitztunier", 'Int'>
+    readonly SpieltagID: FieldRef<"tblSpielBlitztunier", 'Int'>
+    readonly SpielerID1: FieldRef<"tblSpielBlitztunier", 'Int'>
+    readonly SpielerID2: FieldRef<"tblSpielBlitztunier", 'Int'>
+    readonly PunkteSpieler1: FieldRef<"tblSpielBlitztunier", 'Int'>
+    readonly PunkteSpieler2: FieldRef<"tblSpielBlitztunier", 'Int'>
+    readonly HinR_ckrunde: FieldRef<"tblSpielBlitztunier", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tblSpielBlitztunier findUnique
+   */
+  export type tblSpielBlitztunierFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielBlitztunier
+     */
+    select?: tblSpielBlitztunierSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielBlitztunier
+     */
+    omit?: tblSpielBlitztunierOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielBlitztunier to fetch.
+     */
+    where: tblSpielBlitztunierWhereUniqueInput
+  }
+
+  /**
+   * tblSpielBlitztunier findUniqueOrThrow
+   */
+  export type tblSpielBlitztunierFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielBlitztunier
+     */
+    select?: tblSpielBlitztunierSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielBlitztunier
+     */
+    omit?: tblSpielBlitztunierOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielBlitztunier to fetch.
+     */
+    where: tblSpielBlitztunierWhereUniqueInput
+  }
+
+  /**
+   * tblSpielBlitztunier findFirst
+   */
+  export type tblSpielBlitztunierFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielBlitztunier
+     */
+    select?: tblSpielBlitztunierSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielBlitztunier
+     */
+    omit?: tblSpielBlitztunierOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielBlitztunier to fetch.
+     */
+    where?: tblSpielBlitztunierWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielBlitztuniers to fetch.
+     */
+    orderBy?: tblSpielBlitztunierOrderByWithRelationInput | tblSpielBlitztunierOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSpielBlitztuniers.
+     */
+    cursor?: tblSpielBlitztunierWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielBlitztuniers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielBlitztuniers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSpielBlitztuniers.
+     */
+    distinct?: TblSpielBlitztunierScalarFieldEnum | TblSpielBlitztunierScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpielBlitztunier findFirstOrThrow
+   */
+  export type tblSpielBlitztunierFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielBlitztunier
+     */
+    select?: tblSpielBlitztunierSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielBlitztunier
+     */
+    omit?: tblSpielBlitztunierOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielBlitztunier to fetch.
+     */
+    where?: tblSpielBlitztunierWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielBlitztuniers to fetch.
+     */
+    orderBy?: tblSpielBlitztunierOrderByWithRelationInput | tblSpielBlitztunierOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSpielBlitztuniers.
+     */
+    cursor?: tblSpielBlitztunierWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielBlitztuniers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielBlitztuniers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSpielBlitztuniers.
+     */
+    distinct?: TblSpielBlitztunierScalarFieldEnum | TblSpielBlitztunierScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpielBlitztunier findMany
+   */
+  export type tblSpielBlitztunierFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielBlitztunier
+     */
+    select?: tblSpielBlitztunierSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielBlitztunier
+     */
+    omit?: tblSpielBlitztunierOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielBlitztuniers to fetch.
+     */
+    where?: tblSpielBlitztunierWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielBlitztuniers to fetch.
+     */
+    orderBy?: tblSpielBlitztunierOrderByWithRelationInput | tblSpielBlitztunierOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tblSpielBlitztuniers.
+     */
+    cursor?: tblSpielBlitztunierWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielBlitztuniers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielBlitztuniers.
+     */
+    skip?: number
+    distinct?: TblSpielBlitztunierScalarFieldEnum | TblSpielBlitztunierScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpielBlitztunier create
+   */
+  export type tblSpielBlitztunierCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielBlitztunier
+     */
+    select?: tblSpielBlitztunierSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielBlitztunier
+     */
+    omit?: tblSpielBlitztunierOmit<ExtArgs> | null
+    /**
+     * The data needed to create a tblSpielBlitztunier.
+     */
+    data: XOR<tblSpielBlitztunierCreateInput, tblSpielBlitztunierUncheckedCreateInput>
+  }
+
+  /**
+   * tblSpielBlitztunier createMany
+   */
+  export type tblSpielBlitztunierCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tblSpielBlitztuniers.
+     */
+    data: tblSpielBlitztunierCreateManyInput | tblSpielBlitztunierCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tblSpielBlitztunier update
+   */
+  export type tblSpielBlitztunierUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielBlitztunier
+     */
+    select?: tblSpielBlitztunierSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielBlitztunier
+     */
+    omit?: tblSpielBlitztunierOmit<ExtArgs> | null
+    /**
+     * The data needed to update a tblSpielBlitztunier.
+     */
+    data: XOR<tblSpielBlitztunierUpdateInput, tblSpielBlitztunierUncheckedUpdateInput>
+    /**
+     * Choose, which tblSpielBlitztunier to update.
+     */
+    where: tblSpielBlitztunierWhereUniqueInput
+  }
+
+  /**
+   * tblSpielBlitztunier updateMany
+   */
+  export type tblSpielBlitztunierUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tblSpielBlitztuniers.
+     */
+    data: XOR<tblSpielBlitztunierUpdateManyMutationInput, tblSpielBlitztunierUncheckedUpdateManyInput>
+    /**
+     * Filter which tblSpielBlitztuniers to update
+     */
+    where?: tblSpielBlitztunierWhereInput
+    /**
+     * Limit how many tblSpielBlitztuniers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSpielBlitztunier upsert
+   */
+  export type tblSpielBlitztunierUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielBlitztunier
+     */
+    select?: tblSpielBlitztunierSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielBlitztunier
+     */
+    omit?: tblSpielBlitztunierOmit<ExtArgs> | null
+    /**
+     * The filter to search for the tblSpielBlitztunier to update in case it exists.
+     */
+    where: tblSpielBlitztunierWhereUniqueInput
+    /**
+     * In case the tblSpielBlitztunier found by the `where` argument doesn't exist, create a new tblSpielBlitztunier with this data.
+     */
+    create: XOR<tblSpielBlitztunierCreateInput, tblSpielBlitztunierUncheckedCreateInput>
+    /**
+     * In case the tblSpielBlitztunier was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tblSpielBlitztunierUpdateInput, tblSpielBlitztunierUncheckedUpdateInput>
+  }
+
+  /**
+   * tblSpielBlitztunier delete
+   */
+  export type tblSpielBlitztunierDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielBlitztunier
+     */
+    select?: tblSpielBlitztunierSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielBlitztunier
+     */
+    omit?: tblSpielBlitztunierOmit<ExtArgs> | null
+    /**
+     * Filter which tblSpielBlitztunier to delete.
+     */
+    where: tblSpielBlitztunierWhereUniqueInput
+  }
+
+  /**
+   * tblSpielBlitztunier deleteMany
+   */
+  export type tblSpielBlitztunierDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSpielBlitztuniers to delete
+     */
+    where?: tblSpielBlitztunierWhereInput
+    /**
+     * Limit how many tblSpielBlitztuniers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSpielBlitztunier without action
+   */
+  export type tblSpielBlitztunierDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielBlitztunier
+     */
+    select?: tblSpielBlitztunierSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielBlitztunier
+     */
+    omit?: tblSpielBlitztunierOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model tblSpielKombimeisterschaft
+   */
+
+  export type AggregateTblSpielKombimeisterschaft = {
+    _count: TblSpielKombimeisterschaftCountAggregateOutputType | null
+    _avg: TblSpielKombimeisterschaftAvgAggregateOutputType | null
+    _sum: TblSpielKombimeisterschaftSumAggregateOutputType | null
+    _min: TblSpielKombimeisterschaftMinAggregateOutputType | null
+    _max: TblSpielKombimeisterschaftMaxAggregateOutputType | null
+  }
+
+  export type TblSpielKombimeisterschaftAvgAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    Spieler1Punkte3bis8: number | null
+    Spieler1Punkte5Kugeln: number | null
+    Spieler2Punkte3bis8: number | null
+    Spieler2Punkte5Kugeln: number | null
+    HinRueckrunde: number | null
+  }
+
+  export type TblSpielKombimeisterschaftSumAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    Spieler1Punkte3bis8: number | null
+    Spieler1Punkte5Kugeln: number | null
+    Spieler2Punkte3bis8: number | null
+    Spieler2Punkte5Kugeln: number | null
+    HinRueckrunde: number | null
+  }
+
+  export type TblSpielKombimeisterschaftMinAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    Spieler1Punkte3bis8: number | null
+    Spieler1Punkte5Kugeln: number | null
+    Spieler2Punkte3bis8: number | null
+    Spieler2Punkte5Kugeln: number | null
+    HinRueckrunde: number | null
+  }
+
+  export type TblSpielKombimeisterschaftMaxAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    Spieler1Punkte3bis8: number | null
+    Spieler1Punkte5Kugeln: number | null
+    Spieler2Punkte3bis8: number | null
+    Spieler2Punkte5Kugeln: number | null
+    HinRueckrunde: number | null
+  }
+
+  export type TblSpielKombimeisterschaftCountAggregateOutputType = {
+    ID: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    Spieler1Punkte3bis8: number
+    Spieler1Punkte5Kugeln: number
+    Spieler2Punkte3bis8: number
+    Spieler2Punkte5Kugeln: number
+    HinRueckrunde: number
+    _all: number
+  }
+
+
+  export type TblSpielKombimeisterschaftAvgAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    Spieler1Punkte3bis8?: true
+    Spieler1Punkte5Kugeln?: true
+    Spieler2Punkte3bis8?: true
+    Spieler2Punkte5Kugeln?: true
+    HinRueckrunde?: true
+  }
+
+  export type TblSpielKombimeisterschaftSumAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    Spieler1Punkte3bis8?: true
+    Spieler1Punkte5Kugeln?: true
+    Spieler2Punkte3bis8?: true
+    Spieler2Punkte5Kugeln?: true
+    HinRueckrunde?: true
+  }
+
+  export type TblSpielKombimeisterschaftMinAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    Spieler1Punkte3bis8?: true
+    Spieler1Punkte5Kugeln?: true
+    Spieler2Punkte3bis8?: true
+    Spieler2Punkte5Kugeln?: true
+    HinRueckrunde?: true
+  }
+
+  export type TblSpielKombimeisterschaftMaxAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    Spieler1Punkte3bis8?: true
+    Spieler1Punkte5Kugeln?: true
+    Spieler2Punkte3bis8?: true
+    Spieler2Punkte5Kugeln?: true
+    HinRueckrunde?: true
+  }
+
+  export type TblSpielKombimeisterschaftCountAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    Spieler1Punkte3bis8?: true
+    Spieler1Punkte5Kugeln?: true
+    Spieler2Punkte3bis8?: true
+    Spieler2Punkte5Kugeln?: true
+    HinRueckrunde?: true
+    _all?: true
+  }
+
+  export type TblSpielKombimeisterschaftAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSpielKombimeisterschaft to aggregate.
+     */
+    where?: tblSpielKombimeisterschaftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielKombimeisterschafts to fetch.
+     */
+    orderBy?: tblSpielKombimeisterschaftOrderByWithRelationInput | tblSpielKombimeisterschaftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tblSpielKombimeisterschaftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielKombimeisterschafts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielKombimeisterschafts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tblSpielKombimeisterschafts
+    **/
+    _count?: true | TblSpielKombimeisterschaftCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TblSpielKombimeisterschaftAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TblSpielKombimeisterschaftSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TblSpielKombimeisterschaftMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TblSpielKombimeisterschaftMaxAggregateInputType
+  }
+
+  export type GetTblSpielKombimeisterschaftAggregateType<T extends TblSpielKombimeisterschaftAggregateArgs> = {
+        [P in keyof T & keyof AggregateTblSpielKombimeisterschaft]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTblSpielKombimeisterschaft[P]>
+      : GetScalarType<T[P], AggregateTblSpielKombimeisterschaft[P]>
+  }
+
+
+
+
+  export type tblSpielKombimeisterschaftGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblSpielKombimeisterschaftWhereInput
+    orderBy?: tblSpielKombimeisterschaftOrderByWithAggregationInput | tblSpielKombimeisterschaftOrderByWithAggregationInput[]
+    by: TblSpielKombimeisterschaftScalarFieldEnum[] | TblSpielKombimeisterschaftScalarFieldEnum
+    having?: tblSpielKombimeisterschaftScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TblSpielKombimeisterschaftCountAggregateInputType | true
+    _avg?: TblSpielKombimeisterschaftAvgAggregateInputType
+    _sum?: TblSpielKombimeisterschaftSumAggregateInputType
+    _min?: TblSpielKombimeisterschaftMinAggregateInputType
+    _max?: TblSpielKombimeisterschaftMaxAggregateInputType
+  }
+
+  export type TblSpielKombimeisterschaftGroupByOutputType = {
+    ID: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    Spieler1Punkte3bis8: number
+    Spieler1Punkte5Kugeln: number
+    Spieler2Punkte3bis8: number
+    Spieler2Punkte5Kugeln: number
+    HinRueckrunde: number
+    _count: TblSpielKombimeisterschaftCountAggregateOutputType | null
+    _avg: TblSpielKombimeisterschaftAvgAggregateOutputType | null
+    _sum: TblSpielKombimeisterschaftSumAggregateOutputType | null
+    _min: TblSpielKombimeisterschaftMinAggregateOutputType | null
+    _max: TblSpielKombimeisterschaftMaxAggregateOutputType | null
+  }
+
+  type GetTblSpielKombimeisterschaftGroupByPayload<T extends tblSpielKombimeisterschaftGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TblSpielKombimeisterschaftGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TblSpielKombimeisterschaftGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TblSpielKombimeisterschaftGroupByOutputType[P]>
+            : GetScalarType<T[P], TblSpielKombimeisterschaftGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tblSpielKombimeisterschaftSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ID?: boolean
+    SpieltagID?: boolean
+    SpielerID1?: boolean
+    SpielerID2?: boolean
+    Spieler1Punkte3bis8?: boolean
+    Spieler1Punkte5Kugeln?: boolean
+    Spieler2Punkte3bis8?: boolean
+    Spieler2Punkte5Kugeln?: boolean
+    HinRueckrunde?: boolean
+  }, ExtArgs["result"]["tblSpielKombimeisterschaft"]>
+
+
+
+  export type tblSpielKombimeisterschaftSelectScalar = {
+    ID?: boolean
+    SpieltagID?: boolean
+    SpielerID1?: boolean
+    SpielerID2?: boolean
+    Spieler1Punkte3bis8?: boolean
+    Spieler1Punkte5Kugeln?: boolean
+    Spieler2Punkte3bis8?: boolean
+    Spieler2Punkte5Kugeln?: boolean
+    HinRueckrunde?: boolean
+  }
+
+  export type tblSpielKombimeisterschaftOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"ID" | "SpieltagID" | "SpielerID1" | "SpielerID2" | "Spieler1Punkte3bis8" | "Spieler1Punkte5Kugeln" | "Spieler2Punkte3bis8" | "Spieler2Punkte5Kugeln" | "HinRueckrunde", ExtArgs["result"]["tblSpielKombimeisterschaft"]>
+
+  export type $tblSpielKombimeisterschaftPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tblSpielKombimeisterschaft"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      ID: number
+      SpieltagID: number
+      SpielerID1: number
+      SpielerID2: number
+      Spieler1Punkte3bis8: number
+      Spieler1Punkte5Kugeln: number
+      Spieler2Punkte3bis8: number
+      Spieler2Punkte5Kugeln: number
+      HinRueckrunde: number
+    }, ExtArgs["result"]["tblSpielKombimeisterschaft"]>
+    composites: {}
+  }
+
+  type tblSpielKombimeisterschaftGetPayload<S extends boolean | null | undefined | tblSpielKombimeisterschaftDefaultArgs> = $Result.GetResult<Prisma.$tblSpielKombimeisterschaftPayload, S>
+
+  type tblSpielKombimeisterschaftCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tblSpielKombimeisterschaftFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TblSpielKombimeisterschaftCountAggregateInputType | true
+    }
+
+  export interface tblSpielKombimeisterschaftDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tblSpielKombimeisterschaft'], meta: { name: 'tblSpielKombimeisterschaft' } }
+    /**
+     * Find zero or one TblSpielKombimeisterschaft that matches the filter.
+     * @param {tblSpielKombimeisterschaftFindUniqueArgs} args - Arguments to find a TblSpielKombimeisterschaft
+     * @example
+     * // Get one TblSpielKombimeisterschaft
+     * const tblSpielKombimeisterschaft = await prisma.tblSpielKombimeisterschaft.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tblSpielKombimeisterschaftFindUniqueArgs>(args: SelectSubset<T, tblSpielKombimeisterschaftFindUniqueArgs<ExtArgs>>): Prisma__tblSpielKombimeisterschaftClient<$Result.GetResult<Prisma.$tblSpielKombimeisterschaftPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TblSpielKombimeisterschaft that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tblSpielKombimeisterschaftFindUniqueOrThrowArgs} args - Arguments to find a TblSpielKombimeisterschaft
+     * @example
+     * // Get one TblSpielKombimeisterschaft
+     * const tblSpielKombimeisterschaft = await prisma.tblSpielKombimeisterschaft.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tblSpielKombimeisterschaftFindUniqueOrThrowArgs>(args: SelectSubset<T, tblSpielKombimeisterschaftFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tblSpielKombimeisterschaftClient<$Result.GetResult<Prisma.$tblSpielKombimeisterschaftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSpielKombimeisterschaft that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielKombimeisterschaftFindFirstArgs} args - Arguments to find a TblSpielKombimeisterschaft
+     * @example
+     * // Get one TblSpielKombimeisterschaft
+     * const tblSpielKombimeisterschaft = await prisma.tblSpielKombimeisterschaft.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tblSpielKombimeisterschaftFindFirstArgs>(args?: SelectSubset<T, tblSpielKombimeisterschaftFindFirstArgs<ExtArgs>>): Prisma__tblSpielKombimeisterschaftClient<$Result.GetResult<Prisma.$tblSpielKombimeisterschaftPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSpielKombimeisterschaft that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielKombimeisterschaftFindFirstOrThrowArgs} args - Arguments to find a TblSpielKombimeisterschaft
+     * @example
+     * // Get one TblSpielKombimeisterschaft
+     * const tblSpielKombimeisterschaft = await prisma.tblSpielKombimeisterschaft.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tblSpielKombimeisterschaftFindFirstOrThrowArgs>(args?: SelectSubset<T, tblSpielKombimeisterschaftFindFirstOrThrowArgs<ExtArgs>>): Prisma__tblSpielKombimeisterschaftClient<$Result.GetResult<Prisma.$tblSpielKombimeisterschaftPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TblSpielKombimeisterschafts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielKombimeisterschaftFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TblSpielKombimeisterschafts
+     * const tblSpielKombimeisterschafts = await prisma.tblSpielKombimeisterschaft.findMany()
+     * 
+     * // Get first 10 TblSpielKombimeisterschafts
+     * const tblSpielKombimeisterschafts = await prisma.tblSpielKombimeisterschaft.findMany({ take: 10 })
+     * 
+     * // Only select the `ID`
+     * const tblSpielKombimeisterschaftWithIDOnly = await prisma.tblSpielKombimeisterschaft.findMany({ select: { ID: true } })
+     * 
+     */
+    findMany<T extends tblSpielKombimeisterschaftFindManyArgs>(args?: SelectSubset<T, tblSpielKombimeisterschaftFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblSpielKombimeisterschaftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TblSpielKombimeisterschaft.
+     * @param {tblSpielKombimeisterschaftCreateArgs} args - Arguments to create a TblSpielKombimeisterschaft.
+     * @example
+     * // Create one TblSpielKombimeisterschaft
+     * const TblSpielKombimeisterschaft = await prisma.tblSpielKombimeisterschaft.create({
+     *   data: {
+     *     // ... data to create a TblSpielKombimeisterschaft
+     *   }
+     * })
+     * 
+     */
+    create<T extends tblSpielKombimeisterschaftCreateArgs>(args: SelectSubset<T, tblSpielKombimeisterschaftCreateArgs<ExtArgs>>): Prisma__tblSpielKombimeisterschaftClient<$Result.GetResult<Prisma.$tblSpielKombimeisterschaftPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TblSpielKombimeisterschafts.
+     * @param {tblSpielKombimeisterschaftCreateManyArgs} args - Arguments to create many TblSpielKombimeisterschafts.
+     * @example
+     * // Create many TblSpielKombimeisterschafts
+     * const tblSpielKombimeisterschaft = await prisma.tblSpielKombimeisterschaft.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tblSpielKombimeisterschaftCreateManyArgs>(args?: SelectSubset<T, tblSpielKombimeisterschaftCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a TblSpielKombimeisterschaft.
+     * @param {tblSpielKombimeisterschaftDeleteArgs} args - Arguments to delete one TblSpielKombimeisterschaft.
+     * @example
+     * // Delete one TblSpielKombimeisterschaft
+     * const TblSpielKombimeisterschaft = await prisma.tblSpielKombimeisterschaft.delete({
+     *   where: {
+     *     // ... filter to delete one TblSpielKombimeisterschaft
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tblSpielKombimeisterschaftDeleteArgs>(args: SelectSubset<T, tblSpielKombimeisterschaftDeleteArgs<ExtArgs>>): Prisma__tblSpielKombimeisterschaftClient<$Result.GetResult<Prisma.$tblSpielKombimeisterschaftPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TblSpielKombimeisterschaft.
+     * @param {tblSpielKombimeisterschaftUpdateArgs} args - Arguments to update one TblSpielKombimeisterschaft.
+     * @example
+     * // Update one TblSpielKombimeisterschaft
+     * const tblSpielKombimeisterschaft = await prisma.tblSpielKombimeisterschaft.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tblSpielKombimeisterschaftUpdateArgs>(args: SelectSubset<T, tblSpielKombimeisterschaftUpdateArgs<ExtArgs>>): Prisma__tblSpielKombimeisterschaftClient<$Result.GetResult<Prisma.$tblSpielKombimeisterschaftPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TblSpielKombimeisterschafts.
+     * @param {tblSpielKombimeisterschaftDeleteManyArgs} args - Arguments to filter TblSpielKombimeisterschafts to delete.
+     * @example
+     * // Delete a few TblSpielKombimeisterschafts
+     * const { count } = await prisma.tblSpielKombimeisterschaft.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tblSpielKombimeisterschaftDeleteManyArgs>(args?: SelectSubset<T, tblSpielKombimeisterschaftDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TblSpielKombimeisterschafts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielKombimeisterschaftUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TblSpielKombimeisterschafts
+     * const tblSpielKombimeisterschaft = await prisma.tblSpielKombimeisterschaft.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tblSpielKombimeisterschaftUpdateManyArgs>(args: SelectSubset<T, tblSpielKombimeisterschaftUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TblSpielKombimeisterschaft.
+     * @param {tblSpielKombimeisterschaftUpsertArgs} args - Arguments to update or create a TblSpielKombimeisterschaft.
+     * @example
+     * // Update or create a TblSpielKombimeisterschaft
+     * const tblSpielKombimeisterschaft = await prisma.tblSpielKombimeisterschaft.upsert({
+     *   create: {
+     *     // ... data to create a TblSpielKombimeisterschaft
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TblSpielKombimeisterschaft we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tblSpielKombimeisterschaftUpsertArgs>(args: SelectSubset<T, tblSpielKombimeisterschaftUpsertArgs<ExtArgs>>): Prisma__tblSpielKombimeisterschaftClient<$Result.GetResult<Prisma.$tblSpielKombimeisterschaftPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TblSpielKombimeisterschafts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielKombimeisterschaftCountArgs} args - Arguments to filter TblSpielKombimeisterschafts to count.
+     * @example
+     * // Count the number of TblSpielKombimeisterschafts
+     * const count = await prisma.tblSpielKombimeisterschaft.count({
+     *   where: {
+     *     // ... the filter for the TblSpielKombimeisterschafts we want to count
+     *   }
+     * })
+    **/
+    count<T extends tblSpielKombimeisterschaftCountArgs>(
+      args?: Subset<T, tblSpielKombimeisterschaftCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TblSpielKombimeisterschaftCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TblSpielKombimeisterschaft.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TblSpielKombimeisterschaftAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TblSpielKombimeisterschaftAggregateArgs>(args: Subset<T, TblSpielKombimeisterschaftAggregateArgs>): Prisma.PrismaPromise<GetTblSpielKombimeisterschaftAggregateType<T>>
+
+    /**
+     * Group by TblSpielKombimeisterschaft.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielKombimeisterschaftGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tblSpielKombimeisterschaftGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tblSpielKombimeisterschaftGroupByArgs['orderBy'] }
+        : { orderBy?: tblSpielKombimeisterschaftGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tblSpielKombimeisterschaftGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTblSpielKombimeisterschaftGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tblSpielKombimeisterschaft model
+   */
+  readonly fields: tblSpielKombimeisterschaftFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tblSpielKombimeisterschaft.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tblSpielKombimeisterschaftClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tblSpielKombimeisterschaft model
+   */
+  interface tblSpielKombimeisterschaftFieldRefs {
+    readonly ID: FieldRef<"tblSpielKombimeisterschaft", 'Int'>
+    readonly SpieltagID: FieldRef<"tblSpielKombimeisterschaft", 'Int'>
+    readonly SpielerID1: FieldRef<"tblSpielKombimeisterschaft", 'Int'>
+    readonly SpielerID2: FieldRef<"tblSpielKombimeisterschaft", 'Int'>
+    readonly Spieler1Punkte3bis8: FieldRef<"tblSpielKombimeisterschaft", 'Int'>
+    readonly Spieler1Punkte5Kugeln: FieldRef<"tblSpielKombimeisterschaft", 'Int'>
+    readonly Spieler2Punkte3bis8: FieldRef<"tblSpielKombimeisterschaft", 'Int'>
+    readonly Spieler2Punkte5Kugeln: FieldRef<"tblSpielKombimeisterschaft", 'Int'>
+    readonly HinRueckrunde: FieldRef<"tblSpielKombimeisterschaft", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tblSpielKombimeisterschaft findUnique
+   */
+  export type tblSpielKombimeisterschaftFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielKombimeisterschaft
+     */
+    select?: tblSpielKombimeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielKombimeisterschaft
+     */
+    omit?: tblSpielKombimeisterschaftOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielKombimeisterschaft to fetch.
+     */
+    where: tblSpielKombimeisterschaftWhereUniqueInput
+  }
+
+  /**
+   * tblSpielKombimeisterschaft findUniqueOrThrow
+   */
+  export type tblSpielKombimeisterschaftFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielKombimeisterschaft
+     */
+    select?: tblSpielKombimeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielKombimeisterschaft
+     */
+    omit?: tblSpielKombimeisterschaftOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielKombimeisterschaft to fetch.
+     */
+    where: tblSpielKombimeisterschaftWhereUniqueInput
+  }
+
+  /**
+   * tblSpielKombimeisterschaft findFirst
+   */
+  export type tblSpielKombimeisterschaftFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielKombimeisterschaft
+     */
+    select?: tblSpielKombimeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielKombimeisterschaft
+     */
+    omit?: tblSpielKombimeisterschaftOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielKombimeisterschaft to fetch.
+     */
+    where?: tblSpielKombimeisterschaftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielKombimeisterschafts to fetch.
+     */
+    orderBy?: tblSpielKombimeisterschaftOrderByWithRelationInput | tblSpielKombimeisterschaftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSpielKombimeisterschafts.
+     */
+    cursor?: tblSpielKombimeisterschaftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielKombimeisterschafts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielKombimeisterschafts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSpielKombimeisterschafts.
+     */
+    distinct?: TblSpielKombimeisterschaftScalarFieldEnum | TblSpielKombimeisterschaftScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpielKombimeisterschaft findFirstOrThrow
+   */
+  export type tblSpielKombimeisterschaftFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielKombimeisterschaft
+     */
+    select?: tblSpielKombimeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielKombimeisterschaft
+     */
+    omit?: tblSpielKombimeisterschaftOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielKombimeisterschaft to fetch.
+     */
+    where?: tblSpielKombimeisterschaftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielKombimeisterschafts to fetch.
+     */
+    orderBy?: tblSpielKombimeisterschaftOrderByWithRelationInput | tblSpielKombimeisterschaftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSpielKombimeisterschafts.
+     */
+    cursor?: tblSpielKombimeisterschaftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielKombimeisterschafts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielKombimeisterschafts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSpielKombimeisterschafts.
+     */
+    distinct?: TblSpielKombimeisterschaftScalarFieldEnum | TblSpielKombimeisterschaftScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpielKombimeisterschaft findMany
+   */
+  export type tblSpielKombimeisterschaftFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielKombimeisterschaft
+     */
+    select?: tblSpielKombimeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielKombimeisterschaft
+     */
+    omit?: tblSpielKombimeisterschaftOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielKombimeisterschafts to fetch.
+     */
+    where?: tblSpielKombimeisterschaftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielKombimeisterschafts to fetch.
+     */
+    orderBy?: tblSpielKombimeisterschaftOrderByWithRelationInput | tblSpielKombimeisterschaftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tblSpielKombimeisterschafts.
+     */
+    cursor?: tblSpielKombimeisterschaftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielKombimeisterschafts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielKombimeisterschafts.
+     */
+    skip?: number
+    distinct?: TblSpielKombimeisterschaftScalarFieldEnum | TblSpielKombimeisterschaftScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpielKombimeisterschaft create
+   */
+  export type tblSpielKombimeisterschaftCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielKombimeisterschaft
+     */
+    select?: tblSpielKombimeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielKombimeisterschaft
+     */
+    omit?: tblSpielKombimeisterschaftOmit<ExtArgs> | null
+    /**
+     * The data needed to create a tblSpielKombimeisterschaft.
+     */
+    data: XOR<tblSpielKombimeisterschaftCreateInput, tblSpielKombimeisterschaftUncheckedCreateInput>
+  }
+
+  /**
+   * tblSpielKombimeisterschaft createMany
+   */
+  export type tblSpielKombimeisterschaftCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tblSpielKombimeisterschafts.
+     */
+    data: tblSpielKombimeisterschaftCreateManyInput | tblSpielKombimeisterschaftCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tblSpielKombimeisterschaft update
+   */
+  export type tblSpielKombimeisterschaftUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielKombimeisterschaft
+     */
+    select?: tblSpielKombimeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielKombimeisterschaft
+     */
+    omit?: tblSpielKombimeisterschaftOmit<ExtArgs> | null
+    /**
+     * The data needed to update a tblSpielKombimeisterschaft.
+     */
+    data: XOR<tblSpielKombimeisterschaftUpdateInput, tblSpielKombimeisterschaftUncheckedUpdateInput>
+    /**
+     * Choose, which tblSpielKombimeisterschaft to update.
+     */
+    where: tblSpielKombimeisterschaftWhereUniqueInput
+  }
+
+  /**
+   * tblSpielKombimeisterschaft updateMany
+   */
+  export type tblSpielKombimeisterschaftUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tblSpielKombimeisterschafts.
+     */
+    data: XOR<tblSpielKombimeisterschaftUpdateManyMutationInput, tblSpielKombimeisterschaftUncheckedUpdateManyInput>
+    /**
+     * Filter which tblSpielKombimeisterschafts to update
+     */
+    where?: tblSpielKombimeisterschaftWhereInput
+    /**
+     * Limit how many tblSpielKombimeisterschafts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSpielKombimeisterschaft upsert
+   */
+  export type tblSpielKombimeisterschaftUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielKombimeisterschaft
+     */
+    select?: tblSpielKombimeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielKombimeisterschaft
+     */
+    omit?: tblSpielKombimeisterschaftOmit<ExtArgs> | null
+    /**
+     * The filter to search for the tblSpielKombimeisterschaft to update in case it exists.
+     */
+    where: tblSpielKombimeisterschaftWhereUniqueInput
+    /**
+     * In case the tblSpielKombimeisterschaft found by the `where` argument doesn't exist, create a new tblSpielKombimeisterschaft with this data.
+     */
+    create: XOR<tblSpielKombimeisterschaftCreateInput, tblSpielKombimeisterschaftUncheckedCreateInput>
+    /**
+     * In case the tblSpielKombimeisterschaft was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tblSpielKombimeisterschaftUpdateInput, tblSpielKombimeisterschaftUncheckedUpdateInput>
+  }
+
+  /**
+   * tblSpielKombimeisterschaft delete
+   */
+  export type tblSpielKombimeisterschaftDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielKombimeisterschaft
+     */
+    select?: tblSpielKombimeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielKombimeisterschaft
+     */
+    omit?: tblSpielKombimeisterschaftOmit<ExtArgs> | null
+    /**
+     * Filter which tblSpielKombimeisterschaft to delete.
+     */
+    where: tblSpielKombimeisterschaftWhereUniqueInput
+  }
+
+  /**
+   * tblSpielKombimeisterschaft deleteMany
+   */
+  export type tblSpielKombimeisterschaftDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSpielKombimeisterschafts to delete
+     */
+    where?: tblSpielKombimeisterschaftWhereInput
+    /**
+     * Limit how many tblSpielKombimeisterschafts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSpielKombimeisterschaft without action
+   */
+  export type tblSpielKombimeisterschaftDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielKombimeisterschaft
+     */
+    select?: tblSpielKombimeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielKombimeisterschaft
+     */
+    omit?: tblSpielKombimeisterschaftOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model tblSpielMeisterschaft
+   */
+
+  export type AggregateTblSpielMeisterschaft = {
+    _count: TblSpielMeisterschaftCountAggregateOutputType | null
+    _avg: TblSpielMeisterschaftAvgAggregateOutputType | null
+    _sum: TblSpielMeisterschaftSumAggregateOutputType | null
+    _min: TblSpielMeisterschaftMinAggregateOutputType | null
+    _max: TblSpielMeisterschaftMaxAggregateOutputType | null
+  }
+
+  export type TblSpielMeisterschaftAvgAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    HolzSpieler1: number | null
+    HolzSpieler2: number | null
+    HinRueckrunde: number | null
+  }
+
+  export type TblSpielMeisterschaftSumAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    HolzSpieler1: number | null
+    HolzSpieler2: number | null
+    HinRueckrunde: number | null
+  }
+
+  export type TblSpielMeisterschaftMinAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    HolzSpieler1: number | null
+    HolzSpieler2: number | null
+    HinRueckrunde: number | null
+  }
+
+  export type TblSpielMeisterschaftMaxAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID1: number | null
+    SpielerID2: number | null
+    HolzSpieler1: number | null
+    HolzSpieler2: number | null
+    HinRueckrunde: number | null
+  }
+
+  export type TblSpielMeisterschaftCountAggregateOutputType = {
+    ID: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    HolzSpieler1: number
+    HolzSpieler2: number
+    HinRueckrunde: number
+    _all: number
+  }
+
+
+  export type TblSpielMeisterschaftAvgAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    HolzSpieler1?: true
+    HolzSpieler2?: true
+    HinRueckrunde?: true
+  }
+
+  export type TblSpielMeisterschaftSumAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    HolzSpieler1?: true
+    HolzSpieler2?: true
+    HinRueckrunde?: true
+  }
+
+  export type TblSpielMeisterschaftMinAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    HolzSpieler1?: true
+    HolzSpieler2?: true
+    HinRueckrunde?: true
+  }
+
+  export type TblSpielMeisterschaftMaxAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    HolzSpieler1?: true
+    HolzSpieler2?: true
+    HinRueckrunde?: true
+  }
+
+  export type TblSpielMeisterschaftCountAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID1?: true
+    SpielerID2?: true
+    HolzSpieler1?: true
+    HolzSpieler2?: true
+    HinRueckrunde?: true
+    _all?: true
+  }
+
+  export type TblSpielMeisterschaftAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSpielMeisterschaft to aggregate.
+     */
+    where?: tblSpielMeisterschaftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielMeisterschafts to fetch.
+     */
+    orderBy?: tblSpielMeisterschaftOrderByWithRelationInput | tblSpielMeisterschaftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tblSpielMeisterschaftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielMeisterschafts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielMeisterschafts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tblSpielMeisterschafts
+    **/
+    _count?: true | TblSpielMeisterschaftCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TblSpielMeisterschaftAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TblSpielMeisterschaftSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TblSpielMeisterschaftMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TblSpielMeisterschaftMaxAggregateInputType
+  }
+
+  export type GetTblSpielMeisterschaftAggregateType<T extends TblSpielMeisterschaftAggregateArgs> = {
+        [P in keyof T & keyof AggregateTblSpielMeisterschaft]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTblSpielMeisterschaft[P]>
+      : GetScalarType<T[P], AggregateTblSpielMeisterschaft[P]>
+  }
+
+
+
+
+  export type tblSpielMeisterschaftGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblSpielMeisterschaftWhereInput
+    orderBy?: tblSpielMeisterschaftOrderByWithAggregationInput | tblSpielMeisterschaftOrderByWithAggregationInput[]
+    by: TblSpielMeisterschaftScalarFieldEnum[] | TblSpielMeisterschaftScalarFieldEnum
+    having?: tblSpielMeisterschaftScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TblSpielMeisterschaftCountAggregateInputType | true
+    _avg?: TblSpielMeisterschaftAvgAggregateInputType
+    _sum?: TblSpielMeisterschaftSumAggregateInputType
+    _min?: TblSpielMeisterschaftMinAggregateInputType
+    _max?: TblSpielMeisterschaftMaxAggregateInputType
+  }
+
+  export type TblSpielMeisterschaftGroupByOutputType = {
+    ID: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    HolzSpieler1: number
+    HolzSpieler2: number
+    HinRueckrunde: number
+    _count: TblSpielMeisterschaftCountAggregateOutputType | null
+    _avg: TblSpielMeisterschaftAvgAggregateOutputType | null
+    _sum: TblSpielMeisterschaftSumAggregateOutputType | null
+    _min: TblSpielMeisterschaftMinAggregateOutputType | null
+    _max: TblSpielMeisterschaftMaxAggregateOutputType | null
+  }
+
+  type GetTblSpielMeisterschaftGroupByPayload<T extends tblSpielMeisterschaftGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TblSpielMeisterschaftGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TblSpielMeisterschaftGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TblSpielMeisterschaftGroupByOutputType[P]>
+            : GetScalarType<T[P], TblSpielMeisterschaftGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tblSpielMeisterschaftSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ID?: boolean
+    SpieltagID?: boolean
+    SpielerID1?: boolean
+    SpielerID2?: boolean
+    HolzSpieler1?: boolean
+    HolzSpieler2?: boolean
+    HinRueckrunde?: boolean
+  }, ExtArgs["result"]["tblSpielMeisterschaft"]>
+
+
+
+  export type tblSpielMeisterschaftSelectScalar = {
+    ID?: boolean
+    SpieltagID?: boolean
+    SpielerID1?: boolean
+    SpielerID2?: boolean
+    HolzSpieler1?: boolean
+    HolzSpieler2?: boolean
+    HinRueckrunde?: boolean
+  }
+
+  export type tblSpielMeisterschaftOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"ID" | "SpieltagID" | "SpielerID1" | "SpielerID2" | "HolzSpieler1" | "HolzSpieler2" | "HinRueckrunde", ExtArgs["result"]["tblSpielMeisterschaft"]>
+
+  export type $tblSpielMeisterschaftPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tblSpielMeisterschaft"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      ID: number
+      SpieltagID: number
+      SpielerID1: number
+      SpielerID2: number
+      HolzSpieler1: number
+      HolzSpieler2: number
+      HinRueckrunde: number
+    }, ExtArgs["result"]["tblSpielMeisterschaft"]>
+    composites: {}
+  }
+
+  type tblSpielMeisterschaftGetPayload<S extends boolean | null | undefined | tblSpielMeisterschaftDefaultArgs> = $Result.GetResult<Prisma.$tblSpielMeisterschaftPayload, S>
+
+  type tblSpielMeisterschaftCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tblSpielMeisterschaftFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TblSpielMeisterschaftCountAggregateInputType | true
+    }
+
+  export interface tblSpielMeisterschaftDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tblSpielMeisterschaft'], meta: { name: 'tblSpielMeisterschaft' } }
+    /**
+     * Find zero or one TblSpielMeisterschaft that matches the filter.
+     * @param {tblSpielMeisterschaftFindUniqueArgs} args - Arguments to find a TblSpielMeisterschaft
+     * @example
+     * // Get one TblSpielMeisterschaft
+     * const tblSpielMeisterschaft = await prisma.tblSpielMeisterschaft.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tblSpielMeisterschaftFindUniqueArgs>(args: SelectSubset<T, tblSpielMeisterschaftFindUniqueArgs<ExtArgs>>): Prisma__tblSpielMeisterschaftClient<$Result.GetResult<Prisma.$tblSpielMeisterschaftPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TblSpielMeisterschaft that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tblSpielMeisterschaftFindUniqueOrThrowArgs} args - Arguments to find a TblSpielMeisterschaft
+     * @example
+     * // Get one TblSpielMeisterschaft
+     * const tblSpielMeisterschaft = await prisma.tblSpielMeisterschaft.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tblSpielMeisterschaftFindUniqueOrThrowArgs>(args: SelectSubset<T, tblSpielMeisterschaftFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tblSpielMeisterschaftClient<$Result.GetResult<Prisma.$tblSpielMeisterschaftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSpielMeisterschaft that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielMeisterschaftFindFirstArgs} args - Arguments to find a TblSpielMeisterschaft
+     * @example
+     * // Get one TblSpielMeisterschaft
+     * const tblSpielMeisterschaft = await prisma.tblSpielMeisterschaft.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tblSpielMeisterschaftFindFirstArgs>(args?: SelectSubset<T, tblSpielMeisterschaftFindFirstArgs<ExtArgs>>): Prisma__tblSpielMeisterschaftClient<$Result.GetResult<Prisma.$tblSpielMeisterschaftPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSpielMeisterschaft that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielMeisterschaftFindFirstOrThrowArgs} args - Arguments to find a TblSpielMeisterschaft
+     * @example
+     * // Get one TblSpielMeisterschaft
+     * const tblSpielMeisterschaft = await prisma.tblSpielMeisterschaft.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tblSpielMeisterschaftFindFirstOrThrowArgs>(args?: SelectSubset<T, tblSpielMeisterschaftFindFirstOrThrowArgs<ExtArgs>>): Prisma__tblSpielMeisterschaftClient<$Result.GetResult<Prisma.$tblSpielMeisterschaftPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TblSpielMeisterschafts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielMeisterschaftFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TblSpielMeisterschafts
+     * const tblSpielMeisterschafts = await prisma.tblSpielMeisterschaft.findMany()
+     * 
+     * // Get first 10 TblSpielMeisterschafts
+     * const tblSpielMeisterschafts = await prisma.tblSpielMeisterschaft.findMany({ take: 10 })
+     * 
+     * // Only select the `ID`
+     * const tblSpielMeisterschaftWithIDOnly = await prisma.tblSpielMeisterschaft.findMany({ select: { ID: true } })
+     * 
+     */
+    findMany<T extends tblSpielMeisterschaftFindManyArgs>(args?: SelectSubset<T, tblSpielMeisterschaftFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblSpielMeisterschaftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TblSpielMeisterschaft.
+     * @param {tblSpielMeisterschaftCreateArgs} args - Arguments to create a TblSpielMeisterschaft.
+     * @example
+     * // Create one TblSpielMeisterschaft
+     * const TblSpielMeisterschaft = await prisma.tblSpielMeisterschaft.create({
+     *   data: {
+     *     // ... data to create a TblSpielMeisterschaft
+     *   }
+     * })
+     * 
+     */
+    create<T extends tblSpielMeisterschaftCreateArgs>(args: SelectSubset<T, tblSpielMeisterschaftCreateArgs<ExtArgs>>): Prisma__tblSpielMeisterschaftClient<$Result.GetResult<Prisma.$tblSpielMeisterschaftPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TblSpielMeisterschafts.
+     * @param {tblSpielMeisterschaftCreateManyArgs} args - Arguments to create many TblSpielMeisterschafts.
+     * @example
+     * // Create many TblSpielMeisterschafts
+     * const tblSpielMeisterschaft = await prisma.tblSpielMeisterschaft.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tblSpielMeisterschaftCreateManyArgs>(args?: SelectSubset<T, tblSpielMeisterschaftCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a TblSpielMeisterschaft.
+     * @param {tblSpielMeisterschaftDeleteArgs} args - Arguments to delete one TblSpielMeisterschaft.
+     * @example
+     * // Delete one TblSpielMeisterschaft
+     * const TblSpielMeisterschaft = await prisma.tblSpielMeisterschaft.delete({
+     *   where: {
+     *     // ... filter to delete one TblSpielMeisterschaft
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tblSpielMeisterschaftDeleteArgs>(args: SelectSubset<T, tblSpielMeisterschaftDeleteArgs<ExtArgs>>): Prisma__tblSpielMeisterschaftClient<$Result.GetResult<Prisma.$tblSpielMeisterschaftPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TblSpielMeisterschaft.
+     * @param {tblSpielMeisterschaftUpdateArgs} args - Arguments to update one TblSpielMeisterschaft.
+     * @example
+     * // Update one TblSpielMeisterschaft
+     * const tblSpielMeisterschaft = await prisma.tblSpielMeisterschaft.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tblSpielMeisterschaftUpdateArgs>(args: SelectSubset<T, tblSpielMeisterschaftUpdateArgs<ExtArgs>>): Prisma__tblSpielMeisterschaftClient<$Result.GetResult<Prisma.$tblSpielMeisterschaftPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TblSpielMeisterschafts.
+     * @param {tblSpielMeisterschaftDeleteManyArgs} args - Arguments to filter TblSpielMeisterschafts to delete.
+     * @example
+     * // Delete a few TblSpielMeisterschafts
+     * const { count } = await prisma.tblSpielMeisterschaft.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tblSpielMeisterschaftDeleteManyArgs>(args?: SelectSubset<T, tblSpielMeisterschaftDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TblSpielMeisterschafts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielMeisterschaftUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TblSpielMeisterschafts
+     * const tblSpielMeisterschaft = await prisma.tblSpielMeisterschaft.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tblSpielMeisterschaftUpdateManyArgs>(args: SelectSubset<T, tblSpielMeisterschaftUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TblSpielMeisterschaft.
+     * @param {tblSpielMeisterschaftUpsertArgs} args - Arguments to update or create a TblSpielMeisterschaft.
+     * @example
+     * // Update or create a TblSpielMeisterschaft
+     * const tblSpielMeisterschaft = await prisma.tblSpielMeisterschaft.upsert({
+     *   create: {
+     *     // ... data to create a TblSpielMeisterschaft
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TblSpielMeisterschaft we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tblSpielMeisterschaftUpsertArgs>(args: SelectSubset<T, tblSpielMeisterschaftUpsertArgs<ExtArgs>>): Prisma__tblSpielMeisterschaftClient<$Result.GetResult<Prisma.$tblSpielMeisterschaftPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TblSpielMeisterschafts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielMeisterschaftCountArgs} args - Arguments to filter TblSpielMeisterschafts to count.
+     * @example
+     * // Count the number of TblSpielMeisterschafts
+     * const count = await prisma.tblSpielMeisterschaft.count({
+     *   where: {
+     *     // ... the filter for the TblSpielMeisterschafts we want to count
+     *   }
+     * })
+    **/
+    count<T extends tblSpielMeisterschaftCountArgs>(
+      args?: Subset<T, tblSpielMeisterschaftCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TblSpielMeisterschaftCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TblSpielMeisterschaft.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TblSpielMeisterschaftAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TblSpielMeisterschaftAggregateArgs>(args: Subset<T, TblSpielMeisterschaftAggregateArgs>): Prisma.PrismaPromise<GetTblSpielMeisterschaftAggregateType<T>>
+
+    /**
+     * Group by TblSpielMeisterschaft.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielMeisterschaftGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tblSpielMeisterschaftGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tblSpielMeisterschaftGroupByArgs['orderBy'] }
+        : { orderBy?: tblSpielMeisterschaftGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tblSpielMeisterschaftGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTblSpielMeisterschaftGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tblSpielMeisterschaft model
+   */
+  readonly fields: tblSpielMeisterschaftFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tblSpielMeisterschaft.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tblSpielMeisterschaftClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tblSpielMeisterschaft model
+   */
+  interface tblSpielMeisterschaftFieldRefs {
+    readonly ID: FieldRef<"tblSpielMeisterschaft", 'Int'>
+    readonly SpieltagID: FieldRef<"tblSpielMeisterschaft", 'Int'>
+    readonly SpielerID1: FieldRef<"tblSpielMeisterschaft", 'Int'>
+    readonly SpielerID2: FieldRef<"tblSpielMeisterschaft", 'Int'>
+    readonly HolzSpieler1: FieldRef<"tblSpielMeisterschaft", 'Int'>
+    readonly HolzSpieler2: FieldRef<"tblSpielMeisterschaft", 'Int'>
+    readonly HinRueckrunde: FieldRef<"tblSpielMeisterschaft", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tblSpielMeisterschaft findUnique
+   */
+  export type tblSpielMeisterschaftFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielMeisterschaft
+     */
+    select?: tblSpielMeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielMeisterschaft
+     */
+    omit?: tblSpielMeisterschaftOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielMeisterschaft to fetch.
+     */
+    where: tblSpielMeisterschaftWhereUniqueInput
+  }
+
+  /**
+   * tblSpielMeisterschaft findUniqueOrThrow
+   */
+  export type tblSpielMeisterschaftFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielMeisterschaft
+     */
+    select?: tblSpielMeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielMeisterschaft
+     */
+    omit?: tblSpielMeisterschaftOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielMeisterschaft to fetch.
+     */
+    where: tblSpielMeisterschaftWhereUniqueInput
+  }
+
+  /**
+   * tblSpielMeisterschaft findFirst
+   */
+  export type tblSpielMeisterschaftFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielMeisterschaft
+     */
+    select?: tblSpielMeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielMeisterschaft
+     */
+    omit?: tblSpielMeisterschaftOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielMeisterschaft to fetch.
+     */
+    where?: tblSpielMeisterschaftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielMeisterschafts to fetch.
+     */
+    orderBy?: tblSpielMeisterschaftOrderByWithRelationInput | tblSpielMeisterschaftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSpielMeisterschafts.
+     */
+    cursor?: tblSpielMeisterschaftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielMeisterschafts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielMeisterschafts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSpielMeisterschafts.
+     */
+    distinct?: TblSpielMeisterschaftScalarFieldEnum | TblSpielMeisterschaftScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpielMeisterschaft findFirstOrThrow
+   */
+  export type tblSpielMeisterschaftFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielMeisterschaft
+     */
+    select?: tblSpielMeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielMeisterschaft
+     */
+    omit?: tblSpielMeisterschaftOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielMeisterschaft to fetch.
+     */
+    where?: tblSpielMeisterschaftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielMeisterschafts to fetch.
+     */
+    orderBy?: tblSpielMeisterschaftOrderByWithRelationInput | tblSpielMeisterschaftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSpielMeisterschafts.
+     */
+    cursor?: tblSpielMeisterschaftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielMeisterschafts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielMeisterschafts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSpielMeisterschafts.
+     */
+    distinct?: TblSpielMeisterschaftScalarFieldEnum | TblSpielMeisterschaftScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpielMeisterschaft findMany
+   */
+  export type tblSpielMeisterschaftFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielMeisterschaft
+     */
+    select?: tblSpielMeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielMeisterschaft
+     */
+    omit?: tblSpielMeisterschaftOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielMeisterschafts to fetch.
+     */
+    where?: tblSpielMeisterschaftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielMeisterschafts to fetch.
+     */
+    orderBy?: tblSpielMeisterschaftOrderByWithRelationInput | tblSpielMeisterschaftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tblSpielMeisterschafts.
+     */
+    cursor?: tblSpielMeisterschaftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielMeisterschafts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielMeisterschafts.
+     */
+    skip?: number
+    distinct?: TblSpielMeisterschaftScalarFieldEnum | TblSpielMeisterschaftScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpielMeisterschaft create
+   */
+  export type tblSpielMeisterschaftCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielMeisterschaft
+     */
+    select?: tblSpielMeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielMeisterschaft
+     */
+    omit?: tblSpielMeisterschaftOmit<ExtArgs> | null
+    /**
+     * The data needed to create a tblSpielMeisterschaft.
+     */
+    data: XOR<tblSpielMeisterschaftCreateInput, tblSpielMeisterschaftUncheckedCreateInput>
+  }
+
+  /**
+   * tblSpielMeisterschaft createMany
+   */
+  export type tblSpielMeisterschaftCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tblSpielMeisterschafts.
+     */
+    data: tblSpielMeisterschaftCreateManyInput | tblSpielMeisterschaftCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tblSpielMeisterschaft update
+   */
+  export type tblSpielMeisterschaftUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielMeisterschaft
+     */
+    select?: tblSpielMeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielMeisterschaft
+     */
+    omit?: tblSpielMeisterschaftOmit<ExtArgs> | null
+    /**
+     * The data needed to update a tblSpielMeisterschaft.
+     */
+    data: XOR<tblSpielMeisterschaftUpdateInput, tblSpielMeisterschaftUncheckedUpdateInput>
+    /**
+     * Choose, which tblSpielMeisterschaft to update.
+     */
+    where: tblSpielMeisterschaftWhereUniqueInput
+  }
+
+  /**
+   * tblSpielMeisterschaft updateMany
+   */
+  export type tblSpielMeisterschaftUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tblSpielMeisterschafts.
+     */
+    data: XOR<tblSpielMeisterschaftUpdateManyMutationInput, tblSpielMeisterschaftUncheckedUpdateManyInput>
+    /**
+     * Filter which tblSpielMeisterschafts to update
+     */
+    where?: tblSpielMeisterschaftWhereInput
+    /**
+     * Limit how many tblSpielMeisterschafts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSpielMeisterschaft upsert
+   */
+  export type tblSpielMeisterschaftUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielMeisterschaft
+     */
+    select?: tblSpielMeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielMeisterschaft
+     */
+    omit?: tblSpielMeisterschaftOmit<ExtArgs> | null
+    /**
+     * The filter to search for the tblSpielMeisterschaft to update in case it exists.
+     */
+    where: tblSpielMeisterschaftWhereUniqueInput
+    /**
+     * In case the tblSpielMeisterschaft found by the `where` argument doesn't exist, create a new tblSpielMeisterschaft with this data.
+     */
+    create: XOR<tblSpielMeisterschaftCreateInput, tblSpielMeisterschaftUncheckedCreateInput>
+    /**
+     * In case the tblSpielMeisterschaft was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tblSpielMeisterschaftUpdateInput, tblSpielMeisterschaftUncheckedUpdateInput>
+  }
+
+  /**
+   * tblSpielMeisterschaft delete
+   */
+  export type tblSpielMeisterschaftDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielMeisterschaft
+     */
+    select?: tblSpielMeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielMeisterschaft
+     */
+    omit?: tblSpielMeisterschaftOmit<ExtArgs> | null
+    /**
+     * Filter which tblSpielMeisterschaft to delete.
+     */
+    where: tblSpielMeisterschaftWhereUniqueInput
+  }
+
+  /**
+   * tblSpielMeisterschaft deleteMany
+   */
+  export type tblSpielMeisterschaftDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSpielMeisterschafts to delete
+     */
+    where?: tblSpielMeisterschaftWhereInput
+    /**
+     * Limit how many tblSpielMeisterschafts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSpielMeisterschaft without action
+   */
+  export type tblSpielMeisterschaftDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielMeisterschaft
+     */
+    select?: tblSpielMeisterschaftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielMeisterschaft
+     */
+    omit?: tblSpielMeisterschaftOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model tblSpielPokal
+   */
+
+  export type AggregateTblSpielPokal = {
+    _count: TblSpielPokalCountAggregateOutputType | null
+    _avg: TblSpielPokalAvgAggregateOutputType | null
+    _sum: TblSpielPokalSumAggregateOutputType | null
+    _min: TblSpielPokalMinAggregateOutputType | null
+    _max: TblSpielPokalMaxAggregateOutputType | null
+  }
+
+  export type TblSpielPokalAvgAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID: number | null
+    Platzierung: number | null
+  }
+
+  export type TblSpielPokalSumAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID: number | null
+    Platzierung: number | null
+  }
+
+  export type TblSpielPokalMinAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID: number | null
+    Platzierung: number | null
+  }
+
+  export type TblSpielPokalMaxAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID: number | null
+    Platzierung: number | null
+  }
+
+  export type TblSpielPokalCountAggregateOutputType = {
+    ID: number
+    SpieltagID: number
+    SpielerID: number
+    Platzierung: number
+    _all: number
+  }
+
+
+  export type TblSpielPokalAvgAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID?: true
+    Platzierung?: true
+  }
+
+  export type TblSpielPokalSumAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID?: true
+    Platzierung?: true
+  }
+
+  export type TblSpielPokalMinAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID?: true
+    Platzierung?: true
+  }
+
+  export type TblSpielPokalMaxAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID?: true
+    Platzierung?: true
+  }
+
+  export type TblSpielPokalCountAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID?: true
+    Platzierung?: true
+    _all?: true
+  }
+
+  export type TblSpielPokalAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSpielPokal to aggregate.
+     */
+    where?: tblSpielPokalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielPokals to fetch.
+     */
+    orderBy?: tblSpielPokalOrderByWithRelationInput | tblSpielPokalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tblSpielPokalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielPokals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielPokals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tblSpielPokals
+    **/
+    _count?: true | TblSpielPokalCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TblSpielPokalAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TblSpielPokalSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TblSpielPokalMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TblSpielPokalMaxAggregateInputType
+  }
+
+  export type GetTblSpielPokalAggregateType<T extends TblSpielPokalAggregateArgs> = {
+        [P in keyof T & keyof AggregateTblSpielPokal]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTblSpielPokal[P]>
+      : GetScalarType<T[P], AggregateTblSpielPokal[P]>
+  }
+
+
+
+
+  export type tblSpielPokalGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblSpielPokalWhereInput
+    orderBy?: tblSpielPokalOrderByWithAggregationInput | tblSpielPokalOrderByWithAggregationInput[]
+    by: TblSpielPokalScalarFieldEnum[] | TblSpielPokalScalarFieldEnum
+    having?: tblSpielPokalScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TblSpielPokalCountAggregateInputType | true
+    _avg?: TblSpielPokalAvgAggregateInputType
+    _sum?: TblSpielPokalSumAggregateInputType
+    _min?: TblSpielPokalMinAggregateInputType
+    _max?: TblSpielPokalMaxAggregateInputType
+  }
+
+  export type TblSpielPokalGroupByOutputType = {
+    ID: number
+    SpieltagID: number
+    SpielerID: number
+    Platzierung: number
+    _count: TblSpielPokalCountAggregateOutputType | null
+    _avg: TblSpielPokalAvgAggregateOutputType | null
+    _sum: TblSpielPokalSumAggregateOutputType | null
+    _min: TblSpielPokalMinAggregateOutputType | null
+    _max: TblSpielPokalMaxAggregateOutputType | null
+  }
+
+  type GetTblSpielPokalGroupByPayload<T extends tblSpielPokalGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TblSpielPokalGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TblSpielPokalGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TblSpielPokalGroupByOutputType[P]>
+            : GetScalarType<T[P], TblSpielPokalGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tblSpielPokalSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ID?: boolean
+    SpieltagID?: boolean
+    SpielerID?: boolean
+    Platzierung?: boolean
+  }, ExtArgs["result"]["tblSpielPokal"]>
+
+
+
+  export type tblSpielPokalSelectScalar = {
+    ID?: boolean
+    SpieltagID?: boolean
+    SpielerID?: boolean
+    Platzierung?: boolean
+  }
+
+  export type tblSpielPokalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"ID" | "SpieltagID" | "SpielerID" | "Platzierung", ExtArgs["result"]["tblSpielPokal"]>
+
+  export type $tblSpielPokalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tblSpielPokal"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      ID: number
+      SpieltagID: number
+      SpielerID: number
+      Platzierung: number
+    }, ExtArgs["result"]["tblSpielPokal"]>
+    composites: {}
+  }
+
+  type tblSpielPokalGetPayload<S extends boolean | null | undefined | tblSpielPokalDefaultArgs> = $Result.GetResult<Prisma.$tblSpielPokalPayload, S>
+
+  type tblSpielPokalCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tblSpielPokalFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TblSpielPokalCountAggregateInputType | true
+    }
+
+  export interface tblSpielPokalDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tblSpielPokal'], meta: { name: 'tblSpielPokal' } }
+    /**
+     * Find zero or one TblSpielPokal that matches the filter.
+     * @param {tblSpielPokalFindUniqueArgs} args - Arguments to find a TblSpielPokal
+     * @example
+     * // Get one TblSpielPokal
+     * const tblSpielPokal = await prisma.tblSpielPokal.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tblSpielPokalFindUniqueArgs>(args: SelectSubset<T, tblSpielPokalFindUniqueArgs<ExtArgs>>): Prisma__tblSpielPokalClient<$Result.GetResult<Prisma.$tblSpielPokalPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TblSpielPokal that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tblSpielPokalFindUniqueOrThrowArgs} args - Arguments to find a TblSpielPokal
+     * @example
+     * // Get one TblSpielPokal
+     * const tblSpielPokal = await prisma.tblSpielPokal.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tblSpielPokalFindUniqueOrThrowArgs>(args: SelectSubset<T, tblSpielPokalFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tblSpielPokalClient<$Result.GetResult<Prisma.$tblSpielPokalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSpielPokal that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielPokalFindFirstArgs} args - Arguments to find a TblSpielPokal
+     * @example
+     * // Get one TblSpielPokal
+     * const tblSpielPokal = await prisma.tblSpielPokal.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tblSpielPokalFindFirstArgs>(args?: SelectSubset<T, tblSpielPokalFindFirstArgs<ExtArgs>>): Prisma__tblSpielPokalClient<$Result.GetResult<Prisma.$tblSpielPokalPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSpielPokal that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielPokalFindFirstOrThrowArgs} args - Arguments to find a TblSpielPokal
+     * @example
+     * // Get one TblSpielPokal
+     * const tblSpielPokal = await prisma.tblSpielPokal.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tblSpielPokalFindFirstOrThrowArgs>(args?: SelectSubset<T, tblSpielPokalFindFirstOrThrowArgs<ExtArgs>>): Prisma__tblSpielPokalClient<$Result.GetResult<Prisma.$tblSpielPokalPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TblSpielPokals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielPokalFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TblSpielPokals
+     * const tblSpielPokals = await prisma.tblSpielPokal.findMany()
+     * 
+     * // Get first 10 TblSpielPokals
+     * const tblSpielPokals = await prisma.tblSpielPokal.findMany({ take: 10 })
+     * 
+     * // Only select the `ID`
+     * const tblSpielPokalWithIDOnly = await prisma.tblSpielPokal.findMany({ select: { ID: true } })
+     * 
+     */
+    findMany<T extends tblSpielPokalFindManyArgs>(args?: SelectSubset<T, tblSpielPokalFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblSpielPokalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TblSpielPokal.
+     * @param {tblSpielPokalCreateArgs} args - Arguments to create a TblSpielPokal.
+     * @example
+     * // Create one TblSpielPokal
+     * const TblSpielPokal = await prisma.tblSpielPokal.create({
+     *   data: {
+     *     // ... data to create a TblSpielPokal
+     *   }
+     * })
+     * 
+     */
+    create<T extends tblSpielPokalCreateArgs>(args: SelectSubset<T, tblSpielPokalCreateArgs<ExtArgs>>): Prisma__tblSpielPokalClient<$Result.GetResult<Prisma.$tblSpielPokalPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TblSpielPokals.
+     * @param {tblSpielPokalCreateManyArgs} args - Arguments to create many TblSpielPokals.
+     * @example
+     * // Create many TblSpielPokals
+     * const tblSpielPokal = await prisma.tblSpielPokal.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tblSpielPokalCreateManyArgs>(args?: SelectSubset<T, tblSpielPokalCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a TblSpielPokal.
+     * @param {tblSpielPokalDeleteArgs} args - Arguments to delete one TblSpielPokal.
+     * @example
+     * // Delete one TblSpielPokal
+     * const TblSpielPokal = await prisma.tblSpielPokal.delete({
+     *   where: {
+     *     // ... filter to delete one TblSpielPokal
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tblSpielPokalDeleteArgs>(args: SelectSubset<T, tblSpielPokalDeleteArgs<ExtArgs>>): Prisma__tblSpielPokalClient<$Result.GetResult<Prisma.$tblSpielPokalPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TblSpielPokal.
+     * @param {tblSpielPokalUpdateArgs} args - Arguments to update one TblSpielPokal.
+     * @example
+     * // Update one TblSpielPokal
+     * const tblSpielPokal = await prisma.tblSpielPokal.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tblSpielPokalUpdateArgs>(args: SelectSubset<T, tblSpielPokalUpdateArgs<ExtArgs>>): Prisma__tblSpielPokalClient<$Result.GetResult<Prisma.$tblSpielPokalPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TblSpielPokals.
+     * @param {tblSpielPokalDeleteManyArgs} args - Arguments to filter TblSpielPokals to delete.
+     * @example
+     * // Delete a few TblSpielPokals
+     * const { count } = await prisma.tblSpielPokal.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tblSpielPokalDeleteManyArgs>(args?: SelectSubset<T, tblSpielPokalDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TblSpielPokals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielPokalUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TblSpielPokals
+     * const tblSpielPokal = await prisma.tblSpielPokal.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tblSpielPokalUpdateManyArgs>(args: SelectSubset<T, tblSpielPokalUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TblSpielPokal.
+     * @param {tblSpielPokalUpsertArgs} args - Arguments to update or create a TblSpielPokal.
+     * @example
+     * // Update or create a TblSpielPokal
+     * const tblSpielPokal = await prisma.tblSpielPokal.upsert({
+     *   create: {
+     *     // ... data to create a TblSpielPokal
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TblSpielPokal we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tblSpielPokalUpsertArgs>(args: SelectSubset<T, tblSpielPokalUpsertArgs<ExtArgs>>): Prisma__tblSpielPokalClient<$Result.GetResult<Prisma.$tblSpielPokalPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TblSpielPokals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielPokalCountArgs} args - Arguments to filter TblSpielPokals to count.
+     * @example
+     * // Count the number of TblSpielPokals
+     * const count = await prisma.tblSpielPokal.count({
+     *   where: {
+     *     // ... the filter for the TblSpielPokals we want to count
+     *   }
+     * })
+    **/
+    count<T extends tblSpielPokalCountArgs>(
+      args?: Subset<T, tblSpielPokalCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TblSpielPokalCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TblSpielPokal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TblSpielPokalAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TblSpielPokalAggregateArgs>(args: Subset<T, TblSpielPokalAggregateArgs>): Prisma.PrismaPromise<GetTblSpielPokalAggregateType<T>>
+
+    /**
+     * Group by TblSpielPokal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielPokalGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tblSpielPokalGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tblSpielPokalGroupByArgs['orderBy'] }
+        : { orderBy?: tblSpielPokalGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tblSpielPokalGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTblSpielPokalGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tblSpielPokal model
+   */
+  readonly fields: tblSpielPokalFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tblSpielPokal.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tblSpielPokalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tblSpielPokal model
+   */
+  interface tblSpielPokalFieldRefs {
+    readonly ID: FieldRef<"tblSpielPokal", 'Int'>
+    readonly SpieltagID: FieldRef<"tblSpielPokal", 'Int'>
+    readonly SpielerID: FieldRef<"tblSpielPokal", 'Int'>
+    readonly Platzierung: FieldRef<"tblSpielPokal", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tblSpielPokal findUnique
+   */
+  export type tblSpielPokalFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielPokal
+     */
+    select?: tblSpielPokalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielPokal
+     */
+    omit?: tblSpielPokalOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielPokal to fetch.
+     */
+    where: tblSpielPokalWhereUniqueInput
+  }
+
+  /**
+   * tblSpielPokal findUniqueOrThrow
+   */
+  export type tblSpielPokalFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielPokal
+     */
+    select?: tblSpielPokalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielPokal
+     */
+    omit?: tblSpielPokalOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielPokal to fetch.
+     */
+    where: tblSpielPokalWhereUniqueInput
+  }
+
+  /**
+   * tblSpielPokal findFirst
+   */
+  export type tblSpielPokalFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielPokal
+     */
+    select?: tblSpielPokalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielPokal
+     */
+    omit?: tblSpielPokalOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielPokal to fetch.
+     */
+    where?: tblSpielPokalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielPokals to fetch.
+     */
+    orderBy?: tblSpielPokalOrderByWithRelationInput | tblSpielPokalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSpielPokals.
+     */
+    cursor?: tblSpielPokalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielPokals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielPokals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSpielPokals.
+     */
+    distinct?: TblSpielPokalScalarFieldEnum | TblSpielPokalScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpielPokal findFirstOrThrow
+   */
+  export type tblSpielPokalFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielPokal
+     */
+    select?: tblSpielPokalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielPokal
+     */
+    omit?: tblSpielPokalOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielPokal to fetch.
+     */
+    where?: tblSpielPokalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielPokals to fetch.
+     */
+    orderBy?: tblSpielPokalOrderByWithRelationInput | tblSpielPokalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSpielPokals.
+     */
+    cursor?: tblSpielPokalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielPokals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielPokals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSpielPokals.
+     */
+    distinct?: TblSpielPokalScalarFieldEnum | TblSpielPokalScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpielPokal findMany
+   */
+  export type tblSpielPokalFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielPokal
+     */
+    select?: tblSpielPokalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielPokal
+     */
+    omit?: tblSpielPokalOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielPokals to fetch.
+     */
+    where?: tblSpielPokalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielPokals to fetch.
+     */
+    orderBy?: tblSpielPokalOrderByWithRelationInput | tblSpielPokalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tblSpielPokals.
+     */
+    cursor?: tblSpielPokalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielPokals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielPokals.
+     */
+    skip?: number
+    distinct?: TblSpielPokalScalarFieldEnum | TblSpielPokalScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpielPokal create
+   */
+  export type tblSpielPokalCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielPokal
+     */
+    select?: tblSpielPokalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielPokal
+     */
+    omit?: tblSpielPokalOmit<ExtArgs> | null
+    /**
+     * The data needed to create a tblSpielPokal.
+     */
+    data: XOR<tblSpielPokalCreateInput, tblSpielPokalUncheckedCreateInput>
+  }
+
+  /**
+   * tblSpielPokal createMany
+   */
+  export type tblSpielPokalCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tblSpielPokals.
+     */
+    data: tblSpielPokalCreateManyInput | tblSpielPokalCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tblSpielPokal update
+   */
+  export type tblSpielPokalUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielPokal
+     */
+    select?: tblSpielPokalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielPokal
+     */
+    omit?: tblSpielPokalOmit<ExtArgs> | null
+    /**
+     * The data needed to update a tblSpielPokal.
+     */
+    data: XOR<tblSpielPokalUpdateInput, tblSpielPokalUncheckedUpdateInput>
+    /**
+     * Choose, which tblSpielPokal to update.
+     */
+    where: tblSpielPokalWhereUniqueInput
+  }
+
+  /**
+   * tblSpielPokal updateMany
+   */
+  export type tblSpielPokalUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tblSpielPokals.
+     */
+    data: XOR<tblSpielPokalUpdateManyMutationInput, tblSpielPokalUncheckedUpdateManyInput>
+    /**
+     * Filter which tblSpielPokals to update
+     */
+    where?: tblSpielPokalWhereInput
+    /**
+     * Limit how many tblSpielPokals to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSpielPokal upsert
+   */
+  export type tblSpielPokalUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielPokal
+     */
+    select?: tblSpielPokalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielPokal
+     */
+    omit?: tblSpielPokalOmit<ExtArgs> | null
+    /**
+     * The filter to search for the tblSpielPokal to update in case it exists.
+     */
+    where: tblSpielPokalWhereUniqueInput
+    /**
+     * In case the tblSpielPokal found by the `where` argument doesn't exist, create a new tblSpielPokal with this data.
+     */
+    create: XOR<tblSpielPokalCreateInput, tblSpielPokalUncheckedCreateInput>
+    /**
+     * In case the tblSpielPokal was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tblSpielPokalUpdateInput, tblSpielPokalUncheckedUpdateInput>
+  }
+
+  /**
+   * tblSpielPokal delete
+   */
+  export type tblSpielPokalDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielPokal
+     */
+    select?: tblSpielPokalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielPokal
+     */
+    omit?: tblSpielPokalOmit<ExtArgs> | null
+    /**
+     * Filter which tblSpielPokal to delete.
+     */
+    where: tblSpielPokalWhereUniqueInput
+  }
+
+  /**
+   * tblSpielPokal deleteMany
+   */
+  export type tblSpielPokalDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSpielPokals to delete
+     */
+    where?: tblSpielPokalWhereInput
+    /**
+     * Limit how many tblSpielPokals to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSpielPokal without action
+   */
+  export type tblSpielPokalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielPokal
+     */
+    select?: tblSpielPokalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielPokal
+     */
+    omit?: tblSpielPokalOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model tblSpielSargKegeln
+   */
+
+  export type AggregateTblSpielSargKegeln = {
+    _count: TblSpielSargKegelnCountAggregateOutputType | null
+    _avg: TblSpielSargKegelnAvgAggregateOutputType | null
+    _sum: TblSpielSargKegelnSumAggregateOutputType | null
+    _min: TblSpielSargKegelnMinAggregateOutputType | null
+    _max: TblSpielSargKegelnMaxAggregateOutputType | null
+  }
+
+  export type TblSpielSargKegelnAvgAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID: number | null
+    Platzierung: number | null
+  }
+
+  export type TblSpielSargKegelnSumAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID: number | null
+    Platzierung: number | null
+  }
+
+  export type TblSpielSargKegelnMinAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID: number | null
+    Platzierung: number | null
+  }
+
+  export type TblSpielSargKegelnMaxAggregateOutputType = {
+    ID: number | null
+    SpieltagID: number | null
+    SpielerID: number | null
+    Platzierung: number | null
+  }
+
+  export type TblSpielSargKegelnCountAggregateOutputType = {
+    ID: number
+    SpieltagID: number
+    SpielerID: number
+    Platzierung: number
+    _all: number
+  }
+
+
+  export type TblSpielSargKegelnAvgAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID?: true
+    Platzierung?: true
+  }
+
+  export type TblSpielSargKegelnSumAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID?: true
+    Platzierung?: true
+  }
+
+  export type TblSpielSargKegelnMinAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID?: true
+    Platzierung?: true
+  }
+
+  export type TblSpielSargKegelnMaxAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID?: true
+    Platzierung?: true
+  }
+
+  export type TblSpielSargKegelnCountAggregateInputType = {
+    ID?: true
+    SpieltagID?: true
+    SpielerID?: true
+    Platzierung?: true
+    _all?: true
+  }
+
+  export type TblSpielSargKegelnAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSpielSargKegeln to aggregate.
+     */
+    where?: tblSpielSargKegelnWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielSargKegelns to fetch.
+     */
+    orderBy?: tblSpielSargKegelnOrderByWithRelationInput | tblSpielSargKegelnOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tblSpielSargKegelnWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielSargKegelns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielSargKegelns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tblSpielSargKegelns
+    **/
+    _count?: true | TblSpielSargKegelnCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TblSpielSargKegelnAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TblSpielSargKegelnSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TblSpielSargKegelnMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TblSpielSargKegelnMaxAggregateInputType
+  }
+
+  export type GetTblSpielSargKegelnAggregateType<T extends TblSpielSargKegelnAggregateArgs> = {
+        [P in keyof T & keyof AggregateTblSpielSargKegeln]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTblSpielSargKegeln[P]>
+      : GetScalarType<T[P], AggregateTblSpielSargKegeln[P]>
+  }
+
+
+
+
+  export type tblSpielSargKegelnGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblSpielSargKegelnWhereInput
+    orderBy?: tblSpielSargKegelnOrderByWithAggregationInput | tblSpielSargKegelnOrderByWithAggregationInput[]
+    by: TblSpielSargKegelnScalarFieldEnum[] | TblSpielSargKegelnScalarFieldEnum
+    having?: tblSpielSargKegelnScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TblSpielSargKegelnCountAggregateInputType | true
+    _avg?: TblSpielSargKegelnAvgAggregateInputType
+    _sum?: TblSpielSargKegelnSumAggregateInputType
+    _min?: TblSpielSargKegelnMinAggregateInputType
+    _max?: TblSpielSargKegelnMaxAggregateInputType
+  }
+
+  export type TblSpielSargKegelnGroupByOutputType = {
+    ID: number
+    SpieltagID: number
+    SpielerID: number
+    Platzierung: number
+    _count: TblSpielSargKegelnCountAggregateOutputType | null
+    _avg: TblSpielSargKegelnAvgAggregateOutputType | null
+    _sum: TblSpielSargKegelnSumAggregateOutputType | null
+    _min: TblSpielSargKegelnMinAggregateOutputType | null
+    _max: TblSpielSargKegelnMaxAggregateOutputType | null
+  }
+
+  type GetTblSpielSargKegelnGroupByPayload<T extends tblSpielSargKegelnGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TblSpielSargKegelnGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TblSpielSargKegelnGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TblSpielSargKegelnGroupByOutputType[P]>
+            : GetScalarType<T[P], TblSpielSargKegelnGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tblSpielSargKegelnSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ID?: boolean
+    SpieltagID?: boolean
+    SpielerID?: boolean
+    Platzierung?: boolean
+  }, ExtArgs["result"]["tblSpielSargKegeln"]>
+
+
+
+  export type tblSpielSargKegelnSelectScalar = {
+    ID?: boolean
+    SpieltagID?: boolean
+    SpielerID?: boolean
+    Platzierung?: boolean
+  }
+
+  export type tblSpielSargKegelnOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"ID" | "SpieltagID" | "SpielerID" | "Platzierung", ExtArgs["result"]["tblSpielSargKegeln"]>
+
+  export type $tblSpielSargKegelnPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tblSpielSargKegeln"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      ID: number
+      SpieltagID: number
+      SpielerID: number
+      Platzierung: number
+    }, ExtArgs["result"]["tblSpielSargKegeln"]>
+    composites: {}
+  }
+
+  type tblSpielSargKegelnGetPayload<S extends boolean | null | undefined | tblSpielSargKegelnDefaultArgs> = $Result.GetResult<Prisma.$tblSpielSargKegelnPayload, S>
+
+  type tblSpielSargKegelnCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tblSpielSargKegelnFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TblSpielSargKegelnCountAggregateInputType | true
+    }
+
+  export interface tblSpielSargKegelnDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tblSpielSargKegeln'], meta: { name: 'tblSpielSargKegeln' } }
+    /**
+     * Find zero or one TblSpielSargKegeln that matches the filter.
+     * @param {tblSpielSargKegelnFindUniqueArgs} args - Arguments to find a TblSpielSargKegeln
+     * @example
+     * // Get one TblSpielSargKegeln
+     * const tblSpielSargKegeln = await prisma.tblSpielSargKegeln.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tblSpielSargKegelnFindUniqueArgs>(args: SelectSubset<T, tblSpielSargKegelnFindUniqueArgs<ExtArgs>>): Prisma__tblSpielSargKegelnClient<$Result.GetResult<Prisma.$tblSpielSargKegelnPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TblSpielSargKegeln that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tblSpielSargKegelnFindUniqueOrThrowArgs} args - Arguments to find a TblSpielSargKegeln
+     * @example
+     * // Get one TblSpielSargKegeln
+     * const tblSpielSargKegeln = await prisma.tblSpielSargKegeln.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tblSpielSargKegelnFindUniqueOrThrowArgs>(args: SelectSubset<T, tblSpielSargKegelnFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tblSpielSargKegelnClient<$Result.GetResult<Prisma.$tblSpielSargKegelnPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSpielSargKegeln that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielSargKegelnFindFirstArgs} args - Arguments to find a TblSpielSargKegeln
+     * @example
+     * // Get one TblSpielSargKegeln
+     * const tblSpielSargKegeln = await prisma.tblSpielSargKegeln.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tblSpielSargKegelnFindFirstArgs>(args?: SelectSubset<T, tblSpielSargKegelnFindFirstArgs<ExtArgs>>): Prisma__tblSpielSargKegelnClient<$Result.GetResult<Prisma.$tblSpielSargKegelnPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSpielSargKegeln that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielSargKegelnFindFirstOrThrowArgs} args - Arguments to find a TblSpielSargKegeln
+     * @example
+     * // Get one TblSpielSargKegeln
+     * const tblSpielSargKegeln = await prisma.tblSpielSargKegeln.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tblSpielSargKegelnFindFirstOrThrowArgs>(args?: SelectSubset<T, tblSpielSargKegelnFindFirstOrThrowArgs<ExtArgs>>): Prisma__tblSpielSargKegelnClient<$Result.GetResult<Prisma.$tblSpielSargKegelnPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TblSpielSargKegelns that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielSargKegelnFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TblSpielSargKegelns
+     * const tblSpielSargKegelns = await prisma.tblSpielSargKegeln.findMany()
+     * 
+     * // Get first 10 TblSpielSargKegelns
+     * const tblSpielSargKegelns = await prisma.tblSpielSargKegeln.findMany({ take: 10 })
+     * 
+     * // Only select the `ID`
+     * const tblSpielSargKegelnWithIDOnly = await prisma.tblSpielSargKegeln.findMany({ select: { ID: true } })
+     * 
+     */
+    findMany<T extends tblSpielSargKegelnFindManyArgs>(args?: SelectSubset<T, tblSpielSargKegelnFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblSpielSargKegelnPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TblSpielSargKegeln.
+     * @param {tblSpielSargKegelnCreateArgs} args - Arguments to create a TblSpielSargKegeln.
+     * @example
+     * // Create one TblSpielSargKegeln
+     * const TblSpielSargKegeln = await prisma.tblSpielSargKegeln.create({
+     *   data: {
+     *     // ... data to create a TblSpielSargKegeln
+     *   }
+     * })
+     * 
+     */
+    create<T extends tblSpielSargKegelnCreateArgs>(args: SelectSubset<T, tblSpielSargKegelnCreateArgs<ExtArgs>>): Prisma__tblSpielSargKegelnClient<$Result.GetResult<Prisma.$tblSpielSargKegelnPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TblSpielSargKegelns.
+     * @param {tblSpielSargKegelnCreateManyArgs} args - Arguments to create many TblSpielSargKegelns.
+     * @example
+     * // Create many TblSpielSargKegelns
+     * const tblSpielSargKegeln = await prisma.tblSpielSargKegeln.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tblSpielSargKegelnCreateManyArgs>(args?: SelectSubset<T, tblSpielSargKegelnCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a TblSpielSargKegeln.
+     * @param {tblSpielSargKegelnDeleteArgs} args - Arguments to delete one TblSpielSargKegeln.
+     * @example
+     * // Delete one TblSpielSargKegeln
+     * const TblSpielSargKegeln = await prisma.tblSpielSargKegeln.delete({
+     *   where: {
+     *     // ... filter to delete one TblSpielSargKegeln
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tblSpielSargKegelnDeleteArgs>(args: SelectSubset<T, tblSpielSargKegelnDeleteArgs<ExtArgs>>): Prisma__tblSpielSargKegelnClient<$Result.GetResult<Prisma.$tblSpielSargKegelnPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TblSpielSargKegeln.
+     * @param {tblSpielSargKegelnUpdateArgs} args - Arguments to update one TblSpielSargKegeln.
+     * @example
+     * // Update one TblSpielSargKegeln
+     * const tblSpielSargKegeln = await prisma.tblSpielSargKegeln.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tblSpielSargKegelnUpdateArgs>(args: SelectSubset<T, tblSpielSargKegelnUpdateArgs<ExtArgs>>): Prisma__tblSpielSargKegelnClient<$Result.GetResult<Prisma.$tblSpielSargKegelnPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TblSpielSargKegelns.
+     * @param {tblSpielSargKegelnDeleteManyArgs} args - Arguments to filter TblSpielSargKegelns to delete.
+     * @example
+     * // Delete a few TblSpielSargKegelns
+     * const { count } = await prisma.tblSpielSargKegeln.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tblSpielSargKegelnDeleteManyArgs>(args?: SelectSubset<T, tblSpielSargKegelnDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TblSpielSargKegelns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielSargKegelnUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TblSpielSargKegelns
+     * const tblSpielSargKegeln = await prisma.tblSpielSargKegeln.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tblSpielSargKegelnUpdateManyArgs>(args: SelectSubset<T, tblSpielSargKegelnUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TblSpielSargKegeln.
+     * @param {tblSpielSargKegelnUpsertArgs} args - Arguments to update or create a TblSpielSargKegeln.
+     * @example
+     * // Update or create a TblSpielSargKegeln
+     * const tblSpielSargKegeln = await prisma.tblSpielSargKegeln.upsert({
+     *   create: {
+     *     // ... data to create a TblSpielSargKegeln
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TblSpielSargKegeln we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tblSpielSargKegelnUpsertArgs>(args: SelectSubset<T, tblSpielSargKegelnUpsertArgs<ExtArgs>>): Prisma__tblSpielSargKegelnClient<$Result.GetResult<Prisma.$tblSpielSargKegelnPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TblSpielSargKegelns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielSargKegelnCountArgs} args - Arguments to filter TblSpielSargKegelns to count.
+     * @example
+     * // Count the number of TblSpielSargKegelns
+     * const count = await prisma.tblSpielSargKegeln.count({
+     *   where: {
+     *     // ... the filter for the TblSpielSargKegelns we want to count
+     *   }
+     * })
+    **/
+    count<T extends tblSpielSargKegelnCountArgs>(
+      args?: Subset<T, tblSpielSargKegelnCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TblSpielSargKegelnCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TblSpielSargKegeln.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TblSpielSargKegelnAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TblSpielSargKegelnAggregateArgs>(args: Subset<T, TblSpielSargKegelnAggregateArgs>): Prisma.PrismaPromise<GetTblSpielSargKegelnAggregateType<T>>
+
+    /**
+     * Group by TblSpielSargKegeln.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpielSargKegelnGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tblSpielSargKegelnGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tblSpielSargKegelnGroupByArgs['orderBy'] }
+        : { orderBy?: tblSpielSargKegelnGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tblSpielSargKegelnGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTblSpielSargKegelnGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tblSpielSargKegeln model
+   */
+  readonly fields: tblSpielSargKegelnFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tblSpielSargKegeln.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tblSpielSargKegelnClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tblSpielSargKegeln model
+   */
+  interface tblSpielSargKegelnFieldRefs {
+    readonly ID: FieldRef<"tblSpielSargKegeln", 'Int'>
+    readonly SpieltagID: FieldRef<"tblSpielSargKegeln", 'Int'>
+    readonly SpielerID: FieldRef<"tblSpielSargKegeln", 'Int'>
+    readonly Platzierung: FieldRef<"tblSpielSargKegeln", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tblSpielSargKegeln findUnique
+   */
+  export type tblSpielSargKegelnFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielSargKegeln
+     */
+    select?: tblSpielSargKegelnSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielSargKegeln
+     */
+    omit?: tblSpielSargKegelnOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielSargKegeln to fetch.
+     */
+    where: tblSpielSargKegelnWhereUniqueInput
+  }
+
+  /**
+   * tblSpielSargKegeln findUniqueOrThrow
+   */
+  export type tblSpielSargKegelnFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielSargKegeln
+     */
+    select?: tblSpielSargKegelnSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielSargKegeln
+     */
+    omit?: tblSpielSargKegelnOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielSargKegeln to fetch.
+     */
+    where: tblSpielSargKegelnWhereUniqueInput
+  }
+
+  /**
+   * tblSpielSargKegeln findFirst
+   */
+  export type tblSpielSargKegelnFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielSargKegeln
+     */
+    select?: tblSpielSargKegelnSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielSargKegeln
+     */
+    omit?: tblSpielSargKegelnOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielSargKegeln to fetch.
+     */
+    where?: tblSpielSargKegelnWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielSargKegelns to fetch.
+     */
+    orderBy?: tblSpielSargKegelnOrderByWithRelationInput | tblSpielSargKegelnOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSpielSargKegelns.
+     */
+    cursor?: tblSpielSargKegelnWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielSargKegelns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielSargKegelns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSpielSargKegelns.
+     */
+    distinct?: TblSpielSargKegelnScalarFieldEnum | TblSpielSargKegelnScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpielSargKegeln findFirstOrThrow
+   */
+  export type tblSpielSargKegelnFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielSargKegeln
+     */
+    select?: tblSpielSargKegelnSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielSargKegeln
+     */
+    omit?: tblSpielSargKegelnOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielSargKegeln to fetch.
+     */
+    where?: tblSpielSargKegelnWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielSargKegelns to fetch.
+     */
+    orderBy?: tblSpielSargKegelnOrderByWithRelationInput | tblSpielSargKegelnOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSpielSargKegelns.
+     */
+    cursor?: tblSpielSargKegelnWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielSargKegelns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielSargKegelns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSpielSargKegelns.
+     */
+    distinct?: TblSpielSargKegelnScalarFieldEnum | TblSpielSargKegelnScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpielSargKegeln findMany
+   */
+  export type tblSpielSargKegelnFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielSargKegeln
+     */
+    select?: tblSpielSargKegelnSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielSargKegeln
+     */
+    omit?: tblSpielSargKegelnOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpielSargKegelns to fetch.
+     */
+    where?: tblSpielSargKegelnWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpielSargKegelns to fetch.
+     */
+    orderBy?: tblSpielSargKegelnOrderByWithRelationInput | tblSpielSargKegelnOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tblSpielSargKegelns.
+     */
+    cursor?: tblSpielSargKegelnWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpielSargKegelns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpielSargKegelns.
+     */
+    skip?: number
+    distinct?: TblSpielSargKegelnScalarFieldEnum | TblSpielSargKegelnScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpielSargKegeln create
+   */
+  export type tblSpielSargKegelnCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielSargKegeln
+     */
+    select?: tblSpielSargKegelnSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielSargKegeln
+     */
+    omit?: tblSpielSargKegelnOmit<ExtArgs> | null
+    /**
+     * The data needed to create a tblSpielSargKegeln.
+     */
+    data: XOR<tblSpielSargKegelnCreateInput, tblSpielSargKegelnUncheckedCreateInput>
+  }
+
+  /**
+   * tblSpielSargKegeln createMany
+   */
+  export type tblSpielSargKegelnCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tblSpielSargKegelns.
+     */
+    data: tblSpielSargKegelnCreateManyInput | tblSpielSargKegelnCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tblSpielSargKegeln update
+   */
+  export type tblSpielSargKegelnUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielSargKegeln
+     */
+    select?: tblSpielSargKegelnSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielSargKegeln
+     */
+    omit?: tblSpielSargKegelnOmit<ExtArgs> | null
+    /**
+     * The data needed to update a tblSpielSargKegeln.
+     */
+    data: XOR<tblSpielSargKegelnUpdateInput, tblSpielSargKegelnUncheckedUpdateInput>
+    /**
+     * Choose, which tblSpielSargKegeln to update.
+     */
+    where: tblSpielSargKegelnWhereUniqueInput
+  }
+
+  /**
+   * tblSpielSargKegeln updateMany
+   */
+  export type tblSpielSargKegelnUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tblSpielSargKegelns.
+     */
+    data: XOR<tblSpielSargKegelnUpdateManyMutationInput, tblSpielSargKegelnUncheckedUpdateManyInput>
+    /**
+     * Filter which tblSpielSargKegelns to update
+     */
+    where?: tblSpielSargKegelnWhereInput
+    /**
+     * Limit how many tblSpielSargKegelns to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSpielSargKegeln upsert
+   */
+  export type tblSpielSargKegelnUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielSargKegeln
+     */
+    select?: tblSpielSargKegelnSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielSargKegeln
+     */
+    omit?: tblSpielSargKegelnOmit<ExtArgs> | null
+    /**
+     * The filter to search for the tblSpielSargKegeln to update in case it exists.
+     */
+    where: tblSpielSargKegelnWhereUniqueInput
+    /**
+     * In case the tblSpielSargKegeln found by the `where` argument doesn't exist, create a new tblSpielSargKegeln with this data.
+     */
+    create: XOR<tblSpielSargKegelnCreateInput, tblSpielSargKegelnUncheckedCreateInput>
+    /**
+     * In case the tblSpielSargKegeln was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tblSpielSargKegelnUpdateInput, tblSpielSargKegelnUncheckedUpdateInput>
+  }
+
+  /**
+   * tblSpielSargKegeln delete
+   */
+  export type tblSpielSargKegelnDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielSargKegeln
+     */
+    select?: tblSpielSargKegelnSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielSargKegeln
+     */
+    omit?: tblSpielSargKegelnOmit<ExtArgs> | null
+    /**
+     * Filter which tblSpielSargKegeln to delete.
+     */
+    where: tblSpielSargKegelnWhereUniqueInput
+  }
+
+  /**
+   * tblSpielSargKegeln deleteMany
+   */
+  export type tblSpielSargKegelnDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSpielSargKegelns to delete
+     */
+    where?: tblSpielSargKegelnWhereInput
+    /**
+     * Limit how many tblSpielSargKegelns to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSpielSargKegeln without action
+   */
+  export type tblSpielSargKegelnDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpielSargKegeln
+     */
+    select?: tblSpielSargKegelnSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpielSargKegeln
+     */
+    omit?: tblSpielSargKegelnOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model tblSpieltag
+   */
+
+  export type AggregateTblSpieltag = {
+    _count: TblSpieltagCountAggregateOutputType | null
+    _avg: TblSpieltagAvgAggregateOutputType | null
+    _sum: TblSpieltagSumAggregateOutputType | null
+    _min: TblSpieltagMinAggregateOutputType | null
+    _max: TblSpieltagMaxAggregateOutputType | null
+  }
+
+  export type TblSpieltagAvgAggregateOutputType = {
+    ID: number | null
+    MeisterschaftsID: number | null
+  }
+
+  export type TblSpieltagSumAggregateOutputType = {
+    ID: number | null
+    MeisterschaftsID: number | null
+  }
+
+  export type TblSpieltagMinAggregateOutputType = {
+    ID: number | null
+    MeisterschaftsID: number | null
+    Spieltag: Date | null
+    InBearbeitung: boolean | null
+  }
+
+  export type TblSpieltagMaxAggregateOutputType = {
+    ID: number | null
+    MeisterschaftsID: number | null
+    Spieltag: Date | null
+    InBearbeitung: boolean | null
+  }
+
+  export type TblSpieltagCountAggregateOutputType = {
+    ID: number
+    MeisterschaftsID: number
+    Spieltag: number
+    InBearbeitung: number
+    _all: number
+  }
+
+
+  export type TblSpieltagAvgAggregateInputType = {
+    ID?: true
+    MeisterschaftsID?: true
+  }
+
+  export type TblSpieltagSumAggregateInputType = {
+    ID?: true
+    MeisterschaftsID?: true
+  }
+
+  export type TblSpieltagMinAggregateInputType = {
+    ID?: true
+    MeisterschaftsID?: true
+    Spieltag?: true
+    InBearbeitung?: true
+  }
+
+  export type TblSpieltagMaxAggregateInputType = {
+    ID?: true
+    MeisterschaftsID?: true
+    Spieltag?: true
+    InBearbeitung?: true
+  }
+
+  export type TblSpieltagCountAggregateInputType = {
+    ID?: true
+    MeisterschaftsID?: true
+    Spieltag?: true
+    InBearbeitung?: true
+    _all?: true
+  }
+
+  export type TblSpieltagAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSpieltag to aggregate.
+     */
+    where?: tblSpieltagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpieltags to fetch.
+     */
+    orderBy?: tblSpieltagOrderByWithRelationInput | tblSpieltagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tblSpieltagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpieltags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpieltags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tblSpieltags
+    **/
+    _count?: true | TblSpieltagCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TblSpieltagAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TblSpieltagSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TblSpieltagMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TblSpieltagMaxAggregateInputType
+  }
+
+  export type GetTblSpieltagAggregateType<T extends TblSpieltagAggregateArgs> = {
+        [P in keyof T & keyof AggregateTblSpieltag]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTblSpieltag[P]>
+      : GetScalarType<T[P], AggregateTblSpieltag[P]>
+  }
+
+
+
+
+  export type tblSpieltagGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblSpieltagWhereInput
+    orderBy?: tblSpieltagOrderByWithAggregationInput | tblSpieltagOrderByWithAggregationInput[]
+    by: TblSpieltagScalarFieldEnum[] | TblSpieltagScalarFieldEnum
+    having?: tblSpieltagScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TblSpieltagCountAggregateInputType | true
+    _avg?: TblSpieltagAvgAggregateInputType
+    _sum?: TblSpieltagSumAggregateInputType
+    _min?: TblSpieltagMinAggregateInputType
+    _max?: TblSpieltagMaxAggregateInputType
+  }
+
+  export type TblSpieltagGroupByOutputType = {
+    ID: number
+    MeisterschaftsID: number
+    Spieltag: Date
+    InBearbeitung: boolean
+    _count: TblSpieltagCountAggregateOutputType | null
+    _avg: TblSpieltagAvgAggregateOutputType | null
+    _sum: TblSpieltagSumAggregateOutputType | null
+    _min: TblSpieltagMinAggregateOutputType | null
+    _max: TblSpieltagMaxAggregateOutputType | null
+  }
+
+  type GetTblSpieltagGroupByPayload<T extends tblSpieltagGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TblSpieltagGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TblSpieltagGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TblSpieltagGroupByOutputType[P]>
+            : GetScalarType<T[P], TblSpieltagGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tblSpieltagSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ID?: boolean
+    MeisterschaftsID?: boolean
+    Spieltag?: boolean
+    InBearbeitung?: boolean
+  }, ExtArgs["result"]["tblSpieltag"]>
+
+
+
+  export type tblSpieltagSelectScalar = {
+    ID?: boolean
+    MeisterschaftsID?: boolean
+    Spieltag?: boolean
+    InBearbeitung?: boolean
+  }
+
+  export type tblSpieltagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"ID" | "MeisterschaftsID" | "Spieltag" | "InBearbeitung", ExtArgs["result"]["tblSpieltag"]>
+
+  export type $tblSpieltagPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tblSpieltag"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      ID: number
+      MeisterschaftsID: number
+      Spieltag: Date
+      InBearbeitung: boolean
+    }, ExtArgs["result"]["tblSpieltag"]>
+    composites: {}
+  }
+
+  type tblSpieltagGetPayload<S extends boolean | null | undefined | tblSpieltagDefaultArgs> = $Result.GetResult<Prisma.$tblSpieltagPayload, S>
+
+  type tblSpieltagCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tblSpieltagFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TblSpieltagCountAggregateInputType | true
+    }
+
+  export interface tblSpieltagDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tblSpieltag'], meta: { name: 'tblSpieltag' } }
+    /**
+     * Find zero or one TblSpieltag that matches the filter.
+     * @param {tblSpieltagFindUniqueArgs} args - Arguments to find a TblSpieltag
+     * @example
+     * // Get one TblSpieltag
+     * const tblSpieltag = await prisma.tblSpieltag.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tblSpieltagFindUniqueArgs>(args: SelectSubset<T, tblSpieltagFindUniqueArgs<ExtArgs>>): Prisma__tblSpieltagClient<$Result.GetResult<Prisma.$tblSpieltagPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TblSpieltag that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tblSpieltagFindUniqueOrThrowArgs} args - Arguments to find a TblSpieltag
+     * @example
+     * // Get one TblSpieltag
+     * const tblSpieltag = await prisma.tblSpieltag.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tblSpieltagFindUniqueOrThrowArgs>(args: SelectSubset<T, tblSpieltagFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tblSpieltagClient<$Result.GetResult<Prisma.$tblSpieltagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSpieltag that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpieltagFindFirstArgs} args - Arguments to find a TblSpieltag
+     * @example
+     * // Get one TblSpieltag
+     * const tblSpieltag = await prisma.tblSpieltag.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tblSpieltagFindFirstArgs>(args?: SelectSubset<T, tblSpieltagFindFirstArgs<ExtArgs>>): Prisma__tblSpieltagClient<$Result.GetResult<Prisma.$tblSpieltagPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblSpieltag that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpieltagFindFirstOrThrowArgs} args - Arguments to find a TblSpieltag
+     * @example
+     * // Get one TblSpieltag
+     * const tblSpieltag = await prisma.tblSpieltag.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tblSpieltagFindFirstOrThrowArgs>(args?: SelectSubset<T, tblSpieltagFindFirstOrThrowArgs<ExtArgs>>): Prisma__tblSpieltagClient<$Result.GetResult<Prisma.$tblSpieltagPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TblSpieltags that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpieltagFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TblSpieltags
+     * const tblSpieltags = await prisma.tblSpieltag.findMany()
+     * 
+     * // Get first 10 TblSpieltags
+     * const tblSpieltags = await prisma.tblSpieltag.findMany({ take: 10 })
+     * 
+     * // Only select the `ID`
+     * const tblSpieltagWithIDOnly = await prisma.tblSpieltag.findMany({ select: { ID: true } })
+     * 
+     */
+    findMany<T extends tblSpieltagFindManyArgs>(args?: SelectSubset<T, tblSpieltagFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblSpieltagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TblSpieltag.
+     * @param {tblSpieltagCreateArgs} args - Arguments to create a TblSpieltag.
+     * @example
+     * // Create one TblSpieltag
+     * const TblSpieltag = await prisma.tblSpieltag.create({
+     *   data: {
+     *     // ... data to create a TblSpieltag
+     *   }
+     * })
+     * 
+     */
+    create<T extends tblSpieltagCreateArgs>(args: SelectSubset<T, tblSpieltagCreateArgs<ExtArgs>>): Prisma__tblSpieltagClient<$Result.GetResult<Prisma.$tblSpieltagPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TblSpieltags.
+     * @param {tblSpieltagCreateManyArgs} args - Arguments to create many TblSpieltags.
+     * @example
+     * // Create many TblSpieltags
+     * const tblSpieltag = await prisma.tblSpieltag.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tblSpieltagCreateManyArgs>(args?: SelectSubset<T, tblSpieltagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a TblSpieltag.
+     * @param {tblSpieltagDeleteArgs} args - Arguments to delete one TblSpieltag.
+     * @example
+     * // Delete one TblSpieltag
+     * const TblSpieltag = await prisma.tblSpieltag.delete({
+     *   where: {
+     *     // ... filter to delete one TblSpieltag
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tblSpieltagDeleteArgs>(args: SelectSubset<T, tblSpieltagDeleteArgs<ExtArgs>>): Prisma__tblSpieltagClient<$Result.GetResult<Prisma.$tblSpieltagPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TblSpieltag.
+     * @param {tblSpieltagUpdateArgs} args - Arguments to update one TblSpieltag.
+     * @example
+     * // Update one TblSpieltag
+     * const tblSpieltag = await prisma.tblSpieltag.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tblSpieltagUpdateArgs>(args: SelectSubset<T, tblSpieltagUpdateArgs<ExtArgs>>): Prisma__tblSpieltagClient<$Result.GetResult<Prisma.$tblSpieltagPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TblSpieltags.
+     * @param {tblSpieltagDeleteManyArgs} args - Arguments to filter TblSpieltags to delete.
+     * @example
+     * // Delete a few TblSpieltags
+     * const { count } = await prisma.tblSpieltag.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tblSpieltagDeleteManyArgs>(args?: SelectSubset<T, tblSpieltagDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TblSpieltags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpieltagUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TblSpieltags
+     * const tblSpieltag = await prisma.tblSpieltag.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tblSpieltagUpdateManyArgs>(args: SelectSubset<T, tblSpieltagUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TblSpieltag.
+     * @param {tblSpieltagUpsertArgs} args - Arguments to update or create a TblSpieltag.
+     * @example
+     * // Update or create a TblSpieltag
+     * const tblSpieltag = await prisma.tblSpieltag.upsert({
+     *   create: {
+     *     // ... data to create a TblSpieltag
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TblSpieltag we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tblSpieltagUpsertArgs>(args: SelectSubset<T, tblSpieltagUpsertArgs<ExtArgs>>): Prisma__tblSpieltagClient<$Result.GetResult<Prisma.$tblSpieltagPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TblSpieltags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpieltagCountArgs} args - Arguments to filter TblSpieltags to count.
+     * @example
+     * // Count the number of TblSpieltags
+     * const count = await prisma.tblSpieltag.count({
+     *   where: {
+     *     // ... the filter for the TblSpieltags we want to count
+     *   }
+     * })
+    **/
+    count<T extends tblSpieltagCountArgs>(
+      args?: Subset<T, tblSpieltagCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TblSpieltagCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TblSpieltag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TblSpieltagAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TblSpieltagAggregateArgs>(args: Subset<T, TblSpieltagAggregateArgs>): Prisma.PrismaPromise<GetTblSpieltagAggregateType<T>>
+
+    /**
+     * Group by TblSpieltag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblSpieltagGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tblSpieltagGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tblSpieltagGroupByArgs['orderBy'] }
+        : { orderBy?: tblSpieltagGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tblSpieltagGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTblSpieltagGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tblSpieltag model
+   */
+  readonly fields: tblSpieltagFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tblSpieltag.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tblSpieltagClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tblSpieltag model
+   */
+  interface tblSpieltagFieldRefs {
+    readonly ID: FieldRef<"tblSpieltag", 'Int'>
+    readonly MeisterschaftsID: FieldRef<"tblSpieltag", 'Int'>
+    readonly Spieltag: FieldRef<"tblSpieltag", 'DateTime'>
+    readonly InBearbeitung: FieldRef<"tblSpieltag", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tblSpieltag findUnique
+   */
+  export type tblSpieltagFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpieltag
+     */
+    select?: tblSpieltagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpieltag
+     */
+    omit?: tblSpieltagOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpieltag to fetch.
+     */
+    where: tblSpieltagWhereUniqueInput
+  }
+
+  /**
+   * tblSpieltag findUniqueOrThrow
+   */
+  export type tblSpieltagFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpieltag
+     */
+    select?: tblSpieltagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpieltag
+     */
+    omit?: tblSpieltagOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpieltag to fetch.
+     */
+    where: tblSpieltagWhereUniqueInput
+  }
+
+  /**
+   * tblSpieltag findFirst
+   */
+  export type tblSpieltagFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpieltag
+     */
+    select?: tblSpieltagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpieltag
+     */
+    omit?: tblSpieltagOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpieltag to fetch.
+     */
+    where?: tblSpieltagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpieltags to fetch.
+     */
+    orderBy?: tblSpieltagOrderByWithRelationInput | tblSpieltagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSpieltags.
+     */
+    cursor?: tblSpieltagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpieltags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpieltags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSpieltags.
+     */
+    distinct?: TblSpieltagScalarFieldEnum | TblSpieltagScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpieltag findFirstOrThrow
+   */
+  export type tblSpieltagFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpieltag
+     */
+    select?: tblSpieltagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpieltag
+     */
+    omit?: tblSpieltagOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpieltag to fetch.
+     */
+    where?: tblSpieltagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpieltags to fetch.
+     */
+    orderBy?: tblSpieltagOrderByWithRelationInput | tblSpieltagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblSpieltags.
+     */
+    cursor?: tblSpieltagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpieltags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpieltags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblSpieltags.
+     */
+    distinct?: TblSpieltagScalarFieldEnum | TblSpieltagScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpieltag findMany
+   */
+  export type tblSpieltagFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpieltag
+     */
+    select?: tblSpieltagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpieltag
+     */
+    omit?: tblSpieltagOmit<ExtArgs> | null
+    /**
+     * Filter, which tblSpieltags to fetch.
+     */
+    where?: tblSpieltagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblSpieltags to fetch.
+     */
+    orderBy?: tblSpieltagOrderByWithRelationInput | tblSpieltagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tblSpieltags.
+     */
+    cursor?: tblSpieltagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblSpieltags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblSpieltags.
+     */
+    skip?: number
+    distinct?: TblSpieltagScalarFieldEnum | TblSpieltagScalarFieldEnum[]
+  }
+
+  /**
+   * tblSpieltag create
+   */
+  export type tblSpieltagCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpieltag
+     */
+    select?: tblSpieltagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpieltag
+     */
+    omit?: tblSpieltagOmit<ExtArgs> | null
+    /**
+     * The data needed to create a tblSpieltag.
+     */
+    data: XOR<tblSpieltagCreateInput, tblSpieltagUncheckedCreateInput>
+  }
+
+  /**
+   * tblSpieltag createMany
+   */
+  export type tblSpieltagCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tblSpieltags.
+     */
+    data: tblSpieltagCreateManyInput | tblSpieltagCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tblSpieltag update
+   */
+  export type tblSpieltagUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpieltag
+     */
+    select?: tblSpieltagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpieltag
+     */
+    omit?: tblSpieltagOmit<ExtArgs> | null
+    /**
+     * The data needed to update a tblSpieltag.
+     */
+    data: XOR<tblSpieltagUpdateInput, tblSpieltagUncheckedUpdateInput>
+    /**
+     * Choose, which tblSpieltag to update.
+     */
+    where: tblSpieltagWhereUniqueInput
+  }
+
+  /**
+   * tblSpieltag updateMany
+   */
+  export type tblSpieltagUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tblSpieltags.
+     */
+    data: XOR<tblSpieltagUpdateManyMutationInput, tblSpieltagUncheckedUpdateManyInput>
+    /**
+     * Filter which tblSpieltags to update
+     */
+    where?: tblSpieltagWhereInput
+    /**
+     * Limit how many tblSpieltags to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSpieltag upsert
+   */
+  export type tblSpieltagUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpieltag
+     */
+    select?: tblSpieltagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpieltag
+     */
+    omit?: tblSpieltagOmit<ExtArgs> | null
+    /**
+     * The filter to search for the tblSpieltag to update in case it exists.
+     */
+    where: tblSpieltagWhereUniqueInput
+    /**
+     * In case the tblSpieltag found by the `where` argument doesn't exist, create a new tblSpieltag with this data.
+     */
+    create: XOR<tblSpieltagCreateInput, tblSpieltagUncheckedCreateInput>
+    /**
+     * In case the tblSpieltag was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tblSpieltagUpdateInput, tblSpieltagUncheckedUpdateInput>
+  }
+
+  /**
+   * tblSpieltag delete
+   */
+  export type tblSpieltagDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpieltag
+     */
+    select?: tblSpieltagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpieltag
+     */
+    omit?: tblSpieltagOmit<ExtArgs> | null
+    /**
+     * Filter which tblSpieltag to delete.
+     */
+    where: tblSpieltagWhereUniqueInput
+  }
+
+  /**
+   * tblSpieltag deleteMany
+   */
+  export type tblSpieltagDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblSpieltags to delete
+     */
+    where?: tblSpieltagWhereInput
+    /**
+     * Limit how many tblSpieltags to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblSpieltag without action
+   */
+  export type tblSpieltagDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblSpieltag
+     */
+    select?: tblSpieltagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblSpieltag
+     */
+    omit?: tblSpieltagOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model tblTeilnehmer
+   */
+
+  export type AggregateTblTeilnehmer = {
+    _count: TblTeilnehmerCountAggregateOutputType | null
+    _avg: TblTeilnehmerAvgAggregateOutputType | null
+    _sum: TblTeilnehmerSumAggregateOutputType | null
+    _min: TblTeilnehmerMinAggregateOutputType | null
+    _max: TblTeilnehmerMaxAggregateOutputType | null
+  }
+
+  export type TblTeilnehmerAvgAggregateOutputType = {
+    ID: number | null
+    MeisterschaftsID: number | null
+    SpielerID: number | null
+  }
+
+  export type TblTeilnehmerSumAggregateOutputType = {
+    ID: number | null
+    MeisterschaftsID: number | null
+    SpielerID: number | null
+  }
+
+  export type TblTeilnehmerMinAggregateOutputType = {
+    ID: number | null
+    MeisterschaftsID: number | null
+    SpielerID: number | null
+  }
+
+  export type TblTeilnehmerMaxAggregateOutputType = {
+    ID: number | null
+    MeisterschaftsID: number | null
+    SpielerID: number | null
+  }
+
+  export type TblTeilnehmerCountAggregateOutputType = {
+    ID: number
+    MeisterschaftsID: number
+    SpielerID: number
+    _all: number
+  }
+
+
+  export type TblTeilnehmerAvgAggregateInputType = {
+    ID?: true
+    MeisterschaftsID?: true
+    SpielerID?: true
+  }
+
+  export type TblTeilnehmerSumAggregateInputType = {
+    ID?: true
+    MeisterschaftsID?: true
+    SpielerID?: true
+  }
+
+  export type TblTeilnehmerMinAggregateInputType = {
+    ID?: true
+    MeisterschaftsID?: true
+    SpielerID?: true
+  }
+
+  export type TblTeilnehmerMaxAggregateInputType = {
+    ID?: true
+    MeisterschaftsID?: true
+    SpielerID?: true
+  }
+
+  export type TblTeilnehmerCountAggregateInputType = {
+    ID?: true
+    MeisterschaftsID?: true
+    SpielerID?: true
+    _all?: true
+  }
+
+  export type TblTeilnehmerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblTeilnehmer to aggregate.
+     */
+    where?: tblTeilnehmerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblTeilnehmers to fetch.
+     */
+    orderBy?: tblTeilnehmerOrderByWithRelationInput | tblTeilnehmerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tblTeilnehmerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblTeilnehmers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblTeilnehmers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tblTeilnehmers
+    **/
+    _count?: true | TblTeilnehmerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TblTeilnehmerAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TblTeilnehmerSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TblTeilnehmerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TblTeilnehmerMaxAggregateInputType
+  }
+
+  export type GetTblTeilnehmerAggregateType<T extends TblTeilnehmerAggregateArgs> = {
+        [P in keyof T & keyof AggregateTblTeilnehmer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTblTeilnehmer[P]>
+      : GetScalarType<T[P], AggregateTblTeilnehmer[P]>
+  }
+
+
+
+
+  export type tblTeilnehmerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tblTeilnehmerWhereInput
+    orderBy?: tblTeilnehmerOrderByWithAggregationInput | tblTeilnehmerOrderByWithAggregationInput[]
+    by: TblTeilnehmerScalarFieldEnum[] | TblTeilnehmerScalarFieldEnum
+    having?: tblTeilnehmerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TblTeilnehmerCountAggregateInputType | true
+    _avg?: TblTeilnehmerAvgAggregateInputType
+    _sum?: TblTeilnehmerSumAggregateInputType
+    _min?: TblTeilnehmerMinAggregateInputType
+    _max?: TblTeilnehmerMaxAggregateInputType
+  }
+
+  export type TblTeilnehmerGroupByOutputType = {
+    ID: number
+    MeisterschaftsID: number
+    SpielerID: number
+    _count: TblTeilnehmerCountAggregateOutputType | null
+    _avg: TblTeilnehmerAvgAggregateOutputType | null
+    _sum: TblTeilnehmerSumAggregateOutputType | null
+    _min: TblTeilnehmerMinAggregateOutputType | null
+    _max: TblTeilnehmerMaxAggregateOutputType | null
+  }
+
+  type GetTblTeilnehmerGroupByPayload<T extends tblTeilnehmerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TblTeilnehmerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TblTeilnehmerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TblTeilnehmerGroupByOutputType[P]>
+            : GetScalarType<T[P], TblTeilnehmerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tblTeilnehmerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ID?: boolean
+    MeisterschaftsID?: boolean
+    SpielerID?: boolean
+    tblMeisterschaften?: boolean | tblMeisterschaftenDefaultArgs<ExtArgs>
+    tblMitglieder?: boolean | tblMitgliederDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tblTeilnehmer"]>
+
+
+
+  export type tblTeilnehmerSelectScalar = {
+    ID?: boolean
+    MeisterschaftsID?: boolean
+    SpielerID?: boolean
+  }
+
+  export type tblTeilnehmerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"ID" | "MeisterschaftsID" | "SpielerID", ExtArgs["result"]["tblTeilnehmer"]>
+  export type tblTeilnehmerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tblMeisterschaften?: boolean | tblMeisterschaftenDefaultArgs<ExtArgs>
+    tblMitglieder?: boolean | tblMitgliederDefaultArgs<ExtArgs>
+  }
+
+  export type $tblTeilnehmerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tblTeilnehmer"
+    objects: {
+      tblMeisterschaften: Prisma.$tblMeisterschaftenPayload<ExtArgs>
+      tblMitglieder: Prisma.$tblMitgliederPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      ID: number
+      MeisterschaftsID: number
+      SpielerID: number
+    }, ExtArgs["result"]["tblTeilnehmer"]>
+    composites: {}
+  }
+
+  type tblTeilnehmerGetPayload<S extends boolean | null | undefined | tblTeilnehmerDefaultArgs> = $Result.GetResult<Prisma.$tblTeilnehmerPayload, S>
+
+  type tblTeilnehmerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tblTeilnehmerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TblTeilnehmerCountAggregateInputType | true
+    }
+
+  export interface tblTeilnehmerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tblTeilnehmer'], meta: { name: 'tblTeilnehmer' } }
+    /**
+     * Find zero or one TblTeilnehmer that matches the filter.
+     * @param {tblTeilnehmerFindUniqueArgs} args - Arguments to find a TblTeilnehmer
+     * @example
+     * // Get one TblTeilnehmer
+     * const tblTeilnehmer = await prisma.tblTeilnehmer.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tblTeilnehmerFindUniqueArgs>(args: SelectSubset<T, tblTeilnehmerFindUniqueArgs<ExtArgs>>): Prisma__tblTeilnehmerClient<$Result.GetResult<Prisma.$tblTeilnehmerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TblTeilnehmer that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tblTeilnehmerFindUniqueOrThrowArgs} args - Arguments to find a TblTeilnehmer
+     * @example
+     * // Get one TblTeilnehmer
+     * const tblTeilnehmer = await prisma.tblTeilnehmer.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tblTeilnehmerFindUniqueOrThrowArgs>(args: SelectSubset<T, tblTeilnehmerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tblTeilnehmerClient<$Result.GetResult<Prisma.$tblTeilnehmerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblTeilnehmer that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblTeilnehmerFindFirstArgs} args - Arguments to find a TblTeilnehmer
+     * @example
+     * // Get one TblTeilnehmer
+     * const tblTeilnehmer = await prisma.tblTeilnehmer.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tblTeilnehmerFindFirstArgs>(args?: SelectSubset<T, tblTeilnehmerFindFirstArgs<ExtArgs>>): Prisma__tblTeilnehmerClient<$Result.GetResult<Prisma.$tblTeilnehmerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TblTeilnehmer that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblTeilnehmerFindFirstOrThrowArgs} args - Arguments to find a TblTeilnehmer
+     * @example
+     * // Get one TblTeilnehmer
+     * const tblTeilnehmer = await prisma.tblTeilnehmer.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tblTeilnehmerFindFirstOrThrowArgs>(args?: SelectSubset<T, tblTeilnehmerFindFirstOrThrowArgs<ExtArgs>>): Prisma__tblTeilnehmerClient<$Result.GetResult<Prisma.$tblTeilnehmerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TblTeilnehmers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblTeilnehmerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TblTeilnehmers
+     * const tblTeilnehmers = await prisma.tblTeilnehmer.findMany()
+     * 
+     * // Get first 10 TblTeilnehmers
+     * const tblTeilnehmers = await prisma.tblTeilnehmer.findMany({ take: 10 })
+     * 
+     * // Only select the `ID`
+     * const tblTeilnehmerWithIDOnly = await prisma.tblTeilnehmer.findMany({ select: { ID: true } })
+     * 
+     */
+    findMany<T extends tblTeilnehmerFindManyArgs>(args?: SelectSubset<T, tblTeilnehmerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tblTeilnehmerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TblTeilnehmer.
+     * @param {tblTeilnehmerCreateArgs} args - Arguments to create a TblTeilnehmer.
+     * @example
+     * // Create one TblTeilnehmer
+     * const TblTeilnehmer = await prisma.tblTeilnehmer.create({
+     *   data: {
+     *     // ... data to create a TblTeilnehmer
+     *   }
+     * })
+     * 
+     */
+    create<T extends tblTeilnehmerCreateArgs>(args: SelectSubset<T, tblTeilnehmerCreateArgs<ExtArgs>>): Prisma__tblTeilnehmerClient<$Result.GetResult<Prisma.$tblTeilnehmerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TblTeilnehmers.
+     * @param {tblTeilnehmerCreateManyArgs} args - Arguments to create many TblTeilnehmers.
+     * @example
+     * // Create many TblTeilnehmers
+     * const tblTeilnehmer = await prisma.tblTeilnehmer.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tblTeilnehmerCreateManyArgs>(args?: SelectSubset<T, tblTeilnehmerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a TblTeilnehmer.
+     * @param {tblTeilnehmerDeleteArgs} args - Arguments to delete one TblTeilnehmer.
+     * @example
+     * // Delete one TblTeilnehmer
+     * const TblTeilnehmer = await prisma.tblTeilnehmer.delete({
+     *   where: {
+     *     // ... filter to delete one TblTeilnehmer
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tblTeilnehmerDeleteArgs>(args: SelectSubset<T, tblTeilnehmerDeleteArgs<ExtArgs>>): Prisma__tblTeilnehmerClient<$Result.GetResult<Prisma.$tblTeilnehmerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TblTeilnehmer.
+     * @param {tblTeilnehmerUpdateArgs} args - Arguments to update one TblTeilnehmer.
+     * @example
+     * // Update one TblTeilnehmer
+     * const tblTeilnehmer = await prisma.tblTeilnehmer.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tblTeilnehmerUpdateArgs>(args: SelectSubset<T, tblTeilnehmerUpdateArgs<ExtArgs>>): Prisma__tblTeilnehmerClient<$Result.GetResult<Prisma.$tblTeilnehmerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TblTeilnehmers.
+     * @param {tblTeilnehmerDeleteManyArgs} args - Arguments to filter TblTeilnehmers to delete.
+     * @example
+     * // Delete a few TblTeilnehmers
+     * const { count } = await prisma.tblTeilnehmer.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tblTeilnehmerDeleteManyArgs>(args?: SelectSubset<T, tblTeilnehmerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TblTeilnehmers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblTeilnehmerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TblTeilnehmers
+     * const tblTeilnehmer = await prisma.tblTeilnehmer.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tblTeilnehmerUpdateManyArgs>(args: SelectSubset<T, tblTeilnehmerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TblTeilnehmer.
+     * @param {tblTeilnehmerUpsertArgs} args - Arguments to update or create a TblTeilnehmer.
+     * @example
+     * // Update or create a TblTeilnehmer
+     * const tblTeilnehmer = await prisma.tblTeilnehmer.upsert({
+     *   create: {
+     *     // ... data to create a TblTeilnehmer
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TblTeilnehmer we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tblTeilnehmerUpsertArgs>(args: SelectSubset<T, tblTeilnehmerUpsertArgs<ExtArgs>>): Prisma__tblTeilnehmerClient<$Result.GetResult<Prisma.$tblTeilnehmerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TblTeilnehmers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblTeilnehmerCountArgs} args - Arguments to filter TblTeilnehmers to count.
+     * @example
+     * // Count the number of TblTeilnehmers
+     * const count = await prisma.tblTeilnehmer.count({
+     *   where: {
+     *     // ... the filter for the TblTeilnehmers we want to count
+     *   }
+     * })
+    **/
+    count<T extends tblTeilnehmerCountArgs>(
+      args?: Subset<T, tblTeilnehmerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TblTeilnehmerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TblTeilnehmer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TblTeilnehmerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TblTeilnehmerAggregateArgs>(args: Subset<T, TblTeilnehmerAggregateArgs>): Prisma.PrismaPromise<GetTblTeilnehmerAggregateType<T>>
+
+    /**
+     * Group by TblTeilnehmer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tblTeilnehmerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tblTeilnehmerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tblTeilnehmerGroupByArgs['orderBy'] }
+        : { orderBy?: tblTeilnehmerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tblTeilnehmerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTblTeilnehmerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tblTeilnehmer model
+   */
+  readonly fields: tblTeilnehmerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tblTeilnehmer.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tblTeilnehmerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tblMeisterschaften<T extends tblMeisterschaftenDefaultArgs<ExtArgs> = {}>(args?: Subset<T, tblMeisterschaftenDefaultArgs<ExtArgs>>): Prisma__tblMeisterschaftenClient<$Result.GetResult<Prisma.$tblMeisterschaftenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tblMitglieder<T extends tblMitgliederDefaultArgs<ExtArgs> = {}>(args?: Subset<T, tblMitgliederDefaultArgs<ExtArgs>>): Prisma__tblMitgliederClient<$Result.GetResult<Prisma.$tblMitgliederPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tblTeilnehmer model
+   */
+  interface tblTeilnehmerFieldRefs {
+    readonly ID: FieldRef<"tblTeilnehmer", 'Int'>
+    readonly MeisterschaftsID: FieldRef<"tblTeilnehmer", 'Int'>
+    readonly SpielerID: FieldRef<"tblTeilnehmer", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tblTeilnehmer findUnique
+   */
+  export type tblTeilnehmerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblTeilnehmer
+     */
+    select?: tblTeilnehmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblTeilnehmer
+     */
+    omit?: tblTeilnehmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblTeilnehmerInclude<ExtArgs> | null
+    /**
+     * Filter, which tblTeilnehmer to fetch.
+     */
+    where: tblTeilnehmerWhereUniqueInput
+  }
+
+  /**
+   * tblTeilnehmer findUniqueOrThrow
+   */
+  export type tblTeilnehmerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblTeilnehmer
+     */
+    select?: tblTeilnehmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblTeilnehmer
+     */
+    omit?: tblTeilnehmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblTeilnehmerInclude<ExtArgs> | null
+    /**
+     * Filter, which tblTeilnehmer to fetch.
+     */
+    where: tblTeilnehmerWhereUniqueInput
+  }
+
+  /**
+   * tblTeilnehmer findFirst
+   */
+  export type tblTeilnehmerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblTeilnehmer
+     */
+    select?: tblTeilnehmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblTeilnehmer
+     */
+    omit?: tblTeilnehmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblTeilnehmerInclude<ExtArgs> | null
+    /**
+     * Filter, which tblTeilnehmer to fetch.
+     */
+    where?: tblTeilnehmerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblTeilnehmers to fetch.
+     */
+    orderBy?: tblTeilnehmerOrderByWithRelationInput | tblTeilnehmerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblTeilnehmers.
+     */
+    cursor?: tblTeilnehmerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblTeilnehmers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblTeilnehmers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblTeilnehmers.
+     */
+    distinct?: TblTeilnehmerScalarFieldEnum | TblTeilnehmerScalarFieldEnum[]
+  }
+
+  /**
+   * tblTeilnehmer findFirstOrThrow
+   */
+  export type tblTeilnehmerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblTeilnehmer
+     */
+    select?: tblTeilnehmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblTeilnehmer
+     */
+    omit?: tblTeilnehmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblTeilnehmerInclude<ExtArgs> | null
+    /**
+     * Filter, which tblTeilnehmer to fetch.
+     */
+    where?: tblTeilnehmerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblTeilnehmers to fetch.
+     */
+    orderBy?: tblTeilnehmerOrderByWithRelationInput | tblTeilnehmerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tblTeilnehmers.
+     */
+    cursor?: tblTeilnehmerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblTeilnehmers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblTeilnehmers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tblTeilnehmers.
+     */
+    distinct?: TblTeilnehmerScalarFieldEnum | TblTeilnehmerScalarFieldEnum[]
+  }
+
+  /**
+   * tblTeilnehmer findMany
+   */
+  export type tblTeilnehmerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblTeilnehmer
+     */
+    select?: tblTeilnehmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblTeilnehmer
+     */
+    omit?: tblTeilnehmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblTeilnehmerInclude<ExtArgs> | null
+    /**
+     * Filter, which tblTeilnehmers to fetch.
+     */
+    where?: tblTeilnehmerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tblTeilnehmers to fetch.
+     */
+    orderBy?: tblTeilnehmerOrderByWithRelationInput | tblTeilnehmerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tblTeilnehmers.
+     */
+    cursor?: tblTeilnehmerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tblTeilnehmers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tblTeilnehmers.
+     */
+    skip?: number
+    distinct?: TblTeilnehmerScalarFieldEnum | TblTeilnehmerScalarFieldEnum[]
+  }
+
+  /**
+   * tblTeilnehmer create
+   */
+  export type tblTeilnehmerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblTeilnehmer
+     */
+    select?: tblTeilnehmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblTeilnehmer
+     */
+    omit?: tblTeilnehmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblTeilnehmerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a tblTeilnehmer.
+     */
+    data: XOR<tblTeilnehmerCreateInput, tblTeilnehmerUncheckedCreateInput>
+  }
+
+  /**
+   * tblTeilnehmer createMany
+   */
+  export type tblTeilnehmerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tblTeilnehmers.
+     */
+    data: tblTeilnehmerCreateManyInput | tblTeilnehmerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tblTeilnehmer update
+   */
+  export type tblTeilnehmerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblTeilnehmer
+     */
+    select?: tblTeilnehmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblTeilnehmer
+     */
+    omit?: tblTeilnehmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblTeilnehmerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a tblTeilnehmer.
+     */
+    data: XOR<tblTeilnehmerUpdateInput, tblTeilnehmerUncheckedUpdateInput>
+    /**
+     * Choose, which tblTeilnehmer to update.
+     */
+    where: tblTeilnehmerWhereUniqueInput
+  }
+
+  /**
+   * tblTeilnehmer updateMany
+   */
+  export type tblTeilnehmerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tblTeilnehmers.
+     */
+    data: XOR<tblTeilnehmerUpdateManyMutationInput, tblTeilnehmerUncheckedUpdateManyInput>
+    /**
+     * Filter which tblTeilnehmers to update
+     */
+    where?: tblTeilnehmerWhereInput
+    /**
+     * Limit how many tblTeilnehmers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblTeilnehmer upsert
+   */
+  export type tblTeilnehmerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblTeilnehmer
+     */
+    select?: tblTeilnehmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblTeilnehmer
+     */
+    omit?: tblTeilnehmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblTeilnehmerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the tblTeilnehmer to update in case it exists.
+     */
+    where: tblTeilnehmerWhereUniqueInput
+    /**
+     * In case the tblTeilnehmer found by the `where` argument doesn't exist, create a new tblTeilnehmer with this data.
+     */
+    create: XOR<tblTeilnehmerCreateInput, tblTeilnehmerUncheckedCreateInput>
+    /**
+     * In case the tblTeilnehmer was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tblTeilnehmerUpdateInput, tblTeilnehmerUncheckedUpdateInput>
+  }
+
+  /**
+   * tblTeilnehmer delete
+   */
+  export type tblTeilnehmerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblTeilnehmer
+     */
+    select?: tblTeilnehmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblTeilnehmer
+     */
+    omit?: tblTeilnehmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblTeilnehmerInclude<ExtArgs> | null
+    /**
+     * Filter which tblTeilnehmer to delete.
+     */
+    where: tblTeilnehmerWhereUniqueInput
+  }
+
+  /**
+   * tblTeilnehmer deleteMany
+   */
+  export type tblTeilnehmerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tblTeilnehmers to delete
+     */
+    where?: tblTeilnehmerWhereInput
+    /**
+     * Limit how many tblTeilnehmers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tblTeilnehmer without action
+   */
+  export type tblTeilnehmerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tblTeilnehmer
+     */
+    select?: tblTeilnehmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tblTeilnehmer
+     */
+    omit?: tblTeilnehmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tblTeilnehmerInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Enums
+   */
+
+  export const TransactionIsolationLevel: {
+    ReadUncommitted: 'ReadUncommitted',
+    ReadCommitted: 'ReadCommitted',
+    RepeatableRead: 'RepeatableRead',
+    Serializable: 'Serializable'
+  };
+
+  export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+  export const Tbl9erRattenScalarFieldEnum: {
+    ID: 'ID',
+    SpieltagID: 'SpieltagID',
+    SpielerID: 'SpielerID',
+    Neuner: 'Neuner',
+    Ratten: 'Ratten',
+    Kranzacht: 'Kranzacht'
+  };
+
+  export type Tbl9erRattenScalarFieldEnum = (typeof Tbl9erRattenScalarFieldEnum)[keyof typeof Tbl9erRattenScalarFieldEnum]
+
+
+  export const TblDBChangeLogScalarFieldEnum: {
+    ID: 'ID',
+    Computername: 'Computername',
+    Tablename: 'Tablename',
+    Changetype: 'Changetype',
+    Command: 'Command',
+    Zeitstempel: 'Zeitstempel'
+  };
+
+  export type TblDBChangeLogScalarFieldEnum = (typeof TblDBChangeLogScalarFieldEnum)[keyof typeof TblDBChangeLogScalarFieldEnum]
+
+
+  export const TblMeisterschaftenScalarFieldEnum: {
+    ID: 'ID',
+    Bezeichnung: 'Bezeichnung',
+    Beginn: 'Beginn',
+    Ende: 'Ende',
+    MeisterschaftstypID: 'MeisterschaftstypID',
+    TurboDBNummer: 'TurboDBNummer',
+    Aktiv: 'Aktiv',
+    Bemerkungen: 'Bemerkungen'
+  };
+
+  export type TblMeisterschaftenScalarFieldEnum = (typeof TblMeisterschaftenScalarFieldEnum)[keyof typeof TblMeisterschaftenScalarFieldEnum]
+
+
+  export const TblMeisterschaftstypScalarFieldEnum: {
+    ID: 'ID',
+    Meisterschaftstyp: 'Meisterschaftstyp'
+  };
+
+  export type TblMeisterschaftstypScalarFieldEnum = (typeof TblMeisterschaftstypScalarFieldEnum)[keyof typeof TblMeisterschaftstypScalarFieldEnum]
+
+
+  export const TblMitgliederScalarFieldEnum: {
+    ID: 'ID',
+    Vorname: 'Vorname',
+    Nachname: 'Nachname',
+    Spitzname: 'Spitzname',
+    Strasse: 'Strasse',
+    PLZ: 'PLZ',
+    Ort: 'Ort',
+    Geburtsdatum: 'Geburtsdatum',
+    MitgliedSeit: 'MitgliedSeit',
+    PassivSeit: 'PassivSeit',
+    AusgeschiedenAm: 'AusgeschiedenAm',
+    Ehemaliger: 'Ehemaliger',
+    Notizen: 'Notizen',
+    Bemerkungen: 'Bemerkungen',
+    Anrede: 'Anrede',
+    EMail: 'EMail',
+    TelefonPrivat: 'TelefonPrivat',
+    TelefonFirma: 'TelefonFirma',
+    TelefonMobil: 'TelefonMobil',
+    Fax: 'Fax',
+    SpAnz: 'SpAnz',
+    SpGew: 'SpGew',
+    SpUn: 'SpUn',
+    SpVerl: 'SpVerl',
+    HolzGes: 'HolzGes',
+    HolzMax: 'HolzMax',
+    HolzMin: 'HolzMin',
+    Punkte: 'Punkte',
+    Platz: 'Platz',
+    TurboDBNummer: 'TurboDBNummer',
+    Login: 'Login',
+    Password: 'Password'
+  };
+
+  export type TblMitgliederScalarFieldEnum = (typeof TblMitgliederScalarFieldEnum)[keyof typeof TblMitgliederScalarFieldEnum]
+
+
+  export const TblSettingsScalarFieldEnum: {
+    ID: 'ID',
+    Computername: 'Computername',
+    Parametername: 'Parametername',
+    Parameterwert: 'Parameterwert'
+  };
+
+  export type TblSettingsScalarFieldEnum = (typeof TblSettingsScalarFieldEnum)[keyof typeof TblSettingsScalarFieldEnum]
+
+
+  export const TblSpiel6TageRennenScalarFieldEnum: {
+    ID: 'ID',
+    SpieltagID: 'SpieltagID',
+    SpielerID1: 'SpielerID1',
+    SpielerID2: 'SpielerID2',
+    Runden: 'Runden',
+    Punkte: 'Punkte',
+    Spielnummer: 'Spielnummer'
+  };
+
+  export type TblSpiel6TageRennenScalarFieldEnum = (typeof TblSpiel6TageRennenScalarFieldEnum)[keyof typeof TblSpiel6TageRennenScalarFieldEnum]
+
+
+  export const TblSpielBlitztunierScalarFieldEnum: {
+    ID: 'ID',
+    SpieltagID: 'SpieltagID',
+    SpielerID1: 'SpielerID1',
+    SpielerID2: 'SpielerID2',
+    PunkteSpieler1: 'PunkteSpieler1',
+    PunkteSpieler2: 'PunkteSpieler2',
+    HinR_ckrunde: 'HinR_ckrunde'
+  };
+
+  export type TblSpielBlitztunierScalarFieldEnum = (typeof TblSpielBlitztunierScalarFieldEnum)[keyof typeof TblSpielBlitztunierScalarFieldEnum]
+
+
+  export const TblSpielKombimeisterschaftScalarFieldEnum: {
+    ID: 'ID',
+    SpieltagID: 'SpieltagID',
+    SpielerID1: 'SpielerID1',
+    SpielerID2: 'SpielerID2',
+    Spieler1Punkte3bis8: 'Spieler1Punkte3bis8',
+    Spieler1Punkte5Kugeln: 'Spieler1Punkte5Kugeln',
+    Spieler2Punkte3bis8: 'Spieler2Punkte3bis8',
+    Spieler2Punkte5Kugeln: 'Spieler2Punkte5Kugeln',
+    HinRueckrunde: 'HinRueckrunde'
+  };
+
+  export type TblSpielKombimeisterschaftScalarFieldEnum = (typeof TblSpielKombimeisterschaftScalarFieldEnum)[keyof typeof TblSpielKombimeisterschaftScalarFieldEnum]
+
+
+  export const TblSpielMeisterschaftScalarFieldEnum: {
+    ID: 'ID',
+    SpieltagID: 'SpieltagID',
+    SpielerID1: 'SpielerID1',
+    SpielerID2: 'SpielerID2',
+    HolzSpieler1: 'HolzSpieler1',
+    HolzSpieler2: 'HolzSpieler2',
+    HinRueckrunde: 'HinRueckrunde'
+  };
+
+  export type TblSpielMeisterschaftScalarFieldEnum = (typeof TblSpielMeisterschaftScalarFieldEnum)[keyof typeof TblSpielMeisterschaftScalarFieldEnum]
+
+
+  export const TblSpielPokalScalarFieldEnum: {
+    ID: 'ID',
+    SpieltagID: 'SpieltagID',
+    SpielerID: 'SpielerID',
+    Platzierung: 'Platzierung'
+  };
+
+  export type TblSpielPokalScalarFieldEnum = (typeof TblSpielPokalScalarFieldEnum)[keyof typeof TblSpielPokalScalarFieldEnum]
+
+
+  export const TblSpielSargKegelnScalarFieldEnum: {
+    ID: 'ID',
+    SpieltagID: 'SpieltagID',
+    SpielerID: 'SpielerID',
+    Platzierung: 'Platzierung'
+  };
+
+  export type TblSpielSargKegelnScalarFieldEnum = (typeof TblSpielSargKegelnScalarFieldEnum)[keyof typeof TblSpielSargKegelnScalarFieldEnum]
+
+
+  export const TblSpieltagScalarFieldEnum: {
+    ID: 'ID',
+    MeisterschaftsID: 'MeisterschaftsID',
+    Spieltag: 'Spieltag',
+    InBearbeitung: 'InBearbeitung'
+  };
+
+  export type TblSpieltagScalarFieldEnum = (typeof TblSpieltagScalarFieldEnum)[keyof typeof TblSpieltagScalarFieldEnum]
+
+
+  export const TblTeilnehmerScalarFieldEnum: {
+    ID: 'ID',
+    MeisterschaftsID: 'MeisterschaftsID',
+    SpielerID: 'SpielerID'
+  };
+
+  export type TblTeilnehmerScalarFieldEnum = (typeof TblTeilnehmerScalarFieldEnum)[keyof typeof TblTeilnehmerScalarFieldEnum]
+
+
+  export const SortOrder: {
+    asc: 'asc',
+    desc: 'desc'
+  };
+
+  export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const tblDBChangeLogOrderByRelevanceFieldEnum: {
+    Computername: 'Computername',
+    Tablename: 'Tablename',
+    Changetype: 'Changetype',
+    Command: 'Command'
+  };
+
+  export type tblDBChangeLogOrderByRelevanceFieldEnum = (typeof tblDBChangeLogOrderByRelevanceFieldEnum)[keyof typeof tblDBChangeLogOrderByRelevanceFieldEnum]
+
+
+  export const tblMeisterschaftenOrderByRelevanceFieldEnum: {
+    Bezeichnung: 'Bezeichnung',
+    Bemerkungen: 'Bemerkungen'
+  };
+
+  export type tblMeisterschaftenOrderByRelevanceFieldEnum = (typeof tblMeisterschaftenOrderByRelevanceFieldEnum)[keyof typeof tblMeisterschaftenOrderByRelevanceFieldEnum]
+
+
+  export const tblMeisterschaftstypOrderByRelevanceFieldEnum: {
+    Meisterschaftstyp: 'Meisterschaftstyp'
+  };
+
+  export type tblMeisterschaftstypOrderByRelevanceFieldEnum = (typeof tblMeisterschaftstypOrderByRelevanceFieldEnum)[keyof typeof tblMeisterschaftstypOrderByRelevanceFieldEnum]
+
+
+  export const tblMitgliederOrderByRelevanceFieldEnum: {
+    Vorname: 'Vorname',
+    Nachname: 'Nachname',
+    Spitzname: 'Spitzname',
+    Strasse: 'Strasse',
+    PLZ: 'PLZ',
+    Ort: 'Ort',
+    Notizen: 'Notizen',
+    Bemerkungen: 'Bemerkungen',
+    Anrede: 'Anrede',
+    EMail: 'EMail',
+    TelefonPrivat: 'TelefonPrivat',
+    TelefonFirma: 'TelefonFirma',
+    TelefonMobil: 'TelefonMobil',
+    Fax: 'Fax',
+    Platz: 'Platz',
+    Login: 'Login',
+    Password: 'Password'
+  };
+
+  export type tblMitgliederOrderByRelevanceFieldEnum = (typeof tblMitgliederOrderByRelevanceFieldEnum)[keyof typeof tblMitgliederOrderByRelevanceFieldEnum]
+
+
+  export const tblSettingsOrderByRelevanceFieldEnum: {
+    Computername: 'Computername',
+    Parametername: 'Parametername',
+    Parameterwert: 'Parameterwert'
+  };
+
+  export type tblSettingsOrderByRelevanceFieldEnum = (typeof tblSettingsOrderByRelevanceFieldEnum)[keyof typeof tblSettingsOrderByRelevanceFieldEnum]
+
+
+  /**
+   * Field references
+   */
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'String'
+   */
+  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+  /**
+   * Deep Input Types
+   */
+
+
+  export type tbl9erRattenWhereInput = {
+    AND?: tbl9erRattenWhereInput | tbl9erRattenWhereInput[]
+    OR?: tbl9erRattenWhereInput[]
+    NOT?: tbl9erRattenWhereInput | tbl9erRattenWhereInput[]
+    ID?: IntFilter<"tbl9erRatten"> | number
+    SpieltagID?: IntFilter<"tbl9erRatten"> | number
+    SpielerID?: IntFilter<"tbl9erRatten"> | number
+    Neuner?: IntFilter<"tbl9erRatten"> | number
+    Ratten?: IntFilter<"tbl9erRatten"> | number
+    Kranzacht?: IntFilter<"tbl9erRatten"> | number
+  }
+
+  export type tbl9erRattenOrderByWithRelationInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Neuner?: SortOrder
+    Ratten?: SortOrder
+    Kranzacht?: SortOrder
+  }
+
+  export type tbl9erRattenWhereUniqueInput = Prisma.AtLeast<{
+    ID?: number
+    AND?: tbl9erRattenWhereInput | tbl9erRattenWhereInput[]
+    OR?: tbl9erRattenWhereInput[]
+    NOT?: tbl9erRattenWhereInput | tbl9erRattenWhereInput[]
+    SpieltagID?: IntFilter<"tbl9erRatten"> | number
+    SpielerID?: IntFilter<"tbl9erRatten"> | number
+    Neuner?: IntFilter<"tbl9erRatten"> | number
+    Ratten?: IntFilter<"tbl9erRatten"> | number
+    Kranzacht?: IntFilter<"tbl9erRatten"> | number
+  }, "ID">
+
+  export type tbl9erRattenOrderByWithAggregationInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Neuner?: SortOrder
+    Ratten?: SortOrder
+    Kranzacht?: SortOrder
+    _count?: tbl9erRattenCountOrderByAggregateInput
+    _avg?: tbl9erRattenAvgOrderByAggregateInput
+    _max?: tbl9erRattenMaxOrderByAggregateInput
+    _min?: tbl9erRattenMinOrderByAggregateInput
+    _sum?: tbl9erRattenSumOrderByAggregateInput
+  }
+
+  export type tbl9erRattenScalarWhereWithAggregatesInput = {
+    AND?: tbl9erRattenScalarWhereWithAggregatesInput | tbl9erRattenScalarWhereWithAggregatesInput[]
+    OR?: tbl9erRattenScalarWhereWithAggregatesInput[]
+    NOT?: tbl9erRattenScalarWhereWithAggregatesInput | tbl9erRattenScalarWhereWithAggregatesInput[]
+    ID?: IntWithAggregatesFilter<"tbl9erRatten"> | number
+    SpieltagID?: IntWithAggregatesFilter<"tbl9erRatten"> | number
+    SpielerID?: IntWithAggregatesFilter<"tbl9erRatten"> | number
+    Neuner?: IntWithAggregatesFilter<"tbl9erRatten"> | number
+    Ratten?: IntWithAggregatesFilter<"tbl9erRatten"> | number
+    Kranzacht?: IntWithAggregatesFilter<"tbl9erRatten"> | number
+  }
+
+  export type tblDBChangeLogWhereInput = {
+    AND?: tblDBChangeLogWhereInput | tblDBChangeLogWhereInput[]
+    OR?: tblDBChangeLogWhereInput[]
+    NOT?: tblDBChangeLogWhereInput | tblDBChangeLogWhereInput[]
+    ID?: IntFilter<"tblDBChangeLog"> | number
+    Computername?: StringNullableFilter<"tblDBChangeLog"> | string | null
+    Tablename?: StringNullableFilter<"tblDBChangeLog"> | string | null
+    Changetype?: StringNullableFilter<"tblDBChangeLog"> | string | null
+    Command?: StringNullableFilter<"tblDBChangeLog"> | string | null
+    Zeitstempel?: DateTimeFilter<"tblDBChangeLog"> | Date | string
+  }
+
+  export type tblDBChangeLogOrderByWithRelationInput = {
+    ID?: SortOrder
+    Computername?: SortOrderInput | SortOrder
+    Tablename?: SortOrderInput | SortOrder
+    Changetype?: SortOrderInput | SortOrder
+    Command?: SortOrderInput | SortOrder
+    Zeitstempel?: SortOrder
+    _relevance?: tblDBChangeLogOrderByRelevanceInput
+  }
+
+  export type tblDBChangeLogWhereUniqueInput = Prisma.AtLeast<{
+    ID?: number
+    AND?: tblDBChangeLogWhereInput | tblDBChangeLogWhereInput[]
+    OR?: tblDBChangeLogWhereInput[]
+    NOT?: tblDBChangeLogWhereInput | tblDBChangeLogWhereInput[]
+    Computername?: StringNullableFilter<"tblDBChangeLog"> | string | null
+    Tablename?: StringNullableFilter<"tblDBChangeLog"> | string | null
+    Changetype?: StringNullableFilter<"tblDBChangeLog"> | string | null
+    Command?: StringNullableFilter<"tblDBChangeLog"> | string | null
+    Zeitstempel?: DateTimeFilter<"tblDBChangeLog"> | Date | string
+  }, "ID">
+
+  export type tblDBChangeLogOrderByWithAggregationInput = {
+    ID?: SortOrder
+    Computername?: SortOrderInput | SortOrder
+    Tablename?: SortOrderInput | SortOrder
+    Changetype?: SortOrderInput | SortOrder
+    Command?: SortOrderInput | SortOrder
+    Zeitstempel?: SortOrder
+    _count?: tblDBChangeLogCountOrderByAggregateInput
+    _avg?: tblDBChangeLogAvgOrderByAggregateInput
+    _max?: tblDBChangeLogMaxOrderByAggregateInput
+    _min?: tblDBChangeLogMinOrderByAggregateInput
+    _sum?: tblDBChangeLogSumOrderByAggregateInput
+  }
+
+  export type tblDBChangeLogScalarWhereWithAggregatesInput = {
+    AND?: tblDBChangeLogScalarWhereWithAggregatesInput | tblDBChangeLogScalarWhereWithAggregatesInput[]
+    OR?: tblDBChangeLogScalarWhereWithAggregatesInput[]
+    NOT?: tblDBChangeLogScalarWhereWithAggregatesInput | tblDBChangeLogScalarWhereWithAggregatesInput[]
+    ID?: IntWithAggregatesFilter<"tblDBChangeLog"> | number
+    Computername?: StringNullableWithAggregatesFilter<"tblDBChangeLog"> | string | null
+    Tablename?: StringNullableWithAggregatesFilter<"tblDBChangeLog"> | string | null
+    Changetype?: StringNullableWithAggregatesFilter<"tblDBChangeLog"> | string | null
+    Command?: StringNullableWithAggregatesFilter<"tblDBChangeLog"> | string | null
+    Zeitstempel?: DateTimeWithAggregatesFilter<"tblDBChangeLog"> | Date | string
+  }
+
+  export type tblMeisterschaftenWhereInput = {
+    AND?: tblMeisterschaftenWhereInput | tblMeisterschaftenWhereInput[]
+    OR?: tblMeisterschaftenWhereInput[]
+    NOT?: tblMeisterschaftenWhereInput | tblMeisterschaftenWhereInput[]
+    ID?: IntFilter<"tblMeisterschaften"> | number
+    Bezeichnung?: StringFilter<"tblMeisterschaften"> | string
+    Beginn?: DateTimeFilter<"tblMeisterschaften"> | Date | string
+    Ende?: DateTimeNullableFilter<"tblMeisterschaften"> | Date | string | null
+    MeisterschaftstypID?: IntFilter<"tblMeisterschaften"> | number
+    TurboDBNummer?: IntNullableFilter<"tblMeisterschaften"> | number | null
+    Aktiv?: IntFilter<"tblMeisterschaften"> | number
+    Bemerkungen?: StringNullableFilter<"tblMeisterschaften"> | string | null
+    tblMeisterschaftstyp?: XOR<TblMeisterschaftstypScalarRelationFilter, tblMeisterschaftstypWhereInput>
+    tblTeilnehmer?: TblTeilnehmerListRelationFilter
+  }
+
+  export type tblMeisterschaftenOrderByWithRelationInput = {
+    ID?: SortOrder
+    Bezeichnung?: SortOrder
+    Beginn?: SortOrder
+    Ende?: SortOrderInput | SortOrder
+    MeisterschaftstypID?: SortOrder
+    TurboDBNummer?: SortOrderInput | SortOrder
+    Aktiv?: SortOrder
+    Bemerkungen?: SortOrderInput | SortOrder
+    tblMeisterschaftstyp?: tblMeisterschaftstypOrderByWithRelationInput
+    tblTeilnehmer?: tblTeilnehmerOrderByRelationAggregateInput
+    _relevance?: tblMeisterschaftenOrderByRelevanceInput
+  }
+
+  export type tblMeisterschaftenWhereUniqueInput = Prisma.AtLeast<{
+    ID?: number
+    AND?: tblMeisterschaftenWhereInput | tblMeisterschaftenWhereInput[]
+    OR?: tblMeisterschaftenWhereInput[]
+    NOT?: tblMeisterschaftenWhereInput | tblMeisterschaftenWhereInput[]
+    Bezeichnung?: StringFilter<"tblMeisterschaften"> | string
+    Beginn?: DateTimeFilter<"tblMeisterschaften"> | Date | string
+    Ende?: DateTimeNullableFilter<"tblMeisterschaften"> | Date | string | null
+    MeisterschaftstypID?: IntFilter<"tblMeisterschaften"> | number
+    TurboDBNummer?: IntNullableFilter<"tblMeisterschaften"> | number | null
+    Aktiv?: IntFilter<"tblMeisterschaften"> | number
+    Bemerkungen?: StringNullableFilter<"tblMeisterschaften"> | string | null
+    tblMeisterschaftstyp?: XOR<TblMeisterschaftstypScalarRelationFilter, tblMeisterschaftstypWhereInput>
+    tblTeilnehmer?: TblTeilnehmerListRelationFilter
+  }, "ID">
+
+  export type tblMeisterschaftenOrderByWithAggregationInput = {
+    ID?: SortOrder
+    Bezeichnung?: SortOrder
+    Beginn?: SortOrder
+    Ende?: SortOrderInput | SortOrder
+    MeisterschaftstypID?: SortOrder
+    TurboDBNummer?: SortOrderInput | SortOrder
+    Aktiv?: SortOrder
+    Bemerkungen?: SortOrderInput | SortOrder
+    _count?: tblMeisterschaftenCountOrderByAggregateInput
+    _avg?: tblMeisterschaftenAvgOrderByAggregateInput
+    _max?: tblMeisterschaftenMaxOrderByAggregateInput
+    _min?: tblMeisterschaftenMinOrderByAggregateInput
+    _sum?: tblMeisterschaftenSumOrderByAggregateInput
+  }
+
+  export type tblMeisterschaftenScalarWhereWithAggregatesInput = {
+    AND?: tblMeisterschaftenScalarWhereWithAggregatesInput | tblMeisterschaftenScalarWhereWithAggregatesInput[]
+    OR?: tblMeisterschaftenScalarWhereWithAggregatesInput[]
+    NOT?: tblMeisterschaftenScalarWhereWithAggregatesInput | tblMeisterschaftenScalarWhereWithAggregatesInput[]
+    ID?: IntWithAggregatesFilter<"tblMeisterschaften"> | number
+    Bezeichnung?: StringWithAggregatesFilter<"tblMeisterschaften"> | string
+    Beginn?: DateTimeWithAggregatesFilter<"tblMeisterschaften"> | Date | string
+    Ende?: DateTimeNullableWithAggregatesFilter<"tblMeisterschaften"> | Date | string | null
+    MeisterschaftstypID?: IntWithAggregatesFilter<"tblMeisterschaften"> | number
+    TurboDBNummer?: IntNullableWithAggregatesFilter<"tblMeisterschaften"> | number | null
+    Aktiv?: IntWithAggregatesFilter<"tblMeisterschaften"> | number
+    Bemerkungen?: StringNullableWithAggregatesFilter<"tblMeisterschaften"> | string | null
+  }
+
+  export type tblMeisterschaftstypWhereInput = {
+    AND?: tblMeisterschaftstypWhereInput | tblMeisterschaftstypWhereInput[]
+    OR?: tblMeisterschaftstypWhereInput[]
+    NOT?: tblMeisterschaftstypWhereInput | tblMeisterschaftstypWhereInput[]
+    ID?: IntFilter<"tblMeisterschaftstyp"> | number
+    Meisterschaftstyp?: StringFilter<"tblMeisterschaftstyp"> | string
+    tblMeisterschaften?: TblMeisterschaftenListRelationFilter
+  }
+
+  export type tblMeisterschaftstypOrderByWithRelationInput = {
+    ID?: SortOrder
+    Meisterschaftstyp?: SortOrder
+    tblMeisterschaften?: tblMeisterschaftenOrderByRelationAggregateInput
+    _relevance?: tblMeisterschaftstypOrderByRelevanceInput
+  }
+
+  export type tblMeisterschaftstypWhereUniqueInput = Prisma.AtLeast<{
+    ID?: number
+    AND?: tblMeisterschaftstypWhereInput | tblMeisterschaftstypWhereInput[]
+    OR?: tblMeisterschaftstypWhereInput[]
+    NOT?: tblMeisterschaftstypWhereInput | tblMeisterschaftstypWhereInput[]
+    Meisterschaftstyp?: StringFilter<"tblMeisterschaftstyp"> | string
+    tblMeisterschaften?: TblMeisterschaftenListRelationFilter
+  }, "ID">
+
+  export type tblMeisterschaftstypOrderByWithAggregationInput = {
+    ID?: SortOrder
+    Meisterschaftstyp?: SortOrder
+    _count?: tblMeisterschaftstypCountOrderByAggregateInput
+    _avg?: tblMeisterschaftstypAvgOrderByAggregateInput
+    _max?: tblMeisterschaftstypMaxOrderByAggregateInput
+    _min?: tblMeisterschaftstypMinOrderByAggregateInput
+    _sum?: tblMeisterschaftstypSumOrderByAggregateInput
+  }
+
+  export type tblMeisterschaftstypScalarWhereWithAggregatesInput = {
+    AND?: tblMeisterschaftstypScalarWhereWithAggregatesInput | tblMeisterschaftstypScalarWhereWithAggregatesInput[]
+    OR?: tblMeisterschaftstypScalarWhereWithAggregatesInput[]
+    NOT?: tblMeisterschaftstypScalarWhereWithAggregatesInput | tblMeisterschaftstypScalarWhereWithAggregatesInput[]
+    ID?: IntWithAggregatesFilter<"tblMeisterschaftstyp"> | number
+    Meisterschaftstyp?: StringWithAggregatesFilter<"tblMeisterschaftstyp"> | string
+  }
+
+  export type tblMitgliederWhereInput = {
+    AND?: tblMitgliederWhereInput | tblMitgliederWhereInput[]
+    OR?: tblMitgliederWhereInput[]
+    NOT?: tblMitgliederWhereInput | tblMitgliederWhereInput[]
+    ID?: IntFilter<"tblMitglieder"> | number
+    Vorname?: StringFilter<"tblMitglieder"> | string
+    Nachname?: StringFilter<"tblMitglieder"> | string
+    Spitzname?: StringNullableFilter<"tblMitglieder"> | string | null
+    Strasse?: StringNullableFilter<"tblMitglieder"> | string | null
+    PLZ?: StringNullableFilter<"tblMitglieder"> | string | null
+    Ort?: StringNullableFilter<"tblMitglieder"> | string | null
+    Geburtsdatum?: DateTimeNullableFilter<"tblMitglieder"> | Date | string | null
+    MitgliedSeit?: DateTimeFilter<"tblMitglieder"> | Date | string
+    PassivSeit?: DateTimeNullableFilter<"tblMitglieder"> | Date | string | null
+    AusgeschiedenAm?: DateTimeNullableFilter<"tblMitglieder"> | Date | string | null
+    Ehemaliger?: BoolFilter<"tblMitglieder"> | boolean
+    Notizen?: StringNullableFilter<"tblMitglieder"> | string | null
+    Bemerkungen?: StringNullableFilter<"tblMitglieder"> | string | null
+    Anrede?: StringNullableFilter<"tblMitglieder"> | string | null
+    EMail?: StringNullableFilter<"tblMitglieder"> | string | null
+    TelefonPrivat?: StringNullableFilter<"tblMitglieder"> | string | null
+    TelefonFirma?: StringNullableFilter<"tblMitglieder"> | string | null
+    TelefonMobil?: StringNullableFilter<"tblMitglieder"> | string | null
+    Fax?: StringNullableFilter<"tblMitglieder"> | string | null
+    SpAnz?: IntNullableFilter<"tblMitglieder"> | number | null
+    SpGew?: IntNullableFilter<"tblMitglieder"> | number | null
+    SpUn?: IntNullableFilter<"tblMitglieder"> | number | null
+    SpVerl?: IntNullableFilter<"tblMitglieder"> | number | null
+    HolzGes?: IntNullableFilter<"tblMitglieder"> | number | null
+    HolzMax?: IntNullableFilter<"tblMitglieder"> | number | null
+    HolzMin?: IntNullableFilter<"tblMitglieder"> | number | null
+    Punkte?: IntNullableFilter<"tblMitglieder"> | number | null
+    Platz?: StringNullableFilter<"tblMitglieder"> | string | null
+    TurboDBNummer?: IntNullableFilter<"tblMitglieder"> | number | null
+    Login?: StringNullableFilter<"tblMitglieder"> | string | null
+    Password?: StringNullableFilter<"tblMitglieder"> | string | null
+    tblTeilnehmer?: TblTeilnehmerListRelationFilter
+  }
+
+  export type tblMitgliederOrderByWithRelationInput = {
+    ID?: SortOrder
+    Vorname?: SortOrder
+    Nachname?: SortOrder
+    Spitzname?: SortOrderInput | SortOrder
+    Strasse?: SortOrderInput | SortOrder
+    PLZ?: SortOrderInput | SortOrder
+    Ort?: SortOrderInput | SortOrder
+    Geburtsdatum?: SortOrderInput | SortOrder
+    MitgliedSeit?: SortOrder
+    PassivSeit?: SortOrderInput | SortOrder
+    AusgeschiedenAm?: SortOrderInput | SortOrder
+    Ehemaliger?: SortOrder
+    Notizen?: SortOrderInput | SortOrder
+    Bemerkungen?: SortOrderInput | SortOrder
+    Anrede?: SortOrderInput | SortOrder
+    EMail?: SortOrderInput | SortOrder
+    TelefonPrivat?: SortOrderInput | SortOrder
+    TelefonFirma?: SortOrderInput | SortOrder
+    TelefonMobil?: SortOrderInput | SortOrder
+    Fax?: SortOrderInput | SortOrder
+    SpAnz?: SortOrderInput | SortOrder
+    SpGew?: SortOrderInput | SortOrder
+    SpUn?: SortOrderInput | SortOrder
+    SpVerl?: SortOrderInput | SortOrder
+    HolzGes?: SortOrderInput | SortOrder
+    HolzMax?: SortOrderInput | SortOrder
+    HolzMin?: SortOrderInput | SortOrder
+    Punkte?: SortOrderInput | SortOrder
+    Platz?: SortOrderInput | SortOrder
+    TurboDBNummer?: SortOrderInput | SortOrder
+    Login?: SortOrderInput | SortOrder
+    Password?: SortOrderInput | SortOrder
+    tblTeilnehmer?: tblTeilnehmerOrderByRelationAggregateInput
+    _relevance?: tblMitgliederOrderByRelevanceInput
+  }
+
+  export type tblMitgliederWhereUniqueInput = Prisma.AtLeast<{
+    ID?: number
+    AND?: tblMitgliederWhereInput | tblMitgliederWhereInput[]
+    OR?: tblMitgliederWhereInput[]
+    NOT?: tblMitgliederWhereInput | tblMitgliederWhereInput[]
+    Vorname?: StringFilter<"tblMitglieder"> | string
+    Nachname?: StringFilter<"tblMitglieder"> | string
+    Spitzname?: StringNullableFilter<"tblMitglieder"> | string | null
+    Strasse?: StringNullableFilter<"tblMitglieder"> | string | null
+    PLZ?: StringNullableFilter<"tblMitglieder"> | string | null
+    Ort?: StringNullableFilter<"tblMitglieder"> | string | null
+    Geburtsdatum?: DateTimeNullableFilter<"tblMitglieder"> | Date | string | null
+    MitgliedSeit?: DateTimeFilter<"tblMitglieder"> | Date | string
+    PassivSeit?: DateTimeNullableFilter<"tblMitglieder"> | Date | string | null
+    AusgeschiedenAm?: DateTimeNullableFilter<"tblMitglieder"> | Date | string | null
+    Ehemaliger?: BoolFilter<"tblMitglieder"> | boolean
+    Notizen?: StringNullableFilter<"tblMitglieder"> | string | null
+    Bemerkungen?: StringNullableFilter<"tblMitglieder"> | string | null
+    Anrede?: StringNullableFilter<"tblMitglieder"> | string | null
+    EMail?: StringNullableFilter<"tblMitglieder"> | string | null
+    TelefonPrivat?: StringNullableFilter<"tblMitglieder"> | string | null
+    TelefonFirma?: StringNullableFilter<"tblMitglieder"> | string | null
+    TelefonMobil?: StringNullableFilter<"tblMitglieder"> | string | null
+    Fax?: StringNullableFilter<"tblMitglieder"> | string | null
+    SpAnz?: IntNullableFilter<"tblMitglieder"> | number | null
+    SpGew?: IntNullableFilter<"tblMitglieder"> | number | null
+    SpUn?: IntNullableFilter<"tblMitglieder"> | number | null
+    SpVerl?: IntNullableFilter<"tblMitglieder"> | number | null
+    HolzGes?: IntNullableFilter<"tblMitglieder"> | number | null
+    HolzMax?: IntNullableFilter<"tblMitglieder"> | number | null
+    HolzMin?: IntNullableFilter<"tblMitglieder"> | number | null
+    Punkte?: IntNullableFilter<"tblMitglieder"> | number | null
+    Platz?: StringNullableFilter<"tblMitglieder"> | string | null
+    TurboDBNummer?: IntNullableFilter<"tblMitglieder"> | number | null
+    Login?: StringNullableFilter<"tblMitglieder"> | string | null
+    Password?: StringNullableFilter<"tblMitglieder"> | string | null
+    tblTeilnehmer?: TblTeilnehmerListRelationFilter
+  }, "ID">
+
+  export type tblMitgliederOrderByWithAggregationInput = {
+    ID?: SortOrder
+    Vorname?: SortOrder
+    Nachname?: SortOrder
+    Spitzname?: SortOrderInput | SortOrder
+    Strasse?: SortOrderInput | SortOrder
+    PLZ?: SortOrderInput | SortOrder
+    Ort?: SortOrderInput | SortOrder
+    Geburtsdatum?: SortOrderInput | SortOrder
+    MitgliedSeit?: SortOrder
+    PassivSeit?: SortOrderInput | SortOrder
+    AusgeschiedenAm?: SortOrderInput | SortOrder
+    Ehemaliger?: SortOrder
+    Notizen?: SortOrderInput | SortOrder
+    Bemerkungen?: SortOrderInput | SortOrder
+    Anrede?: SortOrderInput | SortOrder
+    EMail?: SortOrderInput | SortOrder
+    TelefonPrivat?: SortOrderInput | SortOrder
+    TelefonFirma?: SortOrderInput | SortOrder
+    TelefonMobil?: SortOrderInput | SortOrder
+    Fax?: SortOrderInput | SortOrder
+    SpAnz?: SortOrderInput | SortOrder
+    SpGew?: SortOrderInput | SortOrder
+    SpUn?: SortOrderInput | SortOrder
+    SpVerl?: SortOrderInput | SortOrder
+    HolzGes?: SortOrderInput | SortOrder
+    HolzMax?: SortOrderInput | SortOrder
+    HolzMin?: SortOrderInput | SortOrder
+    Punkte?: SortOrderInput | SortOrder
+    Platz?: SortOrderInput | SortOrder
+    TurboDBNummer?: SortOrderInput | SortOrder
+    Login?: SortOrderInput | SortOrder
+    Password?: SortOrderInput | SortOrder
+    _count?: tblMitgliederCountOrderByAggregateInput
+    _avg?: tblMitgliederAvgOrderByAggregateInput
+    _max?: tblMitgliederMaxOrderByAggregateInput
+    _min?: tblMitgliederMinOrderByAggregateInput
+    _sum?: tblMitgliederSumOrderByAggregateInput
+  }
+
+  export type tblMitgliederScalarWhereWithAggregatesInput = {
+    AND?: tblMitgliederScalarWhereWithAggregatesInput | tblMitgliederScalarWhereWithAggregatesInput[]
+    OR?: tblMitgliederScalarWhereWithAggregatesInput[]
+    NOT?: tblMitgliederScalarWhereWithAggregatesInput | tblMitgliederScalarWhereWithAggregatesInput[]
+    ID?: IntWithAggregatesFilter<"tblMitglieder"> | number
+    Vorname?: StringWithAggregatesFilter<"tblMitglieder"> | string
+    Nachname?: StringWithAggregatesFilter<"tblMitglieder"> | string
+    Spitzname?: StringNullableWithAggregatesFilter<"tblMitglieder"> | string | null
+    Strasse?: StringNullableWithAggregatesFilter<"tblMitglieder"> | string | null
+    PLZ?: StringNullableWithAggregatesFilter<"tblMitglieder"> | string | null
+    Ort?: StringNullableWithAggregatesFilter<"tblMitglieder"> | string | null
+    Geburtsdatum?: DateTimeNullableWithAggregatesFilter<"tblMitglieder"> | Date | string | null
+    MitgliedSeit?: DateTimeWithAggregatesFilter<"tblMitglieder"> | Date | string
+    PassivSeit?: DateTimeNullableWithAggregatesFilter<"tblMitglieder"> | Date | string | null
+    AusgeschiedenAm?: DateTimeNullableWithAggregatesFilter<"tblMitglieder"> | Date | string | null
+    Ehemaliger?: BoolWithAggregatesFilter<"tblMitglieder"> | boolean
+    Notizen?: StringNullableWithAggregatesFilter<"tblMitglieder"> | string | null
+    Bemerkungen?: StringNullableWithAggregatesFilter<"tblMitglieder"> | string | null
+    Anrede?: StringNullableWithAggregatesFilter<"tblMitglieder"> | string | null
+    EMail?: StringNullableWithAggregatesFilter<"tblMitglieder"> | string | null
+    TelefonPrivat?: StringNullableWithAggregatesFilter<"tblMitglieder"> | string | null
+    TelefonFirma?: StringNullableWithAggregatesFilter<"tblMitglieder"> | string | null
+    TelefonMobil?: StringNullableWithAggregatesFilter<"tblMitglieder"> | string | null
+    Fax?: StringNullableWithAggregatesFilter<"tblMitglieder"> | string | null
+    SpAnz?: IntNullableWithAggregatesFilter<"tblMitglieder"> | number | null
+    SpGew?: IntNullableWithAggregatesFilter<"tblMitglieder"> | number | null
+    SpUn?: IntNullableWithAggregatesFilter<"tblMitglieder"> | number | null
+    SpVerl?: IntNullableWithAggregatesFilter<"tblMitglieder"> | number | null
+    HolzGes?: IntNullableWithAggregatesFilter<"tblMitglieder"> | number | null
+    HolzMax?: IntNullableWithAggregatesFilter<"tblMitglieder"> | number | null
+    HolzMin?: IntNullableWithAggregatesFilter<"tblMitglieder"> | number | null
+    Punkte?: IntNullableWithAggregatesFilter<"tblMitglieder"> | number | null
+    Platz?: StringNullableWithAggregatesFilter<"tblMitglieder"> | string | null
+    TurboDBNummer?: IntNullableWithAggregatesFilter<"tblMitglieder"> | number | null
+    Login?: StringNullableWithAggregatesFilter<"tblMitglieder"> | string | null
+    Password?: StringNullableWithAggregatesFilter<"tblMitglieder"> | string | null
+  }
+
+  export type tblSettingsWhereInput = {
+    AND?: tblSettingsWhereInput | tblSettingsWhereInput[]
+    OR?: tblSettingsWhereInput[]
+    NOT?: tblSettingsWhereInput | tblSettingsWhereInput[]
+    ID?: IntFilter<"tblSettings"> | number
+    Computername?: StringFilter<"tblSettings"> | string
+    Parametername?: StringFilter<"tblSettings"> | string
+    Parameterwert?: StringFilter<"tblSettings"> | string
+  }
+
+  export type tblSettingsOrderByWithRelationInput = {
+    ID?: SortOrder
+    Computername?: SortOrder
+    Parametername?: SortOrder
+    Parameterwert?: SortOrder
+    _relevance?: tblSettingsOrderByRelevanceInput
+  }
+
+  export type tblSettingsWhereUniqueInput = Prisma.AtLeast<{
+    ID?: number
+    AND?: tblSettingsWhereInput | tblSettingsWhereInput[]
+    OR?: tblSettingsWhereInput[]
+    NOT?: tblSettingsWhereInput | tblSettingsWhereInput[]
+    Computername?: StringFilter<"tblSettings"> | string
+    Parametername?: StringFilter<"tblSettings"> | string
+    Parameterwert?: StringFilter<"tblSettings"> | string
+  }, "ID">
+
+  export type tblSettingsOrderByWithAggregationInput = {
+    ID?: SortOrder
+    Computername?: SortOrder
+    Parametername?: SortOrder
+    Parameterwert?: SortOrder
+    _count?: tblSettingsCountOrderByAggregateInput
+    _avg?: tblSettingsAvgOrderByAggregateInput
+    _max?: tblSettingsMaxOrderByAggregateInput
+    _min?: tblSettingsMinOrderByAggregateInput
+    _sum?: tblSettingsSumOrderByAggregateInput
+  }
+
+  export type tblSettingsScalarWhereWithAggregatesInput = {
+    AND?: tblSettingsScalarWhereWithAggregatesInput | tblSettingsScalarWhereWithAggregatesInput[]
+    OR?: tblSettingsScalarWhereWithAggregatesInput[]
+    NOT?: tblSettingsScalarWhereWithAggregatesInput | tblSettingsScalarWhereWithAggregatesInput[]
+    ID?: IntWithAggregatesFilter<"tblSettings"> | number
+    Computername?: StringWithAggregatesFilter<"tblSettings"> | string
+    Parametername?: StringWithAggregatesFilter<"tblSettings"> | string
+    Parameterwert?: StringWithAggregatesFilter<"tblSettings"> | string
+  }
+
+  export type tblSpiel6TageRennenWhereInput = {
+    AND?: tblSpiel6TageRennenWhereInput | tblSpiel6TageRennenWhereInput[]
+    OR?: tblSpiel6TageRennenWhereInput[]
+    NOT?: tblSpiel6TageRennenWhereInput | tblSpiel6TageRennenWhereInput[]
+    ID?: IntFilter<"tblSpiel6TageRennen"> | number
+    SpieltagID?: IntFilter<"tblSpiel6TageRennen"> | number
+    SpielerID1?: IntFilter<"tblSpiel6TageRennen"> | number
+    SpielerID2?: IntFilter<"tblSpiel6TageRennen"> | number
+    Runden?: IntFilter<"tblSpiel6TageRennen"> | number
+    Punkte?: IntFilter<"tblSpiel6TageRennen"> | number
+    Spielnummer?: IntNullableFilter<"tblSpiel6TageRennen"> | number | null
+  }
+
+  export type tblSpiel6TageRennenOrderByWithRelationInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    Runden?: SortOrder
+    Punkte?: SortOrder
+    Spielnummer?: SortOrderInput | SortOrder
+  }
+
+  export type tblSpiel6TageRennenWhereUniqueInput = Prisma.AtLeast<{
+    ID?: number
+    AND?: tblSpiel6TageRennenWhereInput | tblSpiel6TageRennenWhereInput[]
+    OR?: tblSpiel6TageRennenWhereInput[]
+    NOT?: tblSpiel6TageRennenWhereInput | tblSpiel6TageRennenWhereInput[]
+    SpieltagID?: IntFilter<"tblSpiel6TageRennen"> | number
+    SpielerID1?: IntFilter<"tblSpiel6TageRennen"> | number
+    SpielerID2?: IntFilter<"tblSpiel6TageRennen"> | number
+    Runden?: IntFilter<"tblSpiel6TageRennen"> | number
+    Punkte?: IntFilter<"tblSpiel6TageRennen"> | number
+    Spielnummer?: IntNullableFilter<"tblSpiel6TageRennen"> | number | null
+  }, "ID">
+
+  export type tblSpiel6TageRennenOrderByWithAggregationInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    Runden?: SortOrder
+    Punkte?: SortOrder
+    Spielnummer?: SortOrderInput | SortOrder
+    _count?: tblSpiel6TageRennenCountOrderByAggregateInput
+    _avg?: tblSpiel6TageRennenAvgOrderByAggregateInput
+    _max?: tblSpiel6TageRennenMaxOrderByAggregateInput
+    _min?: tblSpiel6TageRennenMinOrderByAggregateInput
+    _sum?: tblSpiel6TageRennenSumOrderByAggregateInput
+  }
+
+  export type tblSpiel6TageRennenScalarWhereWithAggregatesInput = {
+    AND?: tblSpiel6TageRennenScalarWhereWithAggregatesInput | tblSpiel6TageRennenScalarWhereWithAggregatesInput[]
+    OR?: tblSpiel6TageRennenScalarWhereWithAggregatesInput[]
+    NOT?: tblSpiel6TageRennenScalarWhereWithAggregatesInput | tblSpiel6TageRennenScalarWhereWithAggregatesInput[]
+    ID?: IntWithAggregatesFilter<"tblSpiel6TageRennen"> | number
+    SpieltagID?: IntWithAggregatesFilter<"tblSpiel6TageRennen"> | number
+    SpielerID1?: IntWithAggregatesFilter<"tblSpiel6TageRennen"> | number
+    SpielerID2?: IntWithAggregatesFilter<"tblSpiel6TageRennen"> | number
+    Runden?: IntWithAggregatesFilter<"tblSpiel6TageRennen"> | number
+    Punkte?: IntWithAggregatesFilter<"tblSpiel6TageRennen"> | number
+    Spielnummer?: IntNullableWithAggregatesFilter<"tblSpiel6TageRennen"> | number | null
+  }
+
+  export type tblSpielBlitztunierWhereInput = {
+    AND?: tblSpielBlitztunierWhereInput | tblSpielBlitztunierWhereInput[]
+    OR?: tblSpielBlitztunierWhereInput[]
+    NOT?: tblSpielBlitztunierWhereInput | tblSpielBlitztunierWhereInput[]
+    ID?: IntFilter<"tblSpielBlitztunier"> | number
+    SpieltagID?: IntFilter<"tblSpielBlitztunier"> | number
+    SpielerID1?: IntFilter<"tblSpielBlitztunier"> | number
+    SpielerID2?: IntFilter<"tblSpielBlitztunier"> | number
+    PunkteSpieler1?: IntFilter<"tblSpielBlitztunier"> | number
+    PunkteSpieler2?: IntFilter<"tblSpielBlitztunier"> | number
+    HinR_ckrunde?: IntFilter<"tblSpielBlitztunier"> | number
+  }
+
+  export type tblSpielBlitztunierOrderByWithRelationInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    PunkteSpieler1?: SortOrder
+    PunkteSpieler2?: SortOrder
+    HinR_ckrunde?: SortOrder
+  }
+
+  export type tblSpielBlitztunierWhereUniqueInput = Prisma.AtLeast<{
+    ID?: number
+    AND?: tblSpielBlitztunierWhereInput | tblSpielBlitztunierWhereInput[]
+    OR?: tblSpielBlitztunierWhereInput[]
+    NOT?: tblSpielBlitztunierWhereInput | tblSpielBlitztunierWhereInput[]
+    SpieltagID?: IntFilter<"tblSpielBlitztunier"> | number
+    SpielerID1?: IntFilter<"tblSpielBlitztunier"> | number
+    SpielerID2?: IntFilter<"tblSpielBlitztunier"> | number
+    PunkteSpieler1?: IntFilter<"tblSpielBlitztunier"> | number
+    PunkteSpieler2?: IntFilter<"tblSpielBlitztunier"> | number
+    HinR_ckrunde?: IntFilter<"tblSpielBlitztunier"> | number
+  }, "ID">
+
+  export type tblSpielBlitztunierOrderByWithAggregationInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    PunkteSpieler1?: SortOrder
+    PunkteSpieler2?: SortOrder
+    HinR_ckrunde?: SortOrder
+    _count?: tblSpielBlitztunierCountOrderByAggregateInput
+    _avg?: tblSpielBlitztunierAvgOrderByAggregateInput
+    _max?: tblSpielBlitztunierMaxOrderByAggregateInput
+    _min?: tblSpielBlitztunierMinOrderByAggregateInput
+    _sum?: tblSpielBlitztunierSumOrderByAggregateInput
+  }
+
+  export type tblSpielBlitztunierScalarWhereWithAggregatesInput = {
+    AND?: tblSpielBlitztunierScalarWhereWithAggregatesInput | tblSpielBlitztunierScalarWhereWithAggregatesInput[]
+    OR?: tblSpielBlitztunierScalarWhereWithAggregatesInput[]
+    NOT?: tblSpielBlitztunierScalarWhereWithAggregatesInput | tblSpielBlitztunierScalarWhereWithAggregatesInput[]
+    ID?: IntWithAggregatesFilter<"tblSpielBlitztunier"> | number
+    SpieltagID?: IntWithAggregatesFilter<"tblSpielBlitztunier"> | number
+    SpielerID1?: IntWithAggregatesFilter<"tblSpielBlitztunier"> | number
+    SpielerID2?: IntWithAggregatesFilter<"tblSpielBlitztunier"> | number
+    PunkteSpieler1?: IntWithAggregatesFilter<"tblSpielBlitztunier"> | number
+    PunkteSpieler2?: IntWithAggregatesFilter<"tblSpielBlitztunier"> | number
+    HinR_ckrunde?: IntWithAggregatesFilter<"tblSpielBlitztunier"> | number
+  }
+
+  export type tblSpielKombimeisterschaftWhereInput = {
+    AND?: tblSpielKombimeisterschaftWhereInput | tblSpielKombimeisterschaftWhereInput[]
+    OR?: tblSpielKombimeisterschaftWhereInput[]
+    NOT?: tblSpielKombimeisterschaftWhereInput | tblSpielKombimeisterschaftWhereInput[]
+    ID?: IntFilter<"tblSpielKombimeisterschaft"> | number
+    SpieltagID?: IntFilter<"tblSpielKombimeisterschaft"> | number
+    SpielerID1?: IntFilter<"tblSpielKombimeisterschaft"> | number
+    SpielerID2?: IntFilter<"tblSpielKombimeisterschaft"> | number
+    Spieler1Punkte3bis8?: IntFilter<"tblSpielKombimeisterschaft"> | number
+    Spieler1Punkte5Kugeln?: IntFilter<"tblSpielKombimeisterschaft"> | number
+    Spieler2Punkte3bis8?: IntFilter<"tblSpielKombimeisterschaft"> | number
+    Spieler2Punkte5Kugeln?: IntFilter<"tblSpielKombimeisterschaft"> | number
+    HinRueckrunde?: IntFilter<"tblSpielKombimeisterschaft"> | number
+  }
+
+  export type tblSpielKombimeisterschaftOrderByWithRelationInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    Spieler1Punkte3bis8?: SortOrder
+    Spieler1Punkte5Kugeln?: SortOrder
+    Spieler2Punkte3bis8?: SortOrder
+    Spieler2Punkte5Kugeln?: SortOrder
+    HinRueckrunde?: SortOrder
+  }
+
+  export type tblSpielKombimeisterschaftWhereUniqueInput = Prisma.AtLeast<{
+    ID?: number
+    AND?: tblSpielKombimeisterschaftWhereInput | tblSpielKombimeisterschaftWhereInput[]
+    OR?: tblSpielKombimeisterschaftWhereInput[]
+    NOT?: tblSpielKombimeisterschaftWhereInput | tblSpielKombimeisterschaftWhereInput[]
+    SpieltagID?: IntFilter<"tblSpielKombimeisterschaft"> | number
+    SpielerID1?: IntFilter<"tblSpielKombimeisterschaft"> | number
+    SpielerID2?: IntFilter<"tblSpielKombimeisterschaft"> | number
+    Spieler1Punkte3bis8?: IntFilter<"tblSpielKombimeisterschaft"> | number
+    Spieler1Punkte5Kugeln?: IntFilter<"tblSpielKombimeisterschaft"> | number
+    Spieler2Punkte3bis8?: IntFilter<"tblSpielKombimeisterschaft"> | number
+    Spieler2Punkte5Kugeln?: IntFilter<"tblSpielKombimeisterschaft"> | number
+    HinRueckrunde?: IntFilter<"tblSpielKombimeisterschaft"> | number
+  }, "ID">
+
+  export type tblSpielKombimeisterschaftOrderByWithAggregationInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    Spieler1Punkte3bis8?: SortOrder
+    Spieler1Punkte5Kugeln?: SortOrder
+    Spieler2Punkte3bis8?: SortOrder
+    Spieler2Punkte5Kugeln?: SortOrder
+    HinRueckrunde?: SortOrder
+    _count?: tblSpielKombimeisterschaftCountOrderByAggregateInput
+    _avg?: tblSpielKombimeisterschaftAvgOrderByAggregateInput
+    _max?: tblSpielKombimeisterschaftMaxOrderByAggregateInput
+    _min?: tblSpielKombimeisterschaftMinOrderByAggregateInput
+    _sum?: tblSpielKombimeisterschaftSumOrderByAggregateInput
+  }
+
+  export type tblSpielKombimeisterschaftScalarWhereWithAggregatesInput = {
+    AND?: tblSpielKombimeisterschaftScalarWhereWithAggregatesInput | tblSpielKombimeisterschaftScalarWhereWithAggregatesInput[]
+    OR?: tblSpielKombimeisterschaftScalarWhereWithAggregatesInput[]
+    NOT?: tblSpielKombimeisterschaftScalarWhereWithAggregatesInput | tblSpielKombimeisterschaftScalarWhereWithAggregatesInput[]
+    ID?: IntWithAggregatesFilter<"tblSpielKombimeisterschaft"> | number
+    SpieltagID?: IntWithAggregatesFilter<"tblSpielKombimeisterschaft"> | number
+    SpielerID1?: IntWithAggregatesFilter<"tblSpielKombimeisterschaft"> | number
+    SpielerID2?: IntWithAggregatesFilter<"tblSpielKombimeisterschaft"> | number
+    Spieler1Punkte3bis8?: IntWithAggregatesFilter<"tblSpielKombimeisterschaft"> | number
+    Spieler1Punkte5Kugeln?: IntWithAggregatesFilter<"tblSpielKombimeisterschaft"> | number
+    Spieler2Punkte3bis8?: IntWithAggregatesFilter<"tblSpielKombimeisterschaft"> | number
+    Spieler2Punkte5Kugeln?: IntWithAggregatesFilter<"tblSpielKombimeisterschaft"> | number
+    HinRueckrunde?: IntWithAggregatesFilter<"tblSpielKombimeisterschaft"> | number
+  }
+
+  export type tblSpielMeisterschaftWhereInput = {
+    AND?: tblSpielMeisterschaftWhereInput | tblSpielMeisterschaftWhereInput[]
+    OR?: tblSpielMeisterschaftWhereInput[]
+    NOT?: tblSpielMeisterschaftWhereInput | tblSpielMeisterschaftWhereInput[]
+    ID?: IntFilter<"tblSpielMeisterschaft"> | number
+    SpieltagID?: IntFilter<"tblSpielMeisterschaft"> | number
+    SpielerID1?: IntFilter<"tblSpielMeisterschaft"> | number
+    SpielerID2?: IntFilter<"tblSpielMeisterschaft"> | number
+    HolzSpieler1?: IntFilter<"tblSpielMeisterschaft"> | number
+    HolzSpieler2?: IntFilter<"tblSpielMeisterschaft"> | number
+    HinRueckrunde?: IntFilter<"tblSpielMeisterschaft"> | number
+  }
+
+  export type tblSpielMeisterschaftOrderByWithRelationInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    HolzSpieler1?: SortOrder
+    HolzSpieler2?: SortOrder
+    HinRueckrunde?: SortOrder
+  }
+
+  export type tblSpielMeisterschaftWhereUniqueInput = Prisma.AtLeast<{
+    ID?: number
+    AND?: tblSpielMeisterschaftWhereInput | tblSpielMeisterschaftWhereInput[]
+    OR?: tblSpielMeisterschaftWhereInput[]
+    NOT?: tblSpielMeisterschaftWhereInput | tblSpielMeisterschaftWhereInput[]
+    SpieltagID?: IntFilter<"tblSpielMeisterschaft"> | number
+    SpielerID1?: IntFilter<"tblSpielMeisterschaft"> | number
+    SpielerID2?: IntFilter<"tblSpielMeisterschaft"> | number
+    HolzSpieler1?: IntFilter<"tblSpielMeisterschaft"> | number
+    HolzSpieler2?: IntFilter<"tblSpielMeisterschaft"> | number
+    HinRueckrunde?: IntFilter<"tblSpielMeisterschaft"> | number
+  }, "ID">
+
+  export type tblSpielMeisterschaftOrderByWithAggregationInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    HolzSpieler1?: SortOrder
+    HolzSpieler2?: SortOrder
+    HinRueckrunde?: SortOrder
+    _count?: tblSpielMeisterschaftCountOrderByAggregateInput
+    _avg?: tblSpielMeisterschaftAvgOrderByAggregateInput
+    _max?: tblSpielMeisterschaftMaxOrderByAggregateInput
+    _min?: tblSpielMeisterschaftMinOrderByAggregateInput
+    _sum?: tblSpielMeisterschaftSumOrderByAggregateInput
+  }
+
+  export type tblSpielMeisterschaftScalarWhereWithAggregatesInput = {
+    AND?: tblSpielMeisterschaftScalarWhereWithAggregatesInput | tblSpielMeisterschaftScalarWhereWithAggregatesInput[]
+    OR?: tblSpielMeisterschaftScalarWhereWithAggregatesInput[]
+    NOT?: tblSpielMeisterschaftScalarWhereWithAggregatesInput | tblSpielMeisterschaftScalarWhereWithAggregatesInput[]
+    ID?: IntWithAggregatesFilter<"tblSpielMeisterschaft"> | number
+    SpieltagID?: IntWithAggregatesFilter<"tblSpielMeisterschaft"> | number
+    SpielerID1?: IntWithAggregatesFilter<"tblSpielMeisterschaft"> | number
+    SpielerID2?: IntWithAggregatesFilter<"tblSpielMeisterschaft"> | number
+    HolzSpieler1?: IntWithAggregatesFilter<"tblSpielMeisterschaft"> | number
+    HolzSpieler2?: IntWithAggregatesFilter<"tblSpielMeisterschaft"> | number
+    HinRueckrunde?: IntWithAggregatesFilter<"tblSpielMeisterschaft"> | number
+  }
+
+  export type tblSpielPokalWhereInput = {
+    AND?: tblSpielPokalWhereInput | tblSpielPokalWhereInput[]
+    OR?: tblSpielPokalWhereInput[]
+    NOT?: tblSpielPokalWhereInput | tblSpielPokalWhereInput[]
+    ID?: IntFilter<"tblSpielPokal"> | number
+    SpieltagID?: IntFilter<"tblSpielPokal"> | number
+    SpielerID?: IntFilter<"tblSpielPokal"> | number
+    Platzierung?: IntFilter<"tblSpielPokal"> | number
+  }
+
+  export type tblSpielPokalOrderByWithRelationInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Platzierung?: SortOrder
+  }
+
+  export type tblSpielPokalWhereUniqueInput = Prisma.AtLeast<{
+    ID?: number
+    AND?: tblSpielPokalWhereInput | tblSpielPokalWhereInput[]
+    OR?: tblSpielPokalWhereInput[]
+    NOT?: tblSpielPokalWhereInput | tblSpielPokalWhereInput[]
+    SpieltagID?: IntFilter<"tblSpielPokal"> | number
+    SpielerID?: IntFilter<"tblSpielPokal"> | number
+    Platzierung?: IntFilter<"tblSpielPokal"> | number
+  }, "ID">
+
+  export type tblSpielPokalOrderByWithAggregationInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Platzierung?: SortOrder
+    _count?: tblSpielPokalCountOrderByAggregateInput
+    _avg?: tblSpielPokalAvgOrderByAggregateInput
+    _max?: tblSpielPokalMaxOrderByAggregateInput
+    _min?: tblSpielPokalMinOrderByAggregateInput
+    _sum?: tblSpielPokalSumOrderByAggregateInput
+  }
+
+  export type tblSpielPokalScalarWhereWithAggregatesInput = {
+    AND?: tblSpielPokalScalarWhereWithAggregatesInput | tblSpielPokalScalarWhereWithAggregatesInput[]
+    OR?: tblSpielPokalScalarWhereWithAggregatesInput[]
+    NOT?: tblSpielPokalScalarWhereWithAggregatesInput | tblSpielPokalScalarWhereWithAggregatesInput[]
+    ID?: IntWithAggregatesFilter<"tblSpielPokal"> | number
+    SpieltagID?: IntWithAggregatesFilter<"tblSpielPokal"> | number
+    SpielerID?: IntWithAggregatesFilter<"tblSpielPokal"> | number
+    Platzierung?: IntWithAggregatesFilter<"tblSpielPokal"> | number
+  }
+
+  export type tblSpielSargKegelnWhereInput = {
+    AND?: tblSpielSargKegelnWhereInput | tblSpielSargKegelnWhereInput[]
+    OR?: tblSpielSargKegelnWhereInput[]
+    NOT?: tblSpielSargKegelnWhereInput | tblSpielSargKegelnWhereInput[]
+    ID?: IntFilter<"tblSpielSargKegeln"> | number
+    SpieltagID?: IntFilter<"tblSpielSargKegeln"> | number
+    SpielerID?: IntFilter<"tblSpielSargKegeln"> | number
+    Platzierung?: IntFilter<"tblSpielSargKegeln"> | number
+  }
+
+  export type tblSpielSargKegelnOrderByWithRelationInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Platzierung?: SortOrder
+  }
+
+  export type tblSpielSargKegelnWhereUniqueInput = Prisma.AtLeast<{
+    ID?: number
+    AND?: tblSpielSargKegelnWhereInput | tblSpielSargKegelnWhereInput[]
+    OR?: tblSpielSargKegelnWhereInput[]
+    NOT?: tblSpielSargKegelnWhereInput | tblSpielSargKegelnWhereInput[]
+    SpieltagID?: IntFilter<"tblSpielSargKegeln"> | number
+    SpielerID?: IntFilter<"tblSpielSargKegeln"> | number
+    Platzierung?: IntFilter<"tblSpielSargKegeln"> | number
+  }, "ID">
+
+  export type tblSpielSargKegelnOrderByWithAggregationInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Platzierung?: SortOrder
+    _count?: tblSpielSargKegelnCountOrderByAggregateInput
+    _avg?: tblSpielSargKegelnAvgOrderByAggregateInput
+    _max?: tblSpielSargKegelnMaxOrderByAggregateInput
+    _min?: tblSpielSargKegelnMinOrderByAggregateInput
+    _sum?: tblSpielSargKegelnSumOrderByAggregateInput
+  }
+
+  export type tblSpielSargKegelnScalarWhereWithAggregatesInput = {
+    AND?: tblSpielSargKegelnScalarWhereWithAggregatesInput | tblSpielSargKegelnScalarWhereWithAggregatesInput[]
+    OR?: tblSpielSargKegelnScalarWhereWithAggregatesInput[]
+    NOT?: tblSpielSargKegelnScalarWhereWithAggregatesInput | tblSpielSargKegelnScalarWhereWithAggregatesInput[]
+    ID?: IntWithAggregatesFilter<"tblSpielSargKegeln"> | number
+    SpieltagID?: IntWithAggregatesFilter<"tblSpielSargKegeln"> | number
+    SpielerID?: IntWithAggregatesFilter<"tblSpielSargKegeln"> | number
+    Platzierung?: IntWithAggregatesFilter<"tblSpielSargKegeln"> | number
+  }
+
+  export type tblSpieltagWhereInput = {
+    AND?: tblSpieltagWhereInput | tblSpieltagWhereInput[]
+    OR?: tblSpieltagWhereInput[]
+    NOT?: tblSpieltagWhereInput | tblSpieltagWhereInput[]
+    ID?: IntFilter<"tblSpieltag"> | number
+    MeisterschaftsID?: IntFilter<"tblSpieltag"> | number
+    Spieltag?: DateTimeFilter<"tblSpieltag"> | Date | string
+    InBearbeitung?: BoolFilter<"tblSpieltag"> | boolean
+  }
+
+  export type tblSpieltagOrderByWithRelationInput = {
+    ID?: SortOrder
+    MeisterschaftsID?: SortOrder
+    Spieltag?: SortOrder
+    InBearbeitung?: SortOrder
+  }
+
+  export type tblSpieltagWhereUniqueInput = Prisma.AtLeast<{
+    ID?: number
+    AND?: tblSpieltagWhereInput | tblSpieltagWhereInput[]
+    OR?: tblSpieltagWhereInput[]
+    NOT?: tblSpieltagWhereInput | tblSpieltagWhereInput[]
+    MeisterschaftsID?: IntFilter<"tblSpieltag"> | number
+    Spieltag?: DateTimeFilter<"tblSpieltag"> | Date | string
+    InBearbeitung?: BoolFilter<"tblSpieltag"> | boolean
+  }, "ID">
+
+  export type tblSpieltagOrderByWithAggregationInput = {
+    ID?: SortOrder
+    MeisterschaftsID?: SortOrder
+    Spieltag?: SortOrder
+    InBearbeitung?: SortOrder
+    _count?: tblSpieltagCountOrderByAggregateInput
+    _avg?: tblSpieltagAvgOrderByAggregateInput
+    _max?: tblSpieltagMaxOrderByAggregateInput
+    _min?: tblSpieltagMinOrderByAggregateInput
+    _sum?: tblSpieltagSumOrderByAggregateInput
+  }
+
+  export type tblSpieltagScalarWhereWithAggregatesInput = {
+    AND?: tblSpieltagScalarWhereWithAggregatesInput | tblSpieltagScalarWhereWithAggregatesInput[]
+    OR?: tblSpieltagScalarWhereWithAggregatesInput[]
+    NOT?: tblSpieltagScalarWhereWithAggregatesInput | tblSpieltagScalarWhereWithAggregatesInput[]
+    ID?: IntWithAggregatesFilter<"tblSpieltag"> | number
+    MeisterschaftsID?: IntWithAggregatesFilter<"tblSpieltag"> | number
+    Spieltag?: DateTimeWithAggregatesFilter<"tblSpieltag"> | Date | string
+    InBearbeitung?: BoolWithAggregatesFilter<"tblSpieltag"> | boolean
+  }
+
+  export type tblTeilnehmerWhereInput = {
+    AND?: tblTeilnehmerWhereInput | tblTeilnehmerWhereInput[]
+    OR?: tblTeilnehmerWhereInput[]
+    NOT?: tblTeilnehmerWhereInput | tblTeilnehmerWhereInput[]
+    ID?: IntFilter<"tblTeilnehmer"> | number
+    MeisterschaftsID?: IntFilter<"tblTeilnehmer"> | number
+    SpielerID?: IntFilter<"tblTeilnehmer"> | number
+    tblMeisterschaften?: XOR<TblMeisterschaftenScalarRelationFilter, tblMeisterschaftenWhereInput>
+    tblMitglieder?: XOR<TblMitgliederScalarRelationFilter, tblMitgliederWhereInput>
+  }
+
+  export type tblTeilnehmerOrderByWithRelationInput = {
+    ID?: SortOrder
+    MeisterschaftsID?: SortOrder
+    SpielerID?: SortOrder
+    tblMeisterschaften?: tblMeisterschaftenOrderByWithRelationInput
+    tblMitglieder?: tblMitgliederOrderByWithRelationInput
+  }
+
+  export type tblTeilnehmerWhereUniqueInput = Prisma.AtLeast<{
+    ID?: number
+    AND?: tblTeilnehmerWhereInput | tblTeilnehmerWhereInput[]
+    OR?: tblTeilnehmerWhereInput[]
+    NOT?: tblTeilnehmerWhereInput | tblTeilnehmerWhereInput[]
+    MeisterschaftsID?: IntFilter<"tblTeilnehmer"> | number
+    SpielerID?: IntFilter<"tblTeilnehmer"> | number
+    tblMeisterschaften?: XOR<TblMeisterschaftenScalarRelationFilter, tblMeisterschaftenWhereInput>
+    tblMitglieder?: XOR<TblMitgliederScalarRelationFilter, tblMitgliederWhereInput>
+  }, "ID">
+
+  export type tblTeilnehmerOrderByWithAggregationInput = {
+    ID?: SortOrder
+    MeisterschaftsID?: SortOrder
+    SpielerID?: SortOrder
+    _count?: tblTeilnehmerCountOrderByAggregateInput
+    _avg?: tblTeilnehmerAvgOrderByAggregateInput
+    _max?: tblTeilnehmerMaxOrderByAggregateInput
+    _min?: tblTeilnehmerMinOrderByAggregateInput
+    _sum?: tblTeilnehmerSumOrderByAggregateInput
+  }
+
+  export type tblTeilnehmerScalarWhereWithAggregatesInput = {
+    AND?: tblTeilnehmerScalarWhereWithAggregatesInput | tblTeilnehmerScalarWhereWithAggregatesInput[]
+    OR?: tblTeilnehmerScalarWhereWithAggregatesInput[]
+    NOT?: tblTeilnehmerScalarWhereWithAggregatesInput | tblTeilnehmerScalarWhereWithAggregatesInput[]
+    ID?: IntWithAggregatesFilter<"tblTeilnehmer"> | number
+    MeisterschaftsID?: IntWithAggregatesFilter<"tblTeilnehmer"> | number
+    SpielerID?: IntWithAggregatesFilter<"tblTeilnehmer"> | number
+  }
+
+  export type tbl9erRattenCreateInput = {
+    SpieltagID: number
+    SpielerID: number
+    Neuner?: number
+    Ratten?: number
+    Kranzacht?: number
+  }
+
+  export type tbl9erRattenUncheckedCreateInput = {
+    ID?: number
+    SpieltagID: number
+    SpielerID: number
+    Neuner?: number
+    Ratten?: number
+    Kranzacht?: number
+  }
+
+  export type tbl9erRattenUpdateInput = {
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+    Neuner?: IntFieldUpdateOperationsInput | number
+    Ratten?: IntFieldUpdateOperationsInput | number
+    Kranzacht?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tbl9erRattenUncheckedUpdateInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+    Neuner?: IntFieldUpdateOperationsInput | number
+    Ratten?: IntFieldUpdateOperationsInput | number
+    Kranzacht?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tbl9erRattenCreateManyInput = {
+    ID?: number
+    SpieltagID: number
+    SpielerID: number
+    Neuner?: number
+    Ratten?: number
+    Kranzacht?: number
+  }
+
+  export type tbl9erRattenUpdateManyMutationInput = {
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+    Neuner?: IntFieldUpdateOperationsInput | number
+    Ratten?: IntFieldUpdateOperationsInput | number
+    Kranzacht?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tbl9erRattenUncheckedUpdateManyInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+    Neuner?: IntFieldUpdateOperationsInput | number
+    Ratten?: IntFieldUpdateOperationsInput | number
+    Kranzacht?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblDBChangeLogCreateInput = {
+    Computername?: string | null
+    Tablename?: string | null
+    Changetype?: string | null
+    Command?: string | null
+    Zeitstempel: Date | string
+  }
+
+  export type tblDBChangeLogUncheckedCreateInput = {
+    ID?: number
+    Computername?: string | null
+    Tablename?: string | null
+    Changetype?: string | null
+    Command?: string | null
+    Zeitstempel: Date | string
+  }
+
+  export type tblDBChangeLogUpdateInput = {
+    Computername?: NullableStringFieldUpdateOperationsInput | string | null
+    Tablename?: NullableStringFieldUpdateOperationsInput | string | null
+    Changetype?: NullableStringFieldUpdateOperationsInput | string | null
+    Command?: NullableStringFieldUpdateOperationsInput | string | null
+    Zeitstempel?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type tblDBChangeLogUncheckedUpdateInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    Computername?: NullableStringFieldUpdateOperationsInput | string | null
+    Tablename?: NullableStringFieldUpdateOperationsInput | string | null
+    Changetype?: NullableStringFieldUpdateOperationsInput | string | null
+    Command?: NullableStringFieldUpdateOperationsInput | string | null
+    Zeitstempel?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type tblDBChangeLogCreateManyInput = {
+    ID?: number
+    Computername?: string | null
+    Tablename?: string | null
+    Changetype?: string | null
+    Command?: string | null
+    Zeitstempel: Date | string
+  }
+
+  export type tblDBChangeLogUpdateManyMutationInput = {
+    Computername?: NullableStringFieldUpdateOperationsInput | string | null
+    Tablename?: NullableStringFieldUpdateOperationsInput | string | null
+    Changetype?: NullableStringFieldUpdateOperationsInput | string | null
+    Command?: NullableStringFieldUpdateOperationsInput | string | null
+    Zeitstempel?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type tblDBChangeLogUncheckedUpdateManyInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    Computername?: NullableStringFieldUpdateOperationsInput | string | null
+    Tablename?: NullableStringFieldUpdateOperationsInput | string | null
+    Changetype?: NullableStringFieldUpdateOperationsInput | string | null
+    Command?: NullableStringFieldUpdateOperationsInput | string | null
+    Zeitstempel?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type tblMeisterschaftenCreateInput = {
+    Bezeichnung: string
+    Beginn: Date | string
+    Ende?: Date | string | null
+    TurboDBNummer?: number | null
+    Aktiv: number
+    Bemerkungen?: string | null
+    tblMeisterschaftstyp: tblMeisterschaftstypCreateNestedOneWithoutTblMeisterschaftenInput
+    tblTeilnehmer?: tblTeilnehmerCreateNestedManyWithoutTblMeisterschaftenInput
+  }
+
+  export type tblMeisterschaftenUncheckedCreateInput = {
+    ID?: number
+    Bezeichnung: string
+    Beginn: Date | string
+    Ende?: Date | string | null
+    MeisterschaftstypID: number
+    TurboDBNummer?: number | null
+    Aktiv: number
+    Bemerkungen?: string | null
+    tblTeilnehmer?: tblTeilnehmerUncheckedCreateNestedManyWithoutTblMeisterschaftenInput
+  }
+
+  export type tblMeisterschaftenUpdateInput = {
+    Bezeichnung?: StringFieldUpdateOperationsInput | string
+    Beginn?: DateTimeFieldUpdateOperationsInput | Date | string
+    Ende?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    TurboDBNummer?: NullableIntFieldUpdateOperationsInput | number | null
+    Aktiv?: IntFieldUpdateOperationsInput | number
+    Bemerkungen?: NullableStringFieldUpdateOperationsInput | string | null
+    tblMeisterschaftstyp?: tblMeisterschaftstypUpdateOneRequiredWithoutTblMeisterschaftenNestedInput
+    tblTeilnehmer?: tblTeilnehmerUpdateManyWithoutTblMeisterschaftenNestedInput
+  }
+
+  export type tblMeisterschaftenUncheckedUpdateInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    Bezeichnung?: StringFieldUpdateOperationsInput | string
+    Beginn?: DateTimeFieldUpdateOperationsInput | Date | string
+    Ende?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    MeisterschaftstypID?: IntFieldUpdateOperationsInput | number
+    TurboDBNummer?: NullableIntFieldUpdateOperationsInput | number | null
+    Aktiv?: IntFieldUpdateOperationsInput | number
+    Bemerkungen?: NullableStringFieldUpdateOperationsInput | string | null
+    tblTeilnehmer?: tblTeilnehmerUncheckedUpdateManyWithoutTblMeisterschaftenNestedInput
+  }
+
+  export type tblMeisterschaftenCreateManyInput = {
+    ID?: number
+    Bezeichnung: string
+    Beginn: Date | string
+    Ende?: Date | string | null
+    MeisterschaftstypID: number
+    TurboDBNummer?: number | null
+    Aktiv: number
+    Bemerkungen?: string | null
+  }
+
+  export type tblMeisterschaftenUpdateManyMutationInput = {
+    Bezeichnung?: StringFieldUpdateOperationsInput | string
+    Beginn?: DateTimeFieldUpdateOperationsInput | Date | string
+    Ende?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    TurboDBNummer?: NullableIntFieldUpdateOperationsInput | number | null
+    Aktiv?: IntFieldUpdateOperationsInput | number
+    Bemerkungen?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type tblMeisterschaftenUncheckedUpdateManyInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    Bezeichnung?: StringFieldUpdateOperationsInput | string
+    Beginn?: DateTimeFieldUpdateOperationsInput | Date | string
+    Ende?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    MeisterschaftstypID?: IntFieldUpdateOperationsInput | number
+    TurboDBNummer?: NullableIntFieldUpdateOperationsInput | number | null
+    Aktiv?: IntFieldUpdateOperationsInput | number
+    Bemerkungen?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type tblMeisterschaftstypCreateInput = {
+    Meisterschaftstyp: string
+    tblMeisterschaften?: tblMeisterschaftenCreateNestedManyWithoutTblMeisterschaftstypInput
+  }
+
+  export type tblMeisterschaftstypUncheckedCreateInput = {
+    ID?: number
+    Meisterschaftstyp: string
+    tblMeisterschaften?: tblMeisterschaftenUncheckedCreateNestedManyWithoutTblMeisterschaftstypInput
+  }
+
+  export type tblMeisterschaftstypUpdateInput = {
+    Meisterschaftstyp?: StringFieldUpdateOperationsInput | string
+    tblMeisterschaften?: tblMeisterschaftenUpdateManyWithoutTblMeisterschaftstypNestedInput
+  }
+
+  export type tblMeisterschaftstypUncheckedUpdateInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    Meisterschaftstyp?: StringFieldUpdateOperationsInput | string
+    tblMeisterschaften?: tblMeisterschaftenUncheckedUpdateManyWithoutTblMeisterschaftstypNestedInput
+  }
+
+  export type tblMeisterschaftstypCreateManyInput = {
+    ID?: number
+    Meisterschaftstyp: string
+  }
+
+  export type tblMeisterschaftstypUpdateManyMutationInput = {
+    Meisterschaftstyp?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type tblMeisterschaftstypUncheckedUpdateManyInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    Meisterschaftstyp?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type tblMitgliederCreateInput = {
+    Vorname: string
+    Nachname: string
+    Spitzname?: string | null
+    Strasse?: string | null
+    PLZ?: string | null
+    Ort?: string | null
+    Geburtsdatum?: Date | string | null
+    MitgliedSeit: Date | string
+    PassivSeit?: Date | string | null
+    AusgeschiedenAm?: Date | string | null
+    Ehemaliger: boolean
+    Notizen?: string | null
+    Bemerkungen?: string | null
+    Anrede?: string | null
+    EMail?: string | null
+    TelefonPrivat?: string | null
+    TelefonFirma?: string | null
+    TelefonMobil?: string | null
+    Fax?: string | null
+    SpAnz?: number | null
+    SpGew?: number | null
+    SpUn?: number | null
+    SpVerl?: number | null
+    HolzGes?: number | null
+    HolzMax?: number | null
+    HolzMin?: number | null
+    Punkte?: number | null
+    Platz?: string | null
+    TurboDBNummer?: number | null
+    Login?: string | null
+    Password?: string | null
+    tblTeilnehmer?: tblTeilnehmerCreateNestedManyWithoutTblMitgliederInput
+  }
+
+  export type tblMitgliederUncheckedCreateInput = {
+    ID?: number
+    Vorname: string
+    Nachname: string
+    Spitzname?: string | null
+    Strasse?: string | null
+    PLZ?: string | null
+    Ort?: string | null
+    Geburtsdatum?: Date | string | null
+    MitgliedSeit: Date | string
+    PassivSeit?: Date | string | null
+    AusgeschiedenAm?: Date | string | null
+    Ehemaliger: boolean
+    Notizen?: string | null
+    Bemerkungen?: string | null
+    Anrede?: string | null
+    EMail?: string | null
+    TelefonPrivat?: string | null
+    TelefonFirma?: string | null
+    TelefonMobil?: string | null
+    Fax?: string | null
+    SpAnz?: number | null
+    SpGew?: number | null
+    SpUn?: number | null
+    SpVerl?: number | null
+    HolzGes?: number | null
+    HolzMax?: number | null
+    HolzMin?: number | null
+    Punkte?: number | null
+    Platz?: string | null
+    TurboDBNummer?: number | null
+    Login?: string | null
+    Password?: string | null
+    tblTeilnehmer?: tblTeilnehmerUncheckedCreateNestedManyWithoutTblMitgliederInput
+  }
+
+  export type tblMitgliederUpdateInput = {
+    Vorname?: StringFieldUpdateOperationsInput | string
+    Nachname?: StringFieldUpdateOperationsInput | string
+    Spitzname?: NullableStringFieldUpdateOperationsInput | string | null
+    Strasse?: NullableStringFieldUpdateOperationsInput | string | null
+    PLZ?: NullableStringFieldUpdateOperationsInput | string | null
+    Ort?: NullableStringFieldUpdateOperationsInput | string | null
+    Geburtsdatum?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    MitgliedSeit?: DateTimeFieldUpdateOperationsInput | Date | string
+    PassivSeit?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    AusgeschiedenAm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Ehemaliger?: BoolFieldUpdateOperationsInput | boolean
+    Notizen?: NullableStringFieldUpdateOperationsInput | string | null
+    Bemerkungen?: NullableStringFieldUpdateOperationsInput | string | null
+    Anrede?: NullableStringFieldUpdateOperationsInput | string | null
+    EMail?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonPrivat?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonFirma?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonMobil?: NullableStringFieldUpdateOperationsInput | string | null
+    Fax?: NullableStringFieldUpdateOperationsInput | string | null
+    SpAnz?: NullableIntFieldUpdateOperationsInput | number | null
+    SpGew?: NullableIntFieldUpdateOperationsInput | number | null
+    SpUn?: NullableIntFieldUpdateOperationsInput | number | null
+    SpVerl?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzGes?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzMax?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzMin?: NullableIntFieldUpdateOperationsInput | number | null
+    Punkte?: NullableIntFieldUpdateOperationsInput | number | null
+    Platz?: NullableStringFieldUpdateOperationsInput | string | null
+    TurboDBNummer?: NullableIntFieldUpdateOperationsInput | number | null
+    Login?: NullableStringFieldUpdateOperationsInput | string | null
+    Password?: NullableStringFieldUpdateOperationsInput | string | null
+    tblTeilnehmer?: tblTeilnehmerUpdateManyWithoutTblMitgliederNestedInput
+  }
+
+  export type tblMitgliederUncheckedUpdateInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    Vorname?: StringFieldUpdateOperationsInput | string
+    Nachname?: StringFieldUpdateOperationsInput | string
+    Spitzname?: NullableStringFieldUpdateOperationsInput | string | null
+    Strasse?: NullableStringFieldUpdateOperationsInput | string | null
+    PLZ?: NullableStringFieldUpdateOperationsInput | string | null
+    Ort?: NullableStringFieldUpdateOperationsInput | string | null
+    Geburtsdatum?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    MitgliedSeit?: DateTimeFieldUpdateOperationsInput | Date | string
+    PassivSeit?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    AusgeschiedenAm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Ehemaliger?: BoolFieldUpdateOperationsInput | boolean
+    Notizen?: NullableStringFieldUpdateOperationsInput | string | null
+    Bemerkungen?: NullableStringFieldUpdateOperationsInput | string | null
+    Anrede?: NullableStringFieldUpdateOperationsInput | string | null
+    EMail?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonPrivat?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonFirma?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonMobil?: NullableStringFieldUpdateOperationsInput | string | null
+    Fax?: NullableStringFieldUpdateOperationsInput | string | null
+    SpAnz?: NullableIntFieldUpdateOperationsInput | number | null
+    SpGew?: NullableIntFieldUpdateOperationsInput | number | null
+    SpUn?: NullableIntFieldUpdateOperationsInput | number | null
+    SpVerl?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzGes?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzMax?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzMin?: NullableIntFieldUpdateOperationsInput | number | null
+    Punkte?: NullableIntFieldUpdateOperationsInput | number | null
+    Platz?: NullableStringFieldUpdateOperationsInput | string | null
+    TurboDBNummer?: NullableIntFieldUpdateOperationsInput | number | null
+    Login?: NullableStringFieldUpdateOperationsInput | string | null
+    Password?: NullableStringFieldUpdateOperationsInput | string | null
+    tblTeilnehmer?: tblTeilnehmerUncheckedUpdateManyWithoutTblMitgliederNestedInput
+  }
+
+  export type tblMitgliederCreateManyInput = {
+    ID?: number
+    Vorname: string
+    Nachname: string
+    Spitzname?: string | null
+    Strasse?: string | null
+    PLZ?: string | null
+    Ort?: string | null
+    Geburtsdatum?: Date | string | null
+    MitgliedSeit: Date | string
+    PassivSeit?: Date | string | null
+    AusgeschiedenAm?: Date | string | null
+    Ehemaliger: boolean
+    Notizen?: string | null
+    Bemerkungen?: string | null
+    Anrede?: string | null
+    EMail?: string | null
+    TelefonPrivat?: string | null
+    TelefonFirma?: string | null
+    TelefonMobil?: string | null
+    Fax?: string | null
+    SpAnz?: number | null
+    SpGew?: number | null
+    SpUn?: number | null
+    SpVerl?: number | null
+    HolzGes?: number | null
+    HolzMax?: number | null
+    HolzMin?: number | null
+    Punkte?: number | null
+    Platz?: string | null
+    TurboDBNummer?: number | null
+    Login?: string | null
+    Password?: string | null
+  }
+
+  export type tblMitgliederUpdateManyMutationInput = {
+    Vorname?: StringFieldUpdateOperationsInput | string
+    Nachname?: StringFieldUpdateOperationsInput | string
+    Spitzname?: NullableStringFieldUpdateOperationsInput | string | null
+    Strasse?: NullableStringFieldUpdateOperationsInput | string | null
+    PLZ?: NullableStringFieldUpdateOperationsInput | string | null
+    Ort?: NullableStringFieldUpdateOperationsInput | string | null
+    Geburtsdatum?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    MitgliedSeit?: DateTimeFieldUpdateOperationsInput | Date | string
+    PassivSeit?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    AusgeschiedenAm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Ehemaliger?: BoolFieldUpdateOperationsInput | boolean
+    Notizen?: NullableStringFieldUpdateOperationsInput | string | null
+    Bemerkungen?: NullableStringFieldUpdateOperationsInput | string | null
+    Anrede?: NullableStringFieldUpdateOperationsInput | string | null
+    EMail?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonPrivat?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonFirma?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonMobil?: NullableStringFieldUpdateOperationsInput | string | null
+    Fax?: NullableStringFieldUpdateOperationsInput | string | null
+    SpAnz?: NullableIntFieldUpdateOperationsInput | number | null
+    SpGew?: NullableIntFieldUpdateOperationsInput | number | null
+    SpUn?: NullableIntFieldUpdateOperationsInput | number | null
+    SpVerl?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzGes?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzMax?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzMin?: NullableIntFieldUpdateOperationsInput | number | null
+    Punkte?: NullableIntFieldUpdateOperationsInput | number | null
+    Platz?: NullableStringFieldUpdateOperationsInput | string | null
+    TurboDBNummer?: NullableIntFieldUpdateOperationsInput | number | null
+    Login?: NullableStringFieldUpdateOperationsInput | string | null
+    Password?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type tblMitgliederUncheckedUpdateManyInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    Vorname?: StringFieldUpdateOperationsInput | string
+    Nachname?: StringFieldUpdateOperationsInput | string
+    Spitzname?: NullableStringFieldUpdateOperationsInput | string | null
+    Strasse?: NullableStringFieldUpdateOperationsInput | string | null
+    PLZ?: NullableStringFieldUpdateOperationsInput | string | null
+    Ort?: NullableStringFieldUpdateOperationsInput | string | null
+    Geburtsdatum?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    MitgliedSeit?: DateTimeFieldUpdateOperationsInput | Date | string
+    PassivSeit?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    AusgeschiedenAm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Ehemaliger?: BoolFieldUpdateOperationsInput | boolean
+    Notizen?: NullableStringFieldUpdateOperationsInput | string | null
+    Bemerkungen?: NullableStringFieldUpdateOperationsInput | string | null
+    Anrede?: NullableStringFieldUpdateOperationsInput | string | null
+    EMail?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonPrivat?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonFirma?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonMobil?: NullableStringFieldUpdateOperationsInput | string | null
+    Fax?: NullableStringFieldUpdateOperationsInput | string | null
+    SpAnz?: NullableIntFieldUpdateOperationsInput | number | null
+    SpGew?: NullableIntFieldUpdateOperationsInput | number | null
+    SpUn?: NullableIntFieldUpdateOperationsInput | number | null
+    SpVerl?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzGes?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzMax?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzMin?: NullableIntFieldUpdateOperationsInput | number | null
+    Punkte?: NullableIntFieldUpdateOperationsInput | number | null
+    Platz?: NullableStringFieldUpdateOperationsInput | string | null
+    TurboDBNummer?: NullableIntFieldUpdateOperationsInput | number | null
+    Login?: NullableStringFieldUpdateOperationsInput | string | null
+    Password?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type tblSettingsCreateInput = {
+    Computername: string
+    Parametername: string
+    Parameterwert: string
+  }
+
+  export type tblSettingsUncheckedCreateInput = {
+    ID?: number
+    Computername: string
+    Parametername: string
+    Parameterwert: string
+  }
+
+  export type tblSettingsUpdateInput = {
+    Computername?: StringFieldUpdateOperationsInput | string
+    Parametername?: StringFieldUpdateOperationsInput | string
+    Parameterwert?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type tblSettingsUncheckedUpdateInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    Computername?: StringFieldUpdateOperationsInput | string
+    Parametername?: StringFieldUpdateOperationsInput | string
+    Parameterwert?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type tblSettingsCreateManyInput = {
+    ID?: number
+    Computername: string
+    Parametername: string
+    Parameterwert: string
+  }
+
+  export type tblSettingsUpdateManyMutationInput = {
+    Computername?: StringFieldUpdateOperationsInput | string
+    Parametername?: StringFieldUpdateOperationsInput | string
+    Parameterwert?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type tblSettingsUncheckedUpdateManyInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    Computername?: StringFieldUpdateOperationsInput | string
+    Parametername?: StringFieldUpdateOperationsInput | string
+    Parameterwert?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type tblSpiel6TageRennenCreateInput = {
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    Runden: number
+    Punkte: number
+    Spielnummer?: number | null
+  }
+
+  export type tblSpiel6TageRennenUncheckedCreateInput = {
+    ID?: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    Runden: number
+    Punkte: number
+    Spielnummer?: number | null
+  }
+
+  export type tblSpiel6TageRennenUpdateInput = {
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    Runden?: IntFieldUpdateOperationsInput | number
+    Punkte?: IntFieldUpdateOperationsInput | number
+    Spielnummer?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type tblSpiel6TageRennenUncheckedUpdateInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    Runden?: IntFieldUpdateOperationsInput | number
+    Punkte?: IntFieldUpdateOperationsInput | number
+    Spielnummer?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type tblSpiel6TageRennenCreateManyInput = {
+    ID?: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    Runden: number
+    Punkte: number
+    Spielnummer?: number | null
+  }
+
+  export type tblSpiel6TageRennenUpdateManyMutationInput = {
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    Runden?: IntFieldUpdateOperationsInput | number
+    Punkte?: IntFieldUpdateOperationsInput | number
+    Spielnummer?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type tblSpiel6TageRennenUncheckedUpdateManyInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    Runden?: IntFieldUpdateOperationsInput | number
+    Punkte?: IntFieldUpdateOperationsInput | number
+    Spielnummer?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type tblSpielBlitztunierCreateInput = {
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    PunkteSpieler1: number
+    PunkteSpieler2: number
+    HinR_ckrunde: number
+  }
+
+  export type tblSpielBlitztunierUncheckedCreateInput = {
+    ID?: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    PunkteSpieler1: number
+    PunkteSpieler2: number
+    HinR_ckrunde: number
+  }
+
+  export type tblSpielBlitztunierUpdateInput = {
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    PunkteSpieler1?: IntFieldUpdateOperationsInput | number
+    PunkteSpieler2?: IntFieldUpdateOperationsInput | number
+    HinR_ckrunde?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielBlitztunierUncheckedUpdateInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    PunkteSpieler1?: IntFieldUpdateOperationsInput | number
+    PunkteSpieler2?: IntFieldUpdateOperationsInput | number
+    HinR_ckrunde?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielBlitztunierCreateManyInput = {
+    ID?: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    PunkteSpieler1: number
+    PunkteSpieler2: number
+    HinR_ckrunde: number
+  }
+
+  export type tblSpielBlitztunierUpdateManyMutationInput = {
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    PunkteSpieler1?: IntFieldUpdateOperationsInput | number
+    PunkteSpieler2?: IntFieldUpdateOperationsInput | number
+    HinR_ckrunde?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielBlitztunierUncheckedUpdateManyInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    PunkteSpieler1?: IntFieldUpdateOperationsInput | number
+    PunkteSpieler2?: IntFieldUpdateOperationsInput | number
+    HinR_ckrunde?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielKombimeisterschaftCreateInput = {
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    Spieler1Punkte3bis8?: number
+    Spieler1Punkte5Kugeln?: number
+    Spieler2Punkte3bis8: number
+    Spieler2Punkte5Kugeln: number
+    HinRueckrunde?: number
+  }
+
+  export type tblSpielKombimeisterschaftUncheckedCreateInput = {
+    ID?: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    Spieler1Punkte3bis8?: number
+    Spieler1Punkte5Kugeln?: number
+    Spieler2Punkte3bis8: number
+    Spieler2Punkte5Kugeln: number
+    HinRueckrunde?: number
+  }
+
+  export type tblSpielKombimeisterschaftUpdateInput = {
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    Spieler1Punkte3bis8?: IntFieldUpdateOperationsInput | number
+    Spieler1Punkte5Kugeln?: IntFieldUpdateOperationsInput | number
+    Spieler2Punkte3bis8?: IntFieldUpdateOperationsInput | number
+    Spieler2Punkte5Kugeln?: IntFieldUpdateOperationsInput | number
+    HinRueckrunde?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielKombimeisterschaftUncheckedUpdateInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    Spieler1Punkte3bis8?: IntFieldUpdateOperationsInput | number
+    Spieler1Punkte5Kugeln?: IntFieldUpdateOperationsInput | number
+    Spieler2Punkte3bis8?: IntFieldUpdateOperationsInput | number
+    Spieler2Punkte5Kugeln?: IntFieldUpdateOperationsInput | number
+    HinRueckrunde?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielKombimeisterschaftCreateManyInput = {
+    ID?: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    Spieler1Punkte3bis8?: number
+    Spieler1Punkte5Kugeln?: number
+    Spieler2Punkte3bis8: number
+    Spieler2Punkte5Kugeln: number
+    HinRueckrunde?: number
+  }
+
+  export type tblSpielKombimeisterschaftUpdateManyMutationInput = {
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    Spieler1Punkte3bis8?: IntFieldUpdateOperationsInput | number
+    Spieler1Punkte5Kugeln?: IntFieldUpdateOperationsInput | number
+    Spieler2Punkte3bis8?: IntFieldUpdateOperationsInput | number
+    Spieler2Punkte5Kugeln?: IntFieldUpdateOperationsInput | number
+    HinRueckrunde?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielKombimeisterschaftUncheckedUpdateManyInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    Spieler1Punkte3bis8?: IntFieldUpdateOperationsInput | number
+    Spieler1Punkte5Kugeln?: IntFieldUpdateOperationsInput | number
+    Spieler2Punkte3bis8?: IntFieldUpdateOperationsInput | number
+    Spieler2Punkte5Kugeln?: IntFieldUpdateOperationsInput | number
+    HinRueckrunde?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielMeisterschaftCreateInput = {
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    HolzSpieler1: number
+    HolzSpieler2: number
+    HinRueckrunde: number
+  }
+
+  export type tblSpielMeisterschaftUncheckedCreateInput = {
+    ID?: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    HolzSpieler1: number
+    HolzSpieler2: number
+    HinRueckrunde: number
+  }
+
+  export type tblSpielMeisterschaftUpdateInput = {
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    HolzSpieler1?: IntFieldUpdateOperationsInput | number
+    HolzSpieler2?: IntFieldUpdateOperationsInput | number
+    HinRueckrunde?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielMeisterschaftUncheckedUpdateInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    HolzSpieler1?: IntFieldUpdateOperationsInput | number
+    HolzSpieler2?: IntFieldUpdateOperationsInput | number
+    HinRueckrunde?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielMeisterschaftCreateManyInput = {
+    ID?: number
+    SpieltagID: number
+    SpielerID1: number
+    SpielerID2: number
+    HolzSpieler1: number
+    HolzSpieler2: number
+    HinRueckrunde: number
+  }
+
+  export type tblSpielMeisterschaftUpdateManyMutationInput = {
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    HolzSpieler1?: IntFieldUpdateOperationsInput | number
+    HolzSpieler2?: IntFieldUpdateOperationsInput | number
+    HinRueckrunde?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielMeisterschaftUncheckedUpdateManyInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID1?: IntFieldUpdateOperationsInput | number
+    SpielerID2?: IntFieldUpdateOperationsInput | number
+    HolzSpieler1?: IntFieldUpdateOperationsInput | number
+    HolzSpieler2?: IntFieldUpdateOperationsInput | number
+    HinRueckrunde?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielPokalCreateInput = {
+    SpieltagID: number
+    SpielerID: number
+    Platzierung?: number
+  }
+
+  export type tblSpielPokalUncheckedCreateInput = {
+    ID?: number
+    SpieltagID: number
+    SpielerID: number
+    Platzierung?: number
+  }
+
+  export type tblSpielPokalUpdateInput = {
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+    Platzierung?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielPokalUncheckedUpdateInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+    Platzierung?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielPokalCreateManyInput = {
+    ID?: number
+    SpieltagID: number
+    SpielerID: number
+    Platzierung?: number
+  }
+
+  export type tblSpielPokalUpdateManyMutationInput = {
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+    Platzierung?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielPokalUncheckedUpdateManyInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+    Platzierung?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielSargKegelnCreateInput = {
+    SpieltagID: number
+    SpielerID: number
+    Platzierung: number
+  }
+
+  export type tblSpielSargKegelnUncheckedCreateInput = {
+    ID?: number
+    SpieltagID: number
+    SpielerID: number
+    Platzierung: number
+  }
+
+  export type tblSpielSargKegelnUpdateInput = {
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+    Platzierung?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielSargKegelnUncheckedUpdateInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+    Platzierung?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielSargKegelnCreateManyInput = {
+    ID?: number
+    SpieltagID: number
+    SpielerID: number
+    Platzierung: number
+  }
+
+  export type tblSpielSargKegelnUpdateManyMutationInput = {
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+    Platzierung?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpielSargKegelnUncheckedUpdateManyInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpieltagID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+    Platzierung?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblSpieltagCreateInput = {
+    MeisterschaftsID: number
+    Spieltag: Date | string
+    InBearbeitung: boolean
+  }
+
+  export type tblSpieltagUncheckedCreateInput = {
+    ID?: number
+    MeisterschaftsID: number
+    Spieltag: Date | string
+    InBearbeitung: boolean
+  }
+
+  export type tblSpieltagUpdateInput = {
+    MeisterschaftsID?: IntFieldUpdateOperationsInput | number
+    Spieltag?: DateTimeFieldUpdateOperationsInput | Date | string
+    InBearbeitung?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type tblSpieltagUncheckedUpdateInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    MeisterschaftsID?: IntFieldUpdateOperationsInput | number
+    Spieltag?: DateTimeFieldUpdateOperationsInput | Date | string
+    InBearbeitung?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type tblSpieltagCreateManyInput = {
+    ID?: number
+    MeisterschaftsID: number
+    Spieltag: Date | string
+    InBearbeitung: boolean
+  }
+
+  export type tblSpieltagUpdateManyMutationInput = {
+    MeisterschaftsID?: IntFieldUpdateOperationsInput | number
+    Spieltag?: DateTimeFieldUpdateOperationsInput | Date | string
+    InBearbeitung?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type tblSpieltagUncheckedUpdateManyInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    MeisterschaftsID?: IntFieldUpdateOperationsInput | number
+    Spieltag?: DateTimeFieldUpdateOperationsInput | Date | string
+    InBearbeitung?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type tblTeilnehmerCreateInput = {
+    tblMeisterschaften: tblMeisterschaftenCreateNestedOneWithoutTblTeilnehmerInput
+    tblMitglieder: tblMitgliederCreateNestedOneWithoutTblTeilnehmerInput
+  }
+
+  export type tblTeilnehmerUncheckedCreateInput = {
+    ID?: number
+    MeisterschaftsID: number
+    SpielerID: number
+  }
+
+  export type tblTeilnehmerUpdateInput = {
+    tblMeisterschaften?: tblMeisterschaftenUpdateOneRequiredWithoutTblTeilnehmerNestedInput
+    tblMitglieder?: tblMitgliederUpdateOneRequiredWithoutTblTeilnehmerNestedInput
+  }
+
+  export type tblTeilnehmerUncheckedUpdateInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    MeisterschaftsID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblTeilnehmerCreateManyInput = {
+    ID?: number
+    MeisterschaftsID: number
+    SpielerID: number
+  }
+
+  export type tblTeilnehmerUpdateManyMutationInput = {
+
+  }
+
+  export type tblTeilnehmerUncheckedUpdateManyInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    MeisterschaftsID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type tbl9erRattenCountOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Neuner?: SortOrder
+    Ratten?: SortOrder
+    Kranzacht?: SortOrder
+  }
+
+  export type tbl9erRattenAvgOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Neuner?: SortOrder
+    Ratten?: SortOrder
+    Kranzacht?: SortOrder
+  }
+
+  export type tbl9erRattenMaxOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Neuner?: SortOrder
+    Ratten?: SortOrder
+    Kranzacht?: SortOrder
+  }
+
+  export type tbl9erRattenMinOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Neuner?: SortOrder
+    Ratten?: SortOrder
+    Kranzacht?: SortOrder
+  }
+
+  export type tbl9erRattenSumOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Neuner?: SortOrder
+    Ratten?: SortOrder
+    Kranzacht?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type tblDBChangeLogOrderByRelevanceInput = {
+    fields: tblDBChangeLogOrderByRelevanceFieldEnum | tblDBChangeLogOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type tblDBChangeLogCountOrderByAggregateInput = {
+    ID?: SortOrder
+    Computername?: SortOrder
+    Tablename?: SortOrder
+    Changetype?: SortOrder
+    Command?: SortOrder
+    Zeitstempel?: SortOrder
+  }
+
+  export type tblDBChangeLogAvgOrderByAggregateInput = {
+    ID?: SortOrder
+  }
+
+  export type tblDBChangeLogMaxOrderByAggregateInput = {
+    ID?: SortOrder
+    Computername?: SortOrder
+    Tablename?: SortOrder
+    Changetype?: SortOrder
+    Command?: SortOrder
+    Zeitstempel?: SortOrder
+  }
+
+  export type tblDBChangeLogMinOrderByAggregateInput = {
+    ID?: SortOrder
+    Computername?: SortOrder
+    Tablename?: SortOrder
+    Changetype?: SortOrder
+    Command?: SortOrder
+    Zeitstempel?: SortOrder
+  }
+
+  export type tblDBChangeLogSumOrderByAggregateInput = {
+    ID?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type TblMeisterschaftstypScalarRelationFilter = {
+    is?: tblMeisterschaftstypWhereInput
+    isNot?: tblMeisterschaftstypWhereInput
+  }
+
+  export type TblTeilnehmerListRelationFilter = {
+    every?: tblTeilnehmerWhereInput
+    some?: tblTeilnehmerWhereInput
+    none?: tblTeilnehmerWhereInput
+  }
+
+  export type tblTeilnehmerOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type tblMeisterschaftenOrderByRelevanceInput = {
+    fields: tblMeisterschaftenOrderByRelevanceFieldEnum | tblMeisterschaftenOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type tblMeisterschaftenCountOrderByAggregateInput = {
+    ID?: SortOrder
+    Bezeichnung?: SortOrder
+    Beginn?: SortOrder
+    Ende?: SortOrder
+    MeisterschaftstypID?: SortOrder
+    TurboDBNummer?: SortOrder
+    Aktiv?: SortOrder
+    Bemerkungen?: SortOrder
+  }
+
+  export type tblMeisterschaftenAvgOrderByAggregateInput = {
+    ID?: SortOrder
+    MeisterschaftstypID?: SortOrder
+    TurboDBNummer?: SortOrder
+    Aktiv?: SortOrder
+  }
+
+  export type tblMeisterschaftenMaxOrderByAggregateInput = {
+    ID?: SortOrder
+    Bezeichnung?: SortOrder
+    Beginn?: SortOrder
+    Ende?: SortOrder
+    MeisterschaftstypID?: SortOrder
+    TurboDBNummer?: SortOrder
+    Aktiv?: SortOrder
+    Bemerkungen?: SortOrder
+  }
+
+  export type tblMeisterschaftenMinOrderByAggregateInput = {
+    ID?: SortOrder
+    Bezeichnung?: SortOrder
+    Beginn?: SortOrder
+    Ende?: SortOrder
+    MeisterschaftstypID?: SortOrder
+    TurboDBNummer?: SortOrder
+    Aktiv?: SortOrder
+    Bemerkungen?: SortOrder
+  }
+
+  export type tblMeisterschaftenSumOrderByAggregateInput = {
+    ID?: SortOrder
+    MeisterschaftstypID?: SortOrder
+    TurboDBNummer?: SortOrder
+    Aktiv?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type TblMeisterschaftenListRelationFilter = {
+    every?: tblMeisterschaftenWhereInput
+    some?: tblMeisterschaftenWhereInput
+    none?: tblMeisterschaftenWhereInput
+  }
+
+  export type tblMeisterschaftenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type tblMeisterschaftstypOrderByRelevanceInput = {
+    fields: tblMeisterschaftstypOrderByRelevanceFieldEnum | tblMeisterschaftstypOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type tblMeisterschaftstypCountOrderByAggregateInput = {
+    ID?: SortOrder
+    Meisterschaftstyp?: SortOrder
+  }
+
+  export type tblMeisterschaftstypAvgOrderByAggregateInput = {
+    ID?: SortOrder
+  }
+
+  export type tblMeisterschaftstypMaxOrderByAggregateInput = {
+    ID?: SortOrder
+    Meisterschaftstyp?: SortOrder
+  }
+
+  export type tblMeisterschaftstypMinOrderByAggregateInput = {
+    ID?: SortOrder
+    Meisterschaftstyp?: SortOrder
+  }
+
+  export type tblMeisterschaftstypSumOrderByAggregateInput = {
+    ID?: SortOrder
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type tblMitgliederOrderByRelevanceInput = {
+    fields: tblMitgliederOrderByRelevanceFieldEnum | tblMitgliederOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type tblMitgliederCountOrderByAggregateInput = {
+    ID?: SortOrder
+    Vorname?: SortOrder
+    Nachname?: SortOrder
+    Spitzname?: SortOrder
+    Strasse?: SortOrder
+    PLZ?: SortOrder
+    Ort?: SortOrder
+    Geburtsdatum?: SortOrder
+    MitgliedSeit?: SortOrder
+    PassivSeit?: SortOrder
+    AusgeschiedenAm?: SortOrder
+    Ehemaliger?: SortOrder
+    Notizen?: SortOrder
+    Bemerkungen?: SortOrder
+    Anrede?: SortOrder
+    EMail?: SortOrder
+    TelefonPrivat?: SortOrder
+    TelefonFirma?: SortOrder
+    TelefonMobil?: SortOrder
+    Fax?: SortOrder
+    SpAnz?: SortOrder
+    SpGew?: SortOrder
+    SpUn?: SortOrder
+    SpVerl?: SortOrder
+    HolzGes?: SortOrder
+    HolzMax?: SortOrder
+    HolzMin?: SortOrder
+    Punkte?: SortOrder
+    Platz?: SortOrder
+    TurboDBNummer?: SortOrder
+    Login?: SortOrder
+    Password?: SortOrder
+  }
+
+  export type tblMitgliederAvgOrderByAggregateInput = {
+    ID?: SortOrder
+    SpAnz?: SortOrder
+    SpGew?: SortOrder
+    SpUn?: SortOrder
+    SpVerl?: SortOrder
+    HolzGes?: SortOrder
+    HolzMax?: SortOrder
+    HolzMin?: SortOrder
+    Punkte?: SortOrder
+    TurboDBNummer?: SortOrder
+  }
+
+  export type tblMitgliederMaxOrderByAggregateInput = {
+    ID?: SortOrder
+    Vorname?: SortOrder
+    Nachname?: SortOrder
+    Spitzname?: SortOrder
+    Strasse?: SortOrder
+    PLZ?: SortOrder
+    Ort?: SortOrder
+    Geburtsdatum?: SortOrder
+    MitgliedSeit?: SortOrder
+    PassivSeit?: SortOrder
+    AusgeschiedenAm?: SortOrder
+    Ehemaliger?: SortOrder
+    Notizen?: SortOrder
+    Bemerkungen?: SortOrder
+    Anrede?: SortOrder
+    EMail?: SortOrder
+    TelefonPrivat?: SortOrder
+    TelefonFirma?: SortOrder
+    TelefonMobil?: SortOrder
+    Fax?: SortOrder
+    SpAnz?: SortOrder
+    SpGew?: SortOrder
+    SpUn?: SortOrder
+    SpVerl?: SortOrder
+    HolzGes?: SortOrder
+    HolzMax?: SortOrder
+    HolzMin?: SortOrder
+    Punkte?: SortOrder
+    Platz?: SortOrder
+    TurboDBNummer?: SortOrder
+    Login?: SortOrder
+    Password?: SortOrder
+  }
+
+  export type tblMitgliederMinOrderByAggregateInput = {
+    ID?: SortOrder
+    Vorname?: SortOrder
+    Nachname?: SortOrder
+    Spitzname?: SortOrder
+    Strasse?: SortOrder
+    PLZ?: SortOrder
+    Ort?: SortOrder
+    Geburtsdatum?: SortOrder
+    MitgliedSeit?: SortOrder
+    PassivSeit?: SortOrder
+    AusgeschiedenAm?: SortOrder
+    Ehemaliger?: SortOrder
+    Notizen?: SortOrder
+    Bemerkungen?: SortOrder
+    Anrede?: SortOrder
+    EMail?: SortOrder
+    TelefonPrivat?: SortOrder
+    TelefonFirma?: SortOrder
+    TelefonMobil?: SortOrder
+    Fax?: SortOrder
+    SpAnz?: SortOrder
+    SpGew?: SortOrder
+    SpUn?: SortOrder
+    SpVerl?: SortOrder
+    HolzGes?: SortOrder
+    HolzMax?: SortOrder
+    HolzMin?: SortOrder
+    Punkte?: SortOrder
+    Platz?: SortOrder
+    TurboDBNummer?: SortOrder
+    Login?: SortOrder
+    Password?: SortOrder
+  }
+
+  export type tblMitgliederSumOrderByAggregateInput = {
+    ID?: SortOrder
+    SpAnz?: SortOrder
+    SpGew?: SortOrder
+    SpUn?: SortOrder
+    SpVerl?: SortOrder
+    HolzGes?: SortOrder
+    HolzMax?: SortOrder
+    HolzMin?: SortOrder
+    Punkte?: SortOrder
+    TurboDBNummer?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type tblSettingsOrderByRelevanceInput = {
+    fields: tblSettingsOrderByRelevanceFieldEnum | tblSettingsOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type tblSettingsCountOrderByAggregateInput = {
+    ID?: SortOrder
+    Computername?: SortOrder
+    Parametername?: SortOrder
+    Parameterwert?: SortOrder
+  }
+
+  export type tblSettingsAvgOrderByAggregateInput = {
+    ID?: SortOrder
+  }
+
+  export type tblSettingsMaxOrderByAggregateInput = {
+    ID?: SortOrder
+    Computername?: SortOrder
+    Parametername?: SortOrder
+    Parameterwert?: SortOrder
+  }
+
+  export type tblSettingsMinOrderByAggregateInput = {
+    ID?: SortOrder
+    Computername?: SortOrder
+    Parametername?: SortOrder
+    Parameterwert?: SortOrder
+  }
+
+  export type tblSettingsSumOrderByAggregateInput = {
+    ID?: SortOrder
+  }
+
+  export type tblSpiel6TageRennenCountOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    Runden?: SortOrder
+    Punkte?: SortOrder
+    Spielnummer?: SortOrder
+  }
+
+  export type tblSpiel6TageRennenAvgOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    Runden?: SortOrder
+    Punkte?: SortOrder
+    Spielnummer?: SortOrder
+  }
+
+  export type tblSpiel6TageRennenMaxOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    Runden?: SortOrder
+    Punkte?: SortOrder
+    Spielnummer?: SortOrder
+  }
+
+  export type tblSpiel6TageRennenMinOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    Runden?: SortOrder
+    Punkte?: SortOrder
+    Spielnummer?: SortOrder
+  }
+
+  export type tblSpiel6TageRennenSumOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    Runden?: SortOrder
+    Punkte?: SortOrder
+    Spielnummer?: SortOrder
+  }
+
+  export type tblSpielBlitztunierCountOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    PunkteSpieler1?: SortOrder
+    PunkteSpieler2?: SortOrder
+    HinR_ckrunde?: SortOrder
+  }
+
+  export type tblSpielBlitztunierAvgOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    PunkteSpieler1?: SortOrder
+    PunkteSpieler2?: SortOrder
+    HinR_ckrunde?: SortOrder
+  }
+
+  export type tblSpielBlitztunierMaxOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    PunkteSpieler1?: SortOrder
+    PunkteSpieler2?: SortOrder
+    HinR_ckrunde?: SortOrder
+  }
+
+  export type tblSpielBlitztunierMinOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    PunkteSpieler1?: SortOrder
+    PunkteSpieler2?: SortOrder
+    HinR_ckrunde?: SortOrder
+  }
+
+  export type tblSpielBlitztunierSumOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    PunkteSpieler1?: SortOrder
+    PunkteSpieler2?: SortOrder
+    HinR_ckrunde?: SortOrder
+  }
+
+  export type tblSpielKombimeisterschaftCountOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    Spieler1Punkte3bis8?: SortOrder
+    Spieler1Punkte5Kugeln?: SortOrder
+    Spieler2Punkte3bis8?: SortOrder
+    Spieler2Punkte5Kugeln?: SortOrder
+    HinRueckrunde?: SortOrder
+  }
+
+  export type tblSpielKombimeisterschaftAvgOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    Spieler1Punkte3bis8?: SortOrder
+    Spieler1Punkte5Kugeln?: SortOrder
+    Spieler2Punkte3bis8?: SortOrder
+    Spieler2Punkte5Kugeln?: SortOrder
+    HinRueckrunde?: SortOrder
+  }
+
+  export type tblSpielKombimeisterschaftMaxOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    Spieler1Punkte3bis8?: SortOrder
+    Spieler1Punkte5Kugeln?: SortOrder
+    Spieler2Punkte3bis8?: SortOrder
+    Spieler2Punkte5Kugeln?: SortOrder
+    HinRueckrunde?: SortOrder
+  }
+
+  export type tblSpielKombimeisterschaftMinOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    Spieler1Punkte3bis8?: SortOrder
+    Spieler1Punkte5Kugeln?: SortOrder
+    Spieler2Punkte3bis8?: SortOrder
+    Spieler2Punkte5Kugeln?: SortOrder
+    HinRueckrunde?: SortOrder
+  }
+
+  export type tblSpielKombimeisterschaftSumOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    Spieler1Punkte3bis8?: SortOrder
+    Spieler1Punkte5Kugeln?: SortOrder
+    Spieler2Punkte3bis8?: SortOrder
+    Spieler2Punkte5Kugeln?: SortOrder
+    HinRueckrunde?: SortOrder
+  }
+
+  export type tblSpielMeisterschaftCountOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    HolzSpieler1?: SortOrder
+    HolzSpieler2?: SortOrder
+    HinRueckrunde?: SortOrder
+  }
+
+  export type tblSpielMeisterschaftAvgOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    HolzSpieler1?: SortOrder
+    HolzSpieler2?: SortOrder
+    HinRueckrunde?: SortOrder
+  }
+
+  export type tblSpielMeisterschaftMaxOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    HolzSpieler1?: SortOrder
+    HolzSpieler2?: SortOrder
+    HinRueckrunde?: SortOrder
+  }
+
+  export type tblSpielMeisterschaftMinOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    HolzSpieler1?: SortOrder
+    HolzSpieler2?: SortOrder
+    HinRueckrunde?: SortOrder
+  }
+
+  export type tblSpielMeisterschaftSumOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID1?: SortOrder
+    SpielerID2?: SortOrder
+    HolzSpieler1?: SortOrder
+    HolzSpieler2?: SortOrder
+    HinRueckrunde?: SortOrder
+  }
+
+  export type tblSpielPokalCountOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Platzierung?: SortOrder
+  }
+
+  export type tblSpielPokalAvgOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Platzierung?: SortOrder
+  }
+
+  export type tblSpielPokalMaxOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Platzierung?: SortOrder
+  }
+
+  export type tblSpielPokalMinOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Platzierung?: SortOrder
+  }
+
+  export type tblSpielPokalSumOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Platzierung?: SortOrder
+  }
+
+  export type tblSpielSargKegelnCountOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Platzierung?: SortOrder
+  }
+
+  export type tblSpielSargKegelnAvgOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Platzierung?: SortOrder
+  }
+
+  export type tblSpielSargKegelnMaxOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Platzierung?: SortOrder
+  }
+
+  export type tblSpielSargKegelnMinOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Platzierung?: SortOrder
+  }
+
+  export type tblSpielSargKegelnSumOrderByAggregateInput = {
+    ID?: SortOrder
+    SpieltagID?: SortOrder
+    SpielerID?: SortOrder
+    Platzierung?: SortOrder
+  }
+
+  export type tblSpieltagCountOrderByAggregateInput = {
+    ID?: SortOrder
+    MeisterschaftsID?: SortOrder
+    Spieltag?: SortOrder
+    InBearbeitung?: SortOrder
+  }
+
+  export type tblSpieltagAvgOrderByAggregateInput = {
+    ID?: SortOrder
+    MeisterschaftsID?: SortOrder
+  }
+
+  export type tblSpieltagMaxOrderByAggregateInput = {
+    ID?: SortOrder
+    MeisterschaftsID?: SortOrder
+    Spieltag?: SortOrder
+    InBearbeitung?: SortOrder
+  }
+
+  export type tblSpieltagMinOrderByAggregateInput = {
+    ID?: SortOrder
+    MeisterschaftsID?: SortOrder
+    Spieltag?: SortOrder
+    InBearbeitung?: SortOrder
+  }
+
+  export type tblSpieltagSumOrderByAggregateInput = {
+    ID?: SortOrder
+    MeisterschaftsID?: SortOrder
+  }
+
+  export type TblMeisterschaftenScalarRelationFilter = {
+    is?: tblMeisterschaftenWhereInput
+    isNot?: tblMeisterschaftenWhereInput
+  }
+
+  export type TblMitgliederScalarRelationFilter = {
+    is?: tblMitgliederWhereInput
+    isNot?: tblMitgliederWhereInput
+  }
+
+  export type tblTeilnehmerCountOrderByAggregateInput = {
+    ID?: SortOrder
+    MeisterschaftsID?: SortOrder
+    SpielerID?: SortOrder
+  }
+
+  export type tblTeilnehmerAvgOrderByAggregateInput = {
+    ID?: SortOrder
+    MeisterschaftsID?: SortOrder
+    SpielerID?: SortOrder
+  }
+
+  export type tblTeilnehmerMaxOrderByAggregateInput = {
+    ID?: SortOrder
+    MeisterschaftsID?: SortOrder
+    SpielerID?: SortOrder
+  }
+
+  export type tblTeilnehmerMinOrderByAggregateInput = {
+    ID?: SortOrder
+    MeisterschaftsID?: SortOrder
+    SpielerID?: SortOrder
+  }
+
+  export type tblTeilnehmerSumOrderByAggregateInput = {
+    ID?: SortOrder
+    MeisterschaftsID?: SortOrder
+    SpielerID?: SortOrder
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type tblMeisterschaftstypCreateNestedOneWithoutTblMeisterschaftenInput = {
+    create?: XOR<tblMeisterschaftstypCreateWithoutTblMeisterschaftenInput, tblMeisterschaftstypUncheckedCreateWithoutTblMeisterschaftenInput>
+    connectOrCreate?: tblMeisterschaftstypCreateOrConnectWithoutTblMeisterschaftenInput
+    connect?: tblMeisterschaftstypWhereUniqueInput
+  }
+
+  export type tblTeilnehmerCreateNestedManyWithoutTblMeisterschaftenInput = {
+    create?: XOR<tblTeilnehmerCreateWithoutTblMeisterschaftenInput, tblTeilnehmerUncheckedCreateWithoutTblMeisterschaftenInput> | tblTeilnehmerCreateWithoutTblMeisterschaftenInput[] | tblTeilnehmerUncheckedCreateWithoutTblMeisterschaftenInput[]
+    connectOrCreate?: tblTeilnehmerCreateOrConnectWithoutTblMeisterschaftenInput | tblTeilnehmerCreateOrConnectWithoutTblMeisterschaftenInput[]
+    createMany?: tblTeilnehmerCreateManyTblMeisterschaftenInputEnvelope
+    connect?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+  }
+
+  export type tblTeilnehmerUncheckedCreateNestedManyWithoutTblMeisterschaftenInput = {
+    create?: XOR<tblTeilnehmerCreateWithoutTblMeisterschaftenInput, tblTeilnehmerUncheckedCreateWithoutTblMeisterschaftenInput> | tblTeilnehmerCreateWithoutTblMeisterschaftenInput[] | tblTeilnehmerUncheckedCreateWithoutTblMeisterschaftenInput[]
+    connectOrCreate?: tblTeilnehmerCreateOrConnectWithoutTblMeisterschaftenInput | tblTeilnehmerCreateOrConnectWithoutTblMeisterschaftenInput[]
+    createMany?: tblTeilnehmerCreateManyTblMeisterschaftenInputEnvelope
+    connect?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type tblMeisterschaftstypUpdateOneRequiredWithoutTblMeisterschaftenNestedInput = {
+    create?: XOR<tblMeisterschaftstypCreateWithoutTblMeisterschaftenInput, tblMeisterschaftstypUncheckedCreateWithoutTblMeisterschaftenInput>
+    connectOrCreate?: tblMeisterschaftstypCreateOrConnectWithoutTblMeisterschaftenInput
+    upsert?: tblMeisterschaftstypUpsertWithoutTblMeisterschaftenInput
+    connect?: tblMeisterschaftstypWhereUniqueInput
+    update?: XOR<XOR<tblMeisterschaftstypUpdateToOneWithWhereWithoutTblMeisterschaftenInput, tblMeisterschaftstypUpdateWithoutTblMeisterschaftenInput>, tblMeisterschaftstypUncheckedUpdateWithoutTblMeisterschaftenInput>
+  }
+
+  export type tblTeilnehmerUpdateManyWithoutTblMeisterschaftenNestedInput = {
+    create?: XOR<tblTeilnehmerCreateWithoutTblMeisterschaftenInput, tblTeilnehmerUncheckedCreateWithoutTblMeisterschaftenInput> | tblTeilnehmerCreateWithoutTblMeisterschaftenInput[] | tblTeilnehmerUncheckedCreateWithoutTblMeisterschaftenInput[]
+    connectOrCreate?: tblTeilnehmerCreateOrConnectWithoutTblMeisterschaftenInput | tblTeilnehmerCreateOrConnectWithoutTblMeisterschaftenInput[]
+    upsert?: tblTeilnehmerUpsertWithWhereUniqueWithoutTblMeisterschaftenInput | tblTeilnehmerUpsertWithWhereUniqueWithoutTblMeisterschaftenInput[]
+    createMany?: tblTeilnehmerCreateManyTblMeisterschaftenInputEnvelope
+    set?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    disconnect?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    delete?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    connect?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    update?: tblTeilnehmerUpdateWithWhereUniqueWithoutTblMeisterschaftenInput | tblTeilnehmerUpdateWithWhereUniqueWithoutTblMeisterschaftenInput[]
+    updateMany?: tblTeilnehmerUpdateManyWithWhereWithoutTblMeisterschaftenInput | tblTeilnehmerUpdateManyWithWhereWithoutTblMeisterschaftenInput[]
+    deleteMany?: tblTeilnehmerScalarWhereInput | tblTeilnehmerScalarWhereInput[]
+  }
+
+  export type tblTeilnehmerUncheckedUpdateManyWithoutTblMeisterschaftenNestedInput = {
+    create?: XOR<tblTeilnehmerCreateWithoutTblMeisterschaftenInput, tblTeilnehmerUncheckedCreateWithoutTblMeisterschaftenInput> | tblTeilnehmerCreateWithoutTblMeisterschaftenInput[] | tblTeilnehmerUncheckedCreateWithoutTblMeisterschaftenInput[]
+    connectOrCreate?: tblTeilnehmerCreateOrConnectWithoutTblMeisterschaftenInput | tblTeilnehmerCreateOrConnectWithoutTblMeisterschaftenInput[]
+    upsert?: tblTeilnehmerUpsertWithWhereUniqueWithoutTblMeisterschaftenInput | tblTeilnehmerUpsertWithWhereUniqueWithoutTblMeisterschaftenInput[]
+    createMany?: tblTeilnehmerCreateManyTblMeisterschaftenInputEnvelope
+    set?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    disconnect?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    delete?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    connect?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    update?: tblTeilnehmerUpdateWithWhereUniqueWithoutTblMeisterschaftenInput | tblTeilnehmerUpdateWithWhereUniqueWithoutTblMeisterschaftenInput[]
+    updateMany?: tblTeilnehmerUpdateManyWithWhereWithoutTblMeisterschaftenInput | tblTeilnehmerUpdateManyWithWhereWithoutTblMeisterschaftenInput[]
+    deleteMany?: tblTeilnehmerScalarWhereInput | tblTeilnehmerScalarWhereInput[]
+  }
+
+  export type tblMeisterschaftenCreateNestedManyWithoutTblMeisterschaftstypInput = {
+    create?: XOR<tblMeisterschaftenCreateWithoutTblMeisterschaftstypInput, tblMeisterschaftenUncheckedCreateWithoutTblMeisterschaftstypInput> | tblMeisterschaftenCreateWithoutTblMeisterschaftstypInput[] | tblMeisterschaftenUncheckedCreateWithoutTblMeisterschaftstypInput[]
+    connectOrCreate?: tblMeisterschaftenCreateOrConnectWithoutTblMeisterschaftstypInput | tblMeisterschaftenCreateOrConnectWithoutTblMeisterschaftstypInput[]
+    createMany?: tblMeisterschaftenCreateManyTblMeisterschaftstypInputEnvelope
+    connect?: tblMeisterschaftenWhereUniqueInput | tblMeisterschaftenWhereUniqueInput[]
+  }
+
+  export type tblMeisterschaftenUncheckedCreateNestedManyWithoutTblMeisterschaftstypInput = {
+    create?: XOR<tblMeisterschaftenCreateWithoutTblMeisterschaftstypInput, tblMeisterschaftenUncheckedCreateWithoutTblMeisterschaftstypInput> | tblMeisterschaftenCreateWithoutTblMeisterschaftstypInput[] | tblMeisterschaftenUncheckedCreateWithoutTblMeisterschaftstypInput[]
+    connectOrCreate?: tblMeisterschaftenCreateOrConnectWithoutTblMeisterschaftstypInput | tblMeisterschaftenCreateOrConnectWithoutTblMeisterschaftstypInput[]
+    createMany?: tblMeisterschaftenCreateManyTblMeisterschaftstypInputEnvelope
+    connect?: tblMeisterschaftenWhereUniqueInput | tblMeisterschaftenWhereUniqueInput[]
+  }
+
+  export type tblMeisterschaftenUpdateManyWithoutTblMeisterschaftstypNestedInput = {
+    create?: XOR<tblMeisterschaftenCreateWithoutTblMeisterschaftstypInput, tblMeisterschaftenUncheckedCreateWithoutTblMeisterschaftstypInput> | tblMeisterschaftenCreateWithoutTblMeisterschaftstypInput[] | tblMeisterschaftenUncheckedCreateWithoutTblMeisterschaftstypInput[]
+    connectOrCreate?: tblMeisterschaftenCreateOrConnectWithoutTblMeisterschaftstypInput | tblMeisterschaftenCreateOrConnectWithoutTblMeisterschaftstypInput[]
+    upsert?: tblMeisterschaftenUpsertWithWhereUniqueWithoutTblMeisterschaftstypInput | tblMeisterschaftenUpsertWithWhereUniqueWithoutTblMeisterschaftstypInput[]
+    createMany?: tblMeisterschaftenCreateManyTblMeisterschaftstypInputEnvelope
+    set?: tblMeisterschaftenWhereUniqueInput | tblMeisterschaftenWhereUniqueInput[]
+    disconnect?: tblMeisterschaftenWhereUniqueInput | tblMeisterschaftenWhereUniqueInput[]
+    delete?: tblMeisterschaftenWhereUniqueInput | tblMeisterschaftenWhereUniqueInput[]
+    connect?: tblMeisterschaftenWhereUniqueInput | tblMeisterschaftenWhereUniqueInput[]
+    update?: tblMeisterschaftenUpdateWithWhereUniqueWithoutTblMeisterschaftstypInput | tblMeisterschaftenUpdateWithWhereUniqueWithoutTblMeisterschaftstypInput[]
+    updateMany?: tblMeisterschaftenUpdateManyWithWhereWithoutTblMeisterschaftstypInput | tblMeisterschaftenUpdateManyWithWhereWithoutTblMeisterschaftstypInput[]
+    deleteMany?: tblMeisterschaftenScalarWhereInput | tblMeisterschaftenScalarWhereInput[]
+  }
+
+  export type tblMeisterschaftenUncheckedUpdateManyWithoutTblMeisterschaftstypNestedInput = {
+    create?: XOR<tblMeisterschaftenCreateWithoutTblMeisterschaftstypInput, tblMeisterschaftenUncheckedCreateWithoutTblMeisterschaftstypInput> | tblMeisterschaftenCreateWithoutTblMeisterschaftstypInput[] | tblMeisterschaftenUncheckedCreateWithoutTblMeisterschaftstypInput[]
+    connectOrCreate?: tblMeisterschaftenCreateOrConnectWithoutTblMeisterschaftstypInput | tblMeisterschaftenCreateOrConnectWithoutTblMeisterschaftstypInput[]
+    upsert?: tblMeisterschaftenUpsertWithWhereUniqueWithoutTblMeisterschaftstypInput | tblMeisterschaftenUpsertWithWhereUniqueWithoutTblMeisterschaftstypInput[]
+    createMany?: tblMeisterschaftenCreateManyTblMeisterschaftstypInputEnvelope
+    set?: tblMeisterschaftenWhereUniqueInput | tblMeisterschaftenWhereUniqueInput[]
+    disconnect?: tblMeisterschaftenWhereUniqueInput | tblMeisterschaftenWhereUniqueInput[]
+    delete?: tblMeisterschaftenWhereUniqueInput | tblMeisterschaftenWhereUniqueInput[]
+    connect?: tblMeisterschaftenWhereUniqueInput | tblMeisterschaftenWhereUniqueInput[]
+    update?: tblMeisterschaftenUpdateWithWhereUniqueWithoutTblMeisterschaftstypInput | tblMeisterschaftenUpdateWithWhereUniqueWithoutTblMeisterschaftstypInput[]
+    updateMany?: tblMeisterschaftenUpdateManyWithWhereWithoutTblMeisterschaftstypInput | tblMeisterschaftenUpdateManyWithWhereWithoutTblMeisterschaftstypInput[]
+    deleteMany?: tblMeisterschaftenScalarWhereInput | tblMeisterschaftenScalarWhereInput[]
+  }
+
+  export type tblTeilnehmerCreateNestedManyWithoutTblMitgliederInput = {
+    create?: XOR<tblTeilnehmerCreateWithoutTblMitgliederInput, tblTeilnehmerUncheckedCreateWithoutTblMitgliederInput> | tblTeilnehmerCreateWithoutTblMitgliederInput[] | tblTeilnehmerUncheckedCreateWithoutTblMitgliederInput[]
+    connectOrCreate?: tblTeilnehmerCreateOrConnectWithoutTblMitgliederInput | tblTeilnehmerCreateOrConnectWithoutTblMitgliederInput[]
+    createMany?: tblTeilnehmerCreateManyTblMitgliederInputEnvelope
+    connect?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+  }
+
+  export type tblTeilnehmerUncheckedCreateNestedManyWithoutTblMitgliederInput = {
+    create?: XOR<tblTeilnehmerCreateWithoutTblMitgliederInput, tblTeilnehmerUncheckedCreateWithoutTblMitgliederInput> | tblTeilnehmerCreateWithoutTblMitgliederInput[] | tblTeilnehmerUncheckedCreateWithoutTblMitgliederInput[]
+    connectOrCreate?: tblTeilnehmerCreateOrConnectWithoutTblMitgliederInput | tblTeilnehmerCreateOrConnectWithoutTblMitgliederInput[]
+    createMany?: tblTeilnehmerCreateManyTblMitgliederInputEnvelope
+    connect?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type tblTeilnehmerUpdateManyWithoutTblMitgliederNestedInput = {
+    create?: XOR<tblTeilnehmerCreateWithoutTblMitgliederInput, tblTeilnehmerUncheckedCreateWithoutTblMitgliederInput> | tblTeilnehmerCreateWithoutTblMitgliederInput[] | tblTeilnehmerUncheckedCreateWithoutTblMitgliederInput[]
+    connectOrCreate?: tblTeilnehmerCreateOrConnectWithoutTblMitgliederInput | tblTeilnehmerCreateOrConnectWithoutTblMitgliederInput[]
+    upsert?: tblTeilnehmerUpsertWithWhereUniqueWithoutTblMitgliederInput | tblTeilnehmerUpsertWithWhereUniqueWithoutTblMitgliederInput[]
+    createMany?: tblTeilnehmerCreateManyTblMitgliederInputEnvelope
+    set?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    disconnect?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    delete?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    connect?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    update?: tblTeilnehmerUpdateWithWhereUniqueWithoutTblMitgliederInput | tblTeilnehmerUpdateWithWhereUniqueWithoutTblMitgliederInput[]
+    updateMany?: tblTeilnehmerUpdateManyWithWhereWithoutTblMitgliederInput | tblTeilnehmerUpdateManyWithWhereWithoutTblMitgliederInput[]
+    deleteMany?: tblTeilnehmerScalarWhereInput | tblTeilnehmerScalarWhereInput[]
+  }
+
+  export type tblTeilnehmerUncheckedUpdateManyWithoutTblMitgliederNestedInput = {
+    create?: XOR<tblTeilnehmerCreateWithoutTblMitgliederInput, tblTeilnehmerUncheckedCreateWithoutTblMitgliederInput> | tblTeilnehmerCreateWithoutTblMitgliederInput[] | tblTeilnehmerUncheckedCreateWithoutTblMitgliederInput[]
+    connectOrCreate?: tblTeilnehmerCreateOrConnectWithoutTblMitgliederInput | tblTeilnehmerCreateOrConnectWithoutTblMitgliederInput[]
+    upsert?: tblTeilnehmerUpsertWithWhereUniqueWithoutTblMitgliederInput | tblTeilnehmerUpsertWithWhereUniqueWithoutTblMitgliederInput[]
+    createMany?: tblTeilnehmerCreateManyTblMitgliederInputEnvelope
+    set?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    disconnect?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    delete?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    connect?: tblTeilnehmerWhereUniqueInput | tblTeilnehmerWhereUniqueInput[]
+    update?: tblTeilnehmerUpdateWithWhereUniqueWithoutTblMitgliederInput | tblTeilnehmerUpdateWithWhereUniqueWithoutTblMitgliederInput[]
+    updateMany?: tblTeilnehmerUpdateManyWithWhereWithoutTblMitgliederInput | tblTeilnehmerUpdateManyWithWhereWithoutTblMitgliederInput[]
+    deleteMany?: tblTeilnehmerScalarWhereInput | tblTeilnehmerScalarWhereInput[]
+  }
+
+  export type tblMeisterschaftenCreateNestedOneWithoutTblTeilnehmerInput = {
+    create?: XOR<tblMeisterschaftenCreateWithoutTblTeilnehmerInput, tblMeisterschaftenUncheckedCreateWithoutTblTeilnehmerInput>
+    connectOrCreate?: tblMeisterschaftenCreateOrConnectWithoutTblTeilnehmerInput
+    connect?: tblMeisterschaftenWhereUniqueInput
+  }
+
+  export type tblMitgliederCreateNestedOneWithoutTblTeilnehmerInput = {
+    create?: XOR<tblMitgliederCreateWithoutTblTeilnehmerInput, tblMitgliederUncheckedCreateWithoutTblTeilnehmerInput>
+    connectOrCreate?: tblMitgliederCreateOrConnectWithoutTblTeilnehmerInput
+    connect?: tblMitgliederWhereUniqueInput
+  }
+
+  export type tblMeisterschaftenUpdateOneRequiredWithoutTblTeilnehmerNestedInput = {
+    create?: XOR<tblMeisterschaftenCreateWithoutTblTeilnehmerInput, tblMeisterschaftenUncheckedCreateWithoutTblTeilnehmerInput>
+    connectOrCreate?: tblMeisterschaftenCreateOrConnectWithoutTblTeilnehmerInput
+    upsert?: tblMeisterschaftenUpsertWithoutTblTeilnehmerInput
+    connect?: tblMeisterschaftenWhereUniqueInput
+    update?: XOR<XOR<tblMeisterschaftenUpdateToOneWithWhereWithoutTblTeilnehmerInput, tblMeisterschaftenUpdateWithoutTblTeilnehmerInput>, tblMeisterschaftenUncheckedUpdateWithoutTblTeilnehmerInput>
+  }
+
+  export type tblMitgliederUpdateOneRequiredWithoutTblTeilnehmerNestedInput = {
+    create?: XOR<tblMitgliederCreateWithoutTblTeilnehmerInput, tblMitgliederUncheckedCreateWithoutTblTeilnehmerInput>
+    connectOrCreate?: tblMitgliederCreateOrConnectWithoutTblTeilnehmerInput
+    upsert?: tblMitgliederUpsertWithoutTblTeilnehmerInput
+    connect?: tblMitgliederWhereUniqueInput
+    update?: XOR<XOR<tblMitgliederUpdateToOneWithWhereWithoutTblTeilnehmerInput, tblMitgliederUpdateWithoutTblTeilnehmerInput>, tblMitgliederUncheckedUpdateWithoutTblTeilnehmerInput>
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type tblMeisterschaftstypCreateWithoutTblMeisterschaftenInput = {
+    Meisterschaftstyp: string
+  }
+
+  export type tblMeisterschaftstypUncheckedCreateWithoutTblMeisterschaftenInput = {
+    ID?: number
+    Meisterschaftstyp: string
+  }
+
+  export type tblMeisterschaftstypCreateOrConnectWithoutTblMeisterschaftenInput = {
+    where: tblMeisterschaftstypWhereUniqueInput
+    create: XOR<tblMeisterschaftstypCreateWithoutTblMeisterschaftenInput, tblMeisterschaftstypUncheckedCreateWithoutTblMeisterschaftenInput>
+  }
+
+  export type tblTeilnehmerCreateWithoutTblMeisterschaftenInput = {
+    tblMitglieder: tblMitgliederCreateNestedOneWithoutTblTeilnehmerInput
+  }
+
+  export type tblTeilnehmerUncheckedCreateWithoutTblMeisterschaftenInput = {
+    ID?: number
+    SpielerID: number
+  }
+
+  export type tblTeilnehmerCreateOrConnectWithoutTblMeisterschaftenInput = {
+    where: tblTeilnehmerWhereUniqueInput
+    create: XOR<tblTeilnehmerCreateWithoutTblMeisterschaftenInput, tblTeilnehmerUncheckedCreateWithoutTblMeisterschaftenInput>
+  }
+
+  export type tblTeilnehmerCreateManyTblMeisterschaftenInputEnvelope = {
+    data: tblTeilnehmerCreateManyTblMeisterschaftenInput | tblTeilnehmerCreateManyTblMeisterschaftenInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type tblMeisterschaftstypUpsertWithoutTblMeisterschaftenInput = {
+    update: XOR<tblMeisterschaftstypUpdateWithoutTblMeisterschaftenInput, tblMeisterschaftstypUncheckedUpdateWithoutTblMeisterschaftenInput>
+    create: XOR<tblMeisterschaftstypCreateWithoutTblMeisterschaftenInput, tblMeisterschaftstypUncheckedCreateWithoutTblMeisterschaftenInput>
+    where?: tblMeisterschaftstypWhereInput
+  }
+
+  export type tblMeisterschaftstypUpdateToOneWithWhereWithoutTblMeisterschaftenInput = {
+    where?: tblMeisterschaftstypWhereInput
+    data: XOR<tblMeisterschaftstypUpdateWithoutTblMeisterschaftenInput, tblMeisterschaftstypUncheckedUpdateWithoutTblMeisterschaftenInput>
+  }
+
+  export type tblMeisterschaftstypUpdateWithoutTblMeisterschaftenInput = {
+    Meisterschaftstyp?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type tblMeisterschaftstypUncheckedUpdateWithoutTblMeisterschaftenInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    Meisterschaftstyp?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type tblTeilnehmerUpsertWithWhereUniqueWithoutTblMeisterschaftenInput = {
+    where: tblTeilnehmerWhereUniqueInput
+    update: XOR<tblTeilnehmerUpdateWithoutTblMeisterschaftenInput, tblTeilnehmerUncheckedUpdateWithoutTblMeisterschaftenInput>
+    create: XOR<tblTeilnehmerCreateWithoutTblMeisterschaftenInput, tblTeilnehmerUncheckedCreateWithoutTblMeisterschaftenInput>
+  }
+
+  export type tblTeilnehmerUpdateWithWhereUniqueWithoutTblMeisterschaftenInput = {
+    where: tblTeilnehmerWhereUniqueInput
+    data: XOR<tblTeilnehmerUpdateWithoutTblMeisterschaftenInput, tblTeilnehmerUncheckedUpdateWithoutTblMeisterschaftenInput>
+  }
+
+  export type tblTeilnehmerUpdateManyWithWhereWithoutTblMeisterschaftenInput = {
+    where: tblTeilnehmerScalarWhereInput
+    data: XOR<tblTeilnehmerUpdateManyMutationInput, tblTeilnehmerUncheckedUpdateManyWithoutTblMeisterschaftenInput>
+  }
+
+  export type tblTeilnehmerScalarWhereInput = {
+    AND?: tblTeilnehmerScalarWhereInput | tblTeilnehmerScalarWhereInput[]
+    OR?: tblTeilnehmerScalarWhereInput[]
+    NOT?: tblTeilnehmerScalarWhereInput | tblTeilnehmerScalarWhereInput[]
+    ID?: IntFilter<"tblTeilnehmer"> | number
+    MeisterschaftsID?: IntFilter<"tblTeilnehmer"> | number
+    SpielerID?: IntFilter<"tblTeilnehmer"> | number
+  }
+
+  export type tblMeisterschaftenCreateWithoutTblMeisterschaftstypInput = {
+    Bezeichnung: string
+    Beginn: Date | string
+    Ende?: Date | string | null
+    TurboDBNummer?: number | null
+    Aktiv: number
+    Bemerkungen?: string | null
+    tblTeilnehmer?: tblTeilnehmerCreateNestedManyWithoutTblMeisterschaftenInput
+  }
+
+  export type tblMeisterschaftenUncheckedCreateWithoutTblMeisterschaftstypInput = {
+    ID?: number
+    Bezeichnung: string
+    Beginn: Date | string
+    Ende?: Date | string | null
+    TurboDBNummer?: number | null
+    Aktiv: number
+    Bemerkungen?: string | null
+    tblTeilnehmer?: tblTeilnehmerUncheckedCreateNestedManyWithoutTblMeisterschaftenInput
+  }
+
+  export type tblMeisterschaftenCreateOrConnectWithoutTblMeisterschaftstypInput = {
+    where: tblMeisterschaftenWhereUniqueInput
+    create: XOR<tblMeisterschaftenCreateWithoutTblMeisterschaftstypInput, tblMeisterschaftenUncheckedCreateWithoutTblMeisterschaftstypInput>
+  }
+
+  export type tblMeisterschaftenCreateManyTblMeisterschaftstypInputEnvelope = {
+    data: tblMeisterschaftenCreateManyTblMeisterschaftstypInput | tblMeisterschaftenCreateManyTblMeisterschaftstypInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type tblMeisterschaftenUpsertWithWhereUniqueWithoutTblMeisterschaftstypInput = {
+    where: tblMeisterschaftenWhereUniqueInput
+    update: XOR<tblMeisterschaftenUpdateWithoutTblMeisterschaftstypInput, tblMeisterschaftenUncheckedUpdateWithoutTblMeisterschaftstypInput>
+    create: XOR<tblMeisterschaftenCreateWithoutTblMeisterschaftstypInput, tblMeisterschaftenUncheckedCreateWithoutTblMeisterschaftstypInput>
+  }
+
+  export type tblMeisterschaftenUpdateWithWhereUniqueWithoutTblMeisterschaftstypInput = {
+    where: tblMeisterschaftenWhereUniqueInput
+    data: XOR<tblMeisterschaftenUpdateWithoutTblMeisterschaftstypInput, tblMeisterschaftenUncheckedUpdateWithoutTblMeisterschaftstypInput>
+  }
+
+  export type tblMeisterschaftenUpdateManyWithWhereWithoutTblMeisterschaftstypInput = {
+    where: tblMeisterschaftenScalarWhereInput
+    data: XOR<tblMeisterschaftenUpdateManyMutationInput, tblMeisterschaftenUncheckedUpdateManyWithoutTblMeisterschaftstypInput>
+  }
+
+  export type tblMeisterschaftenScalarWhereInput = {
+    AND?: tblMeisterschaftenScalarWhereInput | tblMeisterschaftenScalarWhereInput[]
+    OR?: tblMeisterschaftenScalarWhereInput[]
+    NOT?: tblMeisterschaftenScalarWhereInput | tblMeisterschaftenScalarWhereInput[]
+    ID?: IntFilter<"tblMeisterschaften"> | number
+    Bezeichnung?: StringFilter<"tblMeisterschaften"> | string
+    Beginn?: DateTimeFilter<"tblMeisterschaften"> | Date | string
+    Ende?: DateTimeNullableFilter<"tblMeisterschaften"> | Date | string | null
+    MeisterschaftstypID?: IntFilter<"tblMeisterschaften"> | number
+    TurboDBNummer?: IntNullableFilter<"tblMeisterschaften"> | number | null
+    Aktiv?: IntFilter<"tblMeisterschaften"> | number
+    Bemerkungen?: StringNullableFilter<"tblMeisterschaften"> | string | null
+  }
+
+  export type tblTeilnehmerCreateWithoutTblMitgliederInput = {
+    tblMeisterschaften: tblMeisterschaftenCreateNestedOneWithoutTblTeilnehmerInput
+  }
+
+  export type tblTeilnehmerUncheckedCreateWithoutTblMitgliederInput = {
+    ID?: number
+    MeisterschaftsID: number
+  }
+
+  export type tblTeilnehmerCreateOrConnectWithoutTblMitgliederInput = {
+    where: tblTeilnehmerWhereUniqueInput
+    create: XOR<tblTeilnehmerCreateWithoutTblMitgliederInput, tblTeilnehmerUncheckedCreateWithoutTblMitgliederInput>
+  }
+
+  export type tblTeilnehmerCreateManyTblMitgliederInputEnvelope = {
+    data: tblTeilnehmerCreateManyTblMitgliederInput | tblTeilnehmerCreateManyTblMitgliederInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type tblTeilnehmerUpsertWithWhereUniqueWithoutTblMitgliederInput = {
+    where: tblTeilnehmerWhereUniqueInput
+    update: XOR<tblTeilnehmerUpdateWithoutTblMitgliederInput, tblTeilnehmerUncheckedUpdateWithoutTblMitgliederInput>
+    create: XOR<tblTeilnehmerCreateWithoutTblMitgliederInput, tblTeilnehmerUncheckedCreateWithoutTblMitgliederInput>
+  }
+
+  export type tblTeilnehmerUpdateWithWhereUniqueWithoutTblMitgliederInput = {
+    where: tblTeilnehmerWhereUniqueInput
+    data: XOR<tblTeilnehmerUpdateWithoutTblMitgliederInput, tblTeilnehmerUncheckedUpdateWithoutTblMitgliederInput>
+  }
+
+  export type tblTeilnehmerUpdateManyWithWhereWithoutTblMitgliederInput = {
+    where: tblTeilnehmerScalarWhereInput
+    data: XOR<tblTeilnehmerUpdateManyMutationInput, tblTeilnehmerUncheckedUpdateManyWithoutTblMitgliederInput>
+  }
+
+  export type tblMeisterschaftenCreateWithoutTblTeilnehmerInput = {
+    Bezeichnung: string
+    Beginn: Date | string
+    Ende?: Date | string | null
+    TurboDBNummer?: number | null
+    Aktiv: number
+    Bemerkungen?: string | null
+    tblMeisterschaftstyp: tblMeisterschaftstypCreateNestedOneWithoutTblMeisterschaftenInput
+  }
+
+  export type tblMeisterschaftenUncheckedCreateWithoutTblTeilnehmerInput = {
+    ID?: number
+    Bezeichnung: string
+    Beginn: Date | string
+    Ende?: Date | string | null
+    MeisterschaftstypID: number
+    TurboDBNummer?: number | null
+    Aktiv: number
+    Bemerkungen?: string | null
+  }
+
+  export type tblMeisterschaftenCreateOrConnectWithoutTblTeilnehmerInput = {
+    where: tblMeisterschaftenWhereUniqueInput
+    create: XOR<tblMeisterschaftenCreateWithoutTblTeilnehmerInput, tblMeisterschaftenUncheckedCreateWithoutTblTeilnehmerInput>
+  }
+
+  export type tblMitgliederCreateWithoutTblTeilnehmerInput = {
+    Vorname: string
+    Nachname: string
+    Spitzname?: string | null
+    Strasse?: string | null
+    PLZ?: string | null
+    Ort?: string | null
+    Geburtsdatum?: Date | string | null
+    MitgliedSeit: Date | string
+    PassivSeit?: Date | string | null
+    AusgeschiedenAm?: Date | string | null
+    Ehemaliger: boolean
+    Notizen?: string | null
+    Bemerkungen?: string | null
+    Anrede?: string | null
+    EMail?: string | null
+    TelefonPrivat?: string | null
+    TelefonFirma?: string | null
+    TelefonMobil?: string | null
+    Fax?: string | null
+    SpAnz?: number | null
+    SpGew?: number | null
+    SpUn?: number | null
+    SpVerl?: number | null
+    HolzGes?: number | null
+    HolzMax?: number | null
+    HolzMin?: number | null
+    Punkte?: number | null
+    Platz?: string | null
+    TurboDBNummer?: number | null
+    Login?: string | null
+    Password?: string | null
+  }
+
+  export type tblMitgliederUncheckedCreateWithoutTblTeilnehmerInput = {
+    ID?: number
+    Vorname: string
+    Nachname: string
+    Spitzname?: string | null
+    Strasse?: string | null
+    PLZ?: string | null
+    Ort?: string | null
+    Geburtsdatum?: Date | string | null
+    MitgliedSeit: Date | string
+    PassivSeit?: Date | string | null
+    AusgeschiedenAm?: Date | string | null
+    Ehemaliger: boolean
+    Notizen?: string | null
+    Bemerkungen?: string | null
+    Anrede?: string | null
+    EMail?: string | null
+    TelefonPrivat?: string | null
+    TelefonFirma?: string | null
+    TelefonMobil?: string | null
+    Fax?: string | null
+    SpAnz?: number | null
+    SpGew?: number | null
+    SpUn?: number | null
+    SpVerl?: number | null
+    HolzGes?: number | null
+    HolzMax?: number | null
+    HolzMin?: number | null
+    Punkte?: number | null
+    Platz?: string | null
+    TurboDBNummer?: number | null
+    Login?: string | null
+    Password?: string | null
+  }
+
+  export type tblMitgliederCreateOrConnectWithoutTblTeilnehmerInput = {
+    where: tblMitgliederWhereUniqueInput
+    create: XOR<tblMitgliederCreateWithoutTblTeilnehmerInput, tblMitgliederUncheckedCreateWithoutTblTeilnehmerInput>
+  }
+
+  export type tblMeisterschaftenUpsertWithoutTblTeilnehmerInput = {
+    update: XOR<tblMeisterschaftenUpdateWithoutTblTeilnehmerInput, tblMeisterschaftenUncheckedUpdateWithoutTblTeilnehmerInput>
+    create: XOR<tblMeisterschaftenCreateWithoutTblTeilnehmerInput, tblMeisterschaftenUncheckedCreateWithoutTblTeilnehmerInput>
+    where?: tblMeisterschaftenWhereInput
+  }
+
+  export type tblMeisterschaftenUpdateToOneWithWhereWithoutTblTeilnehmerInput = {
+    where?: tblMeisterschaftenWhereInput
+    data: XOR<tblMeisterschaftenUpdateWithoutTblTeilnehmerInput, tblMeisterschaftenUncheckedUpdateWithoutTblTeilnehmerInput>
+  }
+
+  export type tblMeisterschaftenUpdateWithoutTblTeilnehmerInput = {
+    Bezeichnung?: StringFieldUpdateOperationsInput | string
+    Beginn?: DateTimeFieldUpdateOperationsInput | Date | string
+    Ende?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    TurboDBNummer?: NullableIntFieldUpdateOperationsInput | number | null
+    Aktiv?: IntFieldUpdateOperationsInput | number
+    Bemerkungen?: NullableStringFieldUpdateOperationsInput | string | null
+    tblMeisterschaftstyp?: tblMeisterschaftstypUpdateOneRequiredWithoutTblMeisterschaftenNestedInput
+  }
+
+  export type tblMeisterschaftenUncheckedUpdateWithoutTblTeilnehmerInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    Bezeichnung?: StringFieldUpdateOperationsInput | string
+    Beginn?: DateTimeFieldUpdateOperationsInput | Date | string
+    Ende?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    MeisterschaftstypID?: IntFieldUpdateOperationsInput | number
+    TurboDBNummer?: NullableIntFieldUpdateOperationsInput | number | null
+    Aktiv?: IntFieldUpdateOperationsInput | number
+    Bemerkungen?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type tblMitgliederUpsertWithoutTblTeilnehmerInput = {
+    update: XOR<tblMitgliederUpdateWithoutTblTeilnehmerInput, tblMitgliederUncheckedUpdateWithoutTblTeilnehmerInput>
+    create: XOR<tblMitgliederCreateWithoutTblTeilnehmerInput, tblMitgliederUncheckedCreateWithoutTblTeilnehmerInput>
+    where?: tblMitgliederWhereInput
+  }
+
+  export type tblMitgliederUpdateToOneWithWhereWithoutTblTeilnehmerInput = {
+    where?: tblMitgliederWhereInput
+    data: XOR<tblMitgliederUpdateWithoutTblTeilnehmerInput, tblMitgliederUncheckedUpdateWithoutTblTeilnehmerInput>
+  }
+
+  export type tblMitgliederUpdateWithoutTblTeilnehmerInput = {
+    Vorname?: StringFieldUpdateOperationsInput | string
+    Nachname?: StringFieldUpdateOperationsInput | string
+    Spitzname?: NullableStringFieldUpdateOperationsInput | string | null
+    Strasse?: NullableStringFieldUpdateOperationsInput | string | null
+    PLZ?: NullableStringFieldUpdateOperationsInput | string | null
+    Ort?: NullableStringFieldUpdateOperationsInput | string | null
+    Geburtsdatum?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    MitgliedSeit?: DateTimeFieldUpdateOperationsInput | Date | string
+    PassivSeit?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    AusgeschiedenAm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Ehemaliger?: BoolFieldUpdateOperationsInput | boolean
+    Notizen?: NullableStringFieldUpdateOperationsInput | string | null
+    Bemerkungen?: NullableStringFieldUpdateOperationsInput | string | null
+    Anrede?: NullableStringFieldUpdateOperationsInput | string | null
+    EMail?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonPrivat?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonFirma?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonMobil?: NullableStringFieldUpdateOperationsInput | string | null
+    Fax?: NullableStringFieldUpdateOperationsInput | string | null
+    SpAnz?: NullableIntFieldUpdateOperationsInput | number | null
+    SpGew?: NullableIntFieldUpdateOperationsInput | number | null
+    SpUn?: NullableIntFieldUpdateOperationsInput | number | null
+    SpVerl?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzGes?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzMax?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzMin?: NullableIntFieldUpdateOperationsInput | number | null
+    Punkte?: NullableIntFieldUpdateOperationsInput | number | null
+    Platz?: NullableStringFieldUpdateOperationsInput | string | null
+    TurboDBNummer?: NullableIntFieldUpdateOperationsInput | number | null
+    Login?: NullableStringFieldUpdateOperationsInput | string | null
+    Password?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type tblMitgliederUncheckedUpdateWithoutTblTeilnehmerInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    Vorname?: StringFieldUpdateOperationsInput | string
+    Nachname?: StringFieldUpdateOperationsInput | string
+    Spitzname?: NullableStringFieldUpdateOperationsInput | string | null
+    Strasse?: NullableStringFieldUpdateOperationsInput | string | null
+    PLZ?: NullableStringFieldUpdateOperationsInput | string | null
+    Ort?: NullableStringFieldUpdateOperationsInput | string | null
+    Geburtsdatum?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    MitgliedSeit?: DateTimeFieldUpdateOperationsInput | Date | string
+    PassivSeit?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    AusgeschiedenAm?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Ehemaliger?: BoolFieldUpdateOperationsInput | boolean
+    Notizen?: NullableStringFieldUpdateOperationsInput | string | null
+    Bemerkungen?: NullableStringFieldUpdateOperationsInput | string | null
+    Anrede?: NullableStringFieldUpdateOperationsInput | string | null
+    EMail?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonPrivat?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonFirma?: NullableStringFieldUpdateOperationsInput | string | null
+    TelefonMobil?: NullableStringFieldUpdateOperationsInput | string | null
+    Fax?: NullableStringFieldUpdateOperationsInput | string | null
+    SpAnz?: NullableIntFieldUpdateOperationsInput | number | null
+    SpGew?: NullableIntFieldUpdateOperationsInput | number | null
+    SpUn?: NullableIntFieldUpdateOperationsInput | number | null
+    SpVerl?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzGes?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzMax?: NullableIntFieldUpdateOperationsInput | number | null
+    HolzMin?: NullableIntFieldUpdateOperationsInput | number | null
+    Punkte?: NullableIntFieldUpdateOperationsInput | number | null
+    Platz?: NullableStringFieldUpdateOperationsInput | string | null
+    TurboDBNummer?: NullableIntFieldUpdateOperationsInput | number | null
+    Login?: NullableStringFieldUpdateOperationsInput | string | null
+    Password?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type tblTeilnehmerCreateManyTblMeisterschaftenInput = {
+    ID?: number
+    SpielerID: number
+  }
+
+  export type tblTeilnehmerUpdateWithoutTblMeisterschaftenInput = {
+    tblMitglieder?: tblMitgliederUpdateOneRequiredWithoutTblTeilnehmerNestedInput
+  }
+
+  export type tblTeilnehmerUncheckedUpdateWithoutTblMeisterschaftenInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblTeilnehmerUncheckedUpdateManyWithoutTblMeisterschaftenInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    SpielerID?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblMeisterschaftenCreateManyTblMeisterschaftstypInput = {
+    ID?: number
+    Bezeichnung: string
+    Beginn: Date | string
+    Ende?: Date | string | null
+    TurboDBNummer?: number | null
+    Aktiv: number
+    Bemerkungen?: string | null
+  }
+
+  export type tblMeisterschaftenUpdateWithoutTblMeisterschaftstypInput = {
+    Bezeichnung?: StringFieldUpdateOperationsInput | string
+    Beginn?: DateTimeFieldUpdateOperationsInput | Date | string
+    Ende?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    TurboDBNummer?: NullableIntFieldUpdateOperationsInput | number | null
+    Aktiv?: IntFieldUpdateOperationsInput | number
+    Bemerkungen?: NullableStringFieldUpdateOperationsInput | string | null
+    tblTeilnehmer?: tblTeilnehmerUpdateManyWithoutTblMeisterschaftenNestedInput
+  }
+
+  export type tblMeisterschaftenUncheckedUpdateWithoutTblMeisterschaftstypInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    Bezeichnung?: StringFieldUpdateOperationsInput | string
+    Beginn?: DateTimeFieldUpdateOperationsInput | Date | string
+    Ende?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    TurboDBNummer?: NullableIntFieldUpdateOperationsInput | number | null
+    Aktiv?: IntFieldUpdateOperationsInput | number
+    Bemerkungen?: NullableStringFieldUpdateOperationsInput | string | null
+    tblTeilnehmer?: tblTeilnehmerUncheckedUpdateManyWithoutTblMeisterschaftenNestedInput
+  }
+
+  export type tblMeisterschaftenUncheckedUpdateManyWithoutTblMeisterschaftstypInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    Bezeichnung?: StringFieldUpdateOperationsInput | string
+    Beginn?: DateTimeFieldUpdateOperationsInput | Date | string
+    Ende?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    TurboDBNummer?: NullableIntFieldUpdateOperationsInput | number | null
+    Aktiv?: IntFieldUpdateOperationsInput | number
+    Bemerkungen?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type tblTeilnehmerCreateManyTblMitgliederInput = {
+    ID?: number
+    MeisterschaftsID: number
+  }
+
+  export type tblTeilnehmerUpdateWithoutTblMitgliederInput = {
+    tblMeisterschaften?: tblMeisterschaftenUpdateOneRequiredWithoutTblTeilnehmerNestedInput
+  }
+
+  export type tblTeilnehmerUncheckedUpdateWithoutTblMitgliederInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    MeisterschaftsID?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type tblTeilnehmerUncheckedUpdateManyWithoutTblMitgliederInput = {
+    ID?: IntFieldUpdateOperationsInput | number
+    MeisterschaftsID?: IntFieldUpdateOperationsInput | number
+  }
+
+
+
+  /**
+   * Batch Payload for updateMany & deleteMany & createMany
+   */
+
+  export type BatchPayload = {
+    count: number
+  }
+
+  /**
+   * DMMF
+   */
+  export const dmmf: runtime.BaseDMMF
+}
