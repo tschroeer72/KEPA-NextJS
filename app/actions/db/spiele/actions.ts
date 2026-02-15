@@ -3,7 +3,7 @@
 import { prisma } from '@/lib/prisma'
 import { createChangeLogAction } from '@/utils/change-log-action'
 import { revalidatePath } from 'next/cache'
-import { Prisma } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
 
 // Generic save function for different game types
 export async function saveGameResult(type: string, data: any) {
