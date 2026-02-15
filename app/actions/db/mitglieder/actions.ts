@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma'
 import { createChangeLogAction } from '@/utils/change-log-action'
 import { revalidatePath } from 'next/cache'
+import { tblMitglieder } from '@prisma/client'
 
 export async function getMitglieder() {
   try {
@@ -29,7 +30,7 @@ export async function getAktiveMitglieder() {
       }
     })
 
-    const transformedData = dataMitglieder.map(m => ({
+    const transformedData = dataMitglieder.map((m: tblMitglieder) => ({
       ID: m.ID,
       Anzeigename: m.Spitzname ? `${m.Vorname} "${m.Spitzname}" ${m.Nachname}` : `${m.Vorname} ${m.Nachname}`,
       Vorname: m.Vorname,
@@ -59,7 +60,7 @@ export async function getMitgliedById(id: number) {
   }
 }
 
-export async function createMitglied(body: any) {
+export async function createMitglied(body: Partial<tblMitglieder>) {
   try {
     if (!body.Vorname || !body.Nachname || !body.MitgliedSeit) {
       return { success: false, error: 'Pflichtfelder fehlen' }
@@ -112,9 +113,9 @@ export async function createMitglied(body: any) {
   }
 }
 
-export async function updateMitglied(id: number, body: any) {
+export async function updateMitglied(id: number, body: Partial<tblMitglieder>) {
   try {
-    const updateData: any = {}
+    const updateData: Partial<tblMitglieder> = {}
     const fields = [
       'Vorname', 'Nachname', 'Spitzname', 'Strasse', 'PLZ', 'Ort', 
       'Notizen', 'Bemerkungen', 'Anrede', 'EMail', 'TelefonPrivat', 
@@ -122,18 +123,27 @@ export async function updateMitglied(id: number, body: any) {
     ]
     
     fields.forEach(f => {
-      if (body[f] !== undefined) updateData[f] = String(body[f] || "")
+      const key = f as keyof tblMitglieder;
+      if (body[key] !== undefined) (updateData as any)[key] = String(body[key] || "")
     })
 
     if (body.Geburtsdatum !== undefined) updateData.Geburtsdatum = body.Geburtsdatum ? new Date(body.Geburtsdatum) : null
-    if (body.MitgliedSeit !== undefined) updateData.MitgliedSeit = body.MitgliedSeit ? new Date(body.MitgliedSeit) : null
+    if (body.MitgliedSeit !== undefined) {
+      if (body.MitgliedSeit === null) {
+        // MitgliedSeit is mandatory in schema, but for safety in update:
+        (updateData as any).MitgliedSeit = undefined
+      } else {
+        updateData.MitgliedSeit = new Date(body.MitgliedSeit)
+      }
+    }
     if (body.PassivSeit !== undefined) updateData.PassivSeit = body.PassivSeit ? new Date(body.PassivSeit) : null
     if (body.AusgeschiedenAm !== undefined) updateData.AusgeschiedenAm = body.AusgeschiedenAm ? new Date(body.AusgeschiedenAm) : null
     if (body.Ehemaliger !== undefined) updateData.Ehemaliger = Boolean(body.Ehemaliger)
 
     const numericFields = ['SpAnz', 'SpGew', 'SpUn', 'SpVerl', 'HolzGes', 'HolzMax', 'HolzMin', 'Punkte', 'TurboDBNummer']
     numericFields.forEach(f => {
-      if (body[f] !== undefined) updateData[f] = Number(body[f] || 0)
+      const key = f as keyof tblMitglieder;
+      if (body[key] !== undefined) (updateData as any)[key] = Number(body[key] || 0)
     })
 
     const dataMitglieder = await prisma.tblMitglieder.update({

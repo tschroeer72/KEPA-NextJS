@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma'
 import { createChangeLogAction } from '@/utils/change-log-action'
 import { revalidatePath } from 'next/cache'
+import { tblMeisterschaften } from '@prisma/client'
 
 export async function getMeisterschaften() {
   try {
@@ -35,12 +36,12 @@ export async function getMeisterschaftById(id: number) {
   }
 }
 
-export async function createMeisterschaft(body: any) {
+export async function createMeisterschaft(body: Partial<tblMeisterschaften>) {
   try {
     const data = await prisma.tblMeisterschaften.create({
       data: {
-        Bezeichnung: String(body.Bezeichnung),
-        Beginn: new Date(body.Beginn),
+        Bezeichnung: String(body.Bezeichnung || ""),
+        Beginn: body.Beginn ? new Date(body.Beginn) : new Date(),
         Ende: body.Ende ? new Date(body.Ende) : null,
         MeisterschaftstypID: Number(body.MeisterschaftstypID),
         TurboDBNummer: Number(body.TurboDBNummer || 0),
@@ -60,9 +61,9 @@ export async function createMeisterschaft(body: any) {
   }
 }
 
-export async function updateMeisterschaft(id: number, body: any) {
+export async function updateMeisterschaft(id: number, body: Partial<tblMeisterschaften>) {
   try {
-    const updateData: any = {}
+    const updateData: Partial<tblMeisterschaften> = {}
     if (body.Bezeichnung !== undefined) updateData.Bezeichnung = String(body.Bezeichnung)
     if (body.Beginn !== undefined) updateData.Beginn = new Date(body.Beginn)
     if (body.Ende !== undefined) updateData.Ende = body.Ende ? new Date(body.Ende) : null

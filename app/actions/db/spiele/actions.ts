@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma'
 import { createChangeLogAction } from '@/utils/change-log-action'
 import { revalidatePath } from 'next/cache'
+import { Prisma } from '@prisma/client'
 
 // Generic save function for different game types
 export async function saveGameResult(type: string, data: any) {
@@ -12,11 +13,11 @@ export async function saveGameResult(type: string, data: any) {
     
     switch(type) {
       case '9erratten':
-        result = await prisma.tbl9erRatten.create({ data });
+        result = await prisma.tbl9erRatten.create({ data: data as Prisma.tbl9erRattenUncheckedCreateInput });
         table = "tbl9erRatten";
         break;
       case 'spieltag':
-        result = await prisma.tblSpieltag.create({ data });
+        result = await prisma.tblSpieltag.create({ data: data as Prisma.tblSpieltagUncheckedCreateInput });
         table = "tblSpieltag";
         break;
       // Add other cases as needed

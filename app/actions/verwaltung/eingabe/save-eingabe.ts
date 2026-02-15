@@ -3,11 +3,53 @@
 import { prisma } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
 
+interface BaseEingabeData {
+  SpielerID: number;
+}
+
+interface RattenData extends BaseEingabeData {
+  Neuner: number;
+  Ratten: number;
+  Kranz8: number;
+}
+
+interface TageRennenData {
+  Spieler1ID: number;
+  Spieler2ID: number;
+  Runden: number;
+  Punkte: number;
+  Spielnr: number;
+}
+
+interface PokalSargData extends BaseEingabeData {
+  Platzierung: number;
+}
+
+interface MeisterschaftBlitzData {
+  Spieler1ID: number;
+  Spieler2ID: number;
+  Wert1: number;
+  Wert2: number;
+  HinRueckrunde: string;
+}
+
+interface KombiMeisterschaftData {
+  Spieler1ID: number;
+  Spieler2ID: number;
+  S1_3bis8: number;
+  S1_5K: number;
+  S2_3bis8: number;
+  S2_5K: number;
+  HinRueckrunde: string;
+}
+
+type EingabeData = RattenData | TageRennenData | PokalSargData | MeisterschaftBlitzData | KombiMeisterschaftData;
+
 export async function saveEingabeAction(
   meisterschaftsId: number,
   spieltag: Date,
   spiel: string,
-  data: any[]
+  data: EingabeData[]
 ) {
   try {
     // Start einer Transaktion (wie im C#-Code)
@@ -50,7 +92,7 @@ export async function saveEingabeAction(
       // 2. Daten speichern je nach Spieltyp
       switch (spiel) {
         case "9er-ratten-kranz8":
-          for (const item of data) {
+          for (const item of data as RattenData[]) {
             const existing = await tx.tbl9erRatten.findFirst({
               where: { SpieltagID: spieltagId, SpielerID: item.SpielerID }
             })
@@ -85,7 +127,7 @@ export async function saveEingabeAction(
           break
 
         case "6-tage-rennen":
-          for (const item of data) {
+          for (const item of data as TageRennenData[]) {
             const existing = await tx.tblSpiel6TageRennen.findFirst({
               where: { SpieltagID: spieltagId, SpielerID1: item.Spieler1ID, SpielerID2: item.Spieler2ID }
             })
@@ -121,7 +163,7 @@ export async function saveEingabeAction(
           break
 
         case "pokal":
-          for (const item of data) {
+          for (const item of data as PokalSargData[]) {
             const existing = await tx.tblSpielPokal.findFirst({
               where: { SpieltagID: spieltagId, SpielerID: item.SpielerID }
             })
@@ -147,7 +189,7 @@ export async function saveEingabeAction(
           break
 
         case "sargkegeln":
-          for (const item of data) {
+          for (const item of data as PokalSargData[]) {
             const existing = await tx.tblSpielSargKegeln.findFirst({
               where: { SpieltagID: spieltagId, SpielerID: item.SpielerID }
             })
@@ -173,7 +215,7 @@ export async function saveEingabeAction(
           break
 
         case "meisterschaft":
-          for (const item of data) {
+          for (const item of data as MeisterschaftBlitzData[]) {
             const existing = await tx.tblSpielMeisterschaft.findFirst({
               where: { SpieltagID: spieltagId, SpielerID1: item.Spieler1ID, SpielerID2: item.Spieler2ID }
             })
@@ -207,7 +249,7 @@ export async function saveEingabeAction(
           break
 
         case "blitztunier":
-          for (const item of data) {
+          for (const item of data as MeisterschaftBlitzData[]) {
             const existing = await tx.tblSpielBlitztunier.findFirst({
               where: { SpieltagID: spieltagId, SpielerID1: item.Spieler1ID, SpielerID2: item.Spieler2ID }
             })
@@ -241,7 +283,7 @@ export async function saveEingabeAction(
           break
 
         case "kombimeisterschaft":
-          for (const item of data) {
+          for (const item of data as KombiMeisterschaftData[]) {
             const existing = await tx.tblSpielKombimeisterschaft.findFirst({
               where: { SpieltagID: spieltagId, SpielerID1: item.Spieler1ID, SpielerID2: item.Spieler2ID }
             })
