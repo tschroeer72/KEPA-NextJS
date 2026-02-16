@@ -76,12 +76,11 @@ export function RundEmail() {
     
     // Auto-select filtered members that have an email
     // Preserve manually added emails that are already in selectedEmails
-    const filteredEmails = combined.map(m => m.EMail).filter((email): email is string => !!email);
-    setSelectedEmails((prev) => {
-      // Keep everything from filteredEmails, and also keep manual ones if they weren't in combined for some reason
-      // Actually, since combined includes manualMembers, filteredEmails includes manual emails.
-      return filteredEmails;
-    });
+    const filteredEmails = combined
+      .map(m => m.EMail?.trim())
+      .filter((email): email is string => !!email && email.includes("@"));
+    
+    setSelectedEmails(filteredEmails);
   };
 
   const handleToggleEmail = (email: string) => {
@@ -241,15 +240,14 @@ export function RundEmail() {
                       <Checkbox
                         id={`member-${member.ID}`}
                         checked={!!member.EMail && selectedEmails.includes(member.EMail)}
-                        disabled={!member.EMail}
                         onCheckedChange={() => member.EMail && handleToggleEmail(member.EMail)}
                       />
                       <Label
                         htmlFor={`member-${member.ID}`}
-                        className={`flex flex-1 justify-between gap-2 cursor-pointer ${!member.EMail ? "text-muted-foreground italic" : ""}`}
+                        className="flex flex-1 justify-between gap-2 cursor-pointer"
                       >
                         <span className="truncate">{member.Vorname} {member.Nachname}</span>
-                        <span className="truncate opacity-70">{member.EMail || "keine E-Mail"}</span>
+                        <span className="truncate opacity-70">{member.EMail}</span>
                       </Label>
                     </div>
                   ))

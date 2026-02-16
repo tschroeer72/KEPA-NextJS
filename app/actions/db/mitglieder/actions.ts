@@ -37,7 +37,15 @@ export async function getMembersForEmail() {
         Nachname: 'asc'
       }
     });
-    return { success: true, data: members };
+
+    // Filtern in JavaScript für maximale Zuverlässigkeit (trim, check @)
+    const validMembers = members.filter(m => 
+      m.EMail && 
+      m.EMail.trim() !== "" && 
+      m.EMail.includes("@")
+    );
+
+    return { success: true, data: validMembers };
   } catch (error) {
     console.error("Error fetching members for email:", error);
     return { success: false, error: "Fehler beim Laden der Mitglieder" };

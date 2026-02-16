@@ -34,13 +34,16 @@ export function EmailEntwickler() {
             try {
                 const result = await getMembersForEmail();
                 if (result.success && result.data) {
-                    // Filter out members without email and map to Member interface
-                    const memberData = (result.data as any[]).map(m => ({
-                        ID: m.ID,
-                        Vorname: m.Vorname,
-                        Nachname: m.Nachname,
-                        EMail: m.EMail
-                    }));
+                    // Result is already filtered by server action, but we can be extra safe
+                    const memberData = (result.data as any[])
+                        .map(m => ({
+                            ID: m.ID,
+                            Vorname: m.Vorname,
+                            Nachname: m.Nachname,
+                            EMail: m.EMail?.trim()
+                        }))
+                        .filter(m => m.EMail && m.EMail.includes("@"));
+                    
                     setMembers(memberData);
                 } else {
                     toast.error(result.error || "Fehler beim Laden der CC-Empfänger");
@@ -141,19 +144,17 @@ export function EmailEntwickler() {
                                         ) : (
                                             <div className="flex flex-col gap-1">
                                                 {members.map((member) => (
-                                                    member.EMail && (
-                                                        <div key={member.ID} className="flex items-center space-x-2 p-2 hover:bg-muted rounded-sm transition-colors cursor-pointer" onClick={() => toggleEmail(member.EMail!)}>
-                                                            <Checkbox 
-                                                                id={`member-${member.ID}`} 
-                                                                checked={selectedEmails.includes(member.EMail)}
-                                                                onCheckedChange={() => toggleEmail(member.EMail!)}
-                                                            />
-                                                            <div className="flex justify-between w-full text-xs">
-                                                                <span className="font-medium">{member.Vorname} {member.Nachname}</span>
-                                                                <span className="text-muted-foreground">{member.EMail}</span>
-                                                            </div>
+                                                    <div key={member.ID} className="flex items-center space-x-2 p-2 hover:bg-muted rounded-sm transition-colors cursor-pointer" onClick={() => toggleEmail(member.EMail!)}>
+                                                        <Checkbox 
+                                                            id={`member-${member.ID}`} 
+                                                            checked={selectedEmails.includes(member.EMail!)}
+                                                            onCheckedChange={() => toggleEmail(member.EMail!)}
+                                                        />
+                                                        <div className="flex justify-between w-full text-xs">
+                                                            <span className="font-medium">{member.Vorname} {member.Nachname}</span>
+                                                            <span className="text-muted-foreground">{member.EMail}</span>
                                                         </div>
-                                                    )
+                                                    </div>
                                                 ))}
                                             </div>
                                         )}
