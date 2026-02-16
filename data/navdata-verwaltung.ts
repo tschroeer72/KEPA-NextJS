@@ -12,8 +12,8 @@
         href: "/verwaltung/eingabe",
     },
     {
-        title: "Ergebnisübersicht",
-        href: "/verwaltung/uebersicht",
+        title: "Ergebnisausgabe",
+        href: "/verwaltung/ausgabe",
     },
     {
         title: "Statistik",

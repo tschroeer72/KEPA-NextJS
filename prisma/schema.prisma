@@ -14,6 +14,9 @@ model tbl9erRatten {
   Ratten     Int @default(0)
   Kranzacht  Int @default(0)
 
+  tblMitglieder tblMitglieder @relation(fields: [SpielerID], references: [ID])
+  tblSpieltag   tblSpieltag   @relation(fields: [SpieltagID], references: [ID])
+
   @@index([SpielerID], map: "FK_tbl9erRatten_tblMitglieder")
   @@index([SpieltagID], map: "FK_tbl9erRatten_tblSpieltag")
 }
@@ -86,7 +89,18 @@ model tblMitglieder {
   Login           String?   @db.VarChar(255)
   Password        String?   @db.VarChar(255)
 
-  tblTeilnehmer tblTeilnehmer[]
+  tblTeilnehmer                   tblTeilnehmer[]
+  tbl9erRatten                    tbl9erRatten[]
+  tblSpiel6TageRennen_SpielerID1  tblSpiel6TageRennen[]        @relation("tblSpiel6TageRennen_SpielerID1")
+  tblSpiel6TageRennen_SpielerID2  tblSpiel6TageRennen[]        @relation("tblSpiel6TageRennen_SpielerID2")
+  tblSpielBlitztunier_SpielerID1  tblSpielBlitztunier[]        @relation("tblSpielBlitztunier_SpielerID1")
+  tblSpielBlitztunier_SpielerID2  tblSpielBlitztunier[]        @relation("tblSpielBlitztunier_SpielerID2")
+  tblSpielKombimeisterschaft_SpielerID1 tblSpielKombimeisterschaft[] @relation("tblSpielKombimeisterschaft_SpielerID1")
+  tblSpielKombimeisterschaft_SpielerID2 tblSpielKombimeisterschaft[] @relation("tblSpielKombimeisterschaft_SpielerID2")
+  tblSpielMeisterschaft_SpielerID1      tblSpielMeisterschaft[]      @relation("tblSpielMeisterschaft_SpielerID1")
+  tblSpielMeisterschaft_SpielerID2      tblSpielMeisterschaft[]      @relation("tblSpielMeisterschaft_SpielerID2")
+  tblSpielPokal                   tblSpielPokal[]
+  tblSpielSargKegeln              tblSpielSargKegeln[]
 }
 
 model tblSettings {
@@ -105,6 +119,10 @@ model tblSpiel6TageRennen {
   Punkte      Int
   Spielnummer Int? @default(1)
 
+  tblMitglieder_SpielerID1 tblMitglieder @relation("tblSpiel6TageRennen_SpielerID1", fields: [SpielerID1], references: [ID])
+  tblMitglieder_SpielerID2 tblMitglieder @relation("tblSpiel6TageRennen_SpielerID2", fields: [SpielerID2], references: [ID])
+  tblSpieltag              tblSpieltag   @relation(fields: [SpieltagID], references: [ID])
+
   @@index([SpielerID1], map: "FK_tblSpiel6TageRennen_tblMitglieder")
   @@index([SpielerID2], map: "FK_tblSpiel6TageRennen_tblMitglieder1")
   @@index([SpieltagID], map: "FK_tblSpiel6TageRennen_tblSpieltag")
@@ -118,6 +136,10 @@ model tblSpielBlitztunier {
   PunkteSpieler1 Int
   PunkteSpieler2 Int
   HinR_ckrunde   Int @map("HinRückrunde")
+
+  tblMitglieder_SpielerID1 tblMitglieder @relation("tblSpielBlitztunier_SpielerID1", fields: [SpielerID1], references: [ID])
+  tblMitglieder_SpielerID2 tblMitglieder @relation("tblSpielBlitztunier_SpielerID2", fields: [SpielerID2], references: [ID])
+  tblSpieltag              tblSpieltag   @relation(fields: [SpieltagID], references: [ID])
 
   @@index([SpielerID1], map: "FK_tblSpielBlitztunier_tblMitglieder")
   @@index([SpielerID2], map: "FK_tblSpielBlitztunier_tblMitglieder1")
@@ -136,6 +158,10 @@ model tblSpielKombimeisterschaft {
   Spieler2Punkte5Kugeln Int
   HinRueckrunde         Int @default(0)
 
+  tblMitglieder_SpielerID1 tblMitglieder @relation("tblSpielKombimeisterschaft_SpielerID1", fields: [SpielerID1], references: [ID])
+  tblMitglieder_SpielerID2 tblMitglieder @relation("tblSpielKombimeisterschaft_SpielerID2", fields: [SpielerID2], references: [ID])
+  tblSpieltag              tblSpieltag   @relation(fields: [SpieltagID], references: [ID])
+
   @@index([SpielerID1], map: "FK_tblSpielKombimeisterschaft_tblMitglieder")
   @@index([SpielerID2], map: "FK_tblSpielKombimeisterschaft_tblMitglieder1")
 }
@@ -149,6 +175,10 @@ model tblSpielMeisterschaft {
   HolzSpieler2  Int
   HinRueckrunde Int
 
+  tblMitglieder_SpielerID1 tblMitglieder @relation("tblSpielMeisterschaft_SpielerID1", fields: [SpielerID1], references: [ID])
+  tblMitglieder_SpielerID2 tblMitglieder @relation("tblSpielMeisterschaft_SpielerID2", fields: [SpielerID2], references: [ID])
+  tblSpieltag              tblSpieltag   @relation(fields: [SpieltagID], references: [ID])
+
   @@index([SpielerID1], map: "FK_tblSpielMeisterschaft_tblMitglieder")
   @@index([SpielerID2], map: "FK_tblSpielMeisterschaft_tblMitglieder1")
   @@index([SpieltagID], map: "FK_tblSpielMeisterschaft_tblSpieltag")
@@ -160,6 +190,9 @@ model tblSpielPokal {
   SpielerID   Int
   Platzierung Int @default(0)
 
+  tblMitglieder tblMitglieder @relation(fields: [SpielerID], references: [ID])
+  tblSpieltag   tblSpieltag   @relation(fields: [SpieltagID], references: [ID])
+
   @@index([SpieltagID], map: "FK_tblSpielPokal__tblSpieltag")
   @@index([SpielerID], map: "FK_tblSpielPokal_tblMitglieder")
 }
@@ -170,6 +203,9 @@ model tblSpielSargKegeln {
   SpielerID   Int
   Platzierung Int
 
+  tblMitglieder tblMitglieder @relation(fields: [SpielerID], references: [ID])
+  tblSpieltag   tblSpieltag   @relation(fields: [SpieltagID], references: [ID])
+
   @@index([SpielerID], map: "FK_tblSargKegeln_tblMitglieder")
   @@index([SpieltagID], map: "FK_tblSargKegeln_tblSpieltag")
 }
@@ -179,6 +215,14 @@ model tblSpieltag {
   MeisterschaftsID Int
   Spieltag         DateTime @db.DateTime(0)
   InBearbeitung    Boolean  @db.Bit(1)
+
+  tbl9erRatten               tbl9erRatten[]
+  tblSpiel6TageRennen        tblSpiel6TageRennen[]
+  tblSpielBlitztunier        tblSpielBlitztunier[]
+  tblSpielKombimeisterschaft tblSpielKombimeisterschaft[]
+  tblSpielMeisterschaft      tblSpielMeisterschaft[]
+  tblSpielPokal              tblSpielPokal[]
+  tblSpielSargKegeln         tblSpielSargKegeln[]
 
   @@index([MeisterschaftsID], map: "FK_tblSpieltag_tblMeisterschaften")
 }

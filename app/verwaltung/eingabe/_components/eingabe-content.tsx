@@ -1,9 +1,9 @@
 ﻿"use client"
 
 import * as React from "react"
-import AuswahlCard from "@/app/verwaltung/eingabe/_components/AuswahlCard"
-import ErgebniseingabeCard from "@/app/verwaltung/eingabe/_components/ErgebniseingabeCard"
-import KontrollausgabeCard from "@/app/verwaltung/eingabe/_components/KontrollausgabeCard"
+import AuswahlCard from "@/app/verwaltung/eingabe/_components/auswahl-card"
+import ErgebniseingabeCard from "@/app/verwaltung/eingabe/_components/ergebniseingabe-card"
+import GenericErgebnisCard from "@/components/generic-ergebnis-card"
 import { SpieleType } from "@/types/spiele-type"
 import { AktiverMitspieler } from "@/interfaces/aktiver-mitspieler"
 import { getKontrollausgabeAction } from "@/app/actions/verwaltung/eingabe"
@@ -58,7 +58,8 @@ export default function EingabeContent({ mitglieder, meisterschaftsId }: Props) 
       </div>
 
       {/* Zweite Zeile: eine Card mit Tabs */}
-      <KontrollausgabeCard 
+      <GenericErgebnisCard
+        title="Kontrollausgabe"
         spiel={spiel} 
         onSpielChange={setSpiel} 
         data={kontrollData}

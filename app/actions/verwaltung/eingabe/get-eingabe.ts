@@ -42,7 +42,13 @@ export async function getKontrollausgabeAction(date: Date) {
         return m.Spitzname && m.Spitzname.trim() !== "" ? m.Spitzname : m.Vorname
     }
 
+    const formatDate = (d: Date) => {
+        return d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+    }
+    const formattedSpieltag = formatDate(spieltag.Spieltag)
+
     const ausgabeNeunerRatten = neunerRatten.map(item => ({
+        Spieltag: formattedSpieltag,
         SpieltagID: item.SpieltagID,
         SpielerID: item.SpielerID,
         Spielername: getSpielerName(item.SpielerID),
@@ -56,6 +62,7 @@ export async function getKontrollausgabeAction(date: Date) {
         where: { SpieltagID: spieltagId }
     })
     const ausgabeSechsTageRennen = sechsTageRennen.map(item => ({
+        Spieltag: formattedSpieltag,
         SpieltagID: item.SpieltagID,
         Spieler1ID: item.SpielerID1,
         Spieler1Name: getSpielerName(item.SpielerID1),
@@ -71,6 +78,7 @@ export async function getKontrollausgabeAction(date: Date) {
         where: { SpieltagID: spieltagId }
     })
     const ausgabePokal = pokal.map(item => ({
+        Spieltag: formattedSpieltag,
         SpieltagID: item.SpieltagID,
         SpielerID: item.SpielerID,
         Spielername: getSpielerName(item.SpielerID),
@@ -82,6 +90,7 @@ export async function getKontrollausgabeAction(date: Date) {
         where: { SpieltagID: spieltagId }
     })
     const ausgabeSargkegeln = sargkegeln.map(item => ({
+        Spieltag: formattedSpieltag,
         SpieltagID: item.SpieltagID,
         SpielerID: item.SpielerID,
         Spielername: getSpielerName(item.SpielerID),
@@ -93,6 +102,7 @@ export async function getKontrollausgabeAction(date: Date) {
         where: { SpieltagID: spieltagId }
     })
     const ausgabeMeisterschaft = meisterschaft.map(item => ({
+        Spieltag: formattedSpieltag,
         SpieltagID: item.SpieltagID,
         Spieler1ID: item.SpielerID1,
         Spieler1Name: getSpielerName(item.SpielerID1),
@@ -108,6 +118,7 @@ export async function getKontrollausgabeAction(date: Date) {
         where: { SpieltagID: spieltagId }
     })
     const ausgabeBlitztunier = blitztunier.map(item => ({
+        Spieltag: formattedSpieltag,
         SpieltagID: item.SpieltagID,
         Spieler1ID: item.SpielerID1,
         Spieler1Name: getSpielerName(item.SpielerID1),
@@ -123,6 +134,7 @@ export async function getKontrollausgabeAction(date: Date) {
         where: { SpieltagID: spieltagId }
     })
     const ausgabeKombimeisterschaft = kombimeisterschaft.map(item => ({
+        Spieltag: formattedSpieltag,
         SpieltagID: item.SpieltagID,
         Spieler1ID: item.SpielerID1,
         Spieler1Name: getSpielerName(item.SpielerID1),

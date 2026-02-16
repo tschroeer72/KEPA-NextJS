@@ -1,6 +1,6 @@
 ﻿import { prisma } from '@/lib/prisma'
 import { AktiverMitspieler } from '@/interfaces/aktiver-mitspieler'
-import EingabeContent from "./_components/EingabeContent"
+import EingabeContent from "./_components/eingabe-content"
 
 async function getAktiveMitglieder(): Promise<AktiverMitspieler[]> {
   const dataMitglieder = await prisma.tblMitglieder.findMany({
