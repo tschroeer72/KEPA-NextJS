@@ -10,6 +10,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
 import { Loader2, Send } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { getMembersForEmail } from "@/app/actions/db/mitglieder/actions";
 
 interface Member {
     ID: number;
@@ -31,12 +32,18 @@ export function EmailEntwickler() {
         const fetchMembers = async () => {
             setFetchingMembers(true);
             try {
-                const response = await fetch("/api/members");
-                if (response.ok) {
-                    const data = await response.json();
-                    setMembers(data);
+                const result = await getMembersForEmail();
+                if (result.success && result.data) {
+                    // Filter out members without email and map to Member interface
+                    const memberData = (result.data as any[]).map(m => ({
+                        ID: m.ID,
+                        Vorname: m.Vorname,
+                        Nachname: m.Nachname,
+                        EMail: m.EMail
+                    }));
+                    setMembers(memberData);
                 } else {
-                    toast.error("Fehler beim Laden der CC-Empfänger");
+                    toast.error(result.error || "Fehler beim Laden der CC-Empfänger");
                 }
             } catch (error) {
                 toast.error("Netzwerkfehler beim Laden der CC-Empfänger");

@@ -24,9 +24,14 @@ export async function POST(request: Request) {
       to: recipients.join(", "),
       subject: subject,
       text: message,
-      // attachments logic could be added here if files are passed as base64 or similar
+      attachments: attachments?.map((file: any) => ({
+        filename: file.name,
+        content: file.content,
+        encoding: 'base64',
+        contentType: file.contentType
+      })) || [],
     };
-
+    //console.log("MailOptions:", mailOptions);
     await transporter.sendMail(mailOptions);
 
     return NextResponse.json({ success: true, message: "E-Mail erfolgreich versendet" });

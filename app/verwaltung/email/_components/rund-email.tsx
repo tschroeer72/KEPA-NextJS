@@ -10,6 +10,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { Loader2, Plus, Trash2, Send } from "lucide-react";
+import { getMembersForEmail } from "@/app/actions/db/mitglieder/actions";
 
 interface Member {
   ID: number;
@@ -21,13 +22,14 @@ interface Member {
 
 export function RundEmail() {
   const [members, setMembers] = useState<Member[]>([]);
+  const [manualMembers, setManualMembers] = useState<Member[]>([]);
   const [filteredMembers, setFilteredMembers] = useState<Member[]>([]);
   const [selectedEmails, setSelectedEmails] = useState<string[]>([]);
   const [selectionType, setSelectionType] = useState<string>("all");
   const [additionalEmail, setAdditionalEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  const [attachments, setAttachments] = useState<{ name: string; path: string }[]>([]);
+  const [attachments, setAttachments] = useState<{ name: string; content: string; contentType: string }[]>([]);
   const [loading, setLoading] = useState(false);
   const [fetchingMembers, setFetchingMembers] = useState(true);
 
@@ -37,17 +39,23 @@ export function RundEmail() {
 
   useEffect(() => {
     filterMembers();
-  }, [selectionType, members]);
+  }, [selectionType, members, manualMembers]);
 
   const fetchMembers = async () => {
     setFetchingMembers(true);
     try {
-      const response = await fetch("/api/members");
-      if (response.ok) {
-        const data = await response.json();
-        setMembers(data);
+      const result = await getMembersForEmail();
+      if (result.success && result.data) {
+        const memberData = (result.data as any[]).map(m => ({
+          ID: m.ID,
+          Vorname: m.Vorname,
+          Nachname: m.Nachname,
+          EMail: m.EMail,
+          PassivSeit: m.PassivSeit ? m.PassivSeit.toISOString() : null
+        }));
+        setMembers(memberData);
       } else {
-        toast.error("Fehler beim Laden der Mitglieder");
+        toast.error(result.error || "Fehler beim Laden der Mitglieder");
       }
     } catch (error) {
       toast.error("Netzwerkfehler beim Laden der Mitglieder");
@@ -61,9 +69,19 @@ export function RundEmail() {
     if (selectionType === "active") {
       filtered = members.filter((m) => !m.PassivSeit);
     }
-    setFilteredMembers(filtered);
+    
+    // Add manual members to the filtered list
+    const combined = [...filtered, ...manualMembers];
+    setFilteredMembers(combined);
+    
     // Auto-select filtered members that have an email
-    setSelectedEmails(filtered.map(m => m.EMail).filter((email): email is string => !!email));
+    // Preserve manually added emails that are already in selectedEmails
+    const filteredEmails = combined.map(m => m.EMail).filter((email): email is string => !!email);
+    setSelectedEmails((prev) => {
+      // Keep everything from filteredEmails, and also keep manual ones if they weren't in combined for some reason
+      // Actually, since combined includes manualMembers, filteredEmails includes manual emails.
+      return filteredEmails;
+    });
   };
 
   const handleToggleEmail = (email: string) => {
@@ -75,6 +93,14 @@ export function RundEmail() {
   const handleAddEmail = () => {
     if (additionalEmail && !selectedEmails.includes(additionalEmail)) {
       if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(additionalEmail)) {
+        const newManualMember: Member = {
+          ID: -Date.now(), // Unique negative ID
+          Vorname: "",
+          Nachname: "",
+          EMail: additionalEmail,
+          PassivSeit: null
+        };
+        setManualMembers(prev => [...prev, newManualMember]);
         setSelectedEmails((prev) => [...prev, additionalEmail]);
         setAdditionalEmail("");
       } else {
@@ -84,15 +110,47 @@ export function RundEmail() {
   };
 
   const handleRemoveSelectedEmails = () => {
-    // This is more like "unselect all" in this context
+    // This is more like "unselect all" in this context, but for manual ones we remove them
     setSelectedEmails([]);
+    setManualMembers([]);
   };
 
-  const handleAddAttachment = () => {
-    // Simulation of file dialog
-    toast.info("Dateiauswahl-Simulation: Anhang hinzugefügt");
-    const newAttachment = { name: `Dokument_${attachments.length + 1}.pdf`, path: "/tmp/path" };
-    setAttachments([...attachments, newAttachment]);
+  const handleAddAttachment = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+
+    Array.from(files).forEach((file) => {
+      if (file.size > MAX_SIZE) {
+        toast.error(`Datei "${file.name}" ist zu groß (max. 5MB)`);
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const content = event.target?.result as string;
+        // base64 content
+        const base64Content = content.split(",")[1];
+        
+        setAttachments((prev) => [
+          ...prev,
+          {
+            name: file.name,
+            content: base64Content,
+            contentType: file.type,
+          },
+        ]);
+      };
+      reader.readAsDataURL(file);
+    });
+    
+    // Reset input
+    e.target.value = "";
+  };
+
+  const handleRemoveAttachment = (index: number) => {
+    setAttachments((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleRemoveAttachments = () => {
@@ -239,6 +297,14 @@ export function RundEmail() {
                     {attachments.map((file, idx) => (
                       <li key={idx} className="text-sm p-2 bg-background border rounded flex justify-between items-center">
                         <span className="truncate">{file.name}</span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 w-8 p-0 text-destructive"
+                          onClick={() => handleRemoveAttachment(idx)}
+                        >
+                          <Trash2 className="size-4" />
+                        </Button>
                       </li>
                     ))}
                   </ul>
@@ -253,9 +319,17 @@ export function RundEmail() {
                 <Trash2 className="size-4 mr-2" />
                 Löschen
               </Button>
-              <Button variant="outline" size="sm" onClick={handleAddAttachment}>
-                <Plus className="size-4 mr-2" />
-                Hinzufügen
+              <Button variant="outline" size="sm" asChild>
+                <label className="cursor-pointer flex items-center">
+                  <Plus className="size-4 mr-2" />
+                  Hinzufügen
+                  <input
+                    type="file"
+                    className="hidden"
+                    multiple
+                    onChange={handleAddAttachment}
+                  />
+                </label>
               </Button>
             </div>
 
