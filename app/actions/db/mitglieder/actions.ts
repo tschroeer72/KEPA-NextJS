@@ -68,13 +68,54 @@ export async function getAktiveMitglieder() {
       Anzeigename: m.Spitzname ? `${m.Vorname} "${m.Spitzname}" ${m.Nachname}` : `${m.Vorname} ${m.Nachname}`,
       Vorname: m.Vorname,
       Nachname: m.Nachname,
-      Spitzname: m.Spitzname || ""
+      Spitzname: m.Spitzname || "",
+      Strasse: m.Strasse || "",
+      PLZ: m.PLZ || "",
+      Ort: m.Ort || "",
+      Geburtsdatum: m.Geburtsdatum,
+      MitgliedSeit: m.MitgliedSeit,
+      AusgeschiedenAm: m.AusgeschiedenAm,
+      EMail: m.EMail || "",
+      TelefonMobil: m.TelefonMobil || "",
+      TelefonPrivat: m.TelefonPrivat || ""
     }))
 
     return { success: true, data: transformedData }
   } catch (error) {
     console.error('Database error:', error)
     return { success: false, error: 'Fehler beim Abrufen der aktiven Mitglieder' }
+  }
+}
+
+export async function getAlleMitglieder() {
+  try {
+    const dataMitglieder = await prisma.tblMitglieder.findMany({
+      orderBy: {
+        Nachname: 'asc'
+      }
+    })
+
+    const transformedData = dataMitglieder.map((m: any) => ({
+      ID: m.ID,
+      Anzeigename: m.Spitzname ? `${m.Vorname} "${m.Spitzname}" ${m.Nachname}` : `${m.Vorname} ${m.Nachname}`,
+      Vorname: m.Vorname,
+      Nachname: m.Nachname,
+      Spitzname: m.Spitzname || "",
+      Strasse: m.Strasse || "",
+      PLZ: m.PLZ || "",
+      Ort: m.Ort || "",
+      Geburtsdatum: m.Geburtsdatum,
+      MitgliedSeit: m.MitgliedSeit,
+      AusgeschiedenAm: m.AusgeschiedenAm,
+      EMail: m.EMail || "",
+      TelefonMobil: m.TelefonMobil || "",
+      TelefonPrivat: m.TelefonPrivat || ""
+    }))
+
+    return { success: true, data: transformedData }
+  } catch (error) {
+    console.error('Database error:', error)
+    return { success: false, error: 'Fehler beim Abrufen aller Mitglieder' }
   }
 }
 

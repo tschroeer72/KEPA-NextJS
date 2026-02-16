@@ -4,13 +4,13 @@ import { useState } from 'react';
 import ThemeSwitcher from "@/components/theme-switcher";
 import Link from "next/link";
 import {
-    NavigationMenu, NavigationMenuContent,
+    NavigationMenu,
     NavigationMenuItem,
     NavigationMenuLink,
-    NavigationMenuList, NavigationMenuTrigger,
+    NavigationMenuList,
 } from "@/components/ui/navigation-menu"
-import {NavDataVerwaltung, NavDataVordrucke} from "@/data/navdata-verwaltung";
-import {LogOut, Menu, X, ChevronDown, ChevronRight} from 'lucide-react';
+import {NavDataVerwaltung} from "@/data/navdata-verwaltung";
+import {LogOut, Menu, X} from 'lucide-react';
 import {useAuthContext} from "@/providers/auth-context-provider";
 import {useRouter} from "next/navigation";
 import axios from 'axios';
@@ -19,14 +19,9 @@ export default function AppBarVerwaltung() {
     const {setIsLogin} = useAuthContext();
     const router = useRouter();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isMobileVorlagenOpen, setIsMobileVorlagenOpen] = useState(false);
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
-    };
-
-    const toggleMobileVorlagen = () => {
-        setIsMobileVorlagenOpen(!isMobileVorlagenOpen);
     };
 
     const handleLogout = async () => {
@@ -76,38 +71,6 @@ export default function AppBarVerwaltung() {
                                     </NavigationMenuLink>
                                 </NavigationMenuItem>
                             ))}
-
-                            <NavigationMenuItem>
-                                <NavigationMenuTrigger className="px-3 py-2 text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 bg-transparent rounded transition-all">Vorlagen</NavigationMenuTrigger>
-                                <NavigationMenuContent className="bg-gray-800 dark:bg-gray-900 border border-gray-600 dark:border-gray-700">
-                                    <ul className="grid w-[400px] gap-3 p-6 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                                        {NavDataVordrucke.map((category) => (
-                                            <li key={category.title}>
-                                                <div className="mb-2">
-                                                    <div className="text-sm font-bold leading-none mb-2 text-white">
-                                                        {category.title}
-                                                    </div>
-                                                    <div className="space-y-1">
-                                                        {category.subtitle.map((item) => (
-                                                            <NavigationMenuLink key={item.subtitle} asChild>
-                                                                <a
-                                                                    href={item.href}
-                                                                    download
-                                                                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                                                                >
-                                                                    <div className="text-sm font-medium leading-none">
-                                                                        {item.subtitle}
-                                                                    </div>
-                                                                </a>
-                                                            </NavigationMenuLink>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </NavigationMenuContent>
-                            </NavigationMenuItem>
 
                         </NavigationMenuList>
                     </NavigationMenu>
@@ -164,45 +127,6 @@ export default function AppBarVerwaltung() {
                                 {navItem.title}
                             </Link>
                         ))}
-
-                        {/* Vorlagen Accordion für Mobile */}
-                        <div>
-                            <button
-                                onClick={toggleMobileVorlagen}
-                                className="flex items-center justify-between w-full px-3 py-2 text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 rounded transition-all"
-                            >
-                                <span>Vorlagen</span>
-                                {isMobileVorlagenOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-                            </button>
-
-                            {isMobileVorlagenOpen && (
-                                <div className="mt-2 ml-4 space-y-2">
-                                    {NavDataVordrucke.map((category) => (
-                                        <div key={category.title}>
-                                            <div className="text-sm font-bold text-gray-300 mb-1 px-3">
-                                                {category.title}
-                                            </div>
-                                            <div className="space-y-1">
-                                                {category.subtitle.map((item) => (
-                                                    <a
-                                                        key={item.subtitle}
-                                                        href={item.href}
-                                                        download
-                                                        className="block px-3 py-1 text-sm text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 rounded transition-all"
-                                                        onClick={() => {
-                                                            setIsMobileMenuOpen(false);
-                                                            setIsMobileVorlagenOpen(false);
-                                                        }}
-                                                    >
-                                                        {item.subtitle}
-                                                    </a>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
 
                         <button
                             onClick={() => {
