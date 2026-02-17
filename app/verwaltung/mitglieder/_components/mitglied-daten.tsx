@@ -8,9 +8,13 @@ import FormPersoenliches from "@/app/verwaltung/mitglieder/_components/form-pers
 import {MitgliedPersoenlichesFormData} from "@/interfaces/mitglied-persoenliches-form-data";
 import {MitgliedNotizenFormData} from "@/interfaces/mitglied-notizen-form-data";
 import FormNotizen from "@/app/verwaltung/mitglieder/_components/form-notizen";
+import StatistikCards from "@/app/verwaltung/mitglieder/_components/statistik-cards";
+import MitgliedErgebnisse from "@/app/verwaltung/mitglieder/_components/mitglied-ergebnisse";
 import {z} from "zod";
 import {toast} from "sonner";
 import {mitgliedSchema} from "@/zod/mitgliedSchema";
+import {Checkbox} from "@/components/ui/checkbox";
+import {Label} from "@/components/ui/label";
 
 interface MitgliedDatenProps {
     MitgliedID: number;
@@ -38,6 +42,9 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
     const [btnSpeichernEnabled, setBtnSpeichernEnabled] = useState(false);
     const [btnDruckenEnabled, setBtnDruckenEnabled] = useState(false);
     const [isEditable, setIsEditable] = useState(false);
+
+    const [showErgebnisse, setShowErgebnisse] = useState(true);
+    const [showStatistik, setShowStatistik] = useState(true);
 
     // Synchronisation des lokalen State mit dem Prop
     useEffect(() => {
@@ -356,8 +363,29 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
                                 onClick={() => {
                                     handleDruckenClick();
                                 }}
-                        >Drucken
+                        >PDF
                         </button>
+
+                        <div className="flex items-center space-x-4 ml-2">
+                            <div className="flex items-center space-x-2">
+                                <Checkbox
+                                    id="ergebnisse-1"
+                                    checked={showErgebnisse}
+                                    onCheckedChange={(checked) => setShowErgebnisse(!!checked)}
+                                    disabled={!btnDruckenEnabled}
+                                />
+                                <Label htmlFor="ergebnisse-1" className={!btnDruckenEnabled ? "text-gray-400" : ""}>Ergebnisse</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <Checkbox
+                                    id="statistik-1"
+                                    checked={showStatistik}
+                                    onCheckedChange={(checked) => setShowStatistik(!!checked)}
+                                    disabled={!btnDruckenEnabled}
+                                />
+                                <Label htmlFor="statistik-1" className={!btnDruckenEnabled ? "text-gray-400" : ""}>Statistik</Label>
+                            </div>
+                        </div>
                     </div>
                 </CardFooter>
             </Card>
@@ -425,6 +453,27 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
                                 }}
                         >Drucken
                         </button>
+
+                        <div className="flex items-center space-x-4 ml-2">
+                            <div className="flex items-center space-x-2">
+                                <Checkbox
+                                    id="ergebnisse-2"
+                                    checked={showErgebnisse}
+                                    onCheckedChange={(checked) => setShowErgebnisse(!!checked)}
+                                    disabled={!btnDruckenEnabled}
+                                />
+                                <Label htmlFor="ergebnisse-2" className={!btnDruckenEnabled ? "text-gray-400" : ""}>Ergebnisse</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <Checkbox
+                                    id="statistik-2"
+                                    checked={showStatistik}
+                                    onCheckedChange={(checked) => setShowStatistik(!!checked)}
+                                    disabled={!btnDruckenEnabled}
+                                />
+                                <Label htmlFor="statistik-2" className={!btnDruckenEnabled ? "text-gray-400" : ""}>Statistik</Label>
+                            </div>
+                        </div>
                     </div>
                 </CardFooter>
             </Card>
@@ -492,6 +541,27 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
                                 }}
                         >Drucken
                         </button>
+
+                        <div className="flex items-center space-x-4 ml-2">
+                            <div className="flex items-center space-x-2">
+                                <Checkbox
+                                    id="ergebnisse-3"
+                                    checked={showErgebnisse}
+                                    onCheckedChange={(checked) => setShowErgebnisse(!!checked)}
+                                    disabled={!btnDruckenEnabled}
+                                />
+                                <Label htmlFor="ergebnisse-3" className={!btnDruckenEnabled ? "text-gray-400" : ""}>Ergebnisse</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <Checkbox
+                                    id="statistik-3"
+                                    checked={showStatistik}
+                                    onCheckedChange={(checked) => setShowStatistik(!!checked)}
+                                    disabled={!btnDruckenEnabled}
+                                />
+                                <Label htmlFor="statistik-3" className={!btnDruckenEnabled ? "text-gray-400" : ""}>Statistik</Label>
+                            </div>
+                        </div>
                     </div>
                 </CardFooter>
             </Card>
@@ -560,6 +630,27 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
                                 }}
                         >Drucken
                         </button>
+
+                        <div className="flex items-center space-x-4 ml-2">
+                            <div className="flex items-center space-x-2">
+                                <Checkbox
+                                    id="ergebnisse-4"
+                                    checked={showErgebnisse}
+                                    onCheckedChange={(checked) => setShowErgebnisse(!!checked)}
+                                    disabled={!btnDruckenEnabled}
+                                />
+                                <Label htmlFor="ergebnisse-4" className={!btnDruckenEnabled ? "text-gray-400" : ""}>Ergebnisse</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <Checkbox
+                                    id="statistik-4"
+                                    checked={showStatistik}
+                                    onCheckedChange={(checked) => setShowStatistik(!!checked)}
+                                    disabled={!btnDruckenEnabled}
+                                />
+                                <Label htmlFor="statistik-4" className={!btnDruckenEnabled ? "text-gray-400" : ""}>Statistik</Label>
+                            </div>
+                        </div>
                     </div>
                 </CardFooter>
             </Card>
@@ -608,16 +699,22 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
                     <TabsContent value="ergebnisse">
                         {/* Ergebnisse */}
                         <div className="mt-4">
-                            <h2 className="font-semibold">Ergebnisse</h2>
-                            <p>Ergebnisse:</p>
+                            {currentMitgliedID > 0 ? (
+                                <MitgliedErgebnisse spielerId={currentMitgliedID} />
+                            ) : (
+                                <p className="text-gray-500 italic">Ergebnisse erst nach dem Speichern verfügbar.</p>
+                            )}
                         </div>
                     </TabsContent>
 
                     <TabsContent value="statistik">
                         {/* Statistiken */}
                         <div className="mt-4">
-                            <h2 className="font-semibold">Statistik</h2>
-                            <p>Statistik:</p>
+                            {currentMitgliedID > 0 ? (
+                                <StatistikCards spielerId={currentMitgliedID} />
+                            ) : (
+                                <p className="text-gray-500 italic">Statistik erst nach dem Speichern verfügbar.</p>
+                            )}
                         </div>
                     </TabsContent>
                 </Tabs>
@@ -672,6 +769,27 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
                             }}
                     >Drucken
                     </button>
+
+                    <div className="flex items-center space-x-4 ml-2">
+                        <div className="flex items-center space-x-2">
+                            <Checkbox
+                                id="ergebnisse-main"
+                                checked={showErgebnisse}
+                                onCheckedChange={(checked) => setShowErgebnisse(!!checked)}
+                                disabled={!btnDruckenEnabled}
+                            />
+                            <Label htmlFor="ergebnisse-main" className={!btnDruckenEnabled ? "text-gray-400" : ""}>Ergebnisse</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <Checkbox
+                                id="statistik-main"
+                                checked={showStatistik}
+                                onCheckedChange={(checked) => setShowStatistik(!!checked)}
+                                disabled={!btnDruckenEnabled}
+                            />
+                            <Label htmlFor="statistik-main" className={!btnDruckenEnabled ? "text-gray-400" : ""}>Statistik</Label>
+                        </div>
+                    </div>
                 </div>
             </CardFooter>
         </Card>

@@ -43,6 +43,7 @@ model tblMeisterschaften {
   // Relation: viele Meisterschaften gehören zu einem Meisterschaftstyp
   tblMeisterschaftstyp tblMeisterschaftstyp @relation(fields: [MeisterschaftstypID], references: [ID])
   tblTeilnehmer        tblTeilnehmer[]
+  tblSpieltag          tblSpieltag[]
 
   @@index([MeisterschaftstypID], map: "FK_tblMeisterschaften_tblMeisterschaftstyp")
 }
@@ -216,6 +217,7 @@ model tblSpieltag {
   Spieltag         DateTime @db.DateTime(0)
   InBearbeitung    Boolean  @db.Bit(1)
 
+  tblMeisterschaften         tblMeisterschaften @relation(fields: [MeisterschaftsID], references: [ID])
   tbl9erRatten               tbl9erRatten[]
   tblSpiel6TageRennen        tblSpiel6TageRennen[]
   tblSpielBlitztunier        tblSpielBlitztunier[]
