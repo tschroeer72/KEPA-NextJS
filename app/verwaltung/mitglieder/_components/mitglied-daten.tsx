@@ -104,6 +104,8 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
                 Ehemaliger: false
             });
             setFormDataNotizen({});
+            setBtnDruckenEnabled(false);
+            setBtnBearbeitenEnabled(false);
         }
 
         if (currentMitgliedID === 0) {
@@ -123,6 +125,8 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
                 Ehemaliger: false
             });
             setFormDataNotizen({});
+            setBtnDruckenEnabled(false);
+            setBtnBearbeitenEnabled(false);
 
             return;
         }
@@ -224,6 +228,7 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
         setBtnNeuEnabled(false);
         setBtnBearbeitenEnabled(false);
         setBtnSpeichernEnabled(true);
+        setBtnDruckenEnabled(false);
         setIsEditable(true);
     }
 
@@ -232,6 +237,7 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
         setBtnNeuEnabled(false);
         setBtnBearbeitenEnabled(false);
         setBtnSpeichernEnabled(true);
+        setBtnDruckenEnabled(false);
         setIsEditable(true);
     }
 
@@ -300,8 +306,40 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
         }
     }, [currentMitgliedID, formDataMitgliedPersoenliches, formDataNotizen, validateForm, onDataChange]);
 
-    const handleDruckenClick = () => {
-        toast.info('Druckfunktion wird implementiert...');
+    const handleDruckenClick = async () => {
+        try {
+            toast.info('PDF wird generiert...');
+            const response = await fetch('/api/mitglieder/statistik-pdf', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    mitgliedId: currentMitgliedID,
+                    showErgebnisse: showErgebnisse,
+                    showStatistik: showStatistik,
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Fehler beim Generieren des PDFs');
+            }
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Statistik_${formDataMitgliedPersoenliches.Nachname}_${formDataMitgliedPersoenliches.Vorname}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+            toast.success('PDF erfolgreich erstellt!');
+        } catch (err: any) {
+            console.error('PDF Fehler:', err);
+            toast.error(err.message || 'Fehler beim Drucken');
+        }
     }
 
     if (currentMitgliedID < 0) {
@@ -355,11 +393,11 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
                         </button>
 
                         <button className={`px-4 py-2 rounded-md mr-2 ${
-                            btnDruckenEnabled
+                            btnDruckenEnabled && (showErgebnisse || showStatistik)
                                 ? 'bg-blue-500 text-white hover:bg-blue-600'
                                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                         }`}
-                                disabled={!btnDruckenEnabled}
+                                disabled={!btnDruckenEnabled || (!showErgebnisse && !showStatistik)}
                                 onClick={() => {
                                     handleDruckenClick();
                                 }}
@@ -443,11 +481,11 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
                         </button>
 
                         <button className={`px-4 py-2 rounded-md mr-2 ${
-                            btnDruckenEnabled
+                            btnDruckenEnabled && (showErgebnisse || showStatistik)
                                 ? 'bg-blue-500 text-white hover:bg-blue-600'
                                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                         }`}
-                                disabled={!btnDruckenEnabled}
+                                disabled={!btnDruckenEnabled || (!showErgebnisse && !showStatistik)}
                                 onClick={() => {
                                     handleDruckenClick();
                                 }}
@@ -531,11 +569,11 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
                         </button>
 
                         <button className={`px-4 py-2 rounded-md mr-2 ${
-                            btnDruckenEnabled
+                            btnDruckenEnabled && (showErgebnisse || showStatistik)
                                 ? 'bg-blue-500 text-white hover:bg-blue-600'
                                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                         }`}
-                                disabled={!btnDruckenEnabled}
+                                disabled={!btnDruckenEnabled || (!showErgebnisse && !showStatistik)}
                                 onClick={() => {
                                     handleDruckenClick();
                                 }}
@@ -620,11 +658,11 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
                         </button>
 
                         <button className={`px-4 py-2 rounded-md mr-2 ${
-                            btnDruckenEnabled
+                            btnDruckenEnabled && (showErgebnisse || showStatistik)
                                 ? 'bg-blue-500 text-white hover:bg-blue-600'
                                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                         }`}
-                                disabled={!btnDruckenEnabled}
+                                disabled={!btnDruckenEnabled || (!showErgebnisse && !showStatistik)}
                                 onClick={() => {
                                     handleDruckenClick();
                                 }}
@@ -759,11 +797,11 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
                     </button>
 
                     <button className={`px-4 py-2 rounded-md mr-2 ${
-                        btnDruckenEnabled
+                        btnDruckenEnabled && (showErgebnisse || showStatistik)
                             ? 'bg-blue-500 text-white hover:bg-blue-600'
                             : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                     }`}
-                            disabled={!btnDruckenEnabled}
+                            disabled={!btnDruckenEnabled || (!showErgebnisse && !showStatistik)}
                             onClick={() => {
                                 handleDruckenClick();
                             }}
