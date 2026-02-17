@@ -58,6 +58,9 @@ export class VpeToJsPdf {
     this.nBottomMargin = pageHeight - bottom;
     
     // Initialisiere nBottom auf nTopMargin für den Start
+    this.nLeft = left;
+    this.nTop = top;
+    this.nRight = left;
     this.nBottom = top;
   }
 
@@ -90,18 +93,18 @@ export class VpeToJsPdf {
   public write(x: number, y: number, w: number, h: number, text: string): void {
     const X = x * this.cm;
     const Y = y * this.cm;
-    const width = w < 0 ? Math.abs(w) * this.cm : w * this.cm;
-    const height = h < 0 ? Math.abs(h) * this.cm : h * this.cm;
+    const width = w < 0 ? Math.abs(w) * this.cm : (w - x) * this.cm;
+    const height = h < 0 ? Math.abs(h) * this.cm : (h - y) * this.cm;
 
     const options: any = {
       align: this.alignment,
       maxWidth: width
     };
 
-    // jsPDF's text() y is baseline, but VPE seems to use top.
-    // Wir schätzen die vertikale Zentrierung
+    // VPE uses top-left for boxes. jsPDF text() Y is baseline.
+    // Calculate vertical centering within the box height
     const textHeight = this.currentFontSize * 0.3527; // pt to mm
-    const middleY = Y + (height / 2) + (textHeight / 2) - 0.5;
+    const middleY = Y + (height / 2) + (textHeight / 3); // Better approximation for middle
 
     let textX = X;
     if (this.alignment === TextAlignment.Center) textX = X + width / 2;
@@ -109,48 +112,33 @@ export class VpeToJsPdf {
 
     this.doc.text(text, textX, middleY, options);
 
-    const textWidth = this.doc.getTextWidth(text) / this.cm;
-
     this.nLeft = x;
     this.nTop = y;
-    
-    if (this.alignment === TextAlignment.Center) {
-      this.nLeft = x + (width / 2 / this.cm) - (textWidth / 2);
-      this.nRight = this.nLeft + textWidth;
-    } else if (this.alignment === TextAlignment.Right) {
-      this.nLeft = x + (width / this.cm) - textWidth;
-      this.nRight = x + (width / this.cm);
-    } else {
-      this.nLeft = x;
-      this.nRight = x + textWidth;
-    }
-
-    this.nBottom = h < 0 ? y + Math.abs(h) : y + h;
+    this.nRight = w < 0 ? x + Math.abs(w) : w;
+    this.nBottom = h < 0 ? y + Math.abs(h) : h;
   }
 
   public writeBox(x: number, y: number, w: number, h: number, text: string): void {
-    this.storePos();
     const prevPenStyle = this.penStyle;
     this.penStyle = PenStyle.Solid;
     this.box(x, y, w, h);
     this.penStyle = prevPenStyle;
-    this.restorePos();
     this.write(x, y, w, h, text);
   }
 
   public box(x: number, y: number, w: number, h: number): void {
     const X = x * this.cm;
     const Y = y * this.cm;
-    const width = w < 0 ? Math.abs(w) * this.cm : w * this.cm;
-    const height = h < 0 ? Math.abs(h) * this.cm : h * this.cm;
+    const width = w < 0 ? Math.abs(w) * this.cm : (w - x) * this.cm;
+    const height = h < 0 ? Math.abs(h) * this.cm : (h - y) * this.cm;
 
     this.applyPenSettings();
     this.doc.rect(X, Y, width, height);
 
     this.nLeft = x;
     this.nTop = y;
-    this.nRight = w < 0 ? x + Math.abs(w) : x + w;
-    this.nBottom = h < 0 ? y + Math.abs(h) : y + h;
+    this.nRight = w < 0 ? x + Math.abs(w) : w;
+    this.nBottom = h < 0 ? y + Math.abs(h) : h;
   }
 
   public line(x1: number, y1: number, x2: number, y2: number): void {
@@ -166,6 +154,20 @@ export class VpeToJsPdf {
     this.nTop = y1;
     this.nRight = x2;
     this.nBottom = y2;
+  }
+
+  public image(x: number, y: number, w: number, h: number, imageData: string | HTMLImageElement | HTMLCanvasElement | Uint8Array, format?: string, alias?: string, compression?: string, rotation?: number): void {
+    const X = x * this.cm;
+    const Y = y * this.cm;
+    const width = w < 0 ? Math.abs(w) * this.cm : (w - x) * this.cm;
+    const height = h < 0 ? Math.abs(h) * this.cm : (h - y) * this.cm;
+
+    this.doc.addImage(imageData, format || "JPEG", X, Y, width, height, alias, (compression as any) || "FAST", rotation);
+
+    this.nLeft = x;
+    this.nTop = y;
+    this.nRight = w < 0 ? x + Math.abs(w) : w;
+    this.nBottom = h < 0 ? y + Math.abs(h) : h;
   }
 
   private applyPenSettings(): void {

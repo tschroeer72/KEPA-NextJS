@@ -11,13 +11,13 @@ export async function GET(req: NextRequest) {
 
   vpe.selectFont("helvetica", 18);
   vpe.setFontAttr(TextAlignment.Center, false, false, false, false);
-  vpe.write(centerX - 5, vpe.nTopMargin, -10, -0.8, "Kegeln am ");
+  vpe.write(centerX - 5, vpe.nTopMargin, -4, -0.8, "Kegeln am ");
   vpe.penStyle = PenStyle.DashDot;
-  vpe.line(vpe.nRight, vpe.nBottom, vpe.nRight + 4, vpe.nBottom);
+  vpe.line(vpe.nRight + 0.2, vpe.nBottom, vpe.nRight + 4.2, vpe.nBottom);
   
   vpe.selectFont("helvetica", 12);
-  vpe.write(centerX - 5, vpe.nBottom + 0.2, -10, -0.8, "Spielverluste vom ");
-  vpe.line(vpe.nRight, vpe.nBottom, vpe.nRight + 4, vpe.nBottom);
+  vpe.write(centerX - 5, vpe.nBottom + 0.2, -4, -0.8, "Spielverluste vom ");
+  vpe.line(vpe.nRight + 0.2, vpe.nBottom, vpe.nRight + 4.2, vpe.nBottom);
 
   // Zahlbeträge Überschrift
   vpe.setFontAttr(TextAlignment.Left, false, false, false, false);

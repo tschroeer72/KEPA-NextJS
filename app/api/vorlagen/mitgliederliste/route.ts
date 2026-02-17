@@ -17,28 +17,33 @@ export async function GET(req: NextRequest) {
   vpe.setMargins(2, 2, 2, 2);
 
   const drawHeader = () => {
+    const strHeader2 = aktiv ? "Mitgliederliste (aktive Kegler)" : "Mitgliederliste";
+
+    //Zeile 1
     vpe.selectFont("helvetica", 12);
     vpe.setFontAttr(TextAlignment.Center, true, false, false, false);
-    vpe.writeBox(vpe.nLeftMargin, vpe.nTopMargin, -17, 0.8, "KEPA 1958");
-    
-    const strHeader2 = aktiv ? "Mitgliederliste (aktive Kegler)" : "Mitgliederliste";
-    vpe.writeBox(vpe.nLeftMargin, vpe.nBottom, -13, 0.8, strHeader2);
+    vpe.writeBox(vpe.nLeftMargin, vpe.nTopMargin, -17, -0.8, "KEPA 1958");
+
+    //Zeile 2
+    vpe.selectFont("helvetica", 12);
+    vpe.setFontAttr(TextAlignment.Center, true, false, false, false);
+    vpe.writeBox(vpe.nLeftMargin, vpe.nBottom, -13, -0.8, strHeader2);
 
     vpe.selectFont("helvetica", 10);
     vpe.setFontAttr(TextAlignment.Center, false, false, false, false);
-    vpe.writeBox(vpe.nRight, vpe.nTop, -2, 0.8, "Stand:");
-    vpe.writeBox(vpe.nRight, vpe.nTop, -2, 0.8, new Date().toLocaleDateString("de-DE"));
+    vpe.writeBox(vpe.nRight, vpe.nTop, -2, -0.8, "Stand:");
+    vpe.writeBox(vpe.nRight, vpe.nTop, -2, -0.8, new Date().toLocaleDateString("de-DE"));
 
+    //Zeile 3
     vpe.selectFont("helvetica", 8);
     vpe.setFontAttr(TextAlignment.Center, true, false, false, false);
-    const colWidths = [-2.5, -2.5, -2, -3, -3, -2, -2];
-    const colTitles = ["Name", "Vorname", "Geb.", "Anschrift", "E-Mail", "Tel-/Handy", "Ein-/Austritt"];
-    
-    let currentX = vpe.nLeftMargin;
-    colTitles.forEach((title, i) => {
-        vpe.writeBox(currentX, vpe.nBottom, colWidths[i], -0.6, title);
-        currentX = vpe.nRight;
-    });
+    vpe.writeBox(vpe.nLeftMargin, vpe.nBottom, -2.5, -0.6, "Name");
+    vpe.writeBox(vpe.nRight, vpe.nTop, -2.5, -0.6, "Vorname");
+    vpe.writeBox(vpe.nRight, vpe.nTop, -2, -0.6, "Geb.");
+    vpe.writeBox(vpe.nRight, vpe.nTop, -3, -0.6, "Anschrift");
+    vpe.writeBox(vpe.nRight, vpe.nTop, -3, -0.6, "E-Mail");
+    vpe.writeBox(vpe.nRight, vpe.nTop, -2, -0.6, "Tel-/Handy");
+    vpe.writeBox(vpe.nRight, vpe.nTop, -2, -0.6, "Ein-/Austritt");
   };
 
   drawHeader();
@@ -47,35 +52,48 @@ export async function GET(req: NextRequest) {
   vpe.setFontAttr(TextAlignment.Center, false, false, false, false);
 
   lstListe.forEach((item: any) => {
-    // Einfache Seitenumbruch-Logik
-    if (vpe.nBottom > 25) {
-        vpe.pageBreak();
-        drawHeader();
-        vpe.selectFont("helvetica", 6);
-        vpe.setFontAttr(TextAlignment.Center, false, false, false, false);
+    if (vpe.nBottomMargin - vpe.nBottom < 2) {
+      vpe.pageBreak();
+      drawHeader();
+      vpe.selectFont("helvetica", 6);
+      vpe.setFontAttr(TextAlignment.Center, false, false, false, false);
     }
 
     const startY = vpe.nBottom;
-    vpe.writeBox(vpe.nLeftMargin, startY, -2.5, -0.6, item.Nachname);
-    vpe.writeBox(vpe.nRight, startY, -2.5, -0.6, item.Vorname);
-    vpe.writeBox(vpe.nRight, startY, -2, -0.6, item.Geburtsdatum ? new Date(item.Geburtsdatum).toLocaleDateString("de-DE") : "");
+    vpe.writeBox(vpe.nLeftMargin, startY, -2.5, -0.6, item.Nachname || "");
+    vpe.writeBox(vpe.nRight, vpe.nTop, -2.5, -0.6, item.Vorname || "");
+    vpe.writeBox(vpe.nRight, vpe.nTop, -2, -0.6, item.Geburtsdatum ? new Date(item.Geburtsdatum).toLocaleDateString("de-DE") : "");
     
-    // Anschrift
-    vpe.writeBox(vpe.nRight, startY, -3, -0.3, item.Strasse);
-    vpe.writeBox(vpe.nLeft, vpe.nBottom, -3, -0.3, `${item.PLZ} ${item.Ort}`);
+    // Anschrift (Straße oben, PLZ Ort unten)
+    vpe.box(vpe.nRight, vpe.nTop, -3, -0.6);
+    vpe.write(vpe.nLeft, vpe.nTop, -3, -0.3, item.Strasse || "");
+    const strPLZOrt = (item.PLZ || "") + " " + (item.Ort || "");
+    vpe.write(vpe.nLeft, vpe.nBottom, -3, -0.3, strPLZOrt);
     
     // E-Mail
-    vpe.writeBox(vpe.nRight, startY, -3, -0.6, item.EMail || "");
+    const email = item.EMail || "";
+    const emailWidth = vpe.doc.getTextWidth(email) / vpe.cm;
+    vpe.box(vpe.nRight, vpe.nTop - 0.3, -3, -0.6);
+    if (emailWidth > 3 && email.includes("@")) {
+      vpe.storePos();
+      const [user, domain] = email.split("@");
+      vpe.write(vpe.nLeft, vpe.nTop, -3, -0.3, user + "@");
+      vpe.write(vpe.nLeft, vpe.nBottom, -3, -0.3, domain);
+      vpe.restorePos();
+    } else {
+      vpe.write(vpe.nLeft, vpe.nTop, -3, -0.6, email);
+    }
     
-    // Telefon
-    vpe.writeBox(vpe.nRight, startY, -2, -0.3, item.TelefonPrivat || "");
-    vpe.writeBox(vpe.nLeft, vpe.nBottom, -2, -0.3, item.TelefonMobil || "");
+    // Telefon (Privat oben, Mobil unten)
+    vpe.box(vpe.nRight, vpe.nTop, -2, -0.6);
+    vpe.write(vpe.nLeft, vpe.nTop, -2, -0.3, item.TelefonPrivat || "");
+    vpe.write(vpe.nLeft, vpe.nBottom, -2, -0.3, item.TelefonMobil || "");
 
-    // Eintritt
-    vpe.writeBox(vpe.nRight, startY, -2, -0.3, item.MitgliedSeit ? new Date(item.MitgliedSeit).toLocaleDateString("de-DE") : "");
-    vpe.writeBox(vpe.nLeft, vpe.nBottom, -2, -0.3, item.AusgeschiedenAm ? new Date(item.AusgeschiedenAm).toLocaleDateString("de-DE") : "");
-    
-    vpe.nBottom = startY + 0.6; // Setze nBottom für die nächste Zeile
+    // Ein-/Austritt (Eintritt oben, Austritt unten)
+    vpe.box(vpe.nRight, vpe.nTop - 0.3, -2, -0.6);
+    vpe.write(vpe.nLeft, vpe.nTop, -2, -0.3, item.MitgliedSeit ? new Date(item.MitgliedSeit).toLocaleDateString("de-DE") : "");
+    const strAustritt = item.AusgeschiedenAm ? new Date(item.AusgeschiedenAm).toLocaleDateString("de-DE") : "";
+    vpe.write(vpe.nLeft, vpe.nBottom, -2, -0.3, strAustritt);
   });
 
   const pdfOutput = vpe.getOutput();

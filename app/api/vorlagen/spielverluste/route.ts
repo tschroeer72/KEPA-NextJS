@@ -23,7 +23,8 @@ export async function GET(req: NextRequest) {
     vpe.penStyle = PenStyle.Solid;
 
     vpe.setFontAttr(TextAlignment.Left, false, false, false, false);
-    vpe.write(vpe.nLeftMargin + leftOffset, vpe.nBottom + 1, -2.5, -0.8, "Name");
+    vpe.write(vpe.nLeftMargin + leftOffset, vpe.nBottom + 1, -3.0, -0.8, "Name");
+    vpe.nRight = vpe.nLeftMargin + leftOffset + 3.0;
     vpe.storePos();
     vpe.line(vpe.nLeftMargin + leftOffset, vpe.nBottom + 0.1, vpe.nLeftMargin + leftOffset + 11.5, vpe.nBottom + 0.1);
     vpe.restorePos();
@@ -31,8 +32,10 @@ export async function GET(req: NextRequest) {
 
     const cols = ["6 Tg. R.", "Neun", "Kranz 8", "Ratten", "Sarg"];
     cols.forEach(col => {
+        const colStartX = vpe.nRight;
         vpe.setFontAttr(TextAlignment.Center, false, false, false, false);
-        vpe.write(vpe.nRight, vpe.nTop, -1.5, -1, col);
+        vpe.write(colStartX, vpe.nTop, -1.5, -1, col);
+        vpe.nRight = colStartX + 1.5;
         vpe.line(vpe.nRight, vpe.nTop, vpe.nRight, vpe.nBottomMargin);
     });
 

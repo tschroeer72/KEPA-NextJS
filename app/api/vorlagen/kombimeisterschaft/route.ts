@@ -18,12 +18,13 @@ export async function GET(req: NextRequest) {
       vpe.setFontAttr(TextAlignment.Left, false, false, false, false);
       const x = 2 + (10 * i);
       const y = 4 + (6 * j);
-      vpe.write(x, y + 0.3, -3, -1, "Name");
+      //vpe.write(x, y + 0.3, -3, -1, "Name");
+      vpe.write(x, y, -3, -1, "Name");
       vpe.penStyle = PenStyle.Solid;
       vpe.box(x + 3, y, -4, -1);
       vpe.setFontAttr(TextAlignment.Center, false, false, false, false);
       vpe.write(x + 3, vpe.nBottom + 0.2, -2, -0.6, "3 bis 8");
-      vpe.write(vpe.nRight, vpe.nTop, -2, -0.6, "5 Kugeln");
+      vpe.write(vpe.nRight, vpe.nTop, -3.5, -0.6, "5 Kugeln (li.|re.)");
       vpe.setFontAttr(TextAlignment.Left, false, false, false, false);
       vpe.write(x, vpe.nBottom, -3, -0.5, "Gesamtpunkte");
       vpe.box(x + 3, vpe.nTop, -2, -0.5);

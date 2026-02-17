@@ -6,13 +6,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import { Download } from "lucide-react"
+import { Download, Loader2 } from "lucide-react"
 import { AnzahlMitspielerDialog } from "./_components/anzahl-mitspieler-dialog"
 
 export default function VorlagenPage() {
     const [selectedTemplate, setSelectedTemplate] = useState<string>("")
     const [dialogOpen, setDialogOpen] = useState(false)
     const [dialogTitle, setDialogTitle] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const handleExport = () => {
         if (!selectedTemplate || selectedTemplate === "dummy") return
@@ -26,13 +27,26 @@ export default function VorlagenPage() {
         downloadPdf(selectedTemplate)
     }
 
-    const downloadPdf = (url: string) => {
-        const link = document.createElement("a")
-        link.href = url
-        link.download = url.split("/").pop()?.split("?")[0] || "vorlage.pdf"
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
+    const downloadPdf = async (url: string) => {
+        setLoading(true)
+        try {
+            const response = await fetch(url)
+            if (!response.ok) throw new Error("Download fehlgeschlagen")
+            
+            const blob = await response.blob()
+            const downloadUrl = window.URL.createObjectURL(blob)
+            const link = document.createElement("a")
+            link.href = downloadUrl
+            link.download = url.split("/").pop()?.split("?")[0] || "vorlage.pdf"
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+            window.URL.revokeObjectURL(downloadUrl)
+        } catch (error) {
+            console.error("Fehler beim PDF-Download:", error)
+        } finally {
+            setLoading(false)
+        }
     }
 
     const handleDialogConfirm = (anzahl: number) => {
@@ -76,9 +90,13 @@ export default function VorlagenPage() {
                     <div className="flex flex-row gap-4 mt-8">
                         <Button 
                             onClick={handleExport} 
-                            disabled={!selectedTemplate || selectedTemplate === "dummy"}
+                            disabled={!selectedTemplate || selectedTemplate === "dummy" || loading}
                         >
-                            <Download className="mr-2 h-4 w-4" />
+                            {loading ? (
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            ) : (
+                                <Download className="mr-2 h-4 w-4" />
+                            )}
                             PDF
                         </Button>
                     </div>
