@@ -3,6 +3,586 @@
 import { prisma } from '@/lib/prisma'
 import { StatistikSpieler } from '@/interfaces/statistik-spieler'
 import { StatistikSpielerErgebnisse } from '@/interfaces/statistik-spieler-ergebnisse'
+import { getCurrentMeisterschaft } from '@/app/actions/settings/get-current-meisterschaft'
+
+export async function getStatistik9er(zeitbereich: number, von?: Date, bis?: Date) {
+  try {
+    const whereClause: any = {}
+
+    if (zeitbereich === 1) {
+      // Laufende Meisterschaft
+      const activeId = await getCurrentMeisterschaft()
+      if (activeId) {
+        whereClause.tblSpieltag = { MeisterschaftsID: parseInt(activeId) }
+      }
+    } else if (zeitbereich === 2) {
+      // Letzte Meisterschaft
+      const activeId = await getCurrentMeisterschaft()
+      const lastMeisterschaft = await prisma.tblMeisterschaften.findFirst({
+        where: activeId ? { ID: { lt: parseInt(activeId) } } : {},
+        orderBy: { ID: 'desc' }
+      })
+      if (lastMeisterschaft) {
+        whereClause.tblSpieltag = { MeisterschaftsID: lastMeisterschaft.ID }
+      }
+    } else if (zeitbereich === 3 && von && bis) {
+      // Zeitbereich
+      whereClause.tblSpieltag = {
+        Spieltag: {
+          gte: von,
+          lte: bis
+        }
+      }
+    }
+
+    const data = await prisma.tbl9erRatten.findMany({
+      where: whereClause,
+      include: {
+        tblMitglieder: true,
+        tblSpieltag: true
+      }
+    })
+
+    // Gruppieren nach Spieler
+    const statsMap = new Map<number, any>()
+
+    for (const d of data) {
+      if (!statsMap.has(d.SpielerID)) {
+        statsMap.set(d.SpielerID, {
+          Spieler: `${d.tblMitglieder.Nachname}, ${d.tblMitglieder.Vorname}`,
+          Gesamt: 0,
+          AnzTeilnahmen: 0,
+          Eins: 0, Zwei: 0, Drei: 0, Vier: 0, Fünf: 0, Sechs: 0, Sieben: 0, Acht: 0, Neun: 0, Zehn: 0
+        })
+      }
+      const s = statsMap.get(d.SpielerID)
+      s.Gesamt += d.Neuner
+      if (d.Neuner > 0) {
+        s.AnzTeilnahmen++
+        switch (d.Neuner) {
+          case 1: s.Eins++; break;
+          case 2: s.Zwei++; break;
+          case 3: s.Drei++; break;
+          case 4: s.Vier++; break;
+          case 5: s.Fünf++; break;
+          case 6: s.Sechs++; break;
+          case 7: s.Sieben++; break;
+          case 8: s.Acht++; break;
+          case 9: s.Neun++; break;
+          default: if (d.Neuner >= 10) s.Zehn++; break;
+        }
+      }
+    }
+
+    return Array.from(statsMap.values()).sort((a, b) => b.Gesamt - a.Gesamt)
+  } catch (error) {
+    console.error('getStatistik9er error:', error)
+    return []
+  }
+}
+
+export async function getStatistikRatten(zeitbereich: number, von?: Date, bis?: Date) {
+  try {
+    const whereClause: any = {}
+
+    if (zeitbereich === 1) {
+      const activeId = await getCurrentMeisterschaft()
+      if (activeId) whereClause.tblSpieltag = { MeisterschaftsID: parseInt(activeId) }
+    } else if (zeitbereich === 2) {
+      const activeId = await getCurrentMeisterschaft()
+      const lastMeisterschaft = await prisma.tblMeisterschaften.findFirst({
+        where: activeId ? { ID: { lt: parseInt(activeId) } } : {},
+        orderBy: { ID: 'desc' }
+      })
+      if (lastMeisterschaft) whereClause.tblSpieltag = { MeisterschaftsID: lastMeisterschaft.ID }
+    } else if (zeitbereich === 3 && von && bis) {
+      whereClause.tblSpieltag = { Spieltag: { gte: von, lte: bis } }
+    }
+
+    const data = await prisma.tbl9erRatten.findMany({
+      where: whereClause,
+      include: {
+        tblMitglieder: true,
+        tblSpieltag: true
+      }
+    })
+
+    const statsMap = new Map<number, any>()
+
+    for (const d of data) {
+      if (!statsMap.has(d.SpielerID)) {
+        statsMap.set(d.SpielerID, {
+          Spieler: `${d.tblMitglieder.Nachname}, ${d.tblMitglieder.Vorname}`,
+          Gesamt: 0,
+          AnzTeilnahmen: 0,
+          Eins: 0, Zwei: 0, Drei: 0, Vier: 0, Fünf: 0, Sechs: 0, Sieben: 0, Acht: 0, Neun: 0, Zehn: 0
+        })
+      }
+      const s = statsMap.get(d.SpielerID)
+      s.Gesamt += d.Ratten
+      if (d.Ratten > 0) {
+        s.AnzTeilnahmen++
+        switch (d.Ratten) {
+          case 1: s.Eins++; break;
+          case 2: s.Zwei++; break;
+          case 3: s.Drei++; break;
+          case 4: s.Vier++; break;
+          case 5: s.Fünf++; break;
+          case 6: s.Sechs++; break;
+          case 7: s.Sieben++; break;
+          case 8: s.Acht++; break;
+          case 9: s.Neun++; break;
+          default: if (d.Ratten >= 10) s.Zehn++; break;
+        }
+      }
+    }
+
+    return Array.from(statsMap.values()).sort((a, b) => b.Gesamt - a.Gesamt)
+  } catch (error) {
+    console.error('getStatistikRatten error:', error)
+    return []
+  }
+}
+
+export async function getStatistikPokal(zeitbereich: number, von?: Date, bis?: Date) {
+  try {
+    const whereClause: any = {}
+    if (zeitbereich === 1) {
+      const activeId = await getCurrentMeisterschaft()
+      if (activeId) whereClause.tblSpieltag = { MeisterschaftsID: parseInt(activeId) }
+    } else if (zeitbereich === 2) {
+      const activeId = await getCurrentMeisterschaft()
+      const lastMeisterschaft = await prisma.tblMeisterschaften.findFirst({
+        where: activeId ? { ID: { lt: parseInt(activeId) } } : {},
+        orderBy: { ID: 'desc' }
+      })
+      if (lastMeisterschaft) whereClause.tblSpieltag = { MeisterschaftsID: lastMeisterschaft.ID }
+    } else if (zeitbereich === 3 && von && bis) {
+      whereClause.tblSpieltag = { Spieltag: { gte: von, lte: bis } }
+    }
+
+    const data = await prisma.tblSpielPokal.findMany({
+      where: whereClause,
+      include: {
+        tblMitglieder: true
+      }
+    })
+
+    const statsMap = new Map<number, any>()
+    for (const d of data) {
+      if (!statsMap.has(d.SpielerID)) {
+        statsMap.set(d.SpielerID, {
+          Spieler: `${d.tblMitglieder.Nachname}, ${d.tblMitglieder.Vorname}`,
+          Eins: 0, Zwei: 0
+        })
+      }
+      const s = statsMap.get(d.SpielerID)
+      if (d.Platzierung === 1) s.Eins++
+      if (d.Platzierung === 2) s.Zwei++
+    }
+
+    return Array.from(statsMap.values()).sort((a, b) => b.Eins - a.Eins || b.Zwei - a.Zwei)
+  } catch (error) {
+    console.error('getStatistikPokal error:', error)
+    return []
+  }
+}
+
+export async function getStatistikSarg(zeitbereich: number, von?: Date, bis?: Date) {
+  try {
+    const whereClause: any = {}
+    if (zeitbereich === 1) {
+      const activeId = await getCurrentMeisterschaft()
+      if (activeId) whereClause.tblSpieltag = { MeisterschaftsID: parseInt(activeId) }
+    } else if (zeitbereich === 2) {
+      const activeId = await getCurrentMeisterschaft()
+      const lastMeisterschaft = await prisma.tblMeisterschaften.findFirst({
+        where: activeId ? { ID: { lt: parseInt(activeId) } } : {},
+        orderBy: { ID: 'desc' }
+      })
+      if (lastMeisterschaft) whereClause.tblSpieltag = { MeisterschaftsID: lastMeisterschaft.ID }
+    } else if (zeitbereich === 3 && von && bis) {
+      whereClause.tblSpieltag = { Spieltag: { gte: von, lte: bis } }
+    }
+
+    const data = await prisma.tblSpielSargKegeln.findMany({
+      where: whereClause,
+      include: {
+        tblMitglieder: true
+      }
+    })
+
+    const statsMap = new Map<number, any>()
+    for (const d of data) {
+      if (!statsMap.has(d.SpielerID)) {
+        statsMap.set(d.SpielerID, {
+          Spieler: `${d.tblMitglieder.Nachname}, ${d.tblMitglieder.Vorname}`,
+          AnzTeilnahmen: 0,
+          Eins: 0, Zwei: 0, Drei: 0, Vier: 0, Fünf: 0, Sechs: 0, Sieben: 0, Acht: 0, Neun: 0, Zehn: 0
+        })
+      }
+      const s = statsMap.get(d.SpielerID)
+      s.AnzTeilnahmen++
+      switch (d.Platzierung) {
+        case 1: s.Eins++; break;
+        case 2: s.Zwei++; break;
+        case 3: s.Drei++; break;
+        case 4: s.Vier++; break;
+        case 5: s.Fünf++; break;
+        case 6: s.Sechs++; break;
+        case 7: s.Sieben++; break;
+        case 8: s.Acht++; break;
+        case 9: s.Neun++; break;
+        case 10: s.Zehn++; break;
+      }
+    }
+
+    return Array.from(statsMap.values()).sort((a, b) => b.Eins - a.Eins || b.Zwei - a.Zwei)
+  } catch (error) {
+    console.error('getStatistikSarg error:', error)
+    return []
+  }
+}
+
+export async function getStatistikSpielerSpieler(zeitbereich: number, von?: Date, bis?: Date) {
+  try {
+    const whereClause: any = {}
+    if (zeitbereich === 1) {
+      const activeId = await getCurrentMeisterschaft()
+      if (activeId) whereClause.tblSpieltag = { MeisterschaftsID: parseInt(activeId) }
+    } else if (zeitbereich === 2) {
+      const activeId = await getCurrentMeisterschaft()
+      const lastMeisterschaft = await prisma.tblMeisterschaften.findFirst({
+        where: activeId ? { ID: { lt: parseInt(activeId) } } : {},
+        orderBy: { ID: 'desc' }
+      })
+      if (lastMeisterschaft) whereClause.tblSpieltag = { MeisterschaftsID: lastMeisterschaft.ID }
+    } else if (zeitbereich === 3 && von && bis) {
+      whereClause.tblSpieltag = { Spieltag: { gte: von, lte: bis } }
+    }
+
+    const spieler = await prisma.tblMitglieder.findMany({
+        where: { Ehemaliger: false },
+        orderBy: [{ Nachname: 'asc' }, { Vorname: 'asc' }]
+    })
+
+    const results = []
+
+    for (const s of spieler) {
+        const stats: any = {
+            Spielername: `${s.Nachname}, ${s.Vorname}`,
+            dictMeisterschaft: {},
+            dictBlitztunier: {},
+            dictKombimeisterschaft: {}
+        }
+
+        // Meisterschaftsspiele
+        const mSpiele = await prisma.tblSpielMeisterschaft.findMany({
+            where: {
+                ...whereClause,
+                OR: [{ SpielerID1: s.ID }, { SpielerID2: s.ID }]
+            },
+            include: { tblMitglieder_SpielerID1: true, tblMitglieder_SpielerID2: true }
+        })
+
+        for (const sp of mSpiele) {
+            const isP1 = sp.SpielerID1 === s.ID
+            const opponent = isP1 ? `${sp.tblMitglieder_SpielerID2.Nachname}, ${sp.tblMitglieder_SpielerID2.Vorname}` : `${sp.tblMitglieder_SpielerID1.Nachname}, ${sp.tblMitglieder_SpielerID1.Vorname}`
+            if (!stats.dictMeisterschaft[opponent]) stats.dictMeisterschaft[opponent] = { Gewonnen: 0, Unentschieden: 0, Verloren: 0 }
+            
+            const p1Holz = sp.HolzSpieler1 || 0
+            const p2Holz = sp.HolzSpieler2 || 0
+            
+            if (p1Holz === p2Holz) stats.dictMeisterschaft[opponent].Unentschieden++
+            else if ((isP1 && p1Holz > p2Holz) || (!isP1 && p2Holz > p1Holz)) stats.dictMeisterschaft[opponent].Gewonnen++
+            else stats.dictMeisterschaft[opponent].Verloren++
+        }
+
+        // Blitztunier
+        const bSpiele = await prisma.tblSpielBlitztunier.findMany({
+            where: {
+                ...whereClause,
+                OR: [{ SpielerID1: s.ID }, { SpielerID2: s.ID }]
+            },
+            include: { tblMitglieder_SpielerID1: true, tblMitglieder_SpielerID2: true }
+        })
+
+        for (const sp of bSpiele) {
+            const isP1 = sp.SpielerID1 === s.ID
+            const opponent = isP1 ? `${sp.tblMitglieder_SpielerID2.Nachname}, ${sp.tblMitglieder_SpielerID2.Vorname}` : `${sp.tblMitglieder_SpielerID1.Nachname}, ${sp.tblMitglieder_SpielerID1.Vorname}`
+            if (!stats.dictBlitztunier[opponent]) stats.dictBlitztunier[opponent] = { Gewonnen: 0, Unentschieden: 0, Verloren: 0 }
+            
+            const p1Pkt = sp.PunkteSpieler1 || 0
+            const p2Pkt = sp.PunkteSpieler2 || 0
+            
+            if (p1Pkt === p2Pkt) stats.dictBlitztunier[opponent].Unentschieden++
+            else if ((isP1 && p1Pkt > p2Pkt) || (!isP1 && p2Pkt > p1Pkt)) stats.dictBlitztunier[opponent].Gewonnen++
+            else stats.dictBlitztunier[opponent].Verloren++
+        }
+
+        // Kombimeisterschaft
+        const kSpiele = await prisma.tblSpielKombimeisterschaft.findMany({
+            where: {
+                ...whereClause,
+                OR: [{ SpielerID1: s.ID }, { SpielerID2: s.ID }]
+            },
+            include: { tblMitglieder_SpielerID1: true, tblMitglieder_SpielerID2: true }
+        })
+
+        for (const sp of kSpiele) {
+            const isP1 = sp.SpielerID1 === s.ID
+            const opponent = isP1 ? `${sp.tblMitglieder_SpielerID2.Nachname}, ${sp.tblMitglieder_SpielerID2.Vorname}` : `${sp.tblMitglieder_SpielerID1.Nachname}, ${sp.tblMitglieder_SpielerID1.Vorname}`
+            if (!stats.dictKombimeisterschaft[opponent]) {
+                stats.dictKombimeisterschaft[opponent] = {
+                    dict3bis8: { [opponent]: { Gewonnen: 0, Unentschieden: 0, Verloren: 0 } },
+                    dict5Kugeln: { [opponent]: { Gewonnen: 0, Unentschieden: 0, Verloren: 0 } },
+                    dictGesamt: { [opponent]: { Gewonnen: 0, Unentschieden: 0, Verloren: 0 } }
+                }
+            }
+            
+            // 3 bis 8
+            const p1_38 = sp.Spieler1Punkte3bis8 || 0
+            const p2_38 = sp.Spieler2Punkte3bis8 || 0
+            if (p1_38 === p2_38) stats.dictKombimeisterschaft[opponent].dict3bis8[opponent].Unentschieden++
+            else if ((isP1 && p1_38 > p2_38) || (!isP1 && p2_38 > p1_38)) stats.dictKombimeisterschaft[opponent].dict3bis8[opponent].Gewonnen++
+            else stats.dictKombimeisterschaft[opponent].dict3bis8[opponent].Verloren++
+
+            // 5 Kugeln
+            const p1_5 = sp.Spieler1Punkte5Kugeln || 0
+            const p2_5 = sp.Spieler2Punkte5Kugeln || 0
+            if (p1_5 === p2_5) stats.dictKombimeisterschaft[opponent].dict5Kugeln[opponent].Unentschieden++
+            else if ((isP1 && p1_5 > p2_5) || (!isP1 && p2_5 > p1_5)) stats.dictKombimeisterschaft[opponent].dict5Kugeln[opponent].Gewonnen++
+            else stats.dictKombimeisterschaft[opponent].dict5Kugeln[opponent].Verloren++
+
+            // Gesamt
+            const p1_ges = p1_38 + p1_5
+            const p2_ges = p2_38 + p2_5
+            if (p1_ges === p2_ges) stats.dictKombimeisterschaft[opponent].dictGesamt[opponent].Unentschieden++
+            else if ((isP1 && p1_ges > p2_ges) || (!isP1 && p2_ges > p1_ges)) stats.dictKombimeisterschaft[opponent].dictGesamt[opponent].Gewonnen++
+            else stats.dictKombimeisterschaft[opponent].dictGesamt[opponent].Verloren++
+        }
+
+        results.push(stats)
+    }
+
+    return results
+  } catch (error) {
+    console.error('getStatistikSpielerSpieler error:', error)
+    return []
+  }
+}
+
+export async function getStatistik6TageRennenPlatz(zeitbereich: number, von?: Date, bis?: Date) {
+  try {
+    const whereClause: any = {}
+    if (zeitbereich === 1) {
+      const activeId = await getCurrentMeisterschaft()
+      if (activeId) whereClause.tblSpieltag = { MeisterschaftsID: parseInt(activeId) }
+    } else if (zeitbereich === 2) {
+      const activeId = await getCurrentMeisterschaft()
+      const lastMeisterschaft = await prisma.tblMeisterschaften.findFirst({
+        where: activeId ? { ID: { lt: parseInt(activeId) } } : {},
+        orderBy: { ID: 'desc' }
+      })
+      if (lastMeisterschaft) whereClause.tblSpieltag = { MeisterschaftsID: lastMeisterschaft.ID }
+    } else if (zeitbereich === 3 && von && bis) {
+      whereClause.tblSpieltag = { Spieltag: { gte: von, lte: bis } }
+    }
+
+    const data = await prisma.tblSpiel6TageRennen.findMany({
+      where: whereClause,
+      include: {
+        tblMitglieder_SpielerID1: true,
+        tblMitglieder_SpielerID2: true,
+        tblSpieltag: true
+      }
+    })
+
+    // 6-Tage-Rennen ist speziell: Pro Spieltag gibt es Platzierungen
+    // Wir müssen die Ergebnisse pro Spieltag auswerten
+    const spieltage = [...new Set(data.map(d => d.SpieltagID))]
+    const playerStats = new Map<number, any>()
+
+    for (const stId of spieltage) {
+        const tagSpiele = data.filter(d => d.SpieltagID === stId)
+        // Sortiere nach Runden desc, dann Punkte desc
+        const sorted = tagSpiele.sort((a, b) => b.Runden - a.Runden || b.Punkte - a.Punkte)
+        
+        sorted.forEach((s, index) => {
+            const platz = index + 1
+            const players = [
+                { id: s.SpielerID1, name: `${s.tblMitglieder_SpielerID1.Nachname}, ${s.tblMitglieder_SpielerID1.Vorname}` },
+                { id: s.SpielerID2, name: `${s.tblMitglieder_SpielerID2.Nachname}, ${s.tblMitglieder_SpielerID2.Vorname}` }
+            ]
+
+            players.forEach(p => {
+                if (!playerStats.has(p.id)) {
+                    playerStats.set(p.id, { Spieler: p.name, AnzTeilnahmen: 0, Eins: 0, Zwei: 0, Drei: 0, Vier: 0, Fünf: 0, Sechs: 0 })
+                }
+                const ps = playerStats.get(p.id)
+                ps.AnzTeilnahmen++
+                if (platz === 1) ps.Eins++
+                else if (platz === 2) ps.Zwei++
+                else if (platz === 3) ps.Drei++
+                else if (platz === 4) ps.Vier++
+                else if (platz === 5) ps.Fünf++
+                else if (platz === 6) ps.Sechs++
+            })
+        })
+    }
+
+    return Array.from(playerStats.values()).sort((a, b) => b.Eins - a.Eins || b.Zwei - a.Zwei || b.Drei - a.Drei)
+  } catch (error) {
+    console.error('getStatistik6TageRennenPlatz error:', error)
+    return []
+  }
+}
+
+export async function getStatistik6TageRennenBesteMannschaft(zeitbereich: number, von?: Date, bis?: Date) {
+  try {
+    const whereClause: any = {}
+    if (zeitbereich === 1) {
+        const activeId = await getCurrentMeisterschaft()
+        if (activeId) whereClause.tblSpieltag = { MeisterschaftsID: parseInt(activeId) }
+    } else if (zeitbereich === 2) {
+        const activeId = await getCurrentMeisterschaft()
+        const lastMeisterschaft = await prisma.tblMeisterschaften.findFirst({
+            where: activeId ? { ID: { lt: parseInt(activeId) } } : {},
+            orderBy: { ID: 'desc' }
+        })
+        if (lastMeisterschaft) whereClause.tblSpieltag = { MeisterschaftsID: lastMeisterschaft.ID }
+    } else if (zeitbereich === 3 && von && bis) {
+        whereClause.tblSpieltag = { Spieltag: { gte: von, lte: bis } }
+    }
+
+    const data = await prisma.tblSpiel6TageRennen.findMany({
+      where: whereClause,
+      include: {
+        tblMitglieder_SpielerID1: true,
+        tblMitglieder_SpielerID2: true
+      }
+    })
+
+    const teams = new Map<string, any>()
+    const spieltage = [...new Set(data.map(d => d.SpieltagID))]
+
+    for (const stId of spieltage) {
+        const tagSpiele = data.filter(d => d.SpieltagID === stId)
+        const sorted = tagSpiele.sort((a, b) => b.Runden - a.Runden || b.Punkte - a.Punkte)
+        
+        sorted.forEach((s, index) => {
+            const names = [
+                `${s.tblMitglieder_SpielerID1.Nachname}, ${s.tblMitglieder_SpielerID1.Vorname}`,
+                `${s.tblMitglieder_SpielerID2.Nachname}, ${s.tblMitglieder_SpielerID2.Vorname}`
+            ].sort()
+            const teamName = names.join(' / ')
+            const platz = index + 1
+
+            if (!teams.has(teamName)) {
+                teams.set(teamName, { Mannschaft: teamName, Anzahl: 0, Eins: 0, Zwei: 0, Drei: 0, Vier: 0, Fünf: 0, Sechs: 0 })
+            }
+            const t = teams.get(teamName)
+            t.Anzahl++
+            if (platz === 1) t.Eins++
+            else if (platz === 2) t.Zwei++
+            else if (platz === 3) t.Drei++
+            else if (platz === 4) t.Vier++
+            else if (platz === 5) t.Fünf++
+            else if (platz === 6) t.Sechs++
+        })
+    }
+
+    return Array.from(teams.values()).sort((a, b) => b.Eins - a.Eins || b.Zwei - a.Zwei || b.Drei - a.Drei)
+  } catch (error) {
+    console.error('getStatistik6TageRennenBesteMannschaft error:', error)
+    return []
+  }
+}
+
+export async function getStatistik6TageRennenMannschaftMitglied(zeitbereich: number, von?: Date, bis?: Date) {
+    try {
+        const bestTeams = await getStatistik6TageRennenBesteMannschaft(zeitbereich, von, bis)
+        const dict: Record<string, any[]> = {}
+
+        // Wir gruppieren hier nach den einzelnen Spielern der Mannschaften
+        for (const team of bestTeams) {
+            const members = team.Mannschaft.split(' / ')
+            for (const member of members) {
+                if (!dict[member]) dict[member] = []
+                dict[member].push(team)
+            }
+        }
+        return dict
+    } catch (error) {
+        console.error('getStatistik6TageRennenMannschaftMitglied error:', error)
+        return {}
+    }
+}
+
+export async function getStatistikNeunerRattenKoenig(zeitbereich: number, von?: Date, bis?: Date) {
+    try {
+        const whereClause: any = {}
+        if (zeitbereich === 1) {
+            const activeId = await getCurrentMeisterschaft()
+            if (activeId) whereClause.tblSpieltag = { MeisterschaftsID: parseInt(activeId) }
+        } else if (zeitbereich === 2) {
+            const activeId = await getCurrentMeisterschaft()
+            const lastMeisterschaft = await prisma.tblMeisterschaften.findFirst({
+                where: activeId ? { ID: { lt: parseInt(activeId) } } : {},
+                orderBy: { ID: 'desc' }
+            })
+            if (lastMeisterschaft) whereClause.tblSpieltag = { MeisterschaftsID: lastMeisterschaft.ID }
+        } else if (zeitbereich === 3 && von && bis) {
+            whereClause.tblSpieltag = { Spieltag: { gte: von, lte: bis } }
+        }
+
+        const data = await prisma.tbl9erRatten.findMany({
+            where: whereClause,
+            include: {
+                tblMitglieder: true,
+                tblSpieltag: true
+            },
+            orderBy: { tblSpieltag: { Spieltag: 'asc' } }
+        })
+
+        const spieltage = await prisma.tblSpieltag.findMany({
+            where: whereClause,
+            orderBy: { Spieltag: 'asc' }
+        })
+
+        const result: any = {
+            lstStatistik9erRatten: [],
+            dictNeunerkönig: {},
+            dictRattenkönig: {}
+        }
+
+        for (const st of spieltage) {
+            const tagData = data.filter(d => d.SpieltagID === st.ID)
+            
+            // Neunerkönig des Tages (wer hat am meisten Neuner an diesem Tag)
+            const sorted9 = [...tagData].sort((a, b) => b.Neuner - a.Neuner)
+            const nKönig = sorted9[0] && sorted9[0].Neuner > 0 ? `${sorted9[0].tblMitglieder.Nachname}, ${sorted9[0].tblMitglieder.Vorname}` : ''
+            
+            // Rattenkönig des Tages
+            const sortedR = [...tagData].sort((a, b) => b.Ratten - a.Ratten)
+            const rKönig = sortedR[0] && sortedR[0].Ratten > 0 ? `${sortedR[0].tblMitglieder.Nachname}, ${sortedR[0].tblMitglieder.Vorname}` : ''
+
+            result.lstStatistik9erRatten.push({
+                Spieltag: st.Spieltag,
+                Neunerkönig: nKönig,
+                Rattenorden: rKönig
+            })
+
+            if (nKönig) result.dictNeunerkönig[nKönig] = (result.dictNeunerkönig[nKönig] || 0) + 1
+            if (rKönig) result.dictRattenkönig[rKönig] = (result.dictRattenkönig[rKönig] || 0) + 1
+        }
+
+        return result
+    } catch (error) {
+        console.error('getStatistikNeunerRattenKoenig error:', error)
+        return { lstStatistik9erRatten: [], dictNeunerkönig: {}, dictRattenkönig: {} }
+    }
+}
 
 /**
  * Hilfsaction für Statistik eines Spielers nach ID
@@ -223,630 +803,3 @@ export async function getStatistikSpielerErgebnisse(spielerId: number): Promise<
   }
 }
 
-/**
- * Hilfsaction für vwStatistikSpieler
- */
-export async function getStatistikSpieler() {
-  try {
-    const data = await prisma.tblMeisterschaften.findMany({
-      include: {
-        tblMeisterschaftstyp: true,
-        // tblSpieltag ist über tblMeisterschaften verknüpft (Prisma-intern)
-      },
-    })
-
-    // Da vwStatistikSpieler eine komplexe Join-Struktur hat, die in Prisma 
-    // oft effizienter über Spieltage aufgelöst wird:
-    const spieltage = await prisma.tblSpieltag.findMany({
-      include: {
-        tblMeisterschaften: {
-          include: {
-            tblMeisterschaftstyp: true
-          }
-        },
-        tblSpielMeisterschaft: {
-          include: {
-            tblMitglieder_SpielerID1: true,
-            tblMitglieder_SpielerID2: true
-          }
-        }
-      },
-      orderBy: {
-        Spieltag: 'asc'
-      }
-    })
-
-    return spieltage.flatMap(st => {
-      const base = {
-        MeisterschaftsID: st.MeisterschaftsID,
-        Bezeichnung: st.tblMeisterschaften.Bezeichnung,
-        Meisterschaftstyp: st.tblMeisterschaften.tblMeisterschaftstyp.Meisterschaftstyp,
-        Spieltag: st.Spieltag,
-      }
-
-      if (st.tblSpielMeisterschaft.length === 0) {
-        return [{
-          ...base,
-          SpielerID1: -1,
-          Spieler1: '',
-          HolzSpieler1: 0,
-          SpielerID2: -1,
-          Spieler2: '',
-          HolzSpieler2: 0,
-        }]
-      }
-
-      return st.tblSpielMeisterschaft.map(sm => ({
-        ...base,
-        SpielerID1: sm.SpielerID1 ?? -1,
-        Spieler1: sm.tblMitglieder_SpielerID1 ? `${sm.tblMitglieder_SpielerID1.Nachname}, ${sm.tblMitglieder_SpielerID1.Vorname}` : '',
-        HolzSpieler1: sm.HolzSpieler1 ?? 0,
-        SpielerID2: sm.SpielerID2 ?? -1,
-        Spieler2: sm.tblMitglieder_SpielerID2 ? `${sm.tblMitglieder_SpielerID2.Nachname}, ${sm.tblMitglieder_SpielerID2.Vorname}` : '',
-        HolzSpieler2: sm.HolzSpieler2 ?? 0,
-      }))
-    })
-  } catch (error) {
-    console.error('getStatistikSpieler error:', error)
-    return []
-  }
-}
-
-/**
- * Hilfsaction für vwStatistikSarg
- */
-export async function getStatistikSarg() {
-  try {
-    const data = await prisma.tblSpielSargKegeln.findMany({
-      include: {
-        tblSpieltag: true,
-        tblMitglieder: true,
-      },
-    })
-    return data.map(d => ({
-      MeisterschaftsID: d.tblSpieltag.MeisterschaftsID,
-      SpieltagID: d.SpieltagID,
-      Spieltag: d.tblSpieltag.Spieltag,
-      SpielerID: d.SpielerID,
-      Vorname: d.tblMitglieder.Vorname,
-      Nachname: d.tblMitglieder.Nachname,
-      Spitzname: d.tblMitglieder.Spitzname,
-      Platzierung: d.Platzierung,
-    }))
-  } catch (error) {
-    console.error('getStatistikSarg error:', error)
-    return []
-  }
-}
-
-/**
- * Hilfsaction für vwStatistikRatten
- */
-export async function getStatistikRatten() {
-  try {
-    const data = await prisma.tbl9erRatten.findMany({
-      where: {
-        Ratten: { gt: 0 }
-      },
-      include: {
-        tblSpieltag: {
-          include: {
-            tblMeisterschaften: true
-          }
-        },
-        tblMitglieder: true
-      },
-      orderBy: [
-        { tblSpieltag: { tblMeisterschaften: { Beginn: 'asc' } } },
-        { tblSpieltag: { Spieltag: 'asc' } }
-      ]
-    })
-    return data.map(d => ({
-      MeisterschaftsID: d.tblSpieltag.MeisterschaftsID,
-      Bezeichnung: d.tblSpieltag.tblMeisterschaften.Bezeichnung,
-      Beginn: d.tblSpieltag.tblMeisterschaften.Beginn,
-      Ende: d.tblSpieltag.tblMeisterschaften.Ende,
-      Spieltag: d.tblSpieltag.Spieltag,
-      SpielerID: d.SpielerID,
-      Ratten: d.Ratten,
-      Vorname: d.tblMitglieder.Vorname,
-      Nachname: d.tblMitglieder.Nachname,
-      Spitzname: d.tblMitglieder.Spitzname,
-    }))
-  } catch (error) {
-    console.error('getStatistikRatten error:', error)
-    return []
-  }
-}
-
-/**
- * Hilfsaction für vwStatistikPokal
- */
-export async function getStatistikPokal() {
-  try {
-    const data = await prisma.tblSpielPokal.findMany({
-      include: {
-        tblSpieltag: true,
-        tblMitglieder: true
-      }
-    })
-    return data.map(d => ({
-      MeisterschaftsID: d.tblSpieltag.MeisterschaftsID,
-      ID: d.SpieltagID,
-      Spieltag: d.tblSpieltag.Spieltag,
-      SpielerID: d.SpielerID,
-      Vorname: d.tblMitglieder.Vorname,
-      Nachname: d.tblMitglieder.Nachname,
-      Spitzname: d.tblMitglieder.Spitzname,
-      Platzierung: d.Platzierung,
-    }))
-  } catch (error) {
-    console.error('getStatistikPokal error:', error)
-    return []
-  }
-}
-
-/**
- * Hilfsaction für vwStatistik9erRatten
- * Berücksichtigt jetzt auch Kranz8 (Kranzacht)
- */
-export async function getStatistik9erRatten() {
-  try {
-    const spieltage = await prisma.tblSpieltag.findMany({
-      include: {
-        tblMeisterschaften: {
-          include: {
-            tblMeisterschaftstyp: true
-          }
-        },
-        tbl9erRatten: true
-      }
-    })
-
-    return spieltage.map(st => {
-      // Neunerkönig: Max(Neuner) DESC, Max(Kranzacht) DESC, Min(Ratten) DESC
-      const sortedForNeun = [...st.tbl9erRatten].sort((a, b) => {
-        if (b.Neuner !== a.Neuner) return b.Neuner - a.Neuner
-        if (b.Kranzacht !== a.Kranzacht) return b.Kranzacht - a.Kranzacht
-        return a.Ratten - b.Ratten
-      })
-
-      // Rattenorden: Max(Ratten) DESC, Min(Kranzacht) ASC, Min(Neuner) ASC
-      const sortedForRatten = [...st.tbl9erRatten].sort((a, b) => {
-        if (b.Ratten !== a.Ratten) return b.Ratten - a.Ratten
-        if (a.Kranzacht !== b.Kranzacht) return a.Kranzacht - b.Kranzacht
-        return a.Neuner - b.Neuner
-      })
-
-      return {
-        MeisterschaftsID: st.MeisterschaftsID,
-        Bezeichnung: st.tblMeisterschaften.Bezeichnung,
-        Beginn: st.tblMeisterschaften.Beginn,
-        Ende: st.tblMeisterschaften.Ende,
-        Meisterschaftstyp: st.tblMeisterschaften.tblMeisterschaftstyp.Meisterschaftstyp,
-        Spieltag: st.Spieltag,
-        ID: st.ID,
-        SpielerIDNeunerkönig: sortedForNeun[0]?.SpielerID ?? -1,
-        SpielerIDRattenorden: sortedForRatten[0]?.SpielerID ?? -1
-      }
-    })
-  } catch (error) {
-    console.error('getStatistik9erRatten error:', error)
-    return []
-  }
-}
-
-/**
- * Hilfsaction für vwStatistik9er
- */
-export async function getStatistik9er() {
-  try {
-    const data = await prisma.tbl9erRatten.findMany({
-      where: {
-        Neuner: { gt: 0 }
-      },
-      include: {
-        tblSpieltag: {
-          include: {
-            tblMeisterschaften: true
-          }
-        },
-        tblMitglieder: true
-      }
-    })
-    return data.map(d => ({
-      MeisterschaftsID: d.tblSpieltag.MeisterschaftsID,
-      Bezeichnung: d.tblSpieltag.tblMeisterschaften.Bezeichnung,
-      Beginn: d.tblSpieltag.tblMeisterschaften.Beginn,
-      Ende: d.tblSpieltag.tblMeisterschaften.Ende,
-      Spieltag: d.tblSpieltag.Spieltag,
-      SpielerID: d.SpielerID,
-      Neuner: d.Neuner,
-      Vorname: d.tblMitglieder.Vorname,
-      Nachname: d.tblMitglieder.Nachname,
-      Spitzname: d.tblMitglieder.Spitzname,
-    }))
-  } catch (error) {
-    console.error('getStatistik9er error:', error)
-    return []
-  }
-}
-
-/**
- * Hilfsaction für vwStatistik6TageRennen
- */
-export async function getStatistik6TageRennen() {
-  try {
-    const data = await prisma.tblSpiel6TageRennen.findMany({
-      include: {
-        tblSpieltag: true,
-        tblMitglieder_SpielerID1: true,
-        tblMitglieder_SpielerID2: true
-      }
-    })
-
-    const results: any[] = []
-
-    data.forEach(d => {
-      // Spieler 1
-      results.push({
-        MeisterschaftsID: d.tblSpieltag.MeisterschaftsID,
-        SpieltagID: d.SpieltagID,
-        Spieltag: d.tblSpieltag.Spieltag,
-        SpielerID: d.SpielerID1,
-        Vorname: d.tblMitglieder_SpielerID1.Vorname,
-        Nachname: d.tblMitglieder_SpielerID1.Nachname,
-        Spitzname: d.tblMitglieder_SpielerID1.Spitzname,
-        Spielnummer: d.Spielnummer,
-        Runden: d.Runden,
-        Punkte: d.Punkte
-      })
-      // Spieler 2
-      results.push({
-        MeisterschaftsID: d.tblSpieltag.MeisterschaftsID,
-        SpieltagID: d.SpieltagID,
-        Spieltag: d.tblSpieltag.Spieltag,
-        SpielerID: d.SpielerID2,
-        Vorname: d.tblMitglieder_SpielerID2.Vorname,
-        Nachname: d.tblMitglieder_SpielerID2.Nachname,
-        Spitzname: d.tblMitglieder_SpielerID2.Spitzname,
-        Spielnummer: d.Spielnummer,
-        Runden: d.Runden,
-        Punkte: d.Punkte
-      })
-    })
-
-    return results
-  } catch (error) {
-    console.error('getStatistik6TageRennen error:', error)
-    return []
-  }
-}
-
-/**
- * Hilfsaction für vwSpielSargKegeln
- */
-export async function getSpielSargKegeln() {
-  return getStatistikSarg() // Identisch in der Logik
-}
-
-/**
- * Hilfsaction für vwSpielPokal
- */
-export async function getSpielPokal() {
-  try {
-    const data = await prisma.tblSpielPokal.findMany({
-      include: {
-        tblSpieltag: true,
-        tblMitglieder: true
-      }
-    })
-    return data.map(d => ({
-      MeisterschaftsID: d.tblSpieltag.MeisterschaftsID,
-      SpielPokalID: d.ID,
-      SpieltagID: d.SpieltagID,
-      Spieltag: d.tblSpieltag.Spieltag,
-      SpielerID: d.SpielerID,
-      Vorname: d.tblMitglieder.Vorname,
-      Nachname: d.tblMitglieder.Nachname,
-      Spitzname: d.tblMitglieder.Spitzname,
-      Platzierung: d.Platzierung
-    }))
-  } catch (error) {
-    console.error('getSpielPokal error:', error)
-    return []
-  }
-}
-
-/**
- * Hilfsaction für vwSpielMeisterschaft
- */
-export async function getSpielMeisterschaft() {
-  try {
-    const data = await prisma.tblSpielMeisterschaft.findMany({
-      include: {
-        tblSpieltag: true,
-        tblMitglieder_SpielerID1: true,
-        tblMitglieder_SpielerID2: true
-      }
-    })
-    return data.map(d => ({
-      MeisterschaftsID: d.tblSpieltag.MeisterschaftsID,
-      SpielMeisterschaftID: d.ID,
-      SpieltagID: d.SpieltagID,
-      Spieltag: d.tblSpieltag.Spieltag,
-      SpielerID1: d.SpielerID1,
-      Spieler1Vorname: d.tblMitglieder_SpielerID1.Vorname,
-      Spieler1Nachname: d.tblMitglieder_SpielerID1.Nachname,
-      Spieler1Spitzname: d.tblMitglieder_SpielerID1.Spitzname,
-      SpielerID2: d.SpielerID2,
-      Spieler2Vorname: d.tblMitglieder_SpielerID2.Vorname,
-      Spieler2Nachname: d.tblMitglieder_SpielerID2.Nachname,
-      Spieler2Spitzname: d.tblMitglieder_SpielerID2.Spitzname,
-      HolzSpieler1: d.HolzSpieler1,
-      HolzSpieler2: d.HolzSpieler2,
-      HinRückrunde: d.HinRueckrunde
-    }))
-  } catch (error) {
-    console.error('getSpielMeisterschaft error:', error)
-    return []
-  }
-}
-
-/**
- * Hilfsaction für vwSpielKombimeisterschaft
- */
-export async function getSpielKombimeisterschaft() {
-  try {
-    const data = await prisma.tblSpielKombimeisterschaft.findMany({
-      include: {
-        tblSpieltag: true,
-        tblMitglieder_SpielerID1: true,
-        tblMitglieder_SpielerID2: true
-      }
-    })
-    return data.map(d => ({
-      MeisterschaftsID: d.tblSpieltag.MeisterschaftsID,
-      KombimeisterschaftID: d.ID,
-      SpieltagID: d.SpieltagID,
-      Spieltag: d.tblSpieltag.Spieltag,
-      SpielerID1: d.SpielerID1,
-      Spieler1Vorname: d.tblMitglieder_SpielerID1.Vorname,
-      Spieler1Nachname: d.tblMitglieder_SpielerID1.Nachname,
-      Spieler1Spitzname: d.tblMitglieder_SpielerID1.Spitzname,
-      SpielerID2: d.SpielerID2,
-      Spieler2Vorname: d.tblMitglieder_SpielerID2.Vorname,
-      Spieler2Nachname: d.tblMitglieder_SpielerID2.Nachname,
-      Spieler2Spitzname: d.tblMitglieder_SpielerID2.Spitzname,
-      Spieler1Punkte3bis8: d.Spieler1Punkte3bis8,
-      Spieler1Punkte5Kugeln: d.Spieler1Punkte5Kugeln,
-      Spieler2Punkte3bis8: d.Spieler2Punkte3bis8,
-      Spieler2Punkte5Kugeln: d.Spieler2Punkte5Kugeln,
-      HinRückrunde: d.HinRueckrunde
-    }))
-  } catch (error) {
-    console.error('getSpielKombimeisterschaft error:', error)
-    return []
-  }
-}
-
-/**
- * Hilfsaction für vwSpielBlitztunier
- */
-export async function getSpielBlitztunier() {
-  try {
-    const data = await prisma.tblSpielBlitztunier.findMany({
-      include: {
-        tblSpieltag: true,
-        tblMitglieder_SpielerID1: true,
-        tblMitglieder_SpielerID2: true
-      }
-    })
-    return data.map(d => ({
-      MeisterschaftsID: d.tblSpieltag.MeisterschaftsID,
-      BlitztunierID: d.ID,
-      SpieltagID: d.SpieltagID,
-      Spieltag: d.tblSpieltag.Spieltag,
-      SpielerID1: d.SpielerID1,
-      Spieler1Vorname: d.tblMitglieder_SpielerID1.Vorname,
-      Spieler1Nachname: d.tblMitglieder_SpielerID1.Nachname,
-      Spieler1Spitzname: d.tblMitglieder_SpielerID1.Spitzname,
-      SpielerID2: d.SpielerID2,
-      Spieler2Vorname: d.tblMitglieder_SpielerID2.Vorname,
-      Spieler2Nachname: d.tblMitglieder_SpielerID2.Nachname,
-      Spieler2Spitzname: d.tblMitglieder_SpielerID2.Spitzname,
-      PunkteSpieler1: d.PunkteSpieler1,
-      PunkteSpieler2: d.PunkteSpieler2,
-      HinRückrunde: d.HinR_ckrunde
-    }))
-  } catch (error) {
-    console.error('getSpielBlitztunier error:', error)
-    return []
-  }
-}
-
-/**
- * Hilfsaction für vwSpiel6TageRennen
- */
-export async function getSpiel6TageRennen() {
-  try {
-    const data = await prisma.tblSpiel6TageRennen.findMany({
-      include: {
-        tblSpieltag: true,
-        tblMitglieder_SpielerID1: true,
-        tblMitglieder_SpielerID2: true
-      },
-      orderBy: [
-        { tblSpieltag: { Spieltag: 'asc' } },
-        { Spielnummer: 'asc' },
-        { Runden: 'desc' },
-        { Punkte: 'desc' }
-      ]
-    })
-    return data.map((d, index) => ({
-      MeisterschaftsID: d.tblSpieltag.MeisterschaftsID,
-      '6TageRennenID': d.ID,
-      SpieltagID: d.SpieltagID,
-      Spieltag: d.tblSpieltag.Spieltag,
-      SpielerID1: d.SpielerID1,
-      Spieler1Vorname: d.tblMitglieder_SpielerID1.Vorname,
-      Spieler1Nachname: d.tblMitglieder_SpielerID1.Nachname,
-      Spieler1Spitzname: d.tblMitglieder_SpielerID1.Spitzname,
-      SpielerID2: d.SpielerID2,
-      Spieler2Vorname: d.tblMitglieder_SpielerID2.Vorname,
-      Spieler2Nachname: d.tblMitglieder_SpielerID2.Nachname,
-      Spieler2Spitzname: d.tblMitglieder_SpielerID2.Spitzname,
-      Runden: d.Runden,
-      Punkte: d.Punkte,
-      Spielnummer: d.Spielnummer,
-      Platz: index + 1 // Vereinfacht, SQL nutzt PARTITION BY
-    }))
-  } catch (error) {
-    console.error('getSpiel6TageRennen error:', error)
-    return []
-  }
-}
-
-/**
- * Hilfsaction für vwErgebnisKurztunier
- */
-export async function getErgebnisKurztunier() {
-  try {
-    const data = await prisma.tblSpielBlitztunier.findMany({
-      include: {
-        tblSpieltag: {
-          include: {
-            tblMeisterschaften: true
-          }
-        },
-        tblMitglieder_SpielerID1: true,
-        tblMitglieder_SpielerID2: true
-      }
-    })
-    return data.map(d => ({
-      MeisterschaftsID: d.tblSpieltag.MeisterschaftsID,
-      Jahr: d.tblSpieltag.tblMeisterschaften.Beginn.getFullYear(),
-      SpielerID1: d.SpielerID1,
-      Spieler1Vorname: d.tblMitglieder_SpielerID1.Vorname,
-      Spieler1Nachname: d.tblMitglieder_SpielerID1.Nachname,
-      Spieler1Spitzname: d.tblMitglieder_SpielerID1.Spitzname,
-      SpielerID2: d.SpielerID2,
-      Spieler2Vorname: d.tblMitglieder_SpielerID2.Vorname,
-      Spieler2Nachname: d.tblMitglieder_SpielerID2.Nachname,
-      Spieler2Spitzname: d.tblMitglieder_SpielerID2.Spitzname,
-      PunkteSpieler1: d.PunkteSpieler1,
-      PunkteSpieler2: d.PunkteSpieler2,
-      HinRückrunde: d.HinR_ckrunde
-    }))
-  } catch (error) {
-    console.error('getErgebnisKurztunier error:', error)
-    return []
-  }
-}
-
-/**
- * Hilfsaction für vwErgebnisMeisterschaft
- */
-export async function getErgebnisMeisterschaft() {
-  try {
-    const data = await prisma.tblSpielMeisterschaft.findMany({
-      include: {
-        tblSpieltag: {
-          include: {
-            tblMeisterschaften: true
-          }
-        },
-        tblMitglieder_SpielerID1: true,
-        tblMitglieder_SpielerID2: true
-      }
-    })
-    return data.map(d => ({
-      MeisterschaftsID: d.tblSpieltag.MeisterschaftsID,
-      Jahr: d.tblSpieltag.tblMeisterschaften.Beginn.getFullYear(),
-      SpielerID1: d.SpielerID1,
-      Spieler1Vorname: d.tblMitglieder_SpielerID1.Vorname,
-      Spieler1Nachname: d.tblMitglieder_SpielerID1.Nachname,
-      Spieler1Spitzname: d.tblMitglieder_SpielerID1.Spitzname,
-      SpielerID2: d.SpielerID2,
-      Spieler2Vorname: d.tblMitglieder_SpielerID2.Vorname,
-      Spieler2Nachname: d.tblMitglieder_SpielerID2.Nachname,
-      Spieler2Spitzname: d.tblMitglieder_SpielerID2.Spitzname,
-      HolzSpieler1: d.HolzSpieler1,
-      HolzSpieler2: d.HolzSpieler2,
-      HinRückrunde: d.HinRueckrunde
-    }))
-  } catch (error) {
-    console.error('getErgebnisMeisterschaft error:', error)
-    return []
-  }
-}
-
-/**
- * Hilfsaction für vw9erRatten
- * Berücksichtigt jetzt auch Kranz8 (Kranzacht)
- */
-export async function get9erRatten() {
-  try {
-    const data = await prisma.tbl9erRatten.findMany({
-      include: {
-        tblSpieltag: true,
-        tblMitglieder: true
-      }
-    })
-    return data.map(d => ({
-      MeisterschaftsID: d.tblSpieltag.MeisterschaftsID,
-      SpieltagID: d.SpieltagID,
-      Spieltag: d.tblSpieltag.Spieltag,
-      '9erRattenID': d.ID,
-      SpielerID: d.SpielerID,
-      Vorname: d.tblMitglieder.Vorname,
-      Nachname: d.tblMitglieder.Nachname,
-      Spitzname: d.tblMitglieder.Spitzname,
-      Neuner: d.Neuner,
-      Ratten: d.Ratten,
-      Kranzacht: d.Kranzacht
-    }))
-  } catch (error) {
-    console.error('get9erRatten error:', error)
-    return []
-  }
-}
-
-/**
- * Hilfsaction für vwErgebnisKombimeisterschaft
- */
-export async function getErgebnisKombimeisterschaft() {
-  try {
-    const data = await prisma.tblSpielKombimeisterschaft.findMany({
-      include: {
-        tblSpieltag: {
-          include: {
-            tblMeisterschaften: true
-          }
-        },
-        tblMitglieder_SpielerID1: true,
-        tblMitglieder_SpielerID2: true
-      }
-    })
-    return data.map(d => ({
-      MeisterschaftsID: d.tblSpieltag.MeisterschaftsID,
-      Jahr: d.tblSpieltag.tblMeisterschaften.Beginn.getFullYear(),
-      SpielerID1: d.SpielerID1,
-      Spieler1Vorname: d.tblMitglieder_SpielerID1.Vorname,
-      Spieler1Nachname: d.tblMitglieder_SpielerID1.Nachname,
-      Spieler1Spitzname: d.tblMitglieder_SpielerID1.Spitzname,
-      SpielerID2: d.SpielerID2,
-      Spieler2Vorname: d.tblMitglieder_SpielerID2.Vorname,
-      Spieler2Nachname: d.tblMitglieder_SpielerID2.Nachname,
-      Spieler2Spitzname: d.tblMitglieder_SpielerID2.Spitzname,
-      Spieler1Punkte3bis8: d.Spieler1Punkte3bis8,
-      Spieler1Punkte5Kugeln: d.Spieler1Punkte5Kugeln,
-      Spieler2Punkte3bis8: d.Spieler2Punkte3bis8,
-      Spieler2Punkte5Kugeln: d.Spieler2Punkte5Kugeln,
-      HinRückrunde: d.HinRueckrunde
-    }))
-  } catch (error) {
-    console.error('getErgebnisKombimeisterschaft error:', error)
-    return []
-  }
-}

@@ -4,13 +4,11 @@ import * as React from "react"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 
-export function StatistikAuswahl() {
-  const [auswahl, setAuswahl] = React.useState("neuner")
-
+export function StatistikAuswahl({ value, onValueChange }: { value: string, onValueChange: (v: string) => void }) {
   return (
     <div className="space-y-4">
       <h3 className="text-sm font-medium text-muted-foreground border-b pb-1">Auswahl</h3>
-      <RadioGroup value={auswahl} onValueChange={setAuswahl} className="flex flex-col md:flex-row gap-8">
+      <RadioGroup value={value} onValueChange={onValueChange} className="flex flex-col md:flex-row gap-8">
         <div className="flex flex-col space-y-2">
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="neuner" id="neuner" />

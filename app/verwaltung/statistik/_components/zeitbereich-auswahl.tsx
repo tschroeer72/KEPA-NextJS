@@ -16,11 +16,21 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 
-export function ZeitbereichAuswahl() {
-  const [dateVon, setDateVon] = React.useState<Date>()
-  const [dateBis, setDateBis] = React.useState<Date>()
-  const [zeit, setZeit] = React.useState("laufende")
-
+export function ZeitbereichAuswahl({ 
+  zeit, 
+  setZeit, 
+  dateVon, 
+  setDateVon, 
+  dateBis, 
+  setDateBis 
+}: { 
+  zeit: string, 
+  setZeit: (v: string) => void,
+  dateVon: Date | undefined,
+  setDateVon: (d: Date | undefined) => void,
+  dateBis: Date | undefined,
+  setDateBis: (d: Date | undefined) => void
+}) {
   const isIndividuell = zeit === "individuell"
 
   return (
