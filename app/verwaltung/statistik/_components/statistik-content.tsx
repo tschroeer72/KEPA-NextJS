@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { FileText } from "lucide-react"
 import { ZeitbereichAuswahl } from "./zeitbereich-auswahl"
 import { StatistikAuswahl } from "./statistik-auswahl"
+import { toast } from "sonner"
 
 export function StatistikContent() {
   const [auswahl, setAuswahl] = React.useState("neuner")
@@ -44,7 +45,7 @@ export function StatistikContent() {
       window.URL.revokeObjectURL(url)
     } catch (error) {
       console.error('Export error:', error)
-      alert('Der PDF-Export ist fehlgeschlagen.')
+      toast.error('Der PDF-Export ist fehlgeschlagen.')
     } finally {
       setLoading(false)
     }

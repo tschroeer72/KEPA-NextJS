@@ -18,7 +18,7 @@ import {useRouter} from "next/navigation";
 import axios from 'axios';
 
 export default function AppBarVerwaltung() {
-    const {setIsLogin, userId, setUserId, username, setUsername, vorname, nachname, setVorname, setNachname, setIsAdmin} = useAuthContext();
+    const {setIsLogin, userId, setUserId, username, setUsername, vorname, nachname, setVorname, setNachname, isAdmin, setIsAdmin} = useAuthContext();
     const router = useRouter();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -103,6 +103,17 @@ export default function AppBarVerwaltung() {
                                                 <span>Profil</span>
                                             </Link>
                                         </NavigationMenuLink>
+                                        {isAdmin && (
+                                            <NavigationMenuLink asChild>
+                                                <Link
+                                                    href="/verwaltung/benutzerzugriff"
+                                                    className="flex flex-row items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-all w-full"
+                                                >
+                                                    <User size={18} />
+                                                    <span>Benutzerzugriff</span>
+                                                </Link>
+                                            </NavigationMenuLink>
+                                        )}
                                         <button
                                             onClick={handleLogout}
                                             className="flex items-center space-x-2 px-3 py-2 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-all w-full text-left"
@@ -175,6 +186,17 @@ export default function AppBarVerwaltung() {
                             <User size={20} />
                             <span>Profil</span>
                         </Link>
+
+                        {isAdmin && (
+                            <Link
+                                href="/verwaltung/benutzerzugriff"
+                                className="flex items-center space-x-2 px-3 py-2 text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 rounded transition-all"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                <User size={20} />
+                                <span>Benutzerzugriff</span>
+                            </Link>
+                        )}
 
                         <button
                             onClick={() => {

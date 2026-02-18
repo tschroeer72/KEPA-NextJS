@@ -5,6 +5,7 @@ import {ThemeProvider} from "next-themes";
 import { Analytics } from "@vercel/analytics/next"
 import ConditionalLayout from "@/components/conditional-layout";
 import {AuthContextProvider} from "@/providers/auth-context-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
         >
             <AuthContextProvider>
                 <ConditionalLayout>{children}</ConditionalLayout>
+                <Toaster richColors closeButton position="top-right" />
             </AuthContextProvider>
             <Analytics />
         </ThemeProvider>

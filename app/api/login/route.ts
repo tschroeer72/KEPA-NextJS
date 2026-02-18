@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
                 login: benutzer,
                 isAdmin: true,
                 vorname: 'Admin',
-                nachname: 'Admin',
+                nachname: 'User',
             },
             process.env.JWT_SECRET!,
             {
