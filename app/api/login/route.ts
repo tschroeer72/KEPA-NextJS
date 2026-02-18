@@ -14,6 +14,43 @@ export async function POST(request: NextRequest) {
     const hashedPassword = crypto.createHash('sha256').update(passwort).digest('hex');
     //console.log(hashedPassword)
 
+    // Check for ADMIN credentials first
+    if (benutzer === process.env.ADMIN_USERNAME && hashedPassword === process.env.ADMIN_PASSWORD) {
+        // Token generieren für Admin
+        const token = jwt.sign(
+            {
+                userId: 0, // Admin ID 0
+                login: benutzer,
+                isAdmin: true,
+                vorname: 'Admin',
+                nachname: 'Admin',
+            },
+            process.env.JWT_SECRET!,
+            {
+                expiresIn: '1h'
+            }
+        );
+
+        const serialized = serialize('token', token, {
+            maxAge: 60 * 60,
+            sameSite: 'strict',
+            path: '/',
+            httpOnly: true,
+        });
+
+        const response = NextResponse.json({ 
+            message: 'Erfolgreich', 
+            userId: 0,
+            username: benutzer,
+            vorname: 'Admin',
+            nachname: 'User',
+            isAdmin: true
+        }, { status: 200 });
+        response.headers.set('Set-Cookie', serialized);
+
+        return response;
+    }
+
     const usr = await prisma.tblMitglieder.findFirst({
       where: {
         Login: benutzer,
@@ -29,6 +66,8 @@ export async function POST(request: NextRequest) {
             {
                 userId: usr?.ID,
                 login: usr?.Login,
+                vorname: usr?.Vorname,
+                nachname: usr?.Nachname,
                 // weitere User-Daten nach Bedarf
             },
             process.env.JWT_SECRET!, // Verwende JWT_SECRET statt TOKEN
@@ -47,7 +86,14 @@ export async function POST(request: NextRequest) {
         });
         //console.log('Login Route - Cookie serialisiert:', serialized);
 
-        const response = NextResponse.json('Erfolgreich', { status: 200 });
+        const response = NextResponse.json({ 
+            message: 'Erfolgreich', 
+            userId: usr?.ID,
+            username: usr?.Login || benutzer,
+            vorname: usr?.Vorname,
+            nachname: usr?.Nachname,
+            isAdmin: false
+        }, { status: 200 });
         response.headers.set('Set-Cookie', serialized);
 
         return response;

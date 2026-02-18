@@ -13,11 +13,11 @@ export default function Login() {
     const [passwort, setPasswort] = useState("");
     const [error, setError] = useState(false);
     const router = useRouter();
-    const {setIsLogin} = useAuthContext();
+    const {setIsLogin, setUserId, setUsername, setVorname, setNachname, setIsAdmin} = useAuthContext();
 
     const login = async () => {
         try {
-            await axios.post("/api/login", {
+            const response = await axios.post("/api/login", {
                 benutzer,
                 passwort
             }, {
@@ -32,6 +32,15 @@ export default function Login() {
             await new Promise(resolve => setTimeout(resolve, 200));
 
             setIsLogin(true);
+            if (response.data) {
+                if (response.data.userId !== undefined) setUserId(response.data.userId);
+                if (response.data.username) setUsername(response.data.username);
+                if (response.data.vorname) setVorname(response.data.vorname);
+                if (response.data.nachname) setNachname(response.data.nachname);
+                setIsAdmin(!!response.data.isAdmin);
+            } else {
+                setUsername(benutzer);
+            }
             router.push("/verwaltung");
         } catch (error) {
             console.log("Login Error", error)

@@ -5,20 +5,23 @@ import ThemeSwitcher from "@/components/theme-switcher";
 import Link from "next/link";
 import {
     NavigationMenu,
+    NavigationMenuContent,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
+    NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import {NavDataVerwaltung} from "@/data/navdata-verwaltung";
-import {LogOut, Menu, X} from 'lucide-react';
+import {LogOut, Menu, User, X} from 'lucide-react';
 import {useAuthContext} from "@/providers/auth-context-provider";
 import {useRouter} from "next/navigation";
 import axios from 'axios';
 
 export default function AppBarVerwaltung() {
-    const {setIsLogin} = useAuthContext();
+    const {setIsLogin, userId, setUserId, username, setUsername, vorname, nachname, setVorname, setNachname, setIsAdmin} = useAuthContext();
     const router = useRouter();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -28,6 +31,11 @@ export default function AppBarVerwaltung() {
         try {
             await axios.post("/api/logout");
             setIsLogin(false);
+            setUserId(null);
+            setUsername(null);
+            setVorname(null);
+            setNachname(null);
+            setIsAdmin(false);
             router.push('/');
         } catch (error) {
             console.error('Logout fehlgeschlagen:', error);
@@ -75,13 +83,38 @@ export default function AppBarVerwaltung() {
                         </NavigationMenuList>
                     </NavigationMenu>
 
-                    <button
-                        onClick={handleLogout}
-                        className="flex items-center space-x-2 px-3 py-2 text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-all"
-                    >
-                        <LogOut size={20} />
-                        <span>Logout</span>
-                    </button>
+                    <NavigationMenu>
+                        <NavigationMenuList>
+                            <NavigationMenuItem>
+                                <NavigationMenuTrigger className="bg-transparent text-white hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-gray-300">
+                                    <div className="flex items-center space-x-2">
+                                        <User size={20} />
+                                        <span>{vorname && nachname ? `${vorname} ${nachname}` : (username || 'Benutzer')}</span>
+                                    </div>
+                                </NavigationMenuTrigger>
+                                <NavigationMenuContent className="min-w-[150px] bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                                    <div className="flex flex-col p-2 space-y-1">
+                                        <NavigationMenuLink asChild>
+                                            <Link
+                                                href="/verwaltung/profil"
+                                                className="flex flex-row items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-all w-full"
+                                            >
+                                                <User size={18} />
+                                                <span>Profil</span>
+                                            </Link>
+                                        </NavigationMenuLink>
+                                        <button
+                                            onClick={handleLogout}
+                                            className="flex items-center space-x-2 px-3 py-2 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-all w-full text-left"
+                                        >
+                                            <LogOut size={18} />
+                                            <span>Logout</span>
+                                        </button>
+                                    </div>
+                                </NavigationMenuContent>
+                            </NavigationMenuItem>
+                        </NavigationMenuList>
+                    </NavigationMenu>
 
                     <ThemeSwitcher />
                 </div>
@@ -128,12 +161,27 @@ export default function AppBarVerwaltung() {
                             </Link>
                         ))}
 
+                        <div className="border-t border-gray-600 dark:border-gray-700 my-1"></div>
+
+                        <div className="px-3 py-2 text-gray-400 text-sm font-medium">
+                            Angemeldet als: {vorname && nachname ? `${vorname} ${nachname}` : (username || 'Benutzer')}
+                        </div>
+
+                        <Link
+                            href="/verwaltung/profil"
+                            className="flex items-center space-x-2 px-3 py-2 text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 rounded transition-all"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                            <User size={20} />
+                            <span>Profil</span>
+                        </Link>
+
                         <button
                             onClick={() => {
                                 handleLogout();
                                 setIsMobileMenuOpen(false);
                             }}
-                            className="flex items-center space-x-2 px-3 py-2 text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 rounded transition-all text-left"
+                            className="flex items-center space-x-2 px-3 py-2 text-red-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 rounded transition-all text-left"
                         >
                             <LogOut size={20} />
                             <span>Logout</span>

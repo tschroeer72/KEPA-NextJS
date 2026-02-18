@@ -13,9 +13,16 @@ export async function GET(request: NextRequest) {
     }
 
     try {
-        jwt.verify(token, process.env.JWT_SECRET!);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { userId: number, login: string, vorname?: string, nachname?: string, isAdmin?: boolean };
         //console.log('Verify Route - Token erfolgreich verifiziert');
-        return NextResponse.json({ message: 'Token gültig' }, { status: 200 });
+        return NextResponse.json({ 
+            message: 'Token gültig', 
+            userId: decoded.userId,
+            username: decoded.login,
+            vorname: decoded.vorname || null,
+            nachname: decoded.nachname || null,
+            isAdmin: !!decoded.isAdmin
+        }, { status: 200 });
     } catch (error) {
         console.log('Verify Route - Token Verifikation fehlgeschlagen:', error);
         return NextResponse.json({ error: 'Token ungültig' }, { status: 401 });
