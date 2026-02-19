@@ -303,9 +303,9 @@ export default function GenericErgebnisCard({ spiel, onSpielChange, data, classN
       </CardHeader>
       <CardContent>
         <Tabs value={spiel} onValueChange={onSpielChange} className="w-full">
-          <TabsList className="mb-4 flex-wrap h-auto" disabled={disabled}>
+          <TabsList className="mb-4 flex-wrap h-auto">
             {SpieleType.map((s) => (
-              <TabsTrigger key={s.value} value={s.value}>
+              <TabsTrigger key={s.value} value={s.value} disabled={disabled}>
                 {s.label}
               </TabsTrigger>
             ))}
