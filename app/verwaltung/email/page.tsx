@@ -5,7 +5,7 @@ import { EmailEntwickler } from "./_components/email-entwickler";
 export default function EmailPage() {
     return (
         <div className="container mx-auto py-6">
-            <h1 className="mb-6 text-3xl font-bold text-center">Email Verwaltung</h1>
+            <h1 className="mb-6 text-3xl font-bold text-center">Emailversand</h1>
 
             <Tabs defaultValue="rund-email" className="w-full mx-auto">
                 <TabsList className="grid w-full grid-cols-2">
