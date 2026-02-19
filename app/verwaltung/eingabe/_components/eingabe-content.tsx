@@ -7,17 +7,31 @@ import GenericErgebnisCard from "@/components/generic-ergebnis-card"
 import { SpieleType } from "@/types/spiele-type"
 import { AktiverMitspieler } from "@/interfaces/aktiver-mitspieler"
 import { getKontrollausgabeAction } from "@/app/actions/verwaltung/eingabe"
+import MeisterschaftsStatusCard from "./meisterschafts-status-card"
+
+type Meisterschaft = {
+  ID: number
+  Bezeichnung: string
+  Aktiv: number
+  tblMeisterschaftstyp?: {
+    Meisterschaftstyp: string
+  } | null
+}
 
 type Props = {
   mitglieder: AktiverMitspieler[]
-  meisterschaftsId: number | undefined
+  aktiveMeisterschaft: Meisterschaft | null | undefined
+  allMeisterschaften: Meisterschaft[]
 }
 
-export default function EingabeContent({ mitglieder, meisterschaftsId }: Props) {
+export default function EingabeContent({ mitglieder, aktiveMeisterschaft, allMeisterschaften }: Props) {
   const [date, setDate] = React.useState<Date | undefined>(new Date())
   const [spiel, setSpiel] = React.useState<string>(SpieleType[0]?.value)
   const [spielNr, setSpielNr] = React.useState<string>("1")
   const [kontrollData, setKontrollData] = React.useState<any>(null)
+
+  const meisterschaftsId = aktiveMeisterschaft?.ID
+  const isDisabled = !aktiveMeisterschaft
 
   const loadKontrollData = React.useCallback(async () => {
     if (date) {
@@ -34,6 +48,11 @@ export default function EingabeContent({ mitglieder, meisterschaftsId }: Props) 
 
   return (
     <div className="flex flex-col gap-4 p-4 md:p-6">
+      <MeisterschaftsStatusCard 
+        aktiveMeisterschaft={aktiveMeisterschaft}
+        allMeisterschaften={allMeisterschaften}
+      />
+
       {/* Erste Zeile: zwei Cards */}
       <div className="flex flex-col md:flex-row gap-4 items-start">
         {/* Linke Card: Kalender + Spielauswahl */}
@@ -44,6 +63,7 @@ export default function EingabeContent({ mitglieder, meisterschaftsId }: Props) 
           onSpielChange={setSpiel}
           spielNr={spielNr}
           onSpielNrChange={setSpielNr}
+          disabled={isDisabled}
         />
 
         {/* Rechte Card: Tabelle mit Mitgliedern */}
@@ -54,6 +74,7 @@ export default function EingabeContent({ mitglieder, meisterschaftsId }: Props) 
           date={date}
           meisterschaftsId={meisterschaftsId}
           onSaveSuccess={loadKontrollData}
+          disabled={isDisabled}
         />
       </div>
 
@@ -63,6 +84,7 @@ export default function EingabeContent({ mitglieder, meisterschaftsId }: Props) 
         spiel={spiel} 
         onSpielChange={setSpiel} 
         data={kontrollData}
+        disabled={isDisabled}
       />
     </div>
   )

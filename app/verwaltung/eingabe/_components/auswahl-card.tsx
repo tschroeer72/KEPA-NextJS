@@ -22,6 +22,7 @@ type Props = {
   spielNr: string
   onSpielNrChange: (value: string) => void
   className?: string
+  disabled?: boolean
 }
 
 export default function AuswahlCard({
@@ -32,6 +33,7 @@ export default function AuswahlCard({
   spielNr,
   onSpielNrChange,
   className,
+  disabled = false,
 }: Props) {
   return (
     <Card className={className}>
@@ -48,6 +50,7 @@ export default function AuswahlCard({
             className="rounded-md border"
             showOutsideDays={false}
             locale={de}
+            disabled={disabled}
             formatters={{
               formatMonthDropdown: (d) =>
                 d.toLocaleString("de-DE", { month: "short" }),
@@ -57,7 +60,7 @@ export default function AuswahlCard({
 
         <div className="flex flex-col gap-2">
           <Label htmlFor="spielauswahl">Spielauswahl</Label>
-          <Select value={spiel} onValueChange={onSpielChange}>
+          <Select value={spiel} onValueChange={onSpielChange} disabled={disabled}>
             <SelectTrigger id="spielauswahl" className="w-full">
               <SelectValue placeholder="Spiel auswählen" />
             </SelectTrigger>
@@ -74,7 +77,7 @@ export default function AuswahlCard({
         {spiel === "6-tage-rennen" && (
           <div className="flex flex-col gap-2">
             <Label htmlFor="spielnr">Spielnr.</Label>
-            <Select value={spielNr} onValueChange={onSpielNrChange}>
+            <Select value={spielNr} onValueChange={onSpielNrChange} disabled={disabled}>
               <SelectTrigger id="spielnr" className="w-full">
                 <SelectValue placeholder="Spielnr. auswählen" />
               </SelectTrigger>

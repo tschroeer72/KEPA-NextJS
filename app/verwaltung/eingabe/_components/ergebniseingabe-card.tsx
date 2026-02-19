@@ -29,6 +29,7 @@ type Props = {
   date?: Date
   meisterschaftsId?: number
   onSaveSuccess?: () => void
+  disabled?: boolean
 }
 
 // Interfaces für die verschiedenen Spiel-Datentypen
@@ -83,7 +84,7 @@ interface KombiSpiel {
   HinRueckrunde: string
 }
 
-export default function ErgebniseingabeCard({ className, mitglieder, spiel, date, meisterschaftsId, onSaveSuccess }: Props) {
+export default function ErgebniseingabeCard({ className, mitglieder, spiel, date, meisterschaftsId, onSaveSuccess, disabled = false }: Props) {
   // States für die verschiedenen Spiele
   const [spielNeunerRatten, setSpielNeunerRatten] = React.useState<NeunerRatten[]>([])
   const [spiel6TageRennen, setSpiel6TageRennen] = React.useState<SechsTageRennen[]>([])
@@ -386,6 +387,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       value={item.Neuner} 
                       onChange={(e) => updateItem(index, "Neuner", parseInt(e.target.value) || 0, "9er-ratten-kranz8")}
                       className="h-8" 
+                      disabled={disabled}
                     />
                   </TableCell>
                   <TableCell>
@@ -394,6 +396,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       value={item.Kranz8} 
                       onChange={(e) => updateItem(index, "Kranz8", parseInt(e.target.value) || 0, "9er-ratten-kranz8")}
                       className="h-8" 
+                      disabled={disabled}
                     />
                   </TableCell>
                   <TableCell>
@@ -402,10 +405,11 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       value={item.Ratten} 
                       onChange={(e) => updateItem(index, "Ratten", parseInt(e.target.value) || 0, "9er-ratten-kranz8")}
                       className="h-8" 
+                      disabled={disabled}
                     />
                   </TableCell>
                   <TableCell>
-                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, "9er-ratten-kranz8")}>
+                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, "9er-ratten-kranz8")} disabled={disabled}>
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </TableCell>
@@ -442,6 +446,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       value={item.Runden} 
                       onChange={(e) => updateItem(index, "Runden", parseInt(e.target.value) || 0, "6-tage-rennen")}
                       className="h-8" 
+                      disabled={disabled}
                     />
                   </TableCell>
                   <TableCell>
@@ -450,6 +455,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       value={item.Punkte} 
                       onChange={(e) => updateItem(index, "Punkte", parseInt(e.target.value) || 0, "6-tage-rennen")}
                       className="h-8" 
+                      disabled={disabled}
                     />
                   </TableCell>
                   <TableCell>
@@ -458,10 +464,11 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       value={item.Spielnr} 
                       onChange={(e) => updateItem(index, "Spielnr", parseInt(e.target.value) || 0, "6-tage-rennen")}
                       className="h-8" 
+                      disabled={disabled}
                     />
                   </TableCell>
                   <TableCell>
-                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, "6-tage-rennen")}>
+                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, "6-tage-rennen")} disabled={disabled}>
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </TableCell>
@@ -496,10 +503,11 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       value={item.Platzierung} 
                       onChange={(e) => updateItem(index, "Platzierung", parseInt(e.target.value) || 0, spiel)}
                       className="h-8" 
+                      disabled={disabled}
                     />
                   </TableCell>
                   <TableCell>
-                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, spiel)}>
+                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, spiel)} disabled={disabled}>
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </TableCell>
@@ -539,6 +547,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       value={item.Wert1} 
                       onChange={(e) => updateItem(index, "Wert1", parseInt(e.target.value) || 0, spiel)}
                       className="h-8" 
+                      disabled={disabled}
                     />
                   </TableCell>
                   <TableCell>
@@ -547,12 +556,14 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       value={item.Wert2} 
                       onChange={(e) => updateItem(index, "Wert2", parseInt(e.target.value) || 0, spiel)}
                       className="h-8" 
+                      disabled={disabled}
                     />
                   </TableCell>
                   <TableCell>
                     <Select 
                       value={item.HinRueckrunde}
                       onValueChange={(val) => updateItem(index, "HinRueckrunde", val, spiel)}
+                      disabled={disabled}
                     >
                       <SelectTrigger className="h-8">
                         <SelectValue />
@@ -564,7 +575,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                     </Select>
                   </TableCell>
                   <TableCell>
-                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, spiel)}>
+                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, spiel)} disabled={disabled}>
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </TableCell>
@@ -603,6 +614,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       value={item.S1_3bis8} 
                       onChange={(e) => updateItem(index, "S1_3bis8", parseInt(e.target.value) || 0, "kombimeisterschaft")}
                       className="h-8" 
+                      disabled={disabled}
                     />
                   </TableCell>
                   <TableCell>
@@ -611,6 +623,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       value={item.S1_5K} 
                       onChange={(e) => updateItem(index, "S1_5K", parseInt(e.target.value) || 0, "kombimeisterschaft")}
                       className="h-8" 
+                      disabled={disabled}
                     />
                   </TableCell>
                   <TableCell>
@@ -619,6 +632,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       value={item.S2_3bis8} 
                       onChange={(e) => updateItem(index, "S2_3bis8", parseInt(e.target.value) || 0, "kombimeisterschaft")}
                       className="h-8" 
+                      disabled={disabled}
                     />
                   </TableCell>
                   <TableCell>
@@ -627,12 +641,14 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       value={item.S2_5K} 
                       onChange={(e) => updateItem(index, "S2_5K", parseInt(e.target.value) || 0, "kombimeisterschaft")}
                       className="h-8" 
+                      disabled={disabled}
                     />
                   </TableCell>
                   <TableCell>
                     <Select 
                       value={item.HinRueckrunde}
                       onValueChange={(val) => updateItem(index, "HinRueckrunde", val, "kombimeisterschaft")}
+                      disabled={disabled}
                     >
                       <SelectTrigger className="h-8">
                         <SelectValue />
@@ -644,7 +660,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                     </Select>
                   </TableCell>
                   <TableCell>
-                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, "kombimeisterschaft")}>
+                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, "kombimeisterschaft")} disabled={disabled}>
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </TableCell>

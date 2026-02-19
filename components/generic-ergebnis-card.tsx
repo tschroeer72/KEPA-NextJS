@@ -20,9 +20,10 @@ type Props = {
   data: ErgebnisseData | null
   className?: string
   title: string
+  disabled?: boolean
 }
 
-export default function GenericErgebnisCard({ spiel, onSpielChange, data, className, title }: Props) {
+export default function GenericErgebnisCard({ spiel, onSpielChange, data, className, title, disabled = false }: Props) {
   const renderTableContent = (sValue: string) => {
     if (!data) return <div className="text-sm text-muted-foreground italic">Keine Daten für diesen Tag gefunden.</div>
 
@@ -302,7 +303,7 @@ export default function GenericErgebnisCard({ spiel, onSpielChange, data, classN
       </CardHeader>
       <CardContent>
         <Tabs value={spiel} onValueChange={onSpielChange} className="w-full">
-          <TabsList className="mb-4 flex-wrap h-auto">
+          <TabsList className="mb-4 flex-wrap h-auto" disabled={disabled}>
             {SpieleType.map((s) => (
               <TabsTrigger key={s.value} value={s.value}>
                 {s.label}

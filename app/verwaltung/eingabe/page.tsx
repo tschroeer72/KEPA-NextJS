@@ -35,16 +35,33 @@ async function getAktiveMitglieder(): Promise<AktiverMitspieler[]> {
 }
 
 async function getAktiveMeisterschaft() {
-  const meisterschaft = await prisma.tblMeisterschaften.findFirst({
+  return await prisma.tblMeisterschaften.findFirst({
     where: { Aktiv: 1 },
-    select: { ID: true }
+    include: {
+      tblMeisterschaftstyp: true
+    }
   })
-  return meisterschaft?.ID
+}
+
+async function getAllMeisterschaften() {
+  return await prisma.tblMeisterschaften.findMany({
+    orderBy: { Bezeichnung: 'asc' },
+    include: {
+      tblMeisterschaftstyp: true
+    }
+  })
 }
 
 export default async function EingabePage() {
   const mitglieder = await getAktiveMitglieder()
-  const meisterschaftsId = await getAktiveMeisterschaft()
+  const aktiveMeisterschaft = await getAktiveMeisterschaft()
+  const allMeisterschaften = await getAllMeisterschaften()
 
-  return <EingabeContent mitglieder={mitglieder} meisterschaftsId={meisterschaftsId} />
+  return (
+    <EingabeContent 
+      mitglieder={mitglieder} 
+      aktiveMeisterschaft={aktiveMeisterschaft} 
+      allMeisterschaften={allMeisterschaften}
+    />
+  )
 }
