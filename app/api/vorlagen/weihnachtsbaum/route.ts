@@ -8,13 +8,26 @@ export async function GET(req: NextRequest) {
   const cm = vpe.cm;
 
   try {
+    const variant = req.nextUrl.searchParams.get("variant") || "1";
+    
     // Bild einladen
-    const imagePath = path.join(process.cwd(), "public", "vorlagen", "Weihnachtsbaumkegeln.jpg");
+    const imageName = variant === "2" ? "Weihnachtsbaumkegeln2.jpg" : "Weihnachtsbaumkegeln.jpg";
+    const imagePath = path.join(process.cwd(), "public", "vorlagen", imageName);
     const imageBuffer = fs.readFileSync(imagePath);
     const imageBase64 = `data:image/jpeg;base64,${imageBuffer.toString("base64")}`;
 
     // Bild einfügen
     vpe.image(0.2, 0.2, 18.2, 25.2, imageBase64, "JPEG");
+
+    if (variant === "2") {
+      const pdfOutput = vpe.getOutput();
+      return new NextResponse(pdfOutput as any, {
+        headers: {
+          "Content-Type": "application/pdf",
+          "Content-Disposition": "attachment; filename=Weihnachtsbaum.pdf",
+        },
+      });
+    }
 
     vpe.selectFont("helvetica", 20);
     vpe.write(9, 2, 4, 1.5, "Name:");

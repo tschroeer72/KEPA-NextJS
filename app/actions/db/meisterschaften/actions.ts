@@ -38,16 +38,27 @@ export async function getMeisterschaftById(id: number) {
 
 export async function createMeisterschaft(body: Prisma.tblMeisterschaftenUncheckedCreateInput) {
   try {
-    const data = await prisma.tblMeisterschaften.create({
-      data: {
-        Bezeichnung: String(body.Bezeichnung || ""),
-        Beginn: body.Beginn ? new Date(body.Beginn) : new Date(),
-        Ende: body.Ende ? new Date(body.Ende) : null,
-        MeisterschaftstypID: Number(body.MeisterschaftstypID),
-        TurboDBNummer: Number(body.TurboDBNummer || 0),
-        Aktiv: Number(body.Aktiv || 0),
-        Bemerkungen: String(body.Bemerkungen || ""),
+    const isAktiv = Number(body.Aktiv || 0) === 1
+
+    const data = await prisma.$transaction(async (tx) => {
+      if (isAktiv) {
+        await tx.tblMeisterschaften.updateMany({
+          where: { Aktiv: 1 },
+          data: { Aktiv: 0 }
+        })
       }
+
+      return await tx.tblMeisterschaften.create({
+        data: {
+          Bezeichnung: String(body.Bezeichnung || ""),
+          Beginn: body.Beginn ? new Date(body.Beginn) : new Date(),
+          Ende: body.Ende ? new Date(body.Ende) : null,
+          MeisterschaftstypID: Number(body.MeisterschaftstypID),
+          TurboDBNummer: Number(body.TurboDBNummer || 0),
+          Aktiv: isAktiv ? 1 : 0,
+          Bemerkungen: String(body.Bemerkungen || ""),
+        }
+      })
     })
     
     const sql = `insert into tblMeisterschaften ...`
@@ -72,9 +83,23 @@ export async function updateMeisterschaft(id: number, body: Prisma.tblMeistersch
     if (body.Aktiv !== undefined) updateData.Aktiv = Number(body.Aktiv)
     if (body.Bemerkungen !== undefined) updateData.Bemerkungen = String(body.Bemerkungen)
 
-    const data = await prisma.tblMeisterschaften.update({
-      where: { ID: id },
-      data: updateData
+    const isAktiv = updateData.Aktiv === 1
+
+    const data = await prisma.$transaction(async (tx) => {
+      if (isAktiv) {
+        await tx.tblMeisterschaften.updateMany({
+          where: { 
+            Aktiv: 1,
+            ID: { not: id }
+          },
+          data: { Aktiv: 0 }
+        })
+      }
+
+      return await tx.tblMeisterschaften.update({
+        where: { ID: id },
+        data: updateData
+      })
     })
 
     const sql = `update tblMeisterschaften set ... where ID=${id}`

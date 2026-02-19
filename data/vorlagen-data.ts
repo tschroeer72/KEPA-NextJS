@@ -21,8 +21,12 @@ export const VorlagenData: VorlagenGruppe[] = [
                 href: "/api/vorlagen/blitztunier"
             },
             {
-                subtitle: "Weihnachtsbaum",
-                href: "/api/vorlagen/weihnachtsbaum"
+                subtitle: "Weihnachtsbaum Variante 1",
+                href: "/api/vorlagen/weihnachtsbaum?variant=1"
+            },
+            {
+                subtitle: "Weihnachtsbaum Variante 2",
+                href: "/api/vorlagen/weihnachtsbaum?variant=2"
             },
         ]
     },
