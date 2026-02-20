@@ -52,6 +52,7 @@ export async function saveEingabeAction(
   data: EingabeData[]
 ) {
   try {
+    console.log(`Save Eingabe: ${spieltag} - ${spiel}`)
     // Start einer Transaktion (wie im C#-Code)
     return await prisma.$transaction(async (tx) => {
       // 1. Spieltag suchen oder erstellen
@@ -75,7 +76,11 @@ export async function saveEingabeAction(
         })
 
         // Log für Spieltag Insert
-        const sqlInsertSpieltag = `insert into tblSpieltag(ID, MeisterschaftsID, Spieltag, InBearbeitung) values(${dbSpieltag.ID}, ${meisterschaftsId}, '${spieltagSearch.toISOString().split('T')[0].replace(/-/g, '')}', 0)`
+        const year = spieltagSearch.getFullYear()
+        const month = String(spieltagSearch.getMonth() + 1).padStart(2, '0')
+        const day = String(spieltagSearch.getDate()).padStart(2, '0')
+        const localDateString = `${year}${month}${day}`
+        const sqlInsertSpieltag = `insert into tblSpieltag(ID, MeisterschaftsID, Spieltag, InBearbeitung) values(${dbSpieltag.ID}, ${meisterschaftsId}, '${localDateString}', 0)`
         await tx.tblDBChangeLog.create({
           data: {
             Changetype: "insert",

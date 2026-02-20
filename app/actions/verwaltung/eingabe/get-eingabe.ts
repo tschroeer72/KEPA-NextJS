@@ -6,6 +6,7 @@ export async function getKontrollausgabeAction(date: Date) {
   try {
     const startOfDay = new Date(date)
     startOfDay.setHours(0, 0, 0, 0)
+    console.log("getKontrollausgabeAction: date =", date, "startOfDay =", startOfDay)
 
     const spieltag = await prisma.tblSpieltag.findFirst({
       where: {

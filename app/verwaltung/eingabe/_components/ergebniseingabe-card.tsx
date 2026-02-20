@@ -785,6 +785,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                                 ? spielBlitztunier.map(({ Spieler1ID, Spieler2ID, Wert1, Wert2, HinRueckrunde }) => ({ Spieler1ID, Spieler2ID, Wert1, Wert2, HinRueckrunde }))
                                 : spielKombimeisterschaft.map(({ Spieler1ID, Spieler2ID, S1_3bis8, S1_5K, S2_3bis8, S2_5K, HinRueckrunde }) => ({ Spieler1ID, Spieler2ID, S1_3bis8, S1_5K, S2_3bis8, S2_5K, HinRueckrunde }))
 
+                console.log("Spieltag", date);
                 const result = await saveEingabeAction(meisterschaftsId, date, spiel, dataPayload)
                 
                 if (!result.success) {
