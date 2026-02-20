@@ -3,6 +3,7 @@ import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import {ThemeProvider} from "next-themes";
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import ConditionalLayout from "@/components/conditional-layout";
 import {AuthContextProvider} from "@/providers/auth-context-provider";
 import { Toaster } from "@/components/ui/sonner";
@@ -41,6 +42,7 @@ export default function RootLayout({
                 <Toaster richColors closeButton position="top-right" />
             </AuthContextProvider>
             <Analytics />
+            <SpeedInsights />
         </ThemeProvider>
         </body>
         </html>
