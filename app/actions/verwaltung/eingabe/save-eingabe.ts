@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
+import { toUTCDate } from "@/lib/date-utils"
 
 interface BaseEingabeData {
   SpielerID: number;
@@ -56,8 +57,7 @@ export async function saveEingabeAction(
     // Start einer Transaktion (wie im C#-Code)
     return await prisma.$transaction(async (tx) => {
       // 1. Spieltag suchen oder erstellen
-      const spieltagSearch = new Date(spieltag)
-      spieltagSearch.setHours(0, 0, 0, 0)
+      const spieltagSearch = toUTCDate(spieltag)
 
       let dbSpieltag = await tx.tblSpieltag.findFirst({
         where: {
@@ -76,9 +76,9 @@ export async function saveEingabeAction(
         })
 
         // Log für Spieltag Insert
-        const year = spieltagSearch.getFullYear()
-        const month = String(spieltagSearch.getMonth() + 1).padStart(2, '0')
-        const day = String(spieltagSearch.getDate()).padStart(2, '0')
+        const year = spieltagSearch.getUTCFullYear()
+        const month = String(spieltagSearch.getUTCMonth() + 1).padStart(2, '0')
+        const day = String(spieltagSearch.getUTCDate()).padStart(2, '0')
         const localDateString = `${year}${month}${day}`
         const sqlInsertSpieltag = `insert into tblSpieltag(ID, MeisterschaftsID, Spieltag, InBearbeitung) values(${dbSpieltag.ID}, ${meisterschaftsId}, '${localDateString}', 0)`
         await tx.tblDBChangeLog.create({

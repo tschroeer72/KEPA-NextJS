@@ -90,18 +90,18 @@ model tblMitglieder {
   Login           String?   @db.VarChar(255)
   Password        String?   @db.VarChar(255)
 
-  tblTeilnehmer                   tblTeilnehmer[]
-  tbl9erRatten                    tbl9erRatten[]
-  tblSpiel6TageRennen_SpielerID1  tblSpiel6TageRennen[]        @relation("tblSpiel6TageRennen_SpielerID1")
-  tblSpiel6TageRennen_SpielerID2  tblSpiel6TageRennen[]        @relation("tblSpiel6TageRennen_SpielerID2")
-  tblSpielBlitztunier_SpielerID1  tblSpielBlitztunier[]        @relation("tblSpielBlitztunier_SpielerID1")
-  tblSpielBlitztunier_SpielerID2  tblSpielBlitztunier[]        @relation("tblSpielBlitztunier_SpielerID2")
+  tblTeilnehmer                         tblTeilnehmer[]
+  tbl9erRatten                          tbl9erRatten[]
+  tblSpiel6TageRennen_SpielerID1        tblSpiel6TageRennen[]        @relation("tblSpiel6TageRennen_SpielerID1")
+  tblSpiel6TageRennen_SpielerID2        tblSpiel6TageRennen[]        @relation("tblSpiel6TageRennen_SpielerID2")
+  tblSpielBlitztunier_SpielerID1        tblSpielBlitztunier[]        @relation("tblSpielBlitztunier_SpielerID1")
+  tblSpielBlitztunier_SpielerID2        tblSpielBlitztunier[]        @relation("tblSpielBlitztunier_SpielerID2")
   tblSpielKombimeisterschaft_SpielerID1 tblSpielKombimeisterschaft[] @relation("tblSpielKombimeisterschaft_SpielerID1")
   tblSpielKombimeisterschaft_SpielerID2 tblSpielKombimeisterschaft[] @relation("tblSpielKombimeisterschaft_SpielerID2")
   tblSpielMeisterschaft_SpielerID1      tblSpielMeisterschaft[]      @relation("tblSpielMeisterschaft_SpielerID1")
   tblSpielMeisterschaft_SpielerID2      tblSpielMeisterschaft[]      @relation("tblSpielMeisterschaft_SpielerID2")
-  tblSpielPokal                   tblSpielPokal[]
-  tblSpielSargKegeln              tblSpielSargKegeln[]
+  tblSpielPokal                         tblSpielPokal[]
+  tblSpielSargKegeln                    tblSpielSargKegeln[]
 }
 
 model tblSettings {
@@ -217,7 +217,7 @@ model tblSpieltag {
   Spieltag         DateTime @db.DateTime(0)
   InBearbeitung    Boolean  @db.Bit(1)
 
-  tblMeisterschaften         tblMeisterschaften @relation(fields: [MeisterschaftsID], references: [ID])
+  tblMeisterschaften         tblMeisterschaften           @relation(fields: [MeisterschaftsID], references: [ID])
   tbl9erRatten               tbl9erRatten[]
   tblSpiel6TageRennen        tblSpiel6TageRennen[]
   tblSpielBlitztunier        tblSpielBlitztunier[]

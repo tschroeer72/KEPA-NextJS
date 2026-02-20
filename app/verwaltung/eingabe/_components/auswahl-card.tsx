@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select"
 import { de } from "date-fns/locale"
 import { SpieleType } from "@/types/spiele-type"
+import { fromUTCDate } from "@/lib/date-utils"
 
 type Props = {
   date: Date | undefined
@@ -45,7 +46,7 @@ export default function AuswahlCard({
           <Label className="mb-2">Datum</Label>
           <Calendar
             mode="single"
-            selected={date}
+            selected={date ? fromUTCDate(date) : undefined}
             onSelect={onDateChange}
             className="rounded-md border"
             showOutsideDays={false}

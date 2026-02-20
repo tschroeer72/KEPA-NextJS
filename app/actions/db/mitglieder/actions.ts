@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma'
 import { createChangeLogAction } from '@/utils/change-log-action'
 import { revalidatePath } from 'next/cache'
+import { toUTCDate } from '@/lib/date-utils'
 import type { Prisma } from '@prisma/client'
 
 export async function getMitglieder() {
@@ -148,10 +149,10 @@ export async function createMitglied(body: Prisma.tblMitgliederUncheckedCreateIn
         Strasse: String(body.Strasse || ""),
         PLZ: String(body.PLZ || ""),
         Ort: String(body.Ort || ""),
-        Geburtsdatum: body.Geburtsdatum ? new Date(body.Geburtsdatum) : null,
-        MitgliedSeit: new Date(body.MitgliedSeit),
-        PassivSeit: body.PassivSeit ? new Date(body.PassivSeit) : null,
-        AusgeschiedenAm: body.AusgeschiedenAm ? new Date(body.AusgeschiedenAm) : null,
+        Geburtsdatum: body.Geburtsdatum ? toUTCDate(body.Geburtsdatum as string | Date) : null,
+        MitgliedSeit: toUTCDate(body.MitgliedSeit as string | Date),
+        PassivSeit: body.PassivSeit ? toUTCDate(body.PassivSeit as string | Date) : null,
+        AusgeschiedenAm: body.AusgeschiedenAm ? toUTCDate(body.AusgeschiedenAm as string | Date) : null,
         Ehemaliger: Boolean(body.Ehemaliger),
         Notizen: String(body.Notizen || ""),
         Bemerkungen: String(body.Bemerkungen || ""),
@@ -200,17 +201,17 @@ export async function updateMitglied(id: number, body: Prisma.tblMitgliederUnche
       if ((body as any)[f] !== undefined) updateData[f] = String((body as any)[f] || "")
     })
 
-    if (body.Geburtsdatum !== undefined) updateData.Geburtsdatum = body.Geburtsdatum ? new Date(body.Geburtsdatum as string | Date) : null
+    if (body.Geburtsdatum !== undefined) updateData.Geburtsdatum = body.Geburtsdatum ? toUTCDate(body.Geburtsdatum as string | Date) : null
     if (body.MitgliedSeit !== undefined) {
       if (body.MitgliedSeit === null) {
         // MitgliedSeit is mandatory in schema, but for safety in update:
         updateData.MitgliedSeit = undefined
       } else {
-        updateData.MitgliedSeit = new Date(body.MitgliedSeit as string | Date)
+        updateData.MitgliedSeit = toUTCDate(body.MitgliedSeit as string | Date)
       }
     }
-    if (body.PassivSeit !== undefined) updateData.PassivSeit = body.PassivSeit ? new Date(body.PassivSeit as string | Date) : null
-    if (body.AusgeschiedenAm !== undefined) updateData.AusgeschiedenAm = body.AusgeschiedenAm ? new Date(body.AusgeschiedenAm as string | Date) : null
+    if (body.PassivSeit !== undefined) updateData.PassivSeit = body.PassivSeit ? toUTCDate(body.PassivSeit as string | Date) : null
+    if (body.AusgeschiedenAm !== undefined) updateData.AusgeschiedenAm = body.AusgeschiedenAm ? toUTCDate(body.AusgeschiedenAm as string | Date) : null
     if (body.Ehemaliger !== undefined) updateData.Ehemaliger = Boolean(body.Ehemaliger)
 
     const numericFields = ['SpAnz', 'SpGew', 'SpUn', 'SpVerl', 'HolzGes', 'HolzMax', 'HolzMin', 'Punkte', 'TurboDBNummer']

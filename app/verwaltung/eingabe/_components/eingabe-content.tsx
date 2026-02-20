@@ -8,6 +8,7 @@ import { SpieleType } from "@/types/spiele-type"
 import { AktiverMitspieler } from "@/interfaces/aktiver-mitspieler"
 import { getKontrollausgabeAction } from "@/app/actions/verwaltung/eingabe"
 import MeisterschaftsStatusCard from "./meisterschafts-status-card"
+import { toUTCDate } from "@/lib/date-utils"
 
 type Meisterschaft = {
   ID: number
@@ -25,13 +26,17 @@ type Props = {
 }
 
 export default function EingabeContent({ mitglieder, aktiveMeisterschaft, allMeisterschaften }: Props) {
-  const [date, setDate] = React.useState<Date | undefined>(new Date())
+  const [date, setDate] = React.useState<Date | undefined>(toUTCDate(new Date()))
   const [spiel, setSpiel] = React.useState<string>(SpieleType[0]?.value)
   const [spielNr, setSpielNr] = React.useState<string>("1")
   const [kontrollData, setKontrollData] = React.useState<any>(null)
 
   const meisterschaftsId = aktiveMeisterschaft?.ID
   const isDisabled = !aktiveMeisterschaft
+
+  const handleDateChange = (newDate: Date | undefined) => {
+    setDate(newDate ? toUTCDate(newDate) : undefined)
+  }
 
   const loadKontrollData = React.useCallback(async () => {
     if (date) {
@@ -58,7 +63,7 @@ export default function EingabeContent({ mitglieder, aktiveMeisterschaft, allMei
         {/* Linke Card: Kalender + Spielauswahl */}
         <AuswahlCard
           date={date}
-          onDateChange={setDate}
+          onDateChange={handleDateChange}
           spiel={spiel}
           onSpielChange={setSpiel}
           spielNr={spielNr}

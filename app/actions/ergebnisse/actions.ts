@@ -1,6 +1,7 @@
 ﻿"use server"
 
 import { prisma } from "@/lib/prisma";
+import { formatLocalDate } from "@/lib/date-utils";
 
 export interface NeunerRattenResult {
   Spieltag: string;
@@ -139,20 +140,16 @@ export async function getErgebnisse(spieltagIds: number[]): Promise<ErgebnisseDa
     }),
   ]);
 
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
-  };
-
   return {
     neunerRatten: neunerRatten.map(n => ({
-        Spieltag: formatDate(n.tblSpieltag.Spieltag),
+        Spieltag: formatLocalDate(n.tblSpieltag.Spieltag),
         Spielername: `${(n as any).tblMitglieder?.Vorname} ${(n as any).tblMitglieder?.Nachname}`,
         Neuner: n.Neuner,
         Ratten: n.Ratten,
         Kranz8: n.Kranzacht
     })),
     sechsTageRennen: sechsTageRennen.map(s => ({
-        Spieltag: formatDate(s.tblSpieltag.Spieltag),
+        Spieltag: formatLocalDate(s.tblSpieltag.Spieltag),
         Spieler1Name: `${(s as any).tblMitglieder_SpielerID1?.Vorname} ${(s as any).tblMitglieder_SpielerID1?.Nachname}`,
         Spieler2Name: `${(s as any).tblMitglieder_SpielerID2?.Vorname} ${(s as any).tblMitglieder_SpielerID2?.Nachname}`,
         Runden: s.Runden,
@@ -160,17 +157,17 @@ export async function getErgebnisse(spieltagIds: number[]): Promise<ErgebnisseDa
         Spielnr: s.Spielnummer || 0
     })),
     pokal: pokal.map(p => ({
-        Spieltag: formatDate(p.tblSpieltag.Spieltag),
+        Spieltag: formatLocalDate(p.tblSpieltag.Spieltag),
         Spielername: `${(p as any).tblMitglieder?.Vorname} ${(p as any).tblMitglieder?.Nachname}`,
         Platzierung: p.Platzierung
     })),
     sargkegeln: sargkegeln.map(s => ({
-        Spieltag: formatDate(s.tblSpieltag.Spieltag),
+        Spieltag: formatLocalDate(s.tblSpieltag.Spieltag),
         Spielername: `${(s as any).tblMitglieder?.Vorname} ${(s as any).tblMitglieder?.Nachname}`,
         Platzierung: s.Platzierung
     })),
     meisterschaft: meisterschaft.map(m => ({
-        Spieltag: formatDate(m.tblSpieltag.Spieltag),
+        Spieltag: formatLocalDate(m.tblSpieltag.Spieltag),
         Spieler1Name: `${(m as any).tblMitglieder_SpielerID1?.Vorname} ${(m as any).tblMitglieder_SpielerID1?.Nachname}`,
         Spieler2Name: `${(m as any).tblMitglieder_SpielerID2?.Vorname} ${(m as any).tblMitglieder_SpielerID2?.Nachname}`,
         HolzSpieler1: m.HolzSpieler1,
@@ -178,7 +175,7 @@ export async function getErgebnisse(spieltagIds: number[]): Promise<ErgebnisseDa
         HinRueckrunde: m.HinRueckrunde
     })),
     blitztunier: blitztunier.map(b => ({
-        Spieltag: formatDate(b.tblSpieltag.Spieltag),
+        Spieltag: formatLocalDate(b.tblSpieltag.Spieltag),
         Spieler1Name: `${(b as any).tblMitglieder_SpielerID1?.Vorname} ${(b as any).tblMitglieder_SpielerID1?.Nachname}`,
         Spieler2Name: `${(b as any).tblMitglieder_SpielerID2?.Vorname} ${(b as any).tblMitglieder_SpielerID2?.Nachname}`,
         PunkteSpieler1: b.PunkteSpieler1,
@@ -186,7 +183,7 @@ export async function getErgebnisse(spieltagIds: number[]): Promise<ErgebnisseDa
         HinRueckrunde: b.HinR_ckrunde
     })),
     kombimeisterschaft: kombimeisterschaft.map(k => ({
-        Spieltag: formatDate(k.tblSpieltag.Spieltag),
+        Spieltag: formatLocalDate(k.tblSpieltag.Spieltag),
         Spieler1Name: `${(k as any).tblMitglieder_SpielerID1?.Vorname} ${(k as any).tblMitglieder_SpielerID1?.Nachname}`,
         Spieler2Name: `${(k as any).tblMitglieder_SpielerID2?.Vorname} ${(k as any).tblMitglieder_SpielerID2?.Nachname}`,
         Spieler1Punkte3bis8: k.Spieler1Punkte3bis8,

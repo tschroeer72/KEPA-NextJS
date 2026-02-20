@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma'
 import { createChangeLogAction } from '@/utils/change-log-action'
 import { revalidatePath } from 'next/cache'
+import { toUTCDate } from '@/lib/date-utils'
 import type { Prisma } from '@prisma/client'
 
 export async function getMeisterschaften() {
@@ -51,8 +52,8 @@ export async function createMeisterschaft(body: Prisma.tblMeisterschaftenUncheck
       return await tx.tblMeisterschaften.create({
         data: {
           Bezeichnung: String(body.Bezeichnung || ""),
-          Beginn: body.Beginn ? new Date(body.Beginn) : new Date(),
-          Ende: body.Ende ? new Date(body.Ende) : null,
+          Beginn: body.Beginn ? toUTCDate(body.Beginn as string | Date) : toUTCDate(new Date()),
+          Ende: body.Ende ? toUTCDate(body.Ende as string | Date) : null,
           MeisterschaftstypID: Number(body.MeisterschaftstypID),
           TurboDBNummer: Number(body.TurboDBNummer || 0),
           Aktiv: isAktiv ? 1 : 0,
@@ -76,8 +77,8 @@ export async function updateMeisterschaft(id: number, body: Prisma.tblMeistersch
   try {
     const updateData: any = {}
     if (body.Bezeichnung !== undefined) updateData.Bezeichnung = String(body.Bezeichnung)
-    if (body.Beginn !== undefined) updateData.Beginn = body.Beginn ? new Date(body.Beginn as string | Date) : undefined
-    if (body.Ende !== undefined) updateData.Ende = body.Ende ? new Date(body.Ende as string | Date) : null
+    if (body.Beginn !== undefined) updateData.Beginn = body.Beginn ? toUTCDate(body.Beginn as string | Date) : undefined
+    if (body.Ende !== undefined) updateData.Ende = body.Ende ? toUTCDate(body.Ende as string | Date) : null
     if (body.MeisterschaftstypID !== undefined) updateData.MeisterschaftstypID = Number(body.MeisterschaftstypID)
     if (body.TurboDBNummer !== undefined) updateData.TurboDBNummer = Number(body.TurboDBNummer)
     if (body.Aktiv !== undefined) updateData.Aktiv = Number(body.Aktiv)

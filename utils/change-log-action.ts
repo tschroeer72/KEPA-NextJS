@@ -1,5 +1,6 @@
 ﻿import { headers } from "next/headers"
 import { prisma } from "@/lib/prisma"
+import { toUTCDate } from "@/lib/date-utils"
 
 export async function getComputerInfoFromHeaders(): Promise<string> {
     const headersList = await headers()
@@ -28,7 +29,7 @@ export async function getComputerInfoFromHeaders(): Promise<string> {
 
 export async function createChangeLogAction(tablename: string, changeType: string, sql: string) {
     const computerInfo = await getComputerInfoFromHeaders()
-    const currentDateTime = new Date()
+    const currentDateTime = toUTCDate(new Date())
 
     try {
         await prisma.tblDBChangeLog.create({

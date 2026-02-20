@@ -1,11 +1,11 @@
 ﻿"use server"
 
 import { prisma } from "@/lib/prisma"
+import { toUTCDate, formatLocalDate } from "@/lib/date-utils"
 
 export async function getKontrollausgabeAction(date: Date) {
   try {
-    const startOfDay = new Date(date)
-    startOfDay.setHours(0, 0, 0, 0)
+    const startOfDay = toUTCDate(date)
     console.log("getKontrollausgabeAction: date =", date, "startOfDay =", startOfDay)
 
     const spieltag = await prisma.tblSpieltag.findFirst({
@@ -43,10 +43,7 @@ export async function getKontrollausgabeAction(date: Date) {
         return m.Spitzname && m.Spitzname.trim() !== "" ? m.Spitzname : m.Vorname
     }
 
-    const formatDate = (d: Date) => {
-        return d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
-    }
-    const formattedSpieltag = formatDate(spieltag.Spieltag)
+    const formattedSpieltag = formatLocalDate(spieltag.Spieltag)
 
     const ausgabeNeunerRatten = neunerRatten.map(item => ({
         Spieltag: formattedSpieltag,
