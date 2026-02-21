@@ -4,11 +4,15 @@ import "dotenv/config";
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 import { PrismaClient } from "@prisma/client";
 
-const connectionString = process.env.DATABASE_URL!; // s.o.
+const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
-const adapter = new PrismaMariaDb(connectionString);
+const connectionString = process.env.DATABASE_URL!;
 
-// Wenn dein PrismaClient an einem anderen Ort generiert wurde, importiere den Pfad entsprechend:
-// import { PrismaClient } from '../generated/prisma/client';
+const createPrismaClient = () => {
+  const adapter = new PrismaMariaDb(connectionString);
+  return new PrismaClient({ adapter });
+};
 
-export const prisma = new PrismaClient({ adapter });
+export const prisma = globalForPrisma.prisma || createPrismaClient();
+
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;

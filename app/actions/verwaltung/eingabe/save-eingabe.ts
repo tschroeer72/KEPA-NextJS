@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache"
 import { toUTCDate } from "@/lib/date-utils"
 
 interface BaseEingabeData {
+  ID?: number;
   SpielerID: number;
 }
 
@@ -15,11 +16,12 @@ interface RattenData extends BaseEingabeData {
 }
 
 interface TageRennenData {
+  ID?: number;
   Spieler1ID: number;
   Spieler2ID: number;
   Runden: number;
   Punkte: number;
-  Spielnr: number;
+  Spielnr: number | null;
 }
 
 interface PokalSargData extends BaseEingabeData {
@@ -27,6 +29,7 @@ interface PokalSargData extends BaseEingabeData {
 }
 
 interface MeisterschaftBlitzData {
+  ID?: number;
   Spieler1ID: number;
   Spieler2ID: number;
   Wert1: number;
@@ -35,6 +38,7 @@ interface MeisterschaftBlitzData {
 }
 
 interface KombiMeisterschaftData {
+  ID?: number;
   Spieler1ID: number;
   Spieler2ID: number;
   S1_3bis8: number;
@@ -50,12 +54,81 @@ export async function saveEingabeAction(
   meisterschaftsId: number,
   spieltag: Date,
   spiel: string,
-  data: EingabeData[]
+  data: EingabeData[],
+  deletedIds: number[] = []
 ) {
   try {
-    console.log(`Save Eingabe: ${spieltag} - ${spiel}`)
+
     // Start einer Transaktion (wie im C#-Code)
     return await prisma.$transaction(async (tx) => {
+      // 0. Gelöschte Einträge entfernen
+      if (deletedIds.length > 0) {
+        switch (spiel) {
+          case "9er-ratten-kranz8":
+            await tx.tbl9erRatten.deleteMany({ where: { ID: { in: deletedIds } } })
+            for (const id of deletedIds) {
+              const sql = `delete from tbl9erRatten where ID = ${id}`
+              await tx.tblDBChangeLog.create({
+                data: { Changetype: "delete", Command: sql, Tablename: "tbl9erRatten", Computername: "Server", Zeitstempel: new Date() }
+              })
+            }
+            break
+          case "6-tage-rennen":
+            await tx.tblSpiel6TageRennen.deleteMany({ where: { ID: { in: deletedIds } } })
+            for (const id of deletedIds) {
+              const sql = `delete from tblSpiel6TageRennen where ID = ${id}`
+              await tx.tblDBChangeLog.create({
+                data: { Changetype: "delete", Command: sql, Tablename: "tblSpiel6TageRennen", Computername: "Server", Zeitstempel: new Date() }
+              })
+            }
+            break
+          case "pokal":
+            await tx.tblSpielPokal.deleteMany({ where: { ID: { in: deletedIds } } })
+            for (const id of deletedIds) {
+              const sql = `delete from tblSpielPokal where ID = ${id}`
+              await tx.tblDBChangeLog.create({
+                data: { Changetype: "delete", Command: sql, Tablename: "tblSpielPokal", Computername: "Server", Zeitstempel: new Date() }
+              })
+            }
+            break
+          case "sargkegeln":
+            await tx.tblSpielSargKegeln.deleteMany({ where: { ID: { in: deletedIds } } })
+            for (const id of deletedIds) {
+              const sql = `delete from tblSpielSargKegeln where ID = ${id}`
+              await tx.tblDBChangeLog.create({
+                data: { Changetype: "delete", Command: sql, Tablename: "tblSpielSargKegeln", Computername: "Server", Zeitstempel: new Date() }
+              })
+            }
+            break
+          case "meisterschaft":
+            await tx.tblSpielMeisterschaft.deleteMany({ where: { ID: { in: deletedIds } } })
+            for (const id of deletedIds) {
+              const sql = `delete from tblSpielMeisterschaft where ID = ${id}`
+              await tx.tblDBChangeLog.create({
+                data: { Changetype: "delete", Command: sql, Tablename: "tblSpielMeisterschaft", Computername: "Server", Zeitstempel: new Date() }
+              })
+            }
+            break
+          case "blitztunier":
+            await tx.tblSpielBlitztunier.deleteMany({ where: { ID: { in: deletedIds } } })
+            for (const id of deletedIds) {
+              const sql = `delete from tblSpielBlitztunier where ID = ${id}`
+              await tx.tblDBChangeLog.create({
+                data: { Changetype: "delete", Command: sql, Tablename: "tblSpielBlitztunier", Computername: "Server", Zeitstempel: new Date() }
+              })
+            }
+            break
+          case "kombimeisterschaft":
+            await tx.tblSpielKombimeisterschaft.deleteMany({ where: { ID: { in: deletedIds } } })
+            for (const id of deletedIds) {
+              const sql = `delete from tblSpielKombimeisterschaft where ID = ${id}`
+              await tx.tblDBChangeLog.create({
+                data: { Changetype: "delete", Command: sql, Tablename: "tblSpielKombimeisterschaft", Computername: "Server", Zeitstempel: new Date() }
+              })
+            }
+            break
+        }
+      }
       // 1. Spieltag suchen oder erstellen
       const spieltagSearch = toUTCDate(spieltag)
 
@@ -98,9 +171,11 @@ export async function saveEingabeAction(
       switch (spiel) {
         case "9er-ratten-kranz8":
           for (const item of data as RattenData[]) {
-            const existing = await tx.tbl9erRatten.findFirst({
-              where: { SpieltagID: spieltagId, SpielerID: item.SpielerID }
-            })
+            const existing = item.ID 
+              ? await tx.tbl9erRatten.findUnique({ where: { ID: item.ID } })
+              : await tx.tbl9erRatten.findFirst({
+                  where: { SpieltagID: spieltagId, SpielerID: item.SpielerID }
+                })
 
             if (!existing) {
               const created = await tx.tbl9erRatten.create({
@@ -133,9 +208,11 @@ export async function saveEingabeAction(
 
         case "6-tage-rennen":
           for (const item of data as TageRennenData[]) {
-            const existing = await tx.tblSpiel6TageRennen.findFirst({
-              where: { SpieltagID: spieltagId, SpielerID1: item.Spieler1ID, SpielerID2: item.Spieler2ID }
-            })
+            const existing = item.ID
+              ? await tx.tblSpiel6TageRennen.findUnique({ where: { ID: item.ID } })
+              : await tx.tblSpiel6TageRennen.findFirst({
+                  where: { SpieltagID: spieltagId, SpielerID1: item.Spieler1ID, SpielerID2: item.Spieler2ID }
+                })
 
             if (!existing) {
               const created = await tx.tblSpiel6TageRennen.create({
@@ -169,9 +246,11 @@ export async function saveEingabeAction(
 
         case "pokal":
           for (const item of data as PokalSargData[]) {
-            const existing = await tx.tblSpielPokal.findFirst({
-              where: { SpieltagID: spieltagId, SpielerID: item.SpielerID }
-            })
+            const existing = item.ID
+              ? await tx.tblSpielPokal.findUnique({ where: { ID: item.ID } })
+              : await tx.tblSpielPokal.findFirst({
+                  where: { SpieltagID: spieltagId, SpielerID: item.SpielerID }
+                })
             if (!existing) {
               const created = await tx.tblSpielPokal.create({
                 data: { SpieltagID: spieltagId, SpielerID: item.SpielerID, Platzierung: item.Platzierung }
@@ -195,9 +274,11 @@ export async function saveEingabeAction(
 
         case "sargkegeln":
           for (const item of data as PokalSargData[]) {
-            const existing = await tx.tblSpielSargKegeln.findFirst({
-              where: { SpieltagID: spieltagId, SpielerID: item.SpielerID }
-            })
+            const existing = item.ID
+              ? await tx.tblSpielSargKegeln.findUnique({ where: { ID: item.ID } })
+              : await tx.tblSpielSargKegeln.findFirst({
+                  where: { SpieltagID: spieltagId, SpielerID: item.SpielerID }
+                })
             if (!existing) {
               const created = await tx.tblSpielSargKegeln.create({
                 data: { SpieltagID: spieltagId, SpielerID: item.SpielerID, Platzierung: item.Platzierung }
@@ -221,9 +302,11 @@ export async function saveEingabeAction(
 
         case "meisterschaft":
           for (const item of data as MeisterschaftBlitzData[]) {
-            const existing = await tx.tblSpielMeisterschaft.findFirst({
-              where: { SpieltagID: spieltagId, SpielerID1: item.Spieler1ID, SpielerID2: item.Spieler2ID }
-            })
+            const existing = item.ID
+              ? await tx.tblSpielMeisterschaft.findUnique({ where: { ID: item.ID } })
+              : await tx.tblSpielMeisterschaft.findFirst({
+                  where: { SpieltagID: spieltagId, SpielerID1: item.Spieler1ID, SpielerID2: item.Spieler2ID }
+                })
             const hinRueckInt = item.HinRueckrunde === "Rückrunde" ? 1 : 0
             if (!existing) {
               const created = await tx.tblSpielMeisterschaft.create({
@@ -255,9 +338,11 @@ export async function saveEingabeAction(
 
         case "blitztunier":
           for (const item of data as MeisterschaftBlitzData[]) {
-            const existing = await tx.tblSpielBlitztunier.findFirst({
-              where: { SpieltagID: spieltagId, SpielerID1: item.Spieler1ID, SpielerID2: item.Spieler2ID }
-            })
+            const existing = item.ID
+              ? await tx.tblSpielBlitztunier.findUnique({ where: { ID: item.ID } })
+              : await tx.tblSpielBlitztunier.findFirst({
+                  where: { SpieltagID: spieltagId, SpielerID1: item.Spieler1ID, SpielerID2: item.Spieler2ID }
+                })
             const hinRueckInt = item.HinRueckrunde === "Rückrunde" ? 1 : 0
             if (!existing) {
               const created = await tx.tblSpielBlitztunier.create({
@@ -289,9 +374,11 @@ export async function saveEingabeAction(
 
         case "kombimeisterschaft":
           for (const item of data as KombiMeisterschaftData[]) {
-            const existing = await tx.tblSpielKombimeisterschaft.findFirst({
-              where: { SpieltagID: spieltagId, SpielerID1: item.Spieler1ID, SpielerID2: item.Spieler2ID }
-            })
+            const existing = item.ID
+              ? await tx.tblSpielKombimeisterschaft.findUnique({ where: { ID: item.ID } })
+              : await tx.tblSpielKombimeisterschaft.findFirst({
+                  where: { SpieltagID: spieltagId, SpielerID1: item.Spieler1ID, SpielerID2: item.Spieler2ID }
+                })
             const hinRueckInt = item.HinRueckrunde === "Rückrunde" ? 1 : 0
             if (!existing) {
               const created = await tx.tblSpielKombimeisterschaft.create({

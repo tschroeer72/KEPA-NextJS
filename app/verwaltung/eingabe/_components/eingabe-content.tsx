@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import AuswahlCard from "@/app/verwaltung/eingabe/_components/auswahl-card"
-import ErgebniseingabeCard from "@/app/verwaltung/eingabe/_components/ergebniseingabe-card"
+import ErgebniseingabeCard, { InitialData } from "@/app/verwaltung/eingabe/_components/ergebniseingabe-card"
 import GenericErgebnisCard from "@/components/generic-ergebnis-card"
 import { SpieleType } from "@/types/spiele-type"
 import { AktiverMitspieler } from "@/interfaces/aktiver-mitspieler"
@@ -29,7 +29,7 @@ export default function EingabeContent({ mitglieder, aktiveMeisterschaft, allMei
   const [date, setDate] = React.useState<Date | undefined>(toUTCDate(new Date()))
   const [spiel, setSpiel] = React.useState<string>(SpieleType[0]?.value)
   const [spielNr, setSpielNr] = React.useState<string>("1")
-  const [kontrollData, setKontrollData] = React.useState<any>(null)
+  const [kontrollData, setKontrollData] = React.useState<InitialData | null>(null)
 
   const meisterschaftsId = aktiveMeisterschaft?.ID
   const isDisabled = !aktiveMeisterschaft
@@ -41,8 +41,10 @@ export default function EingabeContent({ mitglieder, aktiveMeisterschaft, allMei
   const loadKontrollData = React.useCallback(async () => {
     if (date) {
       const result = await getKontrollausgabeAction(date)
-      if (result.success) {
+      if (result.success && result.data) {
         setKontrollData(result.data)
+      } else {
+        setKontrollData(null)
       }
     }
   }, [date])
@@ -80,6 +82,7 @@ export default function EingabeContent({ mitglieder, aktiveMeisterschaft, allMei
           meisterschaftsId={meisterschaftsId}
           onSaveSuccess={loadKontrollData}
           disabled={isDisabled}
+          initialData={kontrollData}
         />
       </div>
 
@@ -88,7 +91,7 @@ export default function EingabeContent({ mitglieder, aktiveMeisterschaft, allMei
         title="Kontrollausgabe"
         spiel={spiel} 
         onSpielChange={setSpiel} 
-        data={kontrollData}
+        data={kontrollData as any}
         disabled={isDisabled}
       />
     </div>

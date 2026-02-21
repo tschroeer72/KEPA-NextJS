@@ -2,11 +2,11 @@
 
 import { prisma } from "@/lib/prisma"
 import { toUTCDate, formatLocalDate } from "@/lib/date-utils"
+import { InitialData } from "@/app/verwaltung/eingabe/_components/ergebniseingabe-card"
 
-export async function getKontrollausgabeAction(date: Date) {
+export async function getKontrollausgabeAction(date: Date): Promise<{ success: boolean; data: InitialData | null; error?: string }> {
   try {
     const startOfDay = toUTCDate(date)
-    console.log("getKontrollausgabeAction: date =", date, "startOfDay =", startOfDay)
 
     const spieltag = await prisma.tblSpieltag.findFirst({
       where: {
@@ -23,22 +23,18 @@ export async function getKontrollausgabeAction(date: Date) {
     // 9er Ratten
     const neunerRatten = await prisma.tbl9erRatten.findMany({
       where: { SpieltagID: spieltagId },
-    })
-    
-    // Wir brauchen die Mitgliedernamen. Da Prisma Relationen im Schema nicht voll definiert hat für alle Tabellen, 
-    // laden wir die Mitglieder separat oder nutzen findMany mit include wenn möglich.
-    // Laut schema.prisma haben viele tblSpielX keine expliziten Relationen zu tblMitglieder in der Prisma-Definition (nur @@index).
-    
-    const mitglieder = await prisma.tblMitglieder.findMany({
-        select: {
-            ID: true,
+      include: {
+        tblMitglieder: {
+          select: {
             Vorname: true,
             Spitzname: true
+          }
         }
+      }
     })
-
-    const getSpielerName = (id: number) => {
-        const m = mitglieder.find(m => m.ID === id)
+    
+    const getSpielerNameFromItem = (item: any) => {
+        const m = item.tblMitglieder
         if (!m) return "Unbekannt"
         return m.Spitzname && m.Spitzname.trim() !== "" ? m.Spitzname : m.Vorname
     }
@@ -46,10 +42,11 @@ export async function getKontrollausgabeAction(date: Date) {
     const formattedSpieltag = formatLocalDate(spieltag.Spieltag)
 
     const ausgabeNeunerRatten = neunerRatten.map(item => ({
+        ID: item.ID,
         Spieltag: formattedSpieltag,
         SpieltagID: item.SpieltagID,
         SpielerID: item.SpielerID,
-        Spielername: getSpielerName(item.SpielerID),
+        Spielername: getSpielerNameFromItem(item),
         Neuner: item.Neuner,
         Ratten: item.Ratten,
         Kranz8: item.Kranzacht
@@ -57,15 +54,20 @@ export async function getKontrollausgabeAction(date: Date) {
 
     // 6-Tage-Rennen
     const sechsTageRennen = await prisma.tblSpiel6TageRennen.findMany({
-        where: { SpieltagID: spieltagId }
+        where: { SpieltagID: spieltagId },
+        include: {
+          tblMitglieder_SpielerID1: { select: { Vorname: true, Spitzname: true } },
+          tblMitglieder_SpielerID2: { select: { Vorname: true, Spitzname: true } }
+        }
     })
     const ausgabeSechsTageRennen = sechsTageRennen.map(item => ({
+        ID: item.ID,
         Spieltag: formattedSpieltag,
         SpieltagID: item.SpieltagID,
         Spieler1ID: item.SpielerID1,
-        Spieler1Name: getSpielerName(item.SpielerID1),
+        Spieler1Name: item.tblMitglieder_SpielerID1.Spitzname && item.tblMitglieder_SpielerID1.Spitzname.trim() !== "" ? item.tblMitglieder_SpielerID1.Spitzname : item.tblMitglieder_SpielerID1.Vorname,
         Spieler2ID: item.SpielerID2,
-        Spieler2Name: getSpielerName(item.SpielerID2),
+        Spieler2Name: item.tblMitglieder_SpielerID2.Spitzname && item.tblMitglieder_SpielerID2.Spitzname.trim() !== "" ? item.tblMitglieder_SpielerID2.Spitzname : item.tblMitglieder_SpielerID2.Vorname,
         Runden: item.Runden,
         Punkte: item.Punkte,
         Spielnr: item.Spielnummer
@@ -73,39 +75,48 @@ export async function getKontrollausgabeAction(date: Date) {
 
     // Pokal
     const pokal = await prisma.tblSpielPokal.findMany({
-        where: { SpieltagID: spieltagId }
+        where: { SpieltagID: spieltagId },
+        include: { tblMitglieder: { select: { Vorname: true, Spitzname: true } } }
     })
     const ausgabePokal = pokal.map(item => ({
+        ID: item.ID,
         Spieltag: formattedSpieltag,
         SpieltagID: item.SpieltagID,
         SpielerID: item.SpielerID,
-        Spielername: getSpielerName(item.SpielerID),
+        Spielername: getSpielerNameFromItem(item),
         Platzierung: item.Platzierung
     }))
 
     // Sargkegeln
     const sargkegeln = await prisma.tblSpielSargKegeln.findMany({
-        where: { SpieltagID: spieltagId }
+        where: { SpieltagID: spieltagId },
+        include: { tblMitglieder: { select: { Vorname: true, Spitzname: true } } }
     })
     const ausgabeSargkegeln = sargkegeln.map(item => ({
+        ID: item.ID,
         Spieltag: formattedSpieltag,
         SpieltagID: item.SpieltagID,
         SpielerID: item.SpielerID,
-        Spielername: getSpielerName(item.SpielerID),
+        Spielername: getSpielerNameFromItem(item),
         Platzierung: item.Platzierung
     }))
 
     // Meisterschaft
     const meisterschaft = await prisma.tblSpielMeisterschaft.findMany({
-        where: { SpieltagID: spieltagId }
+        where: { SpieltagID: spieltagId },
+        include: {
+          tblMitglieder_SpielerID1: { select: { Vorname: true, Spitzname: true } },
+          tblMitglieder_SpielerID2: { select: { Vorname: true, Spitzname: true } }
+        }
     })
     const ausgabeMeisterschaft = meisterschaft.map(item => ({
+        ID: item.ID,
         Spieltag: formattedSpieltag,
         SpieltagID: item.SpieltagID,
         Spieler1ID: item.SpielerID1,
-        Spieler1Name: getSpielerName(item.SpielerID1),
+        Spieler1Name: item.tblMitglieder_SpielerID1.Spitzname && item.tblMitglieder_SpielerID1.Spitzname.trim() !== "" ? item.tblMitglieder_SpielerID1.Spitzname : item.tblMitglieder_SpielerID1.Vorname,
         Spieler2ID: item.SpielerID2,
-        Spieler2Name: getSpielerName(item.SpielerID2),
+        Spieler2Name: item.tblMitglieder_SpielerID2.Spitzname && item.tblMitglieder_SpielerID2.Spitzname.trim() !== "" ? item.tblMitglieder_SpielerID2.Spitzname : item.tblMitglieder_SpielerID2.Vorname,
         HolzSpieler1: item.HolzSpieler1,
         HolzSpieler2: item.HolzSpieler2,
         HinRueckrunde: item.HinRueckrunde === 0 ? "Hinrunde" : "Rückrunde"
@@ -113,15 +124,20 @@ export async function getKontrollausgabeAction(date: Date) {
 
     // Blitztunier
     const blitztunier = await prisma.tblSpielBlitztunier.findMany({
-        where: { SpieltagID: spieltagId }
+        where: { SpieltagID: spieltagId },
+        include: {
+          tblMitglieder_SpielerID1: { select: { Vorname: true, Spitzname: true } },
+          tblMitglieder_SpielerID2: { select: { Vorname: true, Spitzname: true } }
+        }
     })
     const ausgabeBlitztunier = blitztunier.map(item => ({
+        ID: item.ID,
         Spieltag: formattedSpieltag,
         SpieltagID: item.SpieltagID,
         Spieler1ID: item.SpielerID1,
-        Spieler1Name: getSpielerName(item.SpielerID1),
+        Spieler1Name: item.tblMitglieder_SpielerID1.Spitzname && item.tblMitglieder_SpielerID1.Spitzname.trim() !== "" ? item.tblMitglieder_SpielerID1.Spitzname : item.tblMitglieder_SpielerID1.Vorname,
         Spieler2ID: item.SpielerID2,
-        Spieler2Name: getSpielerName(item.SpielerID2),
+        Spieler2Name: item.tblMitglieder_SpielerID2.Spitzname && item.tblMitglieder_SpielerID2.Spitzname.trim() !== "" ? item.tblMitglieder_SpielerID2.Spitzname : item.tblMitglieder_SpielerID2.Vorname,
         PunkteSpieler1: item.PunkteSpieler1,
         PunkteSpieler2: item.PunkteSpieler2,
         HinRueckrunde: item.HinR_ckrunde === 0 ? "Hinrunde" : "Rückrunde"
@@ -129,15 +145,20 @@ export async function getKontrollausgabeAction(date: Date) {
 
     // Kombimeisterschaft
     const kombimeisterschaft = await prisma.tblSpielKombimeisterschaft.findMany({
-        where: { SpieltagID: spieltagId }
+        where: { SpieltagID: spieltagId },
+        include: {
+          tblMitglieder_SpielerID1: { select: { Vorname: true, Spitzname: true } },
+          tblMitglieder_SpielerID2: { select: { Vorname: true, Spitzname: true } }
+        }
     })
     const ausgabeKombimeisterschaft = kombimeisterschaft.map(item => ({
+        ID: item.ID,
         Spieltag: formattedSpieltag,
         SpieltagID: item.SpieltagID,
         Spieler1ID: item.SpielerID1,
-        Spieler1Name: getSpielerName(item.SpielerID1),
+        Spieler1Name: item.tblMitglieder_SpielerID1.Spitzname && item.tblMitglieder_SpielerID1.Spitzname.trim() !== "" ? item.tblMitglieder_SpielerID1.Spitzname : item.tblMitglieder_SpielerID1.Vorname,
         Spieler2ID: item.SpielerID2,
-        Spieler2Name: getSpielerName(item.SpielerID2),
+        Spieler2Name: item.tblMitglieder_SpielerID2.Spitzname && item.tblMitglieder_SpielerID2.Spitzname.trim() !== "" ? item.tblMitglieder_SpielerID2.Spitzname : item.tblMitglieder_SpielerID2.Vorname,
         Spieler1Punkte3bis8: item.Spieler1Punkte3bis8,
         Spieler1Punkte5Kugeln: item.Spieler1Punkte5Kugeln,
         Spieler2Punkte3bis8: item.Spieler2Punkte3bis8,
@@ -159,6 +180,10 @@ export async function getKontrollausgabeAction(date: Date) {
     }
   } catch (error) {
     console.error("Error in getKontrollausgabeAction:", error)
-    return { success: false, error: "Fehler beim Laden der Kontrolldaten" }
+    return {
+      success: false,
+      data: null,
+      error: "Fehler beim Laden der Kontrolldaten"
+    }
   }
 }

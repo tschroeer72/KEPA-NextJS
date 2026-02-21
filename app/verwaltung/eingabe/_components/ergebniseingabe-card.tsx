@@ -20,17 +20,8 @@ import {
 import { Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { saveEingabeAction } from "@/app/actions/verwaltung/eingabe"
+import { deleteEingabeRowAction } from "@/app/actions/verwaltung/eingabe/delete-eingabe-row"
 import { toast } from "sonner"
-
-type Props = {
-  className?: string
-  mitglieder: AktiverMitspieler[]
-  spiel: string
-  date?: Date
-  meisterschaftsId?: number
-  onSaveSuccess?: () => void
-  disabled?: boolean
-}
 
 // Interfaces für die verschiedenen Spiel-Datentypen
 interface NeunerRatten {
@@ -50,7 +41,7 @@ interface SechsTageRennen {
   Spieler2Name: string
   Runden: number
   Punkte: number
-  Spielnr: number
+  Spielnr: number | null
 }
 
 interface PlatzierungSpiel {
@@ -84,7 +75,65 @@ interface KombiSpiel {
   HinRueckrunde: string
 }
 
-export default function ErgebniseingabeCard({ className, mitglieder, spiel, date, meisterschaftsId, onSaveSuccess, disabled = false }: Props) {
+export interface InitialData {
+  neunerRatten?: (NeunerRatten & { Spieltag: string; SpieltagID: number })[]
+  sechsTageRennen?: (SechsTageRennen & { Spieltag: string; SpieltagID: number })[]
+  pokal?: (PlatzierungSpiel & { Spieltag: string; SpieltagID: number })[]
+  sargkegeln?: (PlatzierungSpiel & { Spieltag: string; SpieltagID: number })[]
+  meisterschaft?: {
+    ID: number
+    Spieltag: string
+    SpieltagID: number
+    Spieler1ID: number
+    Spieler1Name: string
+    Spieler2ID: number
+    Spieler2Name: string
+    HolzSpieler1: number
+    HolzSpieler2: number
+    HinRueckrunde: string
+  }[]
+  blitztunier?: {
+    ID: number
+    Spieltag: string
+    SpieltagID: number
+    Spieler1ID: number
+    Spieler1Name: string
+    Spieler2ID: number
+    Spieler2Name: string
+    PunkteSpieler1: number
+    PunkteSpieler2: number
+    HinRueckrunde: string
+  }[]
+  kombimeisterschaft?: {
+    ID: number
+    Spieltag: string
+    SpieltagID: number
+    Spieler1ID: number
+    Spieler1Name: string
+    Spieler2ID: number
+    Spieler2Name: string
+    Spieler1Punkte3bis8: number
+    Spieler1Punkte5Kugeln: number
+    Spieler2Punkte3bis8: number
+    Spieler2Punkte5Kugeln: number
+    HinRueckrunde: string
+  }[]
+}
+
+type Props = {
+  className?: string
+  mitglieder: AktiverMitspieler[]
+  spiel: string
+  date?: Date
+  meisterschaftsId?: number
+  onSaveSuccess?: () => void
+  disabled?: boolean
+  initialData?: InitialData | null
+}
+
+type GenericGameItem = NeunerRatten | SechsTageRennen | PlatzierungSpiel | PaarSpiel | KombiSpiel;
+
+export default function ErgebniseingabeCard({ className, mitglieder, spiel, date, meisterschaftsId, onSaveSuccess, disabled = false, initialData }: Props) {
   // States für die verschiedenen Spiele
   const [spielNeunerRatten, setSpielNeunerRatten] = React.useState<NeunerRatten[]>([])
   const [spiel6TageRennen, setSpiel6TageRennen] = React.useState<SechsTageRennen[]>([])
@@ -93,13 +142,98 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
   const [spielMeisterschaft, setSpielMeisterschaft] = React.useState<PaarSpiel[]>([])
   const [spielBlitztunier, setSpielBlitztunier] = React.useState<PaarSpiel[]>([])
   const [spielKombimeisterschaft, setSpielKombimeisterschaft] = React.useState<KombiSpiel[]>([])
+  const [deletedIds, setDeletedIds] = React.useState<number[]>([])
+
+  // Effekt zum Laden der initialen Daten (bei Spieltagwechsel)
+  React.useEffect(() => {
+    setDeletedIds([])
+    if (initialData) {
+      setSpielNeunerRatten(initialData.neunerRatten?.map((i) => ({
+        ID: i.ID,
+        SpielerID: i.SpielerID,
+        Spielername: i.Spielername,
+        Neuner: i.Neuner,
+        Kranz8: i.Kranz8,
+        Ratten: i.Ratten
+      })) || [])
+
+      setSpiel6TageRennen(initialData.sechsTageRennen?.map((i) => ({
+        ID: i.ID,
+        Spieler1ID: i.Spieler1ID,
+        Spieler1Name: i.Spieler1Name,
+        Spieler2ID: i.Spieler2ID,
+        Spieler2Name: i.Spieler2Name,
+        Runden: i.Runden,
+        Punkte: i.Punkte,
+        Spielnr: i.Spielnr
+      })) || [])
+
+      setSpielPokal(initialData.pokal?.map((i) => ({
+        ID: i.ID,
+        SpielerID: i.SpielerID,
+        Spielername: i.Spielername,
+        Platzierung: i.Platzierung
+      })) || [])
+
+      setSpielSargkegeln(initialData.sargkegeln?.map((i) => ({
+        ID: i.ID,
+        SpielerID: i.SpielerID,
+        Spielername: i.Spielername,
+        Platzierung: i.Platzierung
+      })) || [])
+
+      setSpielMeisterschaft(initialData.meisterschaft?.map((i) => ({
+        ID: i.ID,
+        Spieler1ID: i.Spieler1ID,
+        Spieler1Name: i.Spieler1Name,
+        Spieler2ID: i.Spieler2ID,
+        Spieler2Name: i.Spieler2Name,
+        Wert1: i.HolzSpieler1,
+        Wert2: i.HolzSpieler2,
+        HinRueckrunde: i.HinRueckrunde
+      })) || [])
+
+      setSpielBlitztunier(initialData.blitztunier?.map((i) => ({
+        ID: i.ID,
+        Spieler1ID: i.Spieler1ID,
+        Spieler1Name: i.Spieler1Name,
+        Spieler2ID: i.Spieler2ID,
+        Spieler2Name: i.Spieler2Name,
+        Wert1: i.PunkteSpieler1,
+        Wert2: i.PunkteSpieler2,
+        HinRueckrunde: i.HinRueckrunde
+      })) || [])
+
+      setSpielKombimeisterschaft(initialData.kombimeisterschaft?.map((i) => ({
+        ID: i.ID,
+        Spieler1ID: i.Spieler1ID,
+        Spieler1Name: i.Spieler1Name,
+        Spieler2ID: i.Spieler2ID,
+        Spieler2Name: i.Spieler2Name,
+        S1_3bis8: i.Spieler1Punkte3bis8,
+        S1_5K: i.Spieler1Punkte5Kugeln,
+        S2_3bis8: i.Spieler2Punkte3bis8,
+        S2_5K: i.Spieler2Punkte5Kugeln,
+        HinRueckrunde: i.HinRueckrunde
+      })) || [])
+    } else {
+      // Wenn keine Daten da sind, leeren (z.B. neuer Spieltag ohne Einträge)
+      setSpielNeunerRatten([])
+      setSpiel6TageRennen([])
+      setSpielPokal([])
+      setSpielSargkegeln([])
+      setSpielMeisterschaft([])
+      setSpielBlitztunier([])
+      setSpielKombimeisterschaft([])
+    }
+  }, [initialData])
 
   const handleDragStart = (e: React.DragEvent, mitglied: AktiverMitspieler) => {
     e.dataTransfer.setData("mitglied", JSON.stringify(mitglied))
     e.dataTransfer.effectAllowed = "move"
   }
 
-  const handleDragStartExisting = (e: React.DragEvent, item: any, sourceTable: string) => {
+  const handleDragStartExisting = (e: React.DragEvent, item: GenericGameItem, sourceTable: string) => {
     e.dataTransfer.setData("existingItem", JSON.stringify(item))
     e.dataTransfer.setData("sourceTable", sourceTable)
     e.dataTransfer.effectAllowed = "move"
@@ -110,11 +244,21 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
     e.dataTransfer.dropEffect = "move"
   }
 
-  const isPlayerInList = (id: number, list: any[], spielType: string) => {
+  const isPlayerInList = (id: number, list: GenericGameItem[], spielType: string) => {
     if (["6-tage-rennen", "meisterschaft", "blitztunier", "kombimeisterschaft"].includes(spielType)) {
-      return list.some(item => item.Spieler1ID === id || item.Spieler2ID === id)
+      return list.some(item => {
+        if ('Spieler1ID' in item) {
+          return item.Spieler1ID === id || item.Spieler2ID === id
+        }
+        return false
+      })
     }
-    return list.some(item => item.SpielerID === id)
+    return list.some(item => {
+      if ('SpielerID' in item) {
+        return item.SpielerID === id
+      }
+      return false
+    })
   }
 
   const handleDropToTable = (e: React.DragEvent) => {
@@ -246,66 +390,115 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
     }
   }
 
-  const handleDropToMembers = (e: React.DragEvent) => {
+  const handleDropToMembers = async (e: React.DragEvent) => {
     e.preventDefault()
     const existingItemData = e.dataTransfer.getData("existingItem")
     const sourceTable = e.dataTransfer.getData("sourceTable")
     if (!existingItemData || !sourceTable) return
 
-    const item = JSON.parse(existingItemData)
+    const item = JSON.parse(existingItemData) as GenericGameItem
+    if (item.ID) {
+      const result = await deleteEingabeRowAction(item.ID, sourceTable)
+      if (result.success) {
+        toast.success("Eintrag gelöscht")
+        if (onSaveSuccess) onSaveSuccess()
+      } else {
+        toast.error("Fehler beim Löschen")
+        return
+      }
+    }
 
     switch (sourceTable) {
-      case "9er-ratten-kranz8":
-        setSpielNeunerRatten(prev => prev.filter(i => i.SpielerID !== item.SpielerID))
+      case "9er-ratten-kranz8": {
+        const i = item as NeunerRatten
+        setSpielNeunerRatten(prev => prev.filter(p => p.SpielerID !== i.SpielerID))
         break
-      case "6-tage-rennen":
-        setSpiel6TageRennen(prev => prev.filter(i => i.Spieler1ID !== item.Spieler1ID))
+      }
+      case "6-tage-rennen": {
+        const i = item as SechsTageRennen
+        setSpiel6TageRennen(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
         break
-      case "pokal":
-        setSpielPokal(prev => prev.filter(i => i.SpielerID !== item.SpielerID))
+      }
+      case "pokal": {
+        const i = item as PlatzierungSpiel
+        setSpielPokal(prev => prev.filter(p => p.SpielerID !== i.SpielerID))
         break
-      case "sargkegeln":
-        setSpielSargkegeln(prev => prev.filter(i => i.SpielerID !== item.SpielerID))
+      }
+      case "sargkegeln": {
+        const i = item as PlatzierungSpiel
+        setSpielSargkegeln(prev => prev.filter(p => p.SpielerID !== i.SpielerID))
         break
-      case "meisterschaft":
-        setSpielMeisterschaft(prev => prev.filter(i => i.Spieler1ID !== item.Spieler1ID))
+      }
+      case "meisterschaft": {
+        const i = item as PaarSpiel
+        setSpielMeisterschaft(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
         break
-      case "blitztunier":
-        setSpielBlitztunier(prev => prev.filter(i => i.Spieler1ID !== item.Spieler1ID))
+      }
+      case "blitztunier": {
+        const i = item as PaarSpiel
+        setSpielBlitztunier(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
         break
-      case "kombimeisterschaft":
-        setSpielKombimeisterschaft(prev => prev.filter(i => i.Spieler1ID !== item.Spieler1ID))
+      }
+      case "kombimeisterschaft": {
+        const i = item as KombiSpiel
+        setSpielKombimeisterschaft(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
         break
+      }
     }
   }
 
-  const removeItem = (item: any, sourceTable: string) => {
+  const removeItem = async (item: GenericGameItem, sourceTable: string) => {
+    console.log("Item, sourceTable: ", item, sourceTable)
+    if (item.ID) {
+      const result = await deleteEingabeRowAction(item.ID, sourceTable)
+      if (result.success) {
+        toast.success("Eintrag gelöscht")
+        if (onSaveSuccess) onSaveSuccess()
+      } else {
+        toast.error("Fehler beim Löschen")
+        return
+      }
+    }
     switch (sourceTable) {
-      case "9er-ratten-kranz8":
-        setSpielNeunerRatten(prev => prev.filter(i => i.SpielerID !== item.SpielerID))
+      case "9er-ratten-kranz8": {
+        const i = item as NeunerRatten
+        setSpielNeunerRatten(prev => prev.filter(p => p.SpielerID !== i.SpielerID))
         break
-      case "6-tage-rennen":
-        setSpiel6TageRennen(prev => prev.filter(i => i.Spieler1ID !== item.Spieler1ID))
+      }
+      case "6-tage-rennen": {
+        const i = item as SechsTageRennen
+        setSpiel6TageRennen(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
         break
-      case "pokal":
-        setSpielPokal(prev => prev.filter(i => i.SpielerID !== item.SpielerID))
+      }
+      case "pokal": {
+        const i = item as PlatzierungSpiel
+        setSpielPokal(prev => prev.filter(p => p.SpielerID !== i.SpielerID))
         break
-      case "sargkegeln":
-        setSpielSargkegeln(prev => prev.filter(i => i.SpielerID !== item.SpielerID))
+      }
+      case "sargkegeln": {
+        const i = item as PlatzierungSpiel
+        setSpielSargkegeln(prev => prev.filter(p => p.SpielerID !== i.SpielerID))
         break
-      case "meisterschaft":
-        setSpielMeisterschaft(prev => prev.filter(i => i.Spieler1ID !== item.Spieler1ID))
+      }
+      case "meisterschaft": {
+        const i = item as PaarSpiel
+        setSpielMeisterschaft(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
         break
-      case "blitztunier":
-        setSpielBlitztunier(prev => prev.filter(i => i.Spieler1ID !== item.Spieler1ID))
+      }
+      case "blitztunier": {
+        const i = item as PaarSpiel
+        setSpielBlitztunier(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
         break
-      case "kombimeisterschaft":
-        setSpielKombimeisterschaft(prev => prev.filter(i => i.Spieler1ID !== item.Spieler1ID))
+      }
+      case "kombimeisterschaft": {
+        const i = item as KombiSpiel
+        setSpielKombimeisterschaft(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
         break
+      }
     }
   }
 
-  const updateItem = (index: number, field: string, value: any, sourceTable: string) => {
+  const updateItem = (index: number, field: string, value: string | number, sourceTable: string) => {
     switch (sourceTable) {
       case "9er-ratten-kranz8":
         setSpielNeunerRatten(prev => {
@@ -367,9 +560,9 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
             <TableHeader>
               <TableRow>
                 <TableHead>Spielername</TableHead>
-                <TableHead className="w-[100px]">Neuner</TableHead>
-                <TableHead className="w-[100px]">Kranz 8</TableHead>
-                <TableHead className="w-[100px]">Ratten</TableHead>
+                <TableHead className="whitespace-nowrap">Neuner</TableHead>
+                <TableHead className="whitespace-nowrap">Kranz 8</TableHead>
+                <TableHead className="whitespace-nowrap">Ratten</TableHead>
                 <TableHead className="w-[50px]"></TableHead>
               </TableRow>
             </TableHeader>
@@ -386,7 +579,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Neuner} 
                       onChange={(e) => updateItem(index, "Neuner", parseInt(e.target.value) || 0, "9er-ratten-kranz8")}
-                      className="h-8" 
+                      className="h-8 w-20" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -395,7 +588,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Kranz8} 
                       onChange={(e) => updateItem(index, "Kranz8", parseInt(e.target.value) || 0, "9er-ratten-kranz8")}
-                      className="h-8" 
+                      className="h-8 w-20" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -404,7 +597,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Ratten} 
                       onChange={(e) => updateItem(index, "Ratten", parseInt(e.target.value) || 0, "9er-ratten-kranz8")}
-                      className="h-8" 
+                      className="h-8 w-20" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -425,9 +618,9 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
               <TableRow>
                 <TableHead>Spieler 1</TableHead>
                 <TableHead>Spieler 2</TableHead>
-                <TableHead className="w-[80px]">Runden</TableHead>
-                <TableHead className="w-[80px]">Punkte</TableHead>
-                <TableHead className="w-[80px]">Spielnr</TableHead>
+                <TableHead className="whitespace-nowrap">Runden</TableHead>
+                <TableHead className="whitespace-nowrap">Punkte</TableHead>
+                <TableHead className="whitespace-nowrap">Spielnr</TableHead>
                 <TableHead className="w-[50px]"></TableHead>
               </TableRow>
             </TableHeader>
@@ -445,7 +638,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Runden} 
                       onChange={(e) => updateItem(index, "Runden", parseInt(e.target.value) || 0, "6-tage-rennen")}
-                      className="h-8" 
+                      className="h-8 w-20" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -454,16 +647,16 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Punkte} 
                       onChange={(e) => updateItem(index, "Punkte", parseInt(e.target.value) || 0, "6-tage-rennen")}
-                      className="h-8" 
+                      className="h-8 w-20" 
                       disabled={disabled}
                     />
                   </TableCell>
                   <TableCell>
                     <Input 
                       type="number" 
-                      value={item.Spielnr} 
+                      value={item.Spielnr ?? 0} 
                       onChange={(e) => updateItem(index, "Spielnr", parseInt(e.target.value) || 0, "6-tage-rennen")}
-                      className="h-8" 
+                      className="h-8 w-20" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -485,7 +678,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
             <TableHeader>
               <TableRow>
                 <TableHead>Spielername</TableHead>
-                <TableHead className="w-[120px]">Platzierung</TableHead>
+                <TableHead className="whitespace-nowrap">Platzierung</TableHead>
                 <TableHead className="w-[50px]"></TableHead>
               </TableRow>
             </TableHeader>
@@ -502,7 +695,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Platzierung} 
                       onChange={(e) => updateItem(index, "Platzierung", parseInt(e.target.value) || 0, spiel)}
-                      className="h-8" 
+                      className="h-8 w-20" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -526,9 +719,9 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
               <TableRow>
                 <TableHead>Spieler 1</TableHead>
                 <TableHead>Spieler 2</TableHead>
-                <TableHead className="w-[100px]">{wertLabel} S1</TableHead>
-                <TableHead className="w-[100px]">{wertLabel} S2</TableHead>
-                <TableHead className="w-[150px]">Hin/Rück</TableHead>
+                <TableHead className="whitespace-nowrap">{wertLabel} S1</TableHead>
+                <TableHead className="whitespace-nowrap">{wertLabel} S2</TableHead>
+                <TableHead className="whitespace-nowrap">Hin/Rück</TableHead>
                 <TableHead className="w-[50px]"></TableHead>
               </TableRow>
             </TableHeader>
@@ -546,7 +739,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Wert1} 
                       onChange={(e) => updateItem(index, "Wert1", parseInt(e.target.value) || 0, spiel)}
-                      className="h-8" 
+                      className="h-8 w-20" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -555,7 +748,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Wert2} 
                       onChange={(e) => updateItem(index, "Wert2", parseInt(e.target.value) || 0, spiel)}
-                      className="h-8" 
+                      className="h-8 w-20" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -565,7 +758,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       onValueChange={(val) => updateItem(index, "HinRueckrunde", val, spiel)}
                       disabled={disabled}
                     >
-                      <SelectTrigger className="h-8">
+                      <SelectTrigger className="h-8 w-28">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -591,11 +784,11 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
               <TableRow>
                 <TableHead>Spieler 1</TableHead>
                 <TableHead>Spieler 2</TableHead>
-                <TableHead className="w-[80px]">S1 3-8</TableHead>
-                <TableHead className="w-[80px]">S1 5K</TableHead>
-                <TableHead className="w-[80px]">S2 3-8</TableHead>
-                <TableHead className="w-[80px]">S2 5K</TableHead>
-                <TableHead className="w-[120px]">Hin/Rück</TableHead>
+                <TableHead className="whitespace-nowrap">S1 3-8</TableHead>
+                <TableHead className="whitespace-nowrap">S1 5K</TableHead>
+                <TableHead className="whitespace-nowrap">S2 3-8</TableHead>
+                <TableHead className="whitespace-nowrap">S2 5K</TableHead>
+                <TableHead className="whitespace-nowrap">Hin/Rück</TableHead>
                 <TableHead className="w-[50px]"></TableHead>
               </TableRow>
             </TableHeader>
@@ -613,7 +806,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.S1_3bis8} 
                       onChange={(e) => updateItem(index, "S1_3bis8", parseInt(e.target.value) || 0, "kombimeisterschaft")}
-                      className="h-8" 
+                      className="h-8 w-20" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -622,7 +815,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.S1_5K} 
                       onChange={(e) => updateItem(index, "S1_5K", parseInt(e.target.value) || 0, "kombimeisterschaft")}
-                      className="h-8" 
+                      className="h-8 w-20" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -631,7 +824,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.S2_3bis8} 
                       onChange={(e) => updateItem(index, "S2_3bis8", parseInt(e.target.value) || 0, "kombimeisterschaft")}
-                      className="h-8" 
+                      className="h-8 w-20" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -640,7 +833,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.S2_5K} 
                       onChange={(e) => updateItem(index, "S2_5K", parseInt(e.target.value) || 0, "kombimeisterschaft")}
-                      className="h-8" 
+                      className="h-8 w-20" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -650,7 +843,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       onValueChange={(val) => updateItem(index, "HinRueckrunde", val, "kombimeisterschaft")}
                       disabled={disabled}
                     >
-                      <SelectTrigger className="h-8">
+                      <SelectTrigger className="h-8 w-28">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -710,11 +903,11 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
           </span>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="overflow-x-auto">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Linke Seite: Aktive Mitglieder */}
           <div 
-            className="flex-1"
+            className="flex-1 min-w-[300px]"
             onDragOver={handleDragOver}
             onDrop={handleDropToMembers}
           >
@@ -750,7 +943,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
 
           {/* Rechte Seite: Dynamische Eingabe */}
           <div 
-            className="flex-[2]"
+            className="flex-[2] min-w-[500px]"
             onDragOver={handleDragOver}
             onDrop={handleDropToTable}
           >
@@ -772,30 +965,32 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                 }
                 const dataPayload =
                     spiel === "9er-ratten-kranz8"
-                      ? spielNeunerRatten.map(({ SpielerID, Neuner, Ratten, Kranz8 }) => ({ SpielerID, Neuner, Ratten, Kranz8 }))
+                      ? spielNeunerRatten.map(({ ID, SpielerID, Neuner, Ratten, Kranz8 }) => ({ ID, SpielerID, Neuner, Ratten, Kranz8 }))
                       : spiel === "6-tage-rennen"
-                        ? spiel6TageRennen.map(({ Spieler1ID, Spieler2ID, Runden, Punkte, Spielnr }) => ({ Spieler1ID, Spieler2ID, Runden, Punkte, Spielnr }))
+                        ? spiel6TageRennen.map(({ ID, Spieler1ID, Spieler2ID, Runden, Punkte, Spielnr }) => ({ ID, Spieler1ID, Spieler2ID, Runden, Punkte, Spielnr }))
                         : spiel === "pokal"
-                          ? spielPokal.map(({ SpielerID, Platzierung }) => ({ SpielerID, Platzierung }))
+                          ? spielPokal.map(({ ID, SpielerID, Platzierung }) => ({ ID, SpielerID, Platzierung }))
                           : spiel === "sargkegeln"
-                            ? spielSargkegeln.map(({ SpielerID, Platzierung }) => ({ SpielerID, Platzierung }))
+                            ? spielSargkegeln.map(({ ID, SpielerID, Platzierung }) => ({ ID, SpielerID, Platzierung }))
                             : spiel === "meisterschaft"
-                              ? spielMeisterschaft.map(({ Spieler1ID, Spieler2ID, Wert1, Wert2, HinRueckrunde }) => ({ Spieler1ID, Spieler2ID, Wert1, Wert2, HinRueckrunde }))
+                              ? spielMeisterschaft.map(({ ID, Spieler1ID, Spieler2ID, Wert1, Wert2, HinRueckrunde }) => ({ ID, Spieler1ID, Spieler2ID, Wert1, Wert2, HinRueckrunde }))
                               : spiel === "blitztunier"
-                                ? spielBlitztunier.map(({ Spieler1ID, Spieler2ID, Wert1, Wert2, HinRueckrunde }) => ({ Spieler1ID, Spieler2ID, Wert1, Wert2, HinRueckrunde }))
-                                : spielKombimeisterschaft.map(({ Spieler1ID, Spieler2ID, S1_3bis8, S1_5K, S2_3bis8, S2_5K, HinRueckrunde }) => ({ Spieler1ID, Spieler2ID, S1_3bis8, S1_5K, S2_3bis8, S2_5K, HinRueckrunde }))
+                                ? spielBlitztunier.map(({ ID, Spieler1ID, Spieler2ID, Wert1, Wert2, HinRueckrunde }) => ({ ID, Spieler1ID, Spieler2ID, Wert1, Wert2, HinRueckrunde }))
+                                : spielKombimeisterschaft.map(({ ID, Spieler1ID, Spieler2ID, S1_3bis8, S1_5K, S2_3bis8, S2_5K, HinRueckrunde }) => ({ ID, Spieler1ID, Spieler2ID, S1_3bis8, S1_5K, S2_3bis8, S2_5K, HinRueckrunde }))
 
 
-                const result = await saveEingabeAction(meisterschaftsId, date, spiel, dataPayload)
+                const result = await saveEingabeAction(meisterschaftsId, date, spiel, dataPayload, deletedIds)
                 
                 if (!result.success) {
-                  throw new Error((result as any).error || "Fehler beim Speichern")
+                  throw new Error(('error' in result ? result.error : undefined) || "Fehler beim Speichern")
                 }
                 toast.success("Erfolgreich gespeichert!")
+                setDeletedIds([])
                 if (onSaveSuccess) onSaveSuccess()
-              } catch (e: any) {
+              } catch (e) {
                 console.error(e)
-                toast.error(e?.message || "Fehler beim Speichern")
+                const error = e as Error | { message?: string }
+                toast.error(error.message || "Fehler beim Speichern")
               }
             }}
           >
