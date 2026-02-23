@@ -4,7 +4,7 @@ import FormMeisterschaftsdaten from "./form-meisterschaft-daten";
 import {MeisterschaftDatenFormDataFormData} from "@/interfaces/meisterschaft-daten-form-data";
 import {useState, useEffect, useCallback} from "react";
 import {toast} from "sonner";
-import { getMeisterschaftById, updateMeisterschaft, createMeisterschaft } from "@/app/actions/db/meisterschaften/actions";
+import { getMeisterschaftById, updateMeisterschaft, createMeisterschaft } from "@/app/actions/verwaltung/meisterschaften/actions";
 import Mitspieler from "@/app/verwaltung/meisterschaften/_components/mitspieler";
 import {meisterschaftsSchema} from "@/zod/meisterschaftSchema";
 import {z} from "zod";

@@ -10,13 +10,11 @@ export async function getStatistik9er(zeitbereich: number, von?: Date, bis?: Dat
     const whereClause: any = {}
 
     if (zeitbereich === 1) {
-      // Laufende Meisterschaft
       const activeId = await getCurrentMeisterschaft()
       if (activeId) {
         whereClause.tblSpieltag = { MeisterschaftsID: parseInt(activeId) }
       }
     } else if (zeitbereich === 2) {
-      // Letzte Meisterschaft
       const activeId = await getCurrentMeisterschaft()
       const lastMeisterschaft = await prisma.tblMeisterschaften.findFirst({
         where: activeId ? { ID: { lt: parseInt(activeId) } } : {},
@@ -26,7 +24,6 @@ export async function getStatistik9er(zeitbereich: number, von?: Date, bis?: Dat
         whereClause.tblSpieltag = { MeisterschaftsID: lastMeisterschaft.ID }
       }
     } else if (zeitbereich === 3 && von && bis) {
-      // Zeitbereich
       whereClause.tblSpieltag = {
         Spieltag: {
           gte: von,
@@ -43,7 +40,6 @@ export async function getStatistik9er(zeitbereich: number, von?: Date, bis?: Dat
       }
     })
 
-    // Gruppieren nach Spieler
     const statsMap = new Map<number, any>()
 
     for (const d of data) {
@@ -276,7 +272,6 @@ export async function getStatistikSpielerSpieler(zeitbereich: number, von?: Date
             dictKombimeisterschaft: {}
         }
 
-        // Meisterschaftsspiele
         const mSpiele = await prisma.tblSpielMeisterschaft.findMany({
             where: {
                 ...whereClause,
@@ -298,7 +293,6 @@ export async function getStatistikSpielerSpieler(zeitbereich: number, von?: Date
             else stats.dictMeisterschaft[opponent].Verloren++
         }
 
-        // Blitztunier
         const bSpiele = await prisma.tblSpielBlitztunier.findMany({
             where: {
                 ...whereClause,
@@ -320,7 +314,6 @@ export async function getStatistikSpielerSpieler(zeitbereich: number, von?: Date
             else stats.dictBlitztunier[opponent].Verloren++
         }
 
-        // Kombimeisterschaft
         const kSpiele = await prisma.tblSpielKombimeisterschaft.findMany({
             where: {
                 ...whereClause,
@@ -340,21 +333,18 @@ export async function getStatistikSpielerSpieler(zeitbereich: number, von?: Date
                 }
             }
             
-            // 3 bis 8
             const p1_38 = sp.Spieler1Punkte3bis8 || 0
             const p2_38 = sp.Spieler2Punkte3bis8 || 0
             if (p1_38 === p2_38) stats.dictKombimeisterschaft[opponent].dict3bis8[opponent].Unentschieden++
             else if ((isP1 && p1_38 > p2_38) || (!isP1 && p2_38 > p1_38)) stats.dictKombimeisterschaft[opponent].dict3bis8[opponent].Gewonnen++
             else stats.dictKombimeisterschaft[opponent].dict3bis8[opponent].Verloren++
 
-            // 5 Kugeln
             const p1_5 = sp.Spieler1Punkte5Kugeln || 0
             const p2_5 = sp.Spieler2Punkte5Kugeln || 0
             if (p1_5 === p2_5) stats.dictKombimeisterschaft[opponent].dict5Kugeln[opponent].Unentschieden++
             else if ((isP1 && p1_5 > p2_5) || (!isP1 && p2_5 > p1_5)) stats.dictKombimeisterschaft[opponent].dict5Kugeln[opponent].Gewonnen++
             else stats.dictKombimeisterschaft[opponent].dict5Kugeln[opponent].Verloren++
 
-            // Gesamt
             const p1_ges = p1_38 + p1_5
             const p2_ges = p2_38 + p2_5
             if (p1_ges === p2_ges) stats.dictKombimeisterschaft[opponent].dictGesamt[opponent].Unentschieden++
@@ -398,14 +388,11 @@ export async function getStatistik6TageRennenPlatz(zeitbereich: number, von?: Da
       }
     })
 
-    // 6-Tage-Rennen ist speziell: Pro Spieltag gibt es Platzierungen
-    // Wir müssen die Ergebnisse pro Spieltag auswerten
     const spieltage = [...new Set(data.map(d => d.SpieltagID))]
     const playerStats = new Map<number, any>()
 
     for (const stId of spieltage) {
         const tagSpiele = data.filter(d => d.SpieltagID === stId)
-        // Sortiere nach Runden desc, dann Punkte desc
         const sorted = tagSpiele.sort((a, b) => b.Runden - a.Runden || b.Punkte - a.Punkte)
         
         sorted.forEach((s, index) => {
@@ -504,7 +491,6 @@ export async function getStatistik6TageRennenMannschaftMitglied(zeitbereich: num
         const bestTeams = await getStatistik6TageRennenBesteMannschaft(zeitbereich, von, bis)
         const dict: Record<string, any[]> = {}
 
-        // Wir gruppieren hier nach den einzelnen Spielern der Mannschaften
         for (const team of bestTeams) {
             const members = team.Mannschaft.split(' / ')
             for (const member of members) {
@@ -559,11 +545,9 @@ export async function getStatistikNeunerRattenKoenig(zeitbereich: number, von?: 
         for (const st of spieltage) {
             const tagData = data.filter(d => d.SpieltagID === st.ID)
             
-            // Neunerkönig des Tages (wer hat am meisten Neuner an diesem Tag)
             const sorted9 = [...tagData].sort((a, b) => b.Neuner - a.Neuner)
             const nKönig = sorted9[0] && sorted9[0].Neuner > 0 ? `${sorted9[0].tblMitglieder.Nachname}, ${sorted9[0].tblMitglieder.Vorname}` : ''
             
-            // Rattenkönig des Tages
             const sortedR = [...tagData].sort((a, b) => b.Ratten - a.Ratten)
             const rKönig = sortedR[0] && sortedR[0].Ratten > 0 ? `${sortedR[0].tblMitglieder.Nachname}, ${sortedR[0].tblMitglieder.Vorname}` : ''
 
@@ -584,12 +568,8 @@ export async function getStatistikNeunerRattenKoenig(zeitbereich: number, von?: 
     }
 }
 
-/**
- * Hilfsaction für Statistik eines Spielers nach ID
- */
 export async function getStatistikSpielerById(spielerId: number): Promise<{ success: boolean, data?: StatistikSpieler, error?: string }> {
   try {
-    // Meisterschaftsspiele laden
     const meisterschaftsSpiele = await prisma.tblSpielMeisterschaft.findMany({
       where: {
         OR: [
@@ -606,8 +586,6 @@ export async function getStatistikSpielerById(spielerId: number): Promise<{ succ
     const holzMeisterSumme = meisterHolz.reduce((a, b) => a + b, 0)
     const holzMeisterAVG = meisterHolz.length > 0 ? holzMeisterSumme / meisterHolz.length : 0
 
-    // Blitztunier (WICHTIG: C#-Code scheint fälschlicherweise SpielerID1/2 als Holz zu verwenden, ich korrigiere das hier auf Punkte)
-    // In tblSpielBlitztunier gibt es PunkteSpieler1/2
     const blitzSpiele = await prisma.tblSpielBlitztunier.findMany({
       where: {
         OR: [
@@ -624,7 +602,6 @@ export async function getStatistikSpielerById(spielerId: number): Promise<{ succ
     const holzBlitzSumme = blitzHolz.reduce((a, b) => a + b, 0)
     const holzBlitzAVG = blitzHolz.length > 0 ? holzBlitzSumme / blitzHolz.length : 0
 
-    // Neuner und Ratten
     const rattenNeuner = await prisma.tbl9erRatten.findMany({
       where: { SpielerID: spielerId }
     })
@@ -636,7 +613,6 @@ export async function getStatistikSpielerById(spielerId: number): Promise<{ succ
     const kranz8Max = rattenNeuner.length > 0 ? Math.max(...rattenNeuner.map(r => (r.Kranzacht ?? 0))) : 0
     const kranz8Summe = rattenNeuner.reduce((a, b) => a + (b.Kranzacht ?? 0), 0)
 
-    // Gesamt
     const holzMax = Math.max(holzMeisterMax, holzBlitzMax)
     const holzMin = (meisterHolz.length > 0 && blitzHolz.length > 0) 
         ? Math.min(holzMeisterMin, holzBlitzMin) 
@@ -673,9 +649,6 @@ export async function getStatistikSpielerById(spielerId: number): Promise<{ succ
   }
 }
 
-/**
- * Lädt die detaillierten Ergebnisse eines Spielers (ähnlich C# GetStatistikSpielerErgebnisseAsync)
- */
 export async function getStatistikSpielerErgebnisse(spielerId: number): Promise<StatistikSpielerErgebnisse[]> {
   try {
     const spieltage = await prisma.tblSpieltag.findMany({
@@ -726,7 +699,6 @@ export async function getStatistikSpielerErgebnisse(spielerId: number): Promise<
 
       let bolFound = false
 
-      // Meisterschaft
       const sp = st.tblSpielMeisterschaft[0]
       if (sp) {
         bolFound = true
@@ -747,14 +719,12 @@ export async function getStatistikSpielerErgebnisse(spielerId: number): Promise<
         }
       }
 
-      // 6 Tage Rennen
       const str = st.tblSpiel6TageRennen[0]
       if (str) {
         bolFound = true
         objErg.SechsTageRennen_Runden = str.Runden
         objErg.SechsTageRennen_Punkte = str.Punkte
         
-        // Platzberechnung: Lade alle Teilnehmer dieses Spieltags für dieses Rennen
         const allStr = await prisma.tblSpiel6TageRennen.findMany({
           where: { 
             SpieltagID: st.ID,
@@ -769,21 +739,18 @@ export async function getStatistikSpielerErgebnisse(spielerId: number): Promise<
         objErg.SechsTageRennen_Platz = index !== -1 ? index + 1 : 0
       }
 
-      // Sarg
       const s = st.tblSpielSargKegeln[0]
       if (s) {
         bolFound = true
         objErg.Sarg = s.Platzierung
       }
 
-      // Pokal
       const p = st.tblSpielPokal[0]
       if (p) {
         bolFound = true
         objErg.Pokal = p.Platzierung
       }
 
-      // 9er + Ratten
       const nr = st.tbl9erRatten[0]
       if (nr) {
         bolFound = true
@@ -802,4 +769,3 @@ export async function getStatistikSpielerErgebnisse(spielerId: number): Promise<
     return []
   }
 }
-

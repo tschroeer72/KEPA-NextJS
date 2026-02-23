@@ -20,9 +20,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
-import { MeisterschaftWithTyp } from "@/app/actions/meisterschaften/actions"
-import { Spieltag } from "@/app/actions/spieltage/actions"
-import { getSpieltageByMeisterschaft } from "@/app/actions/spieltage/actions"
+import { MeisterschaftWithTyp, Spieltag, getSpieltageByMeisterschaft } from "@/app/actions/verwaltung/common/actions"
 import { format } from "date-fns"
 import { de } from "date-fns/locale"
 

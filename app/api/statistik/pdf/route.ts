@@ -11,7 +11,7 @@ import {
     getStatistik6TageRennenBesteMannschaft,
     getStatistik6TageRennenMannschaftMitglied,
     getStatistikNeunerRattenKoenig
-} from '@/app/actions/db/statistik/actions';
+} from '@/app/actions/verwaltung/statistik/actions';
 
 export async function POST(req: NextRequest) {
     try {

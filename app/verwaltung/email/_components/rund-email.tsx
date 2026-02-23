@@ -10,7 +10,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { Loader2, Plus, Trash2, Send } from "lucide-react";
-import { getMembersForEmail } from "@/app/actions/db/mitglieder/actions";
+import { getMembersForEmail } from "@/app/actions/verwaltung/email/actions";
 
 interface Member {
   ID: number;

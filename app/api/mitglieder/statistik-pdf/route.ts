@@ -1,6 +1,6 @@
 ﻿import { NextRequest, NextResponse } from 'next/server';
-import { getMitgliedById } from '@/app/actions/db/mitglieder/actions';
-import { getStatistikSpielerById, getStatistikSpielerErgebnisse } from '@/app/actions/db/statistik/actions';
+import { getMitgliedById } from '@/app/actions/verwaltung/mitglieder/actions';
+import { getStatistikSpielerById, getStatistikSpielerErgebnisse } from '@/app/actions/verwaltung/statistik/actions';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 

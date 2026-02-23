@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useState } from 'react';
-import { getMeisterschaften } from '@/app/actions/db/meisterschaften/actions';
+import { getMeisterschaften } from '@/app/actions/verwaltung/meisterschaften/actions';
 import Meisterschaftliste from "@/app/verwaltung/meisterschaften/_components/meisterschaftliste";
 import Meisterschaftsdaten from "@/app/verwaltung/meisterschaften/_components/meisterschaft-daten";
 

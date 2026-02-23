@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import MitgliederClient from "@/app/verwaltung/mitglieder/_components/mitglieder-client";
-import { getMitglieder } from '@/app/actions/db/mitglieder/actions';
+import { getMitglieder } from '@/app/actions/verwaltung/mitglieder/actions';
 
 export default function MitgliederPage() {
     const [mitgliederListe, setMitgliederListe] = useState<Mitglied[]>([]);

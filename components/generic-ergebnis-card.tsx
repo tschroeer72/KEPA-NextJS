@@ -12,7 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { SpieleType } from "@/types/spiele-type"
-import { ErgebnisseData } from "@/app/actions/ergebnisse/actions"
+import { ErgebnisseData } from "@/app/actions/verwaltung/ausgabe/actions"
 
 type Props = {
   spiel: string

@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import {useCallback, useEffect, useState} from 'react';
-import { getMitgliedById, updateMitglied, createMitglied } from '@/app/actions/db/mitglieder/actions';
+import { getMitgliedById, updateMitglied, createMitglied } from '@/app/actions/verwaltung/mitglieder/actions';
 import {Card, CardContent, CardFooter, CardHeader} from "@/components/ui/card";
 import {Tabs, TabsContent, TabsList, TabsTrigger,} from "@/components/ui/tabs";
 import FormPersoenliches from "@/app/verwaltung/mitglieder/_components/form-persoenliches";

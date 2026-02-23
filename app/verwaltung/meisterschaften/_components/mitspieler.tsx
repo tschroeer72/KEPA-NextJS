@@ -5,8 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 import {AktiverMitspieler} from "@/interfaces/aktiver-mitspieler";
-import { getAktiveMitglieder } from '@/app/actions/db/mitglieder/actions';
-import { getTeilnehmerByMeisterschaft, addTeilnehmer, removeTeilnehmer } from '@/app/actions/db/teilnehmer/actions';
+import { getAktiveMitglieder } from '@/app/actions/verwaltung/mitglieder/actions';
+import { getTeilnehmerByMeisterschaft, addTeilnehmer, removeTeilnehmer } from '@/app/actions/verwaltung/meisterschaften/actions';
 
 interface MitspielerProps {
     meisterschaftID: number;

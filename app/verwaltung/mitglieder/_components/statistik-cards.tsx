@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useState } from "react";
-import { getStatistikSpielerById } from "@/app/actions/db/statistik/actions";
+import { getStatistikSpielerById } from "@/app/actions/verwaltung/statistik/actions";
 import { StatistikSpieler } from "@/interfaces/statistik-spieler";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";

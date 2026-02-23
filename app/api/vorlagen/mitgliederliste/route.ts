@@ -1,6 +1,6 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
 import { VpeToJsPdf, TextAlignment } from "@/utils/vpe-to-jspdf";
-import { getAktiveMitglieder, getAlleMitglieder } from "@/app/actions/db/mitglieder/actions";
+import { getAktiveMitglieder, getAlleMitglieder } from "@/app/actions/verwaltung/mitglieder/actions";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);

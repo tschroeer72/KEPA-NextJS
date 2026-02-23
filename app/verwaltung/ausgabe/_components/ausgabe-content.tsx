@@ -3,8 +3,8 @@
 import * as React from "react"
 import { AuswahlCard } from "./auswahl-card"
 import GenericErgebnisCard from "@/components/generic-ergebnis-card"
-import { MeisterschaftWithTyp } from "@/app/actions/meisterschaften/actions"
-import { getErgebnisse, ErgebnisseData } from "@/app/actions/ergebnisse/actions"
+import { MeisterschaftWithTyp } from "@/app/actions/verwaltung/common/actions"
+import { getErgebnisse, ErgebnisseData } from "@/app/actions/verwaltung/ausgabe/actions"
 
 interface AusgabeContentProps {
   meisterschaften: MeisterschaftWithTyp[]

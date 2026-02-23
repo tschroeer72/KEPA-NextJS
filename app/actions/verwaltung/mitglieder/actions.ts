@@ -20,39 +20,6 @@ export async function getMitglieder() {
   }
 }
 
-export async function getMembersForEmail() {
-  try {
-    const members = await prisma.tblMitglieder.findMany({
-      where: {
-        AusgeschiedenAm: null,
-        Ehemaliger: false,
-      },
-      select: {
-        ID: true,
-        Vorname: true,
-        Nachname: true,
-        EMail: true,
-        PassivSeit: true,
-      },
-      orderBy: {
-        Nachname: 'asc'
-      }
-    });
-
-    // Filtern in JavaScript für maximale Zuverlässigkeit (trim, check @)
-    const validMembers = members.filter(m => 
-      m.EMail && 
-      m.EMail.trim() !== "" && 
-      m.EMail.includes("@")
-    );
-
-    return { success: true, data: validMembers };
-  } catch (error) {
-    console.error("Error fetching members for email:", error);
-    return { success: false, error: "Fehler beim Laden der Mitglieder" };
-  }
-}
-
 export async function getAktiveMitglieder() {
   try {
     const dataMitglieder = await prisma.tblMitglieder.findMany({
@@ -204,7 +171,6 @@ export async function updateMitglied(id: number, body: Prisma.tblMitgliederUnche
     if (body.Geburtsdatum !== undefined) updateData.Geburtsdatum = body.Geburtsdatum ? toUTCDate(body.Geburtsdatum as string | Date) : null
     if (body.MitgliedSeit !== undefined) {
       if (body.MitgliedSeit === null) {
-        // MitgliedSeit is mandatory in schema, but for safety in update:
         updateData.MitgliedSeit = undefined
       } else {
         updateData.MitgliedSeit = toUTCDate(body.MitgliedSeit as string | Date)

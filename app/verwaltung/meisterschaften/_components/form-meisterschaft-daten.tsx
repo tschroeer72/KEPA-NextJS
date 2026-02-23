@@ -13,7 +13,7 @@ import {Button} from "@/components/ui/button";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select"
 import {MeisterschaftDatenFormDataFormData} from "@/interfaces/meisterschaft-daten-form-data";
 import {Meisterschaftstyp} from "@/interfaces/meisterschaftstyp";
-import { getMeisterschaftstypen } from "@/app/actions/db/meisterschaften/actions";
+import { getMeisterschaftstypen } from "@/app/actions/verwaltung/meisterschaften/actions";
 
 interface FormMeisterschaftDatenProps {
     formData: MeisterschaftDatenFormDataFormData;

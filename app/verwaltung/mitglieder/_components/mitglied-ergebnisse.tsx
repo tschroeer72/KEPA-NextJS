@@ -1,7 +1,7 @@
 ﻿"use client"
 
 import { useEffect, useState } from "react"
-import { getStatistikSpielerErgebnisse } from "@/app/actions/db/statistik/actions"
+import { getStatistikSpielerErgebnisse } from "@/app/actions/verwaltung/statistik/actions"
 import { StatistikSpielerErgebnisse } from "@/interfaces/statistik-spieler-ergebnisse"
 import {
   Table,

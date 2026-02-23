@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
-import { updateMeisterschaft } from "@/app/actions/db/meisterschaften/actions"
+import { updateMeisterschaft } from "@/app/actions/verwaltung/meisterschaften/actions"
 import { toast } from "sonner"
 
 type Meisterschaft = {

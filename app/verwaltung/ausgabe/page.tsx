@@ -1,4 +1,4 @@
-﻿import { getMeisterschaften } from "@/app/actions/meisterschaften/actions"
+﻿import { getMeisterschaften } from "@/app/actions/verwaltung/common/actions"
 import { AusgabeContent } from "./_components/ausgabe-content"
 
 export default async function AusgabePage() {
