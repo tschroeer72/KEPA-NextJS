@@ -1,4 +1,7 @@
-﻿import { getErgebnisse } from "../actions";
+﻿/**
+ * @jest-environment node
+ */
+import { getErgebnisse } from "../actions";
 import { prisma } from "@/lib/prisma";
 
 jest.mock("@/lib/prisma", () => ({

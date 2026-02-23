@@ -1,4 +1,7 @@
-﻿import { getChangeLogs } from "../actions";
+﻿/**
+ * @jest-environment node
+ */
+import { getChangeLogs } from "../actions";
 import { prisma } from "@/lib/prisma";
 
 jest.mock("@/lib/prisma", () => ({

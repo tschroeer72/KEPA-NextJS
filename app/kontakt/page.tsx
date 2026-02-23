@@ -41,6 +41,7 @@ export default function Kontakt() {
         // Wenn das versteckte "website"-Feld ausgefüllt wurde, ist es wahrscheinlich ein Bot
         if (formData.website.trim()) {
             newErrors.bot = 'Bot erkannt. Das Formular kann nicht gesendet werden.';
+            setErrors(newErrors);
             return false;
         }
 
@@ -76,7 +77,8 @@ export default function Kontakt() {
         const mailtoLink = `mailto:${emailTo}?subject=${subject}&body=${body}`;
 
         // Öffnet das Standard-E-Mail-Programm
-        window.location.href = mailtoLink;
+        // Nutzung von window.open, um Tests und JSDOM besser zu unterstützen
+        window.open(mailtoLink, '_self');
     };
 
     return (
