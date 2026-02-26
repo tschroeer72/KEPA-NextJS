@@ -2,15 +2,25 @@
 import { AktiverMitspieler } from '@/interfaces/aktiver-mitspieler'
 import EingabeContent from "./_components/eingabe-content"
 
-async function getAktiveMitglieder(): Promise<AktiverMitspieler[]> {
+async function getAktiveMitglieder(meisterschaftsId?: number): Promise<AktiverMitspieler[]> {
+  const whereClause: any = {
+    PassivSeit: null
+  }
+
+  if (meisterschaftsId) {
+    whereClause.tblTeilnehmer = {
+      some: {
+        MeisterschaftsID: meisterschaftsId
+      }
+    }
+  }
+
   const dataMitglieder = await prisma.tblMitglieder.findMany({
     orderBy: [
       { Nachname: 'asc' },
       { Vorname: 'asc' }
     ],
-    where: {
-      PassivSeit: null
-    },
+    where: whereClause,
     select: {
       ID: true,
       Vorname: true,
@@ -45,7 +55,7 @@ async function getAktiveMeisterschaft() {
 
 async function getAllMeisterschaften() {
   return await prisma.tblMeisterschaften.findMany({
-    orderBy: { Bezeichnung: 'asc' },
+    orderBy: { ID: 'desc' },
     include: {
       tblMeisterschaftstyp: true
     }
@@ -53,8 +63,8 @@ async function getAllMeisterschaften() {
 }
 
 export default async function EingabePage() {
-  const mitglieder = await getAktiveMitglieder()
   const aktiveMeisterschaft = await getAktiveMeisterschaft()
+  const mitglieder = await getAktiveMitglieder(aktiveMeisterschaft?.ID)
   const allMeisterschaften = await getAllMeisterschaften()
 
   return (

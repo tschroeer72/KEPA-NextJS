@@ -60,6 +60,25 @@ export function AuswahlCard({ meisterschaften, onRefresh }: AuswahlCardProps) {
     }
   }
 
+  const handlePdfClick = () => {
+    if (!selectedMeisterschaft) return;
+
+    let route = "";
+    const type = selectedMeisterschaft.Meisterschaftstyp;
+  console.log("Type", type);
+    if (type === "Kurztunier" || type === "Blitztunier" || type === "Kurzturnier") {
+      route = "/api/ausgabe/kurztunier";
+    } else if (type === "Meisterschaft" || type === "Meisterschaft_Alt") {
+      route = "/api/ausgabe/meisterschaft";
+    } else if (type === "Kombimeisterschaft") {
+      route = "/api/ausgabe/kombimeisterschaft";
+    }
+  console.log("Route", route);
+    if (route) {
+      window.open(`${route}?id=${selectedMeisterschaft.ID}`, "_blank");
+    }
+  };
+
   return (
     <Card className="w-full">
       <CardHeader>
@@ -153,7 +172,12 @@ export function AuswahlCard({ meisterschaften, onRefresh }: AuswahlCardProps) {
           >
             Aktualisieren
           </Button>
-          <Button variant="outline" className="w-full" disabled>
+          <Button 
+            variant="outline" 
+            className="w-full" 
+            onClick={handlePdfClick}
+            disabled={!selectedMeisterschaft}
+          >
             <Printer className="mr-2 h-4 w-4" /> PDF
           </Button>
         </div>

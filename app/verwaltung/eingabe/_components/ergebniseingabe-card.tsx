@@ -923,7 +923,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {mitglieder.map((mitglied) => (
+                  {meisterschaftsId && mitglieder.map((mitglied) => (
                     <TableRow 
                       key={mitglied.ID}
                       draggable

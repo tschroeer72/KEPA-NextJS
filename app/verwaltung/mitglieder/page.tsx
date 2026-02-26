@@ -3,9 +3,10 @@
 import { useEffect, useState } from 'react';
 import MitgliederClient from "@/app/verwaltung/mitglieder/_components/mitglieder-client";
 import { getMitglieder } from '@/app/actions/verwaltung/mitglieder/actions';
+import { MitgliederTreeviewType } from '@/types/miglieder-treeview-type';
 
 export default function MitgliederPage() {
-    const [mitgliederListe, setMitgliederListe] = useState<Mitglied[]>([]);
+    const [mitgliederListe, setMitgliederListe] = useState<MitgliederTreeviewType[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 

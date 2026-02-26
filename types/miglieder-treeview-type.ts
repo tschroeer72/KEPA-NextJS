@@ -2,4 +2,5 @@
     ID: number,
     Vorname: string,
     Nachname: string,
+    Ehemaliger: boolean,
 }
