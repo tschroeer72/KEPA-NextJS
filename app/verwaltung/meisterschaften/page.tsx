@@ -71,6 +71,7 @@ export default function MeisterschaftenPage() {
                     <Meisterschaftsdaten
                         MeisterschaftID={selectedMeisterschaftId}
                         onDataChange={handleDataChange}
+                        onMeisterschaftSelect={handleMeisterschaftSelect}
                     />
                 </div>
             </div>

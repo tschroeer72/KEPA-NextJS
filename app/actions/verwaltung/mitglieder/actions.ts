@@ -24,7 +24,8 @@ export async function getAktiveMitglieder() {
   try {
     const dataMitglieder = await prisma.tblMitglieder.findMany({
       where: {
-        Ehemaliger: false
+        Ehemaliger: false,
+        PassivSeit: null
       },
       orderBy: {
         Nachname: 'asc'

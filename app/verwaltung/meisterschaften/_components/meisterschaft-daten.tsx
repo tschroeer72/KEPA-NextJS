@@ -12,9 +12,10 @@ import {z} from "zod";
 interface MeisterschaftdatenProps {
     MeisterschaftID: number;
     onDataChange?: () => void;
+    onMeisterschaftSelect?: (id: number) => void;
 }
 
-export default function Meisterschaftsdaten({MeisterschaftID, onDataChange}: MeisterschaftdatenProps) {
+export default function Meisterschaftsdaten({MeisterschaftID, onDataChange, onMeisterschaftSelect}: MeisterschaftdatenProps) {
     //console.log('Meisterschaftsdaten: MeisterschaftID:', MeisterschaftID);
 
     const [formData, setFormData] = useState<MeisterschaftDatenFormDataFormData>({
@@ -76,7 +77,10 @@ export default function Meisterschaftsdaten({MeisterschaftID, onDataChange}: Mei
                     Bemerkungen: ""
                 });
                 setError(null);
+                setBtnNeuEnabled(false);
                 setBtnBearbeitenEnabled(false);
+                setBtnSpeichernEnabled(true);
+                setIsEditable(true);
                 return;
             }
 
@@ -147,38 +151,7 @@ export default function Meisterschaftsdaten({MeisterschaftID, onDataChange}: Mei
     }, [formData]);
 
     const handleNeuClick = () => {
-        // setCurrentMitgliedID(0);
-        //
-        // const newMitglied = {
-        //     Vorname: "",
-        //     Nachname: "",
-        //     MitgliedSeit: new Date(),
-        //     Ehemaliger: false,
-        // } as MitgliedCreate;
-        //
-        // setMitglied(newMitglied);
-        //
-        // // FormData für neues Mitglied setzen
-        // setFormDataMitgliedPersoenliches({
-        //     Vorname: "",
-        //     Nachname: "",
-        //     MitgliedSeit: new Date(),
-        //     Ehemaliger: false
-        // });
-        // setFormDataNotizen({});
-        //
-        // // Validierungsfehler zurücksetzen
-        // setValidationErrors({});
-        //
-        // //console.log('btnNeu => nach set mitglied:', mitglied);
-        //
-        // setLoading(false);
-        // setError(null);
-
-        setBtnNeuEnabled(false);
-        setBtnBearbeitenEnabled(false);
-        setBtnSpeichernEnabled(true);
-        setIsEditable(true);
+        onMeisterschaftSelect?.(0);
     }
 
     const handleBearbeitenClick = () => {
@@ -219,8 +192,14 @@ export default function Meisterschaftsdaten({MeisterschaftID, onDataChange}: Mei
                 // Neue Meisterschaft erstellen
                 const result = await createMeisterschaft(formData);
                 if (result.success && result.data) {
-                    setMeisterschaft(result.data as any);
+                    const savedData = result.data as any;
+                    setMeisterschaft(savedData);
                     toast.success('Meisterschaft wurde erfolgreich angelegt!');
+                    
+                    // Neue ID an Parent-Komponente weitergeben
+                    if (savedData.ID) {
+                        onMeisterschaftSelect?.(savedData.ID);
+                    }
                 } else {
                     throw new Error(result.error || 'Fehler beim Erstellen der Meisterschaft');
                 }

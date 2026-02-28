@@ -56,25 +56,19 @@ export default function MeisterschaftsStatusCard({
     }
   }
 
-  if (aktiveMeisterschaft) {
-    return (
-      <Card className={className}>
-        <CardHeader className="py-4 flex flex-col items-center">
+  return (
+    <Card className={className}>
+      <CardHeader className="py-4 text-center">
+        {aktiveMeisterschaft ? (
           <div className="flex items-baseline gap-2 justify-center">
             <CardTitle>{aktiveMeisterschaft.Bezeichnung}</CardTitle>
             <span className="text-sm text-muted-foreground">
               {aktiveMeisterschaft.tblMeisterschaftstyp?.Meisterschaftstyp}
             </span>
           </div>
-        </CardHeader>
-      </Card>
-    )
-  }
-
-  return (
-    <Card className={className}>
-      <CardHeader className="py-4 text-center">
-        <CardTitle>Keine aktive Meisterschaft</CardTitle>
+        ) : (
+          <CardTitle>Keine aktive Meisterschaft</CardTitle>
+        )}
       </CardHeader>
       <CardContent className="flex flex-col sm:flex-row gap-4 items-end">
         <div className="flex flex-col gap-2 flex-1">

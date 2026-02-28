@@ -12,13 +12,13 @@ export const meisterschaftsSchema = z.object({
         .gt(0, "MeisterschaftstypID muss größer als 0 sein")
 
 }).refine((data) => {
-    // Beginn muss vor Ende liegen
+    // Beginn muss vor oder am Tag des Endes liegen
     if (data.Ende) {
-        return data.Beginn < data.Ende;
+        return data.Beginn <= data.Ende;
     }
     return true;
 }, {
-    message: "Beginn muss vor Ende liegen",
+    message: "Beginn darf nicht nach dem Ende liegen",
 });
 
 export type MeisterschaftSchemaType = z.infer<typeof meisterschaftsSchema>;
