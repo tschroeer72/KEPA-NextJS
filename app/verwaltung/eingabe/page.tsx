@@ -2,6 +2,8 @@
 import { AktiverMitspieler } from '@/interfaces/aktiver-mitspieler'
 import EingabeContent from "./_components/eingabe-content"
 
+export const dynamic = 'force-dynamic'
+
 async function getAktiveMitglieder(meisterschaftsId?: number): Promise<AktiverMitspieler[]> {
   const whereClause: any = {
     PassivSeit: null

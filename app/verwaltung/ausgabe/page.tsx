@@ -1,6 +1,8 @@
 ﻿import { getMeisterschaften } from "@/app/actions/verwaltung/common/actions"
 import { AusgabeContent } from "./_components/ausgabe-content"
 
+export const dynamic = 'force-dynamic'
+
 export default async function AusgabePage() {
     const meisterschaften = await getMeisterschaften()
 

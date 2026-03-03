@@ -66,6 +66,8 @@ export async function createMeisterschaft(body: Prisma.tblMeisterschaftenUncheck
     await createChangeLogAction("tblMeisterschaften", "insert", sql)
 
     revalidatePath('/verwaltung/meisterschaften')
+    revalidatePath('/verwaltung/eingabe')
+    revalidatePath('/verwaltung/ausgabe')
     return { success: true, data }
   } catch (error) {
     console.error('Database error:', error)
@@ -107,6 +109,8 @@ export async function updateMeisterschaft(id: number, body: Prisma.tblMeistersch
     await createChangeLogAction("tblMeisterschaften", "update", sql)
 
     revalidatePath('/verwaltung/meisterschaften')
+    revalidatePath('/verwaltung/eingabe')
+    revalidatePath('/verwaltung/ausgabe')
     return { success: true, data }
   } catch (error) {
     console.error('Database error:', error)
@@ -119,6 +123,8 @@ export async function deleteMeisterschaft(id: number) {
     await prisma.tblMeisterschaften.delete({ where: { ID: id } })
     await createChangeLogAction("tblMeisterschaften", "delete", `delete from tblMeisterschaften where ID=${id}`)
     revalidatePath('/verwaltung/meisterschaften')
+    revalidatePath('/verwaltung/eingabe')
+    revalidatePath('/verwaltung/ausgabe')
     return { success: true }
   } catch (error) {
     console.error('Database error:', error)
@@ -185,6 +191,8 @@ export async function addTeilnehmer(meisterschaftId: number, mitgliedId: number)
     })
     await createChangeLogAction("tblTeilnehmer", "insert", `insert into tblTeilnehmer ...`)
     revalidatePath('/verwaltung/meisterschaften')
+    revalidatePath('/verwaltung/eingabe')
+    revalidatePath('/verwaltung/ausgabe')
     return { success: true, data }
   } catch (error) {
     return { success: false, error: 'Fehler beim Hinzufügen des Teilnehmers' }
@@ -201,6 +209,8 @@ export async function removeTeilnehmer(meisterschaftId: number, mitgliedId: numb
     })
     await createChangeLogAction("tblTeilnehmer", "delete", `delete from tblTeilnehmer where MeisterschaftsID=${meisterschaftId} and SpielerID=${mitgliedId}`)
     revalidatePath('/verwaltung/meisterschaften')
+    revalidatePath('/verwaltung/eingabe')
+    revalidatePath('/verwaltung/ausgabe')
     return { success: true }
   } catch (error) {
     return { success: false, error: 'Fehler beim Entfernen des Teilnehmers' }
