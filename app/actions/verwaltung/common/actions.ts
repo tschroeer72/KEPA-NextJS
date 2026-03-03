@@ -23,7 +23,7 @@ export async function getMeisterschaften(): Promise<MeisterschaftWithTyp[]> {
     ID: m.ID,
     Bezeichnung: m.Bezeichnung,
     Beginn: m.Beginn,
-    Meisterschaftstyp: m.tblMeisterschaftstyp.Meisterschaftstyp,
+    Meisterschaftstyp: m.tblMeisterschaftstyp?.Meisterschaftstyp || "Unbekannt",
   }));
 }
 

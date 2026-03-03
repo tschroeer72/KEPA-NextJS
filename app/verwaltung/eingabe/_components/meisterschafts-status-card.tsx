@@ -63,7 +63,7 @@ export default function MeisterschaftsStatusCard({
           <div className="flex items-baseline gap-2 justify-center">
             <CardTitle>{aktiveMeisterschaft.Bezeichnung}</CardTitle>
             <span className="text-sm text-muted-foreground">
-              {aktiveMeisterschaft.tblMeisterschaftstyp?.Meisterschaftstyp}
+              {aktiveMeisterschaft.tblMeisterschaftstyp?.Meisterschaftstyp || "Unbekannter Typ"}
             </span>
           </div>
         ) : (
@@ -80,7 +80,7 @@ export default function MeisterschaftsStatusCard({
             <SelectContent>
               {allMeisterschaften.map((m) => (
                 <SelectItem key={m.ID} value={m.ID.toString()}>
-                  {m.Bezeichnung} ({m.tblMeisterschaftstyp?.Meisterschaftstyp})
+                  {m.Bezeichnung} ({m.tblMeisterschaftstyp?.Meisterschaftstyp || "Unbekannter Typ"})
                 </SelectItem>
               ))}
             </SelectContent>
