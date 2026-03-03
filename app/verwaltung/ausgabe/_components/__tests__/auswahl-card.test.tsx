@@ -55,6 +55,8 @@ describe('AuswahlCard Component', () => {
     })
 
     fireEvent.click(screen.getByRole('button', { name: /Aktualisieren/i }))
-    expect(onRefresh).toHaveBeenCalledWith([10])
+    await waitFor(() => {
+      expect(onRefresh).toHaveBeenCalledWith([10])
+    })
   })
 })

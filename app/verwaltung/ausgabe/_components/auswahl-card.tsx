@@ -1,7 +1,7 @@
 ﻿"use client"
 
 import * as React from "react"
-import { Check, ChevronsUpDown, Printer } from "lucide-react"
+import { Check, ChevronsUpDown, Printer, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -34,6 +34,7 @@ export function AuswahlCard({ meisterschaften, onRefresh }: AuswahlCardProps) {
   const [selectedMeisterschaft, setSelectedMeisterschaft] = React.useState<MeisterschaftWithTyp | null>(null)
   const [spieltage, setSpieltage] = React.useState<Spieltag[]>([])
   const [selectedSpieltagIds, setSelectedSpieltagIds] = React.useState<number[]>([])
+  const [isLoading, setIsLoading] = React.useState(false)
 
   const handleMeisterschaftSelect = async (mId: string) => {
     const m = meisterschaften.find((item) => item.ID.toString() === mId)
@@ -78,6 +79,15 @@ export function AuswahlCard({ meisterschaften, onRefresh }: AuswahlCardProps) {
       window.open(`${route}?id=${selectedMeisterschaft.ID}`, "_blank");
     }
   };
+
+  const handleRefresh = async () => {
+    setIsLoading(true)
+    try {
+      await onRefresh(selectedSpieltagIds)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <Card className="w-full">
@@ -167,9 +177,10 @@ export function AuswahlCard({ meisterschaften, onRefresh }: AuswahlCardProps) {
         <div className="flex flex-col gap-2 pt-4">
           <Button 
             className="w-full" 
-            onClick={() => onRefresh(selectedSpieltagIds)}
-            disabled={!selectedMeisterschaft}
+            onClick={handleRefresh}
+            disabled={!selectedMeisterschaft || isLoading}
           >
+            {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
             Aktualisieren
           </Button>
           <Button 
