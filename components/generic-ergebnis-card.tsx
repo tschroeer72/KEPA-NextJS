@@ -130,7 +130,7 @@ export default function GenericErgebnisCard({ spiel, onSpielChange, data, classN
 
           {SpieleType.map((s) => (
             <TabsContent key={s.value} value={s.value} className="mt-0">
-              {renderTableContent(s.value)}
+              {spiel === s.value && renderTableContent(s.value)}
             </TabsContent>
           ))}
         </Tabs>
