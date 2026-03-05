@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Trash2 } from "lucide-react"
+import { Trash2, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { saveEingabeAction } from "@/app/actions/verwaltung/eingabe"
 import { deleteEingabeRowAction } from "@/app/actions/verwaltung/eingabe/delete-eingabe-row"
@@ -233,41 +233,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
     e.dataTransfer.effectAllowed = "move"
   }
 
-  const handleDragStartExisting = (e: React.DragEvent, item: GenericGameItem, sourceTable: string) => {
-    e.dataTransfer.setData("existingItem", JSON.stringify(item))
-    e.dataTransfer.setData("sourceTable", sourceTable)
-    e.dataTransfer.effectAllowed = "move"
-  }
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault()
-    e.dataTransfer.dropEffect = "move"
-  }
-
-  const isPlayerInList = (id: number, list: GenericGameItem[], spielType: string) => {
-    if (["6-tage-rennen", "meisterschaft", "blitztunier", "kombimeisterschaft"].includes(spielType)) {
-      return list.some(item => {
-        if ('Spieler1ID' in item) {
-          return item.Spieler1ID === id || item.Spieler2ID === id
-        }
-        return false
-      })
-    }
-    return list.some(item => {
-      if ('SpielerID' in item) {
-        return item.SpielerID === id
-      }
-      return false
-    })
-  }
-
-  const handleDropToTable = (e: React.DragEvent) => {
-    e.preventDefault()
-    const mitgliedData = e.dataTransfer.getData("mitglied")
-    if (!mitgliedData) return
-
-    const mitglied: AktiverMitspieler = JSON.parse(mitgliedData)
-
+  const addItemToTable = (mitglied: AktiverMitspieler) => {
     switch (spiel) {
       case "9er-ratten-kranz8":
         if (!isPlayerInList(mitglied.ID, spielNeunerRatten, spiel)) {
@@ -388,6 +354,43 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
         })
         break
     }
+  }
+
+  const handleDragStartExisting = (e: React.DragEvent, item: GenericGameItem, sourceTable: string) => {
+    e.dataTransfer.setData("existingItem", JSON.stringify(item))
+    e.dataTransfer.setData("sourceTable", sourceTable)
+    e.dataTransfer.effectAllowed = "move"
+  }
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.dataTransfer.dropEffect = "move"
+  }
+
+  const isPlayerInList = (id: number, list: GenericGameItem[], spielType: string) => {
+    if (["6-tage-rennen", "meisterschaft", "blitztunier", "kombimeisterschaft"].includes(spielType)) {
+      return list.some(item => {
+        if ('Spieler1ID' in item) {
+          return item.Spieler1ID === id || item.Spieler2ID === id
+        }
+        return false
+      })
+    }
+    return list.some(item => {
+      if ('SpielerID' in item) {
+        return item.SpielerID === id
+      }
+      return false
+    })
+  }
+
+  const handleDropToTable = (e: React.DragEvent) => {
+    e.preventDefault()
+    const mitgliedData = e.dataTransfer.getData("mitglied")
+    if (!mitgliedData) return
+
+    const mitglied: AktiverMitspieler = JSON.parse(mitgliedData)
+    addItemToTable(mitglied)
   }
 
   const handleDropToMembers = async (e: React.DragEvent) => {
@@ -559,11 +562,11 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-[50px]"></TableHead>
                 <TableHead>Spielername</TableHead>
                 <TableHead className="whitespace-nowrap">Neuner</TableHead>
                 <TableHead className="whitespace-nowrap">Kranz 8</TableHead>
                 <TableHead className="whitespace-nowrap">Ratten</TableHead>
-                <TableHead className="w-[50px]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -573,6 +576,11 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                   draggable 
                   onDragStart={(e) => handleDragStartExisting(e, item, "9er-ratten-kranz8")}
                 >
+                  <TableCell>
+                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, "9er-ratten-kranz8")} disabled={disabled}>
+                      <Trash2 className="h-4 w-4 text-red-600" />
+                    </Button>
+                  </TableCell>
                   <TableCell>{item.Spielername}</TableCell>
                   <TableCell>
                     <Input 
@@ -601,11 +609,6 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       disabled={disabled}
                     />
                   </TableCell>
-                  <TableCell>
-                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, "9er-ratten-kranz8")} disabled={disabled}>
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -616,12 +619,12 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-[50px]"></TableHead>
                 <TableHead>Spieler 1</TableHead>
                 <TableHead>Spieler 2</TableHead>
                 <TableHead className="whitespace-nowrap">Runden</TableHead>
                 <TableHead className="whitespace-nowrap">Punkte</TableHead>
                 <TableHead className="whitespace-nowrap">Spielnr</TableHead>
-                <TableHead className="w-[50px]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -631,6 +634,11 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                   draggable 
                   onDragStart={(e) => handleDragStartExisting(e, item, "6-tage-rennen")}
                 >
+                  <TableCell>
+                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, "6-tage-rennen")} disabled={disabled}>
+                      <Trash2 className="h-4 w-4 text-red-600" />
+                    </Button>
+                  </TableCell>
                   <TableCell>{item.Spieler1Name}</TableCell>
                   <TableCell>{item.Spieler2Name || "..."}</TableCell>
                   <TableCell>
@@ -660,11 +668,6 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       disabled={disabled}
                     />
                   </TableCell>
-                  <TableCell>
-                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, "6-tage-rennen")} disabled={disabled}>
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -677,9 +680,9 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-[50px]"></TableHead>
                 <TableHead>Spielername</TableHead>
                 <TableHead className="whitespace-nowrap">Platzierung</TableHead>
-                <TableHead className="w-[50px]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -689,6 +692,11 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                   draggable 
                   onDragStart={(e) => handleDragStartExisting(e, item, spiel)}
                 >
+                  <TableCell>
+                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, spiel)} disabled={disabled}>
+                      <Trash2 className="h-4 w-4 text-red-600" />
+                    </Button>
+                  </TableCell>
                   <TableCell>{item.Spielername}</TableCell>
                   <TableCell>
                     <Input 
@@ -698,11 +706,6 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       className="h-8 w-20" 
                       disabled={disabled}
                     />
-                  </TableCell>
-                  <TableCell>
-                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, spiel)} disabled={disabled}>
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -717,12 +720,12 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-[50px]"></TableHead>
                 <TableHead>Spieler 1</TableHead>
                 <TableHead>Spieler 2</TableHead>
                 <TableHead className="whitespace-nowrap">{wertLabel} S1</TableHead>
                 <TableHead className="whitespace-nowrap">{wertLabel} S2</TableHead>
                 <TableHead className="whitespace-nowrap">Hin/Rück</TableHead>
-                <TableHead className="w-[50px]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -732,6 +735,11 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                   draggable 
                   onDragStart={(e) => handleDragStartExisting(e, item, spiel)}
                 >
+                  <TableCell>
+                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, spiel)} disabled={disabled}>
+                      <Trash2 className="h-4 w-4 text-red-600" />
+                    </Button>
+                  </TableCell>
                   <TableCell>{item.Spieler1Name}</TableCell>
                   <TableCell>{item.Spieler2Name || "..."}</TableCell>
                   <TableCell>
@@ -767,11 +775,6 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       </SelectContent>
                     </Select>
                   </TableCell>
-                  <TableCell>
-                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, spiel)} disabled={disabled}>
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -782,6 +785,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-[50px]"></TableHead>
                 <TableHead>Spieler 1</TableHead>
                 <TableHead>Spieler 2</TableHead>
                 <TableHead className="whitespace-nowrap">S1 3-8</TableHead>
@@ -789,7 +793,6 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                 <TableHead className="whitespace-nowrap">S2 3-8</TableHead>
                 <TableHead className="whitespace-nowrap">S2 5K</TableHead>
                 <TableHead className="whitespace-nowrap">Hin/Rück</TableHead>
-                <TableHead className="w-[50px]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -799,6 +802,11 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                   draggable 
                   onDragStart={(e) => handleDragStartExisting(e, item, "kombimeisterschaft")}
                 >
+                  <TableCell>
+                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, "kombimeisterschaft")} disabled={disabled}>
+                      <Trash2 className="h-4 w-4 text-red-600" />
+                    </Button>
+                  </TableCell>
                   <TableCell>{item.Spieler1Name}</TableCell>
                   <TableCell>{item.Spieler2Name || "..."}</TableCell>
                   <TableCell>
@@ -851,11 +859,6 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                         <SelectItem value="Rückrunde">Rückrunde</SelectItem>
                       </SelectContent>
                     </Select>
-                  </TableCell>
-                  <TableCell>
-                    <Button variant="ghost" size="icon" onClick={() => removeItem(item, "kombimeisterschaft")} disabled={disabled}>
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -916,6 +919,7 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
               <Table>
                 <TableHeader>
                   <TableRow>
+                    <TableHead className="w-[80px]">Aktion</TableHead>
                     <TableHead>Vorname</TableHead>
                     <TableHead>Nachname</TableHead>
                     <TableHead>Spitzname</TableHead>
@@ -930,6 +934,17 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       onDragStart={(e) => handleDragStart(e, mitglied)}
                       className="cursor-move"
                     >
+                      <TableCell>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => addItemToTable(mitglied)}
+                          disabled={disabled}
+                          title="Zur Eingabetabelle hinzufügen"
+                        >
+                          <Plus className="h-4 w-4 text-green-600" />
+                        </Button>
+                      </TableCell>
                       <TableCell>{mitglied.Vorname}</TableCell>
                       <TableCell>{mitglied.Nachname}</TableCell>
                       <TableCell>{mitglied.Spitzname}</TableCell>

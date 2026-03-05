@@ -4,6 +4,8 @@ import React, {useState, useCallback, useEffect} from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
+import { Plus, Minus } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import {AktiverMitspieler} from "@/interfaces/aktiver-mitspieler";
 import { getAktiveMitglieder } from '@/app/actions/verwaltung/mitglieder/actions';
 import { getTeilnehmerByMeisterschaft, addTeilnehmer, removeTeilnehmer } from '@/app/actions/verwaltung/meisterschaften/actions';
@@ -95,6 +97,45 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
         }
     }, []);
 
+    // Verschiebe-Funktionen (Logik aus handleDrop extrahiert)
+    const moveToTeilnehmer = useCallback(async (mitglied: AktiverMitspieler) => {
+        setAktiveMitglieder(prev => prev.filter(item => item.ID !== mitglied.ID));
+        try {
+            const result = await addTeilnehmer(currentMeisterschaftsID, mitglied.ID);
+            if (result.success) {
+                console.log(`Teilnehmer ${mitglied.Anzeigename} wurde geadded`);
+                setAktiveTeilnehmer(prev => [...prev, mitglied]);
+            } else {
+                setError(result.error || 'Fehler beim adden des Teilnehmers');
+                // Rollback bei Fehler
+                setAktiveMitglieder(prev => [...prev, mitglied]);
+            }
+        } catch (err: any) {
+            setError(err.message || 'Unbekannter Fehler beim adden');
+            // Rollback bei Fehler
+            setAktiveMitglieder(prev => [...prev, mitglied]);
+        }
+    }, [currentMeisterschaftsID]);
+
+    const moveToMitglieder = useCallback(async (teilnehmer: AktiverMitspieler) => {
+        setAktiveTeilnehmer(prev => prev.filter(item => item.ID !== teilnehmer.ID));
+        try {
+            const result = await removeTeilnehmer(currentMeisterschaftsID, teilnehmer.ID);
+            if (result.success) {
+                console.log(`Teilnehmer ${teilnehmer.Anzeigename} wurde gelöscht`);
+                setAktiveMitglieder(prev => [...prev, teilnehmer]);
+            } else {
+                setError(result.error || 'Fehler beim Löschen des Teilnehmers');
+                // Rollback bei Fehler
+                setAktiveTeilnehmer(prev => [...prev, teilnehmer]);
+            }
+        } catch (err: any) {
+            setError(err.message || 'Unbekannter Fehler beim Löschen');
+            // Rollback bei Fehler
+            setAktiveTeilnehmer(prev => [...prev, teilnehmer]);
+        }
+    }, [currentMeisterschaftsID]);
+
     // Drop Handler
     const handleDrop = useCallback(async (e: React.DragEvent, targetTable: 'mitglieder' | 'teilnehmer') => {
         e.preventDefault();
@@ -109,48 +150,17 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
             return;
         }
 
-        // Item von der ursprünglichen Tabelle entfernen
-        if (draggedFromTable === 'mitglieder') {
-            setAktiveMitglieder(prev => prev.filter(item => item.ID !== draggedItem.ID));
+        if (targetTable === 'teilnehmer') {
+            await moveToTeilnehmer(draggedItem);
         } else {
-            //setAktiveTeilnehmer(prev => prev.filter(item => item.ID !== draggedItem.ID));
-            try {
-                const result = await removeTeilnehmer(currentMeisterschaftsID, draggedItem.ID);
-                if (result.success) {
-                    // Teilnehmer aus der lokalen Liste entfernen
-                    console.log(`Teilnehmer ${draggedItem.Anzeigename} wurde gelöscht`);
-                    setAktiveTeilnehmer(prev => prev.filter(item => item.ID !== draggedItem.ID));
-                } else {
-                    setError(result.error || 'Fehler beim Löschen des Teilnehmers');
-                }
-            } catch (err: any) {
-                setError(err.message || 'Unbekannter Fehler beim Löschen');
-            }
-        }
-
-        // Item zur Zieltabelle hinzufügen
-        if (targetTable === 'mitglieder') {
-            setAktiveMitglieder(prev => [...prev, draggedItem]);
-        } else {
-            //setAktiveTeilnehmer(prev => [...prev, draggedItem]);
-            try {
-                const result = await addTeilnehmer(currentMeisterschaftsID, draggedItem.ID);
-                if (result.success) {
-                    console.log(`Teilnehmer ${draggedItem.Anzeigename} wurde geadded`);
-                    setAktiveTeilnehmer(prev => [...prev, draggedItem]);
-                } else {
-                    setError(result.error || 'Fehler beim adden des Teilnehmers');
-                }
-            } catch (err: any) {
-                setError(err.message || 'Unbekannter Fehler beim adden');
-            }
+            await moveToMitglieder(draggedItem);
         }
 
         // Reset drag state
         setDraggedItem(null);
         setDraggedFromTable(null);
         setDragOverTable(null);
-    }, [currentMeisterschaftsID, draggedItem, draggedFromTable]);
+    }, [draggedItem, draggedFromTable, moveToTeilnehmer, moveToMitglieder]);
 
     // Drag-End Handler
     const handleDragEnd = useCallback(() => {
@@ -188,6 +198,7 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
                     <Table>
                         <TableHeader>
                             <TableRow>
+                                <TableHead className="w-[80px]">Aktion</TableHead>
                                 <TableHead className="w-[200px] min-w-[200px]">Anzeigename</TableHead>
                                 <TableHead className="w-[100px] min-w-[100px]">Vorname</TableHead>
                                 <TableHead className="w-[100px] min-w-[100px]">Nachname</TableHead>
@@ -206,6 +217,16 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
                                     onDragStart={() => handleDragStart(mitglied, 'mitglieder')}
                                     onDragEnd={handleDragEnd}
                                 >
+                                    <TableCell>
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            onClick={() => moveToTeilnehmer(mitglied)}
+                                            title="Zu Teilnehmern hinzufügen"
+                                        >
+                                            <Plus className="h-4 w-4 text-green-600" />
+                                        </Button>
+                                    </TableCell>
                                     <TableCell className="font-medium">{mitglied.Anzeigename}</TableCell>
                                     <TableCell>{mitglied.Vorname}</TableCell>
                                     <TableCell>{mitglied.Nachname}</TableCell>
@@ -214,7 +235,7 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
                             ))}
                             {aktiveMitglieder.length === 0 && (
                                 <TableRow>
-                                    <TableCell colSpan={4} className="text-center text-gray-500 py-8">
+                                    <TableCell colSpan={5} className="text-center text-gray-500 py-8">
                                         Keine aktiven Mitglieder
                                     </TableCell>
                                 </TableRow>
@@ -243,6 +264,7 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
                     <Table>
                         <TableHeader>
                             <TableRow>
+                                <TableHead className="w-[80px]">Aktion</TableHead>
                                 <TableHead className="w-[200px] min-w-[200px]">Anzeigename</TableHead>
                                 <TableHead className="w-[100px] min-w-[100px]">Vorname</TableHead>
                                 <TableHead className="w-[100px] min-w-[100px]">Nachname</TableHead>
@@ -261,6 +283,16 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
                                     onDragStart={() => handleDragStart(teilnehmer, 'teilnehmer')}
                                     onDragEnd={handleDragEnd}
                                 >
+                                    <TableCell>
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            onClick={() => moveToMitglieder(teilnehmer)}
+                                            title="Von Teilnehmern entfernen"
+                                        >
+                                            <Minus className="h-4 w-4 text-red-600" />
+                                        </Button>
+                                    </TableCell>
                                     <TableCell className="font-medium">{teilnehmer.Anzeigename}</TableCell>
                                     <TableCell>{teilnehmer.Vorname}</TableCell>
                                     <TableCell>{teilnehmer.Nachname}</TableCell>
@@ -269,7 +301,7 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
                             ))}
                             {aktiveTeilnehmer.length === 0 && (
                                 <TableRow>
-                                    <TableCell colSpan={4} className="text-center text-gray-500 py-8">
+                                    <TableCell colSpan={5} className="text-center text-gray-500 py-8">
                                         Keine aktiven Spieler
                                     </TableCell>
                                 </TableRow>
