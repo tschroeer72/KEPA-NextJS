@@ -36,8 +36,8 @@ export function AuswahlCard({ meisterschaften, onRefresh }: AuswahlCardProps) {
   const [selectedSpieltagIds, setSelectedSpieltagIds] = React.useState<number[]>([])
   const [isLoading, setIsLoading] = React.useState(false)
 
-  const handleMeisterschaftSelect = async (mId: string) => {
-    const m = meisterschaften.find((item) => item.ID.toString() === mId)
+  const handleMeisterschaftSelect = async (bezeichnung: string) => {
+    const m = meisterschaften.find((item) => item.Bezeichnung === bezeichnung)
     if (m) {
       setSelectedMeisterschaft(m)
       const tage = await getSpieltageByMeisterschaft(m.ID)
@@ -111,7 +111,7 @@ export function AuswahlCard({ meisterschaften, onRefresh }: AuswahlCardProps) {
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-full p-0">
+            <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
               <Command>
                 <CommandInput placeholder="Meisterschaft suchen..." />
                 <CommandList>
@@ -120,7 +120,7 @@ export function AuswahlCard({ meisterschaften, onRefresh }: AuswahlCardProps) {
                     {meisterschaften.map((m) => (
                       <CommandItem
                         key={m.ID}
-                        value={m.ID.toString()}
+                        value={m.Bezeichnung}
                         onSelect={handleMeisterschaftSelect}
                       >
                         <Check
