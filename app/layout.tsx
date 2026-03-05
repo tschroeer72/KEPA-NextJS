@@ -21,6 +21,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
     title: "Kegelgruppe KEPA 1958",
     description: "Kegelgruppe KEPA 1958 - Offizielle Webseite der Kegelgruppe KEPA 1958",
+    applicationName: "KEPAVerwaltung",
 };
 
 export default function RootLayout({
