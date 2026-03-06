@@ -114,7 +114,7 @@ export function AuswahlCard({ meisterschaften, onRefresh }: AuswahlCardProps) {
             <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
               <Command>
                 <CommandInput placeholder="Meisterschaft suchen..." />
-                <CommandList>
+                <CommandList className="max-h-[224px] overflow-y-auto">
                   <CommandEmpty>Keine Meisterschaft gefunden.</CommandEmpty>
                   <CommandGroup>
                     {meisterschaften.map((m) => (
