@@ -201,12 +201,12 @@ export async function GET(request: Request) {
       yCursor += 1;
     }
 
-    drawBox(x, yCursor, 1.7, 0.5, "Tot. Hi. Rü.", 7, true);
-    let xBottomCursor = x + 1.7;
-    for (let i = 0; i < lstTeilnehmer.length; i++) {
-      drawBox(xBottomCursor, yCursor, 2.4, 0.5, lstTeilnehmer[i].Punkte.toString(), 10, true);
-      xBottomCursor += 2.4;
-    }
+    // drawBox(x, yCursor, 1.7, 0.5, "Tot. Hi. Rü.", 7, true);
+    // let xBottomCursor = x + 1.7;
+    // for (let i = 0; i < lstTeilnehmer.length; i++) {
+    //   drawBox(xBottomCursor, yCursor, 2.4, 0.5, lstTeilnehmer[i].Punkte.toString(), 10, true);
+    //   xBottomCursor += 2.4;
+    // }
 
     const pdfBuffer = doc.output("arraybuffer");
     const sanitizedBezeichnung = meisterschaft.Bezeichnung.replace(/\s+/g, "_").replace(/[^a-zA-Z0-9_]/g, "");

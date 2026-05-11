@@ -104,7 +104,7 @@ export default function Treeview({lstMitglieder, onMemberSelect}: TreeviewProps)
                         <div key={node.letter} className="space-y-1">
                             {/* Knoten Header */}
                             <div
-                                className="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors"
+                                className="flex items-center cursor-pointer hover:bg-accent hover:text-accent-foreground p-2 rounded transition-colors"
                                 onClick={() => toggleNode(node.letter)}
                             >
                                 {expandedNodes.has(node.letter) ? (
@@ -122,10 +122,10 @@ export default function Treeview({lstMitglieder, onMemberSelect}: TreeviewProps)
                                     {node.members.map((member) => (
                                         <div
                                             key={member.ID}
-                                            className="flex items-center cursor-pointer hover:bg-blue-50 p-2 rounded transition-colors min-w-0"
+                                            className="flex items-center cursor-pointer hover:bg-accent hover:text-accent-foreground p-2 rounded transition-colors min-w-0"
                                             onClick={() => handleMemberClick(member.ID)}
                                         >
-                                            <User className="w-4 h-4 mr-2 text-gray-500 flex-shrink-0"/>
+                                            <User className="w-4 h-4 mr-2 text-muted-foreground flex-shrink-0"/>
                                             <span className="text-sm truncate"
                                                   title={`${member.Nachname}, ${member.Vorname}`}>
                         {member.Nachname}, {member.Vorname}

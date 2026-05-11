@@ -18,8 +18,23 @@ type Props = {
 }
 
 export default function GenericErgebnisCard({ spiel, onSpielChange, data, className, title, disabled = false }: Props) {
+  const parseGermanDate = (dateStr: string) => {
+    const [day, month, year] = dateStr.split(".").map(Number)
+    return new Date(year, month - 1, day).getTime()
+  }
+
+  const getSpieltagColumnSort = <T,>(): ColumnDef<T> => ({
+    accessorKey: "Spieltag" as any,
+    header: "Spieltag",
+    sortingFn: (rowA, rowB, columnId) => {
+      const dateA = parseGermanDate(rowA.getValue(columnId) as string)
+      const dateB = parseGermanDate(rowB.getValue(columnId) as string)
+      return dateA - dateB
+    },
+  })
+
   const neunerRattenColumns: ColumnDef<NeunerRattenResult>[] = [
-    { accessorKey: "Spieltag", header: "Spieltag" },
+    getSpieltagColumnSort<NeunerRattenResult>(),
     { accessorKey: "Spielername", header: "Spieler" },
     { accessorKey: "Neuner", header: "Neuner" },
     { accessorKey: "Ratten", header: "Ratten" },
@@ -27,7 +42,7 @@ export default function GenericErgebnisCard({ spiel, onSpielChange, data, classN
   ]
 
   const sechsTageRennenColumns: ColumnDef<SechsTageRennenResult>[] = [
-    { accessorKey: "Spieltag", header: "Spieltag" },
+    getSpieltagColumnSort<SechsTageRennenResult>(),
     { accessorKey: "Spieler1Name", header: "Spieler 1" },
     { accessorKey: "Spieler2Name", header: "Spieler 2" },
     { accessorKey: "Runden", header: "Runden" },
@@ -36,19 +51,19 @@ export default function GenericErgebnisCard({ spiel, onSpielChange, data, classN
   ]
 
   const pokalColumns: ColumnDef<PokalResult>[] = [
-    { accessorKey: "Spieltag", header: "Spieltag" },
+    getSpieltagColumnSort<PokalResult>(),
     { accessorKey: "Spielername", header: "Spieler" },
     { accessorKey: "Platzierung", header: "Platzierung" },
   ]
 
   const sargkegelnColumns: ColumnDef<SargkegelnResult>[] = [
-    { accessorKey: "Spieltag", header: "Spieltag" },
+    getSpieltagColumnSort<SargkegelnResult>(),
     { accessorKey: "Spielername", header: "Spieler" },
     { accessorKey: "Platzierung", header: "Platzierung" },
   ]
 
   const meisterschaftColumns: ColumnDef<MeisterschaftResult>[] = [
-    { accessorKey: "Spieltag", header: "Spieltag" },
+    getSpieltagColumnSort<MeisterschaftResult>(),
     { accessorKey: "Spieler1Name", header: "Spieler 1" },
     { accessorKey: "Spieler2Name", header: "Spieler 2" },
     { accessorKey: "HolzSpieler1", header: "Holz S1" },
@@ -57,7 +72,7 @@ export default function GenericErgebnisCard({ spiel, onSpielChange, data, classN
   ]
 
   const blitztunierColumns: ColumnDef<BlitztunierResult>[] = [
-    { accessorKey: "Spieltag", header: "Spieltag" },
+    getSpieltagColumnSort<BlitztunierResult>(),
     { accessorKey: "Spieler1Name", header: "Spieler 1" },
     { accessorKey: "Spieler2Name", header: "Spieler 2" },
     { accessorKey: "PunkteSpieler1", header: "Punkte S1" },
@@ -66,7 +81,7 @@ export default function GenericErgebnisCard({ spiel, onSpielChange, data, classN
   ]
 
   const kombimeisterschaftColumns: ColumnDef<KombimeisterschaftResult>[] = [
-    { accessorKey: "Spieltag", header: "Spieltag" },
+    getSpieltagColumnSort<KombimeisterschaftResult>(),
     { accessorKey: "Spieler1Name", header: "Spieler 1" },
     { accessorKey: "Spieler2Name", header: "Spieler 2" },
     { accessorKey: "Spieler1Punkte3bis8", header: "S1 3-8" },

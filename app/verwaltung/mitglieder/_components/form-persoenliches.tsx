@@ -235,7 +235,7 @@ const FormPersoenliches: React.FC<FormPersoenlichesProps> = ({
                                     )}
                                 </Button>
                                 {showGeburtsdatum && isEditable && (
-                                    <div className="absolute z-10 mt-1 bg-white border rounded-md shadow-lg">
+                                    <div className="absolute z-10 mt-1 bg-popover border rounded-md shadow-lg">
                                         <Calendar
                                             hideNavigation captionLayout="dropdown"
                                             mode="single"
@@ -266,7 +266,7 @@ const FormPersoenliches: React.FC<FormPersoenlichesProps> = ({
                                     {format(formData.MitgliedSeit, "PPP", {locale: de})}
                                 </Button>
                                 {showMitgliedSeit && isEditable && (
-                                    <div className="absolute z-10 mt-1 bg-white border rounded-md shadow-lg">
+                                    <div className="absolute z-10 mt-1 bg-popover border rounded-md shadow-lg">
                                         <Calendar
                                             hideNavigation captionLayout="dropdown"
                                             mode="single"
@@ -301,7 +301,7 @@ const FormPersoenliches: React.FC<FormPersoenlichesProps> = ({
                                     )}
                                 </Button>
                                 {showPassivSeit && isEditable && (
-                                    <div className="absolute z-10 mt-1 bg-white border rounded-md shadow-lg">
+                                    <div className="absolute z-10 mt-1 bg-popover border rounded-md shadow-lg">
                                         <Calendar
                                             hideNavigation captionLayout="dropdown"
                                             mode="single"
@@ -336,7 +336,7 @@ const FormPersoenliches: React.FC<FormPersoenlichesProps> = ({
                                     )}
                                 </Button>
                                 {showAusgeschiedenAm && isEditable && (
-                                    <div className="absolute z-10 mt-1 bg-white border rounded-md shadow-lg">
+                                    <div className="absolute z-10 mt-1 bg-popover border rounded-md shadow-lg">
                                         <Calendar
                                             hideNavigation captionLayout="dropdown"
                                             mode="single"

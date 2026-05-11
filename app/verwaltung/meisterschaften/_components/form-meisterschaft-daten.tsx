@@ -105,7 +105,7 @@ const FormMeisterschaftDaten: React.FC<FormMeisterschaftDatenProps> = ({
                                 )}
                             </Button>
                             {showBeginndatum && isEditable && (
-                                <div className="absolute z-10 mt-1 bg-white border rounded-md shadow-lg">
+                                <div className="absolute z-10 mt-1 bg-popover border rounded-md shadow-lg">
                                     <Calendar
                                         hideNavigation captionLayout="dropdown"
                                         mode="single"
@@ -140,7 +140,7 @@ const FormMeisterschaftDaten: React.FC<FormMeisterschaftDatenProps> = ({
                                 )}
                             </Button>
                             {showEndedatum && isEditable && (
-                                <div className="absolute z-10 mt-1 bg-white border rounded-md shadow-lg">
+                                <div className="absolute z-10 mt-1 bg-popover border rounded-md shadow-lg">
                                     <Calendar
                                         hideNavigation captionLayout="dropdown"
                                         mode="single"

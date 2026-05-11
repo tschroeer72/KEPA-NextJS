@@ -102,7 +102,7 @@ export default function Termine() {
                 <Calendar
                     mode="range"
                     numberOfMonths={2} // Zwei Monate nebeneinander für bessere Übersicht
-                    className="bg-white border rounded-lg shadow-lg p-6"
+                    className="bg-popover text-popover-foreground border rounded-lg shadow-lg p-6"
                     buttonVariant="outline"
                     showWeekNumber={true} // Wochennummern anzeigen
                     weekStartsOn={1} // Woche beginnt am Montag

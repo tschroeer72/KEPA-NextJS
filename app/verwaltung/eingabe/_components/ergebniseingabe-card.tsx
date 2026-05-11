@@ -249,11 +249,8 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
       case "6-tage-rennen":
         setSpiel6TageRennen(prev => {
           const lastItem = prev[prev.length - 1]
-          const isCompletingOwnPair = lastItem && lastItem.Spieler1ID === mitglied.ID && lastItem.Spieler2ID <= 0
-
-          if (isPlayerInList(mitglied.ID, prev, spiel) && !isCompletingOwnPair) return prev
-
           if (lastItem && lastItem.Spieler2ID <= 0) {
+            if (lastItem.Spieler1ID === mitglied.ID) return prev // Darf nicht gegen sich selbst spielen
             const newArr = [...prev]
             newArr[newArr.length - 1] = { ...lastItem, Spieler2ID: mitglied.ID, Spieler2Name: mitglied.Anzeigename }
             return newArr
@@ -290,9 +287,9 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
         break
       case "meisterschaft":
         setSpielMeisterschaft(prev => {
-          if (isPlayerInList(mitglied.ID, prev, spiel)) return prev
           const lastItem = prev[prev.length - 1]
           if (lastItem && lastItem.Spieler2ID <= 0) {
+            if (lastItem.Spieler1ID === mitglied.ID) return prev // Darf nicht gegen sich selbst spielen
             const newArr = [...prev]
             newArr[newArr.length - 1] = { ...lastItem, Spieler2ID: mitglied.ID, Spieler2Name: mitglied.Anzeigename }
             return newArr
@@ -311,9 +308,9 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
         break
       case "blitztunier":
         setSpielBlitztunier(prev => {
-          if (isPlayerInList(mitglied.ID, prev, spiel)) return prev
           const lastItem = prev[prev.length - 1]
           if (lastItem && lastItem.Spieler2ID <= 0) {
+            if (lastItem.Spieler1ID === mitglied.ID) return prev // Darf nicht gegen sich selbst spielen
             const newArr = [...prev]
             newArr[newArr.length - 1] = { ...lastItem, Spieler2ID: mitglied.ID, Spieler2Name: mitglied.Anzeigename }
             return newArr
@@ -332,9 +329,9 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
         break
       case "kombimeisterschaft":
         setSpielKombimeisterschaft(prev => {
-          if (isPlayerInList(mitglied.ID, prev, spiel)) return prev
           const lastItem = prev[prev.length - 1]
           if (lastItem && lastItem.Spieler2ID <= 0) {
+            if (lastItem.Spieler1ID === mitglied.ID) return prev // Darf nicht gegen sich selbst spielen
             const newArr = [...prev]
             newArr[newArr.length - 1] = { ...lastItem, Spieler2ID: mitglied.ID, Spieler2Name: mitglied.Anzeigename }
             return newArr
@@ -369,12 +366,18 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
 
   const isPlayerInList = (id: number, list: GenericGameItem[], spielType: string) => {
     if (["6-tage-rennen", "meisterschaft", "blitztunier", "kombimeisterschaft"].includes(spielType)) {
-      return list.some(item => {
-        if ('Spieler1ID' in item) {
-          return item.Spieler1ID === id || item.Spieler2ID === id
-        }
-        return false
-      })
+      // Bei Paarspielen prüfen wir nur, ob der Spieler bereits in einem OFFENEN Paar ist
+      // Ein Spieler darf mehrere Spiele machen, aber nicht zweimal in derselben Zeile (wird in addItemToTable geprüft)
+      // und er sollte nicht ein neues Paar anfangen, wenn er gerade ein Paar vervollständigen sollte?
+      // Eigentlich erlaubt der User explizit mehrere Spiele.
+      // Die einzige Einschränkung: Er darf nicht in einem Paar sein, das noch keinen zweiten Spieler hat,
+      // sonst würde er sich selbst als Gegner zugewiesen bekommen oder ein neues Paar anfangen, obwohl er noch eins offen hat.
+      
+      const lastItem = list[list.length - 1];
+      if (lastItem && 'Spieler1ID' in lastItem && lastItem.Spieler2ID <= 0) {
+        return lastItem.Spieler1ID === id;
+      }
+      return false;
     }
     return list.some(item => {
       if ('SpielerID' in item) {
@@ -419,7 +422,20 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
       }
       case "6-tage-rennen": {
         const i = item as SechsTageRennen
-        setSpiel6TageRennen(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
+        setSpiel6TageRennen(prev => {
+          const index = prev.findIndex(p => 
+            p.Spieler1ID === i.Spieler1ID && 
+            p.Spieler2ID === i.Spieler2ID && 
+            (p.ID && i.ID ? p.ID === i.ID : true) &&
+            p.Spielnr === i.Spielnr
+          )
+          if (index !== -1) {
+            const newArr = [...prev]
+            newArr.splice(index, 1)
+            return newArr
+          }
+          return prev
+        })
         break
       }
       case "pokal": {
@@ -434,17 +450,56 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
       }
       case "meisterschaft": {
         const i = item as PaarSpiel
-        setSpielMeisterschaft(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
+        setSpielMeisterschaft(prev => {
+          const index = prev.findIndex(p => 
+            p.Spieler1ID === i.Spieler1ID && 
+            p.Spieler2ID === i.Spieler2ID && 
+            (p.ID && i.ID ? p.ID === i.ID : true) &&
+            p.HinRueckrunde === i.HinRueckrunde
+          )
+          if (index !== -1) {
+            const newArr = [...prev]
+            newArr.splice(index, 1)
+            return newArr
+          }
+          return prev
+        })
         break
       }
       case "blitztunier": {
         const i = item as PaarSpiel
-        setSpielBlitztunier(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
+        setSpielBlitztunier(prev => {
+          const index = prev.findIndex(p => 
+            p.Spieler1ID === i.Spieler1ID && 
+            p.Spieler2ID === i.Spieler2ID && 
+            (p.ID && i.ID ? p.ID === i.ID : true) &&
+            p.HinRueckrunde === i.HinRueckrunde
+          )
+          if (index !== -1) {
+            const newArr = [...prev]
+            newArr.splice(index, 1)
+            return newArr
+          }
+          return prev
+        })
         break
       }
       case "kombimeisterschaft": {
         const i = item as KombiSpiel
-        setSpielKombimeisterschaft(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
+        setSpielKombimeisterschaft(prev => {
+          const index = prev.findIndex(p => 
+            p.Spieler1ID === i.Spieler1ID && 
+            p.Spieler2ID === i.Spieler2ID && 
+            (p.ID && i.ID ? p.ID === i.ID : true) &&
+            p.HinRueckrunde === i.HinRueckrunde
+          )
+          if (index !== -1) {
+            const newArr = [...prev]
+            newArr.splice(index, 1)
+            return newArr
+          }
+          return prev
+        })
         break
       }
     }
@@ -470,7 +525,20 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
       }
       case "6-tage-rennen": {
         const i = item as SechsTageRennen
-        setSpiel6TageRennen(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
+        setSpiel6TageRennen(prev => {
+          const index = prev.findIndex(p => 
+            p.Spieler1ID === i.Spieler1ID && 
+            p.Spieler2ID === i.Spieler2ID && 
+            (p.ID && i.ID ? p.ID === i.ID : true) &&
+            p.Spielnr === i.Spielnr
+          )
+          if (index !== -1) {
+            const newArr = [...prev]
+            newArr.splice(index, 1)
+            return newArr
+          }
+          return prev
+        })
         break
       }
       case "pokal": {
@@ -485,17 +553,56 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
       }
       case "meisterschaft": {
         const i = item as PaarSpiel
-        setSpielMeisterschaft(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
+        setSpielMeisterschaft(prev => {
+          const index = prev.findIndex(p => 
+            p.Spieler1ID === i.Spieler1ID && 
+            p.Spieler2ID === i.Spieler2ID && 
+            (p.ID && i.ID ? p.ID === i.ID : true) &&
+            p.HinRueckrunde === i.HinRueckrunde
+          )
+          if (index !== -1) {
+            const newArr = [...prev]
+            newArr.splice(index, 1)
+            return newArr
+          }
+          return prev
+        })
         break
       }
       case "blitztunier": {
         const i = item as PaarSpiel
-        setSpielBlitztunier(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
+        setSpielBlitztunier(prev => {
+          const index = prev.findIndex(p => 
+            p.Spieler1ID === i.Spieler1ID && 
+            p.Spieler2ID === i.Spieler2ID && 
+            (p.ID && i.ID ? p.ID === i.ID : true) &&
+            p.HinRueckrunde === i.HinRueckrunde
+          )
+          if (index !== -1) {
+            const newArr = [...prev]
+            newArr.splice(index, 1)
+            return newArr
+          }
+          return prev
+        })
         break
       }
       case "kombimeisterschaft": {
         const i = item as KombiSpiel
-        setSpielKombimeisterschaft(prev => prev.filter(p => p.Spieler1ID !== i.Spieler1ID))
+        setSpielKombimeisterschaft(prev => {
+          const index = prev.findIndex(p => 
+            p.Spieler1ID === i.Spieler1ID && 
+            p.Spieler2ID === i.Spieler2ID && 
+            (p.ID && i.ID ? p.ID === i.ID : true) &&
+            p.HinRueckrunde === i.HinRueckrunde
+          )
+          if (index !== -1) {
+            const newArr = [...prev]
+            newArr.splice(index, 1)
+            return newArr
+          }
+          return prev
+        })
         break
       }
     }
@@ -587,7 +694,8 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Neuner} 
                       onChange={(e) => updateItem(index, "Neuner", parseInt(e.target.value) || 0, "9er-ratten-kranz8")}
-                      className="h-8 w-20" 
+                      onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                      className="h-8 w-20 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -596,7 +704,8 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Kranz8} 
                       onChange={(e) => updateItem(index, "Kranz8", parseInt(e.target.value) || 0, "9er-ratten-kranz8")}
-                      className="h-8 w-20" 
+                      onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                      className="h-8 w-20 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -605,7 +714,8 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Ratten} 
                       onChange={(e) => updateItem(index, "Ratten", parseInt(e.target.value) || 0, "9er-ratten-kranz8")}
-                      className="h-8 w-20" 
+                      onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                      className="h-8 w-20 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -646,7 +756,8 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Runden} 
                       onChange={(e) => updateItem(index, "Runden", parseInt(e.target.value) || 0, "6-tage-rennen")}
-                      className="h-8 w-20" 
+                      onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                      className="h-8 w-20 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -655,7 +766,8 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Punkte} 
                       onChange={(e) => updateItem(index, "Punkte", parseInt(e.target.value) || 0, "6-tage-rennen")}
-                      className="h-8 w-20" 
+                      onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                      className="h-8 w-20 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -664,7 +776,8 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Spielnr ?? 0} 
                       onChange={(e) => updateItem(index, "Spielnr", parseInt(e.target.value) || 0, "6-tage-rennen")}
-                      className="h-8 w-20" 
+                      onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                      className="h-8 w-20 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -703,7 +816,8 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Platzierung} 
                       onChange={(e) => updateItem(index, "Platzierung", parseInt(e.target.value) || 0, spiel)}
-                      className="h-8 w-20" 
+                      onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                      className="h-8 w-20 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -747,7 +861,8 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Wert1} 
                       onChange={(e) => updateItem(index, "Wert1", parseInt(e.target.value) || 0, spiel)}
-                      className="h-8 w-20" 
+                      onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                      className="h-8 w-20 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -756,7 +871,8 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.Wert2} 
                       onChange={(e) => updateItem(index, "Wert2", parseInt(e.target.value) || 0, spiel)}
-                      className="h-8 w-20" 
+                      onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                      className="h-8 w-20 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -814,7 +930,8 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.S1_3bis8} 
                       onChange={(e) => updateItem(index, "S1_3bis8", parseInt(e.target.value) || 0, "kombimeisterschaft")}
-                      className="h-8 w-20" 
+                      onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                      className="h-8 w-20 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -823,7 +940,8 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.S1_5K} 
                       onChange={(e) => updateItem(index, "S1_5K", parseInt(e.target.value) || 0, "kombimeisterschaft")}
-                      className="h-8 w-20" 
+                      onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                      className="h-8 w-20 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -832,7 +950,8 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.S2_3bis8} 
                       onChange={(e) => updateItem(index, "S2_3bis8", parseInt(e.target.value) || 0, "kombimeisterschaft")}
-                      className="h-8 w-20" 
+                      onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                      className="h-8 w-20 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                       disabled={disabled}
                     />
                   </TableCell>
@@ -841,7 +960,8 @@ export default function ErgebniseingabeCard({ className, mitglieder, spiel, date
                       type="number" 
                       value={item.S2_5K} 
                       onChange={(e) => updateItem(index, "S2_5K", parseInt(e.target.value) || 0, "kombimeisterschaft")}
-                      className="h-8 w-20" 
+                      onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                      className="h-8 w-20 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                       disabled={disabled}
                     />
                   </TableCell>
