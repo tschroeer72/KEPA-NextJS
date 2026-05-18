@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { Loader2, Send } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { getMembersForEmail } from "@/app/actions/verwaltung/email/actions";
+import { useAuthContext } from "@/providers/auth-context-provider";
 
 interface Member {
     ID: number;
@@ -27,6 +28,7 @@ export function EmailEntwickler() {
     const [members, setMembers] = useState<Member[]>([]);
     const [selectedEmails, setSelectedEmails] = useState<string[]>([]);
     const [fetchingMembers, setFetchingMembers] = useState(true);
+    const { vorname, nachname } = useAuthContext();
 
     useEffect(() => {
         const fetchMembers = async () => {
@@ -64,6 +66,10 @@ export function EmailEntwickler() {
         }
 
         setLoading(true);
+        
+        const footer = `\n\n---\nGesendet von: ${vorname || ""} ${nachname || ""}`.trim();
+        const fullMessage = nachricht + (footer ? `\n\n${footer}` : "");
+
         try {
             const response = await fetch("/api/email/send-error", {
                 method: "POST",
@@ -74,7 +80,7 @@ export function EmailEntwickler() {
                     to: ["t.schroeer@web.de"],
                     cc: selectedEmails,
                     subject: betreff,
-                    message: nachricht,
+                    message: fullMessage,
                     type: grund,
                 }),
             });

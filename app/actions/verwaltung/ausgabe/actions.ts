@@ -183,7 +183,7 @@ export async function getErgebnisse(spieltagIds: number[]): Promise<ErgebnisseDa
         HinRueckrunde: b.HinR_ckrunde
     })),
     kombimeisterschaft: kombimeisterschaft.map(k => ({
-        Spieltag: formatLocalDate(k.tblSpieltag.Spieltag),
+        Spieltag: formatLocalDate((k as any).tblSpieltag.Spieltag),
         Spieler1Name: `${(k as any).tblMitglieder_SpielerID1?.Vorname} ${(k as any).tblMitglieder_SpielerID1?.Nachname}`,
         Spieler2Name: `${(k as any).tblMitglieder_SpielerID2?.Vorname} ${(k as any).tblMitglieder_SpielerID2?.Nachname}`,
         Spieler1Punkte3bis8: k.Spieler1Punkte3bis8,

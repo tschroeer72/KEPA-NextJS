@@ -1,16 +1,10 @@
 ﻿"use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { getStatistikSpielerErgebnisse } from "@/app/actions/verwaltung/statistik/actions"
 import { StatistikSpielerErgebnisse } from "@/interfaces/statistik-spieler-ergebnisse"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { DataTable } from "@/components/ui/data-table"
+import { ColumnDef } from "@tanstack/react-table"
 import { format } from "date-fns"
 import { de } from "date-fns/locale"
 
@@ -21,6 +15,69 @@ interface MitgliedErgebnisseProps {
 export default function MitgliedErgebnisse({ spielerId }: MitgliedErgebnisseProps) {
   const [ergebnisse, setErgebnisse] = useState<StatistikSpielerErgebnisse[]>([])
   const [loading, setLoading] = useState(true)
+
+  const columns = useMemo<ColumnDef<StatistikSpielerErgebnisse>[]>(() => [
+    {
+      accessorKey: "Spieltag",
+      header: "Spieltag",
+      cell: ({ row }) => format(new Date(row.getValue("Spieltag")), "dd.MM.yyyy", { locale: de }),
+      sortingFn: "datetime",
+    },
+    {
+      accessorKey: "Meisterschaft",
+      header: "Meisterschaft",
+    },
+    {
+      accessorKey: "Gegenspieler",
+      header: "Gegenspieler",
+      cell: ({ row }) => row.getValue("Gegenspieler") || "-",
+    },
+    {
+      accessorKey: "Ergebnis",
+      header: "Erg.",
+      cell: ({ row }) => row.getValue("Ergebnis") ?? "-",
+    },
+    {
+      accessorKey: "Holz",
+      header: "Holz",
+      cell: ({ row }) => row.getValue("Holz") ?? "-",
+    },
+    {
+      accessorKey: "SechsTageRennen_Runden",
+      header: "6-Tage-Rennen Runden",
+      cell: ({ row }) => row.getValue("SechsTageRennen_Runden") ?? "-",
+    },
+    {
+      accessorKey: "SechsTageRennen_Punkte",
+      header: "6-Tage-Rennen Punkte",
+      cell: ({ row }) => row.getValue("SechsTageRennen_Punkte") ?? "-",
+    },
+    {
+      accessorKey: "SechsTageRennen_Platz",
+      header: "6-Tage-Rennen Platz",
+      cell: ({ row }) => row.getValue("SechsTageRennen_Platz") ?? "-",
+    },
+    {
+      accessorKey: "Sarg",
+      header: "Sarg",
+      cell: ({ row }) => row.getValue("Sarg") ?? "-",
+    },
+    {
+      accessorKey: "Pokal",
+      header: "Pokal",
+      cell: ({ row }) => row.getValue("Pokal") ?? "-",
+    },
+    {
+      accessorKey: "Neuner",
+      header: "Neuner",
+      cell: ({ row }) => row.getValue("Neuner") ?? "-",
+    },
+    {
+      accessorKey: "Ratten",
+      header: "Ratten",
+      cell: ({ row }) => row.getValue("Ratten") ?? "-",
+    },
+  ], [])
 
   useEffect(() => {
     const fetchErgebnisse = async () => {
@@ -49,45 +106,13 @@ export default function MitgliedErgebnisse({ spielerId }: MitgliedErgebnisseProp
   }
 
   return (
-    <div className="mt-4 border rounded-md">
-      <div className="overflow-x-auto">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="min-w-[130px]">Spieltag</TableHead>
-              <TableHead className="min-w-[250px]">Meisterschaft</TableHead>
-              <TableHead className="min-w-[250px]">Gegenspieler</TableHead>
-              <TableHead className="min-w-[50px]">Erg.</TableHead>
-              <TableHead className="min-w-[50px]">Holz</TableHead>
-              <TableHead className="min-w-[250px]">6-Tage-Rennen Runden</TableHead>
-              <TableHead className="min-w-[250px]">6-Tage-Rennen Punkte</TableHead>
-              <TableHead className="min-w-[250px]">6-Tage-Rennen Platz</TableHead>
-              <TableHead className="min-w-[60px]">Sarg</TableHead>
-              <TableHead className="min-w-[70px]">Pokal</TableHead>
-              <TableHead className="min-w-[100px]">Neuner</TableHead>
-              <TableHead className="min-w-[90px]">Ratten</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {ergebnisse.map((erg, index) => (
-              <TableRow key={index}>
-                <TableCell>{format(new Date(erg.Spieltag), "dd.MM.yyyy", { locale: de })}</TableCell>
-                <TableCell>{erg.Meisterschaft}</TableCell>
-                <TableCell>{erg.Gegenspieler || "-"}</TableCell>
-                <TableCell>{erg.Ergebnis !== undefined ? erg.Ergebnis : "-"}</TableCell>
-                <TableCell>{erg.Holz !== undefined ? erg.Holz : "-"}</TableCell>
-                <TableCell>{erg.SechsTageRennen_Runden !== undefined ? erg.SechsTageRennen_Runden : "-"}</TableCell>
-                <TableCell>{erg.SechsTageRennen_Punkte !== undefined ? erg.SechsTageRennen_Punkte : "-"}</TableCell>
-                <TableCell>{erg.SechsTageRennen_Platz !== undefined ? erg.SechsTageRennen_Platz : "-"}</TableCell>
-                <TableCell>{erg.Sarg !== undefined ? erg.Sarg : "-"}</TableCell>
-                <TableCell>{erg.Pokal !== undefined ? erg.Pokal : "-"}</TableCell>
-                <TableCell>{erg.Neuner !== undefined ? erg.Neuner : "-"}</TableCell>
-                <TableCell>{erg.Ratten !== undefined ? erg.Ratten : "-"}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+    <div className="mt-4">
+      <DataTable 
+        columns={columns} 
+        data={ergebnisse} 
+        showColumnFilters 
+        alternateRowsBy="Spieltag"
+      />
     </div>
   )
 }

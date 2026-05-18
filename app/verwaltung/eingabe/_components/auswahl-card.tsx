@@ -46,7 +46,7 @@ export default function AuswahlCard({
           <Label className="mb-2">Datum</Label>
           <Calendar
             mode="single"
-            selected={date ? fromUTCDate(date) : undefined}
+            selected={date}
             onSelect={onDateChange}
             className="rounded-md border"
             showOutsideDays={false}

@@ -4,4 +4,5 @@
     Vorname: string;
     Nachname: string;
     Spitzname: string;
+    NurHinrunde?: boolean;
 }

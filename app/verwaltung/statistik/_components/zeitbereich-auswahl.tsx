@@ -15,6 +15,13 @@ import {
 } from "@/components/ui/popover"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 export function ZeitbereichAuswahl({ 
   zeit, 
@@ -22,28 +29,51 @@ export function ZeitbereichAuswahl({
   dateVon, 
   setDateVon, 
   dateBis, 
-  setDateBis 
+  setDateBis,
+  meisterschaften = [],
+  selectedMeisterschaftId,
+  setSelectedMeisterschaftId
 }: { 
   zeit: string, 
   setZeit: (v: string) => void,
   dateVon: Date | undefined,
   setDateVon: (d: Date | undefined) => void,
   dateBis: Date | undefined,
-  setDateBis: (d: Date | undefined) => void
+  setDateBis: (d: Date | undefined) => void,
+  meisterschaften?: any[],
+  selectedMeisterschaftId?: string,
+  setSelectedMeisterschaftId?: (v: string) => void
 }) {
   const isIndividuell = zeit === "individuell"
+  const isMeisterschaft = zeit === "laufende"
 
   return (
     <div className="space-y-4">
       <h3 className="text-sm font-medium text-muted-foreground border-b pb-1">Zeitbereich</h3>
       <RadioGroup value={zeit} onValueChange={setZeit} className="flex flex-col space-y-2">
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="laufende" id="laufende" />
-          <Label htmlFor="laufende">Laufende Meisterschaft</Label>
-        </div>
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="letzte" id="letzte" />
-          <Label htmlFor="letzte">Letzte Meisterschaft</Label>
+        <div className="flex flex-col space-y-2">
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="laufende" id="laufende" />
+            <Label htmlFor="laufende">Meisterschaft</Label>
+          </div>
+          <div className="pl-6">
+            <Select 
+              value={selectedMeisterschaftId} 
+              onValueChange={setSelectedMeisterschaftId}
+              disabled={!isMeisterschaft}
+            >
+              <SelectTrigger className="w-[280px]">
+                <SelectValue placeholder="Meisterschaft auswählen" />
+              </SelectTrigger>
+              <SelectContent>
+                {meisterschaften.map((m) => (
+                  <SelectItem key={m.ID} value={m.ID.toString()}>
+                    {m.Bezeichnung}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
         <div className="flex flex-col space-y-2">
           <div className="flex items-center space-x-2">

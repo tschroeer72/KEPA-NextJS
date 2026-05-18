@@ -6,9 +6,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { cn } from '@/lib/utils';
 import { Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import {AktiverMitspieler} from "@/interfaces/aktiver-mitspieler";
 import { getAktiveMitglieder } from '@/app/actions/verwaltung/mitglieder/actions';
-import { getTeilnehmerByMeisterschaft, addTeilnehmer, removeTeilnehmer } from '@/app/actions/verwaltung/meisterschaften/actions';
+import { getTeilnehmerByMeisterschaft, addTeilnehmer, removeTeilnehmer, updateTeilnehmerNurHinrunde } from '@/app/actions/verwaltung/meisterschaften/actions';
 
 interface MitspielerProps {
     meisterschaftID: number;
@@ -104,7 +105,8 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
             const result = await addTeilnehmer(currentMeisterschaftsID, mitglied.ID);
             if (result.success) {
                 console.log(`Teilnehmer ${mitglied.Anzeigename} wurde geadded`);
-                setAktiveTeilnehmer(prev => [...prev, mitglied]);
+                const neuerTeilnehmer = { ...mitglied, NurHinrunde: false };
+                setAktiveTeilnehmer(prev => [...prev, neuerTeilnehmer]);
             } else {
                 setError(result.error || 'Fehler beim adden des Teilnehmers');
                 // Rollback bei Fehler
@@ -117,22 +119,51 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
         }
     }, [currentMeisterschaftsID]);
 
+    const handleNurHinrundeChange = useCallback(async (mitgliedID: number, value: boolean) => {
+        // Find current state
+        const currentTeilnehmer = aktiveTeilnehmer.find(t => t.ID === mitgliedID);
+        if (!currentTeilnehmer) return;
+
+        // Wenn die Checkbox nicht gesetzt ist (false), soll bei einem klick darauf nichts passieren
+        // Das bedeutet: Man kann es nur von true auf false ändern, aber nicht von false auf true über die Checkbox.
+        if (value === true && !currentTeilnehmer.NurHinrunde) {
+            return;
+        }
+
+        // Optimistisches Update
+        setAktiveTeilnehmer(prev => prev.map(t => t.ID === mitgliedID ? { ...t, NurHinrunde: value } : t));
+
+        try {
+            const result = await updateTeilnehmerNurHinrunde(currentMeisterschaftsID, mitgliedID, value);
+            if (!result.success) {
+                setError(result.error || 'Fehler beim Aktualisieren von NurHinrunde');
+                // Rollback bei Fehler
+                setAktiveTeilnehmer(prev => prev.map(t => t.ID === mitgliedID ? { ...t, NurHinrunde: !value } : t));
+            }
+        } catch (err: any) {
+            setError(err.message || 'Unbekannter Fehler beim Aktualisieren');
+            // Rollback bei Fehler
+            setAktiveTeilnehmer(prev => prev.map(t => t.ID === mitgliedID ? { ...t, NurHinrunde: !value } : t));
+        }
+    }, [currentMeisterschaftsID, aktiveTeilnehmer]);
+
     const moveToMitglieder = useCallback(async (teilnehmer: AktiverMitspieler) => {
-        setAktiveTeilnehmer(prev => prev.filter(item => item.ID !== teilnehmer.ID));
         try {
             const result = await removeTeilnehmer(currentMeisterschaftsID, teilnehmer.ID);
             if (result.success) {
-                console.log(`Teilnehmer ${teilnehmer.Anzeigename} wurde gelöscht`);
-                setAktiveMitglieder(prev => [...prev, teilnehmer]);
+                if (result.action === 'marked') {
+                    console.log(`Teilnehmer ${teilnehmer.Anzeigename} wurde als "NurHinrunde" markiert`);
+                    setAktiveTeilnehmer(prev => prev.map(t => t.ID === teilnehmer.ID ? { ...t, NurHinrunde: true } : t));
+                } else {
+                    console.log(`Teilnehmer ${teilnehmer.Anzeigename} wurde gelöscht`);
+                    setAktiveTeilnehmer(prev => prev.filter(item => item.ID !== teilnehmer.ID));
+                    setAktiveMitglieder(prev => [...prev, teilnehmer]);
+                }
             } else {
-                setError(result.error || 'Fehler beim Löschen des Teilnehmers');
-                // Rollback bei Fehler
-                setAktiveTeilnehmer(prev => [...prev, teilnehmer]);
+                setError(result.error || 'Fehler beim Entfernen des Teilnehmers');
             }
         } catch (err: any) {
-            setError(err.message || 'Unbekannter Fehler beim Löschen');
-            // Rollback bei Fehler
-            setAktiveTeilnehmer(prev => [...prev, teilnehmer]);
+            setError(err.message || 'Unbekannter Fehler beim Entfernen');
         }
     }, [currentMeisterschaftsID]);
 
@@ -199,6 +230,7 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
                         <TableHeader>
                             <TableRow>
                                 <TableHead className="w-[80px]">Aktion</TableHead>
+                                <TableHead className="w-[60px]"></TableHead>
                                 <TableHead className="w-[200px] min-w-[200px]">Anzeigename</TableHead>
                                 <TableHead className="w-[100px] min-w-[100px]">Vorname</TableHead>
                                 <TableHead className="w-[100px] min-w-[100px]">Nachname</TableHead>
@@ -227,6 +259,7 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
                                             <Plus className="h-4 w-4 text-green-600" />
                                         </Button>
                                     </TableCell>
+                                    <TableCell></TableCell>
                                     <TableCell className="font-medium">{mitglied.Anzeigename}</TableCell>
                                     <TableCell>{mitglied.Vorname}</TableCell>
                                     <TableCell>{mitglied.Nachname}</TableCell>
@@ -235,7 +268,7 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
                             ))}
                             {aktiveMitglieder.length === 0 && (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center text-gray-500 py-8">
+                                    <TableCell colSpan={6} className="text-center text-gray-500 py-8">
                                         Keine aktiven Mitglieder
                                     </TableCell>
                                 </TableRow>
@@ -265,6 +298,7 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
                         <TableHeader>
                             <TableRow>
                                 <TableHead className="w-[80px]">Aktion</TableHead>
+                                <TableHead className="w-[60px]" title="Nur Hinrunde gespielt">NH</TableHead>
                                 <TableHead className="w-[200px] min-w-[200px]">Anzeigename</TableHead>
                                 <TableHead className="w-[100px] min-w-[100px]">Vorname</TableHead>
                                 <TableHead className="w-[100px] min-w-[100px]">Nachname</TableHead>
@@ -293,6 +327,12 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
                                             <Minus className="h-4 w-4 text-red-600" />
                                         </Button>
                                     </TableCell>
+                                    <TableCell title="Nur Hinrunde gespielt">
+                                        <Checkbox
+                                            checked={teilnehmer.NurHinrunde}
+                                            onCheckedChange={(checked) => handleNurHinrundeChange(teilnehmer.ID, checked === true)}
+                                        />
+                                    </TableCell>
                                     <TableCell className="font-medium">{teilnehmer.Anzeigename}</TableCell>
                                     <TableCell>{teilnehmer.Vorname}</TableCell>
                                     <TableCell>{teilnehmer.Nachname}</TableCell>
@@ -301,7 +341,7 @@ export default function Mitspieler({meisterschaftID}: MitspielerProps) {
                             ))}
                             {aktiveTeilnehmer.length === 0 && (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center text-gray-500 py-8">
+                                    <TableCell colSpan={6} className="text-center text-gray-500 py-8">
                                         Keine aktiven Spieler
                                     </TableCell>
                                 </TableRow>

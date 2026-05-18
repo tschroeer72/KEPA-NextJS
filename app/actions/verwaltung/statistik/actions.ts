@@ -552,7 +552,9 @@ export async function getStatistikNeunerRattenKoenig(zeitbereich: number, von?: 
             const rKönig = sortedR[0] && sortedR[0].Ratten > 0 ? `${sortedR[0].tblMitglieder.Nachname}, ${sortedR[0].tblMitglieder.Vorname}` : ''
 
             result.lstStatistik9erRatten.push({
-                Spieltag: st.Spieltag,
+                Spieltag: (st.Spieltag instanceof Date && !isNaN(st.Spieltag.getTime())) 
+                    ? new Date(st.Spieltag.getTime() - st.Spieltag.getTimezoneOffset() * 60000).toISOString() 
+                    : null,
                 Neunerkönig: nKönig,
                 Rattenorden: rKönig
             })
@@ -759,7 +761,12 @@ export async function getStatistikSpielerErgebnisse(spielerId: number): Promise<
       }
 
       if (bolFound) {
-        lstStat.push(objErg)
+        lstStat.push({
+          ...objErg,
+          Spieltag: (objErg.Spieltag instanceof Date && !isNaN(objErg.Spieltag.getTime())) 
+            ? new Date(objErg.Spieltag.getTime() - objErg.Spieltag.getTimezoneOffset() * 60000).toISOString() 
+            : null
+        } as any)
       }
     }
 

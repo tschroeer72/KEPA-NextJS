@@ -8,6 +8,7 @@ import FormPersoenliches from "@/app/verwaltung/mitglieder/_components/form-pers
 import {MitgliedPersoenlichesFormData} from "@/interfaces/mitglied-persoenliches-form-data";
 import {MitgliedNotizenFormData} from "@/interfaces/mitglied-notizen-form-data";
 import FormNotizen from "@/app/verwaltung/mitglieder/_components/form-notizen";
+import { fromUTCDate } from '@/lib/date-utils';
 import StatistikCards from "@/app/verwaltung/mitglieder/_components/statistik-cards";
 import MitgliedErgebnisse from "@/app/verwaltung/mitglieder/_components/mitglied-ergebnisse";
 import {z} from "zod";
@@ -154,10 +155,10 @@ export default function MitgliedDaten({MitgliedID, onDataChange}: MitgliedDatenP
                         TelefonPrivat: mitgliedData.TelefonPrivat || "",
                         TelefonMobil: mitgliedData.TelefonMobil || "",
                         EMail: mitgliedData.EMail || "",
-                        Geburtsdatum: mitgliedData.Geburtsdatum ? new Date(mitgliedData.Geburtsdatum) : undefined,
-                        MitgliedSeit: mitgliedData.MitgliedSeit ? new Date(mitgliedData.MitgliedSeit) : new Date(),
-                        PassivSeit: mitgliedData.PassivSeit ? new Date(mitgliedData.PassivSeit) : undefined,
-                        AusgeschiedenAm: mitgliedData.AusgeschiedenAm ? new Date(mitgliedData.AusgeschiedenAm) : undefined,
+                        Geburtsdatum: fromUTCDate(mitgliedData.Geburtsdatum) || undefined,
+                        MitgliedSeit: fromUTCDate(mitgliedData.MitgliedSeit) || new Date(),
+                        PassivSeit: fromUTCDate(mitgliedData.PassivSeit) || undefined,
+                        AusgeschiedenAm: fromUTCDate(mitgliedData.AusgeschiedenAm) || undefined,
                         Ehemaliger: mitgliedData.Ehemaliger || false
                     });
 

@@ -109,7 +109,7 @@ const FormMeisterschaftDaten: React.FC<FormMeisterschaftDatenProps> = ({
                                     <Calendar
                                         hideNavigation captionLayout="dropdown"
                                         mode="single"
-                                        selected={formData.Beginn}
+                                        selected={formData.Beginn || undefined}
                                         onSelect={(date) => handleDateSelect('Beginn', date)}
                                         initialFocus
                                     />
@@ -144,7 +144,7 @@ const FormMeisterschaftDaten: React.FC<FormMeisterschaftDatenProps> = ({
                                     <Calendar
                                         hideNavigation captionLayout="dropdown"
                                         mode="single"
-                                        selected={formData.Ende}
+                                        selected={formData.Ende || undefined}
                                         onSelect={(date) => handleDateSelect('Ende', date)}
                                         initialFocus
                                     />

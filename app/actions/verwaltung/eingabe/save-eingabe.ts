@@ -131,6 +131,9 @@ export async function saveEingabeAction(
       }
       // 1. Spieltag suchen oder erstellen
       const spieltagSearch = toUTCDate(spieltag)
+      if (!spieltagSearch) {
+        return { success: false, error: "Ungültiges Spieldatum" }
+      }
 
       let dbSpieltag = await tx.tblSpieltag.findFirst({
         where: {
@@ -149,9 +152,9 @@ export async function saveEingabeAction(
         })
 
         // Log für Spieltag Insert
-        const year = spieltagSearch.getUTCFullYear()
-        const month = String(spieltagSearch.getUTCMonth() + 1).padStart(2, '0')
-        const day = String(spieltagSearch.getUTCDate()).padStart(2, '0')
+        const year = spieltagSearch.getFullYear()
+        const month = String(spieltagSearch.getMonth() + 1).padStart(2, '0')
+        const day = String(spieltagSearch.getDate()).padStart(2, '0')
         const localDateString = `${year}${month}${day}`
         const sqlInsertSpieltag = `insert into tblSpieltag(ID, MeisterschaftsID, Spieltag, InBearbeitung) values(${dbSpieltag.ID}, ${meisterschaftsId}, '${localDateString}', 0)`
         await tx.tblDBChangeLog.create({
@@ -302,12 +305,17 @@ export async function saveEingabeAction(
 
         case "meisterschaft":
           for (const item of data as MeisterschaftBlitzData[]) {
+            const hinRueckInt = item.HinRueckrunde === "Rückrunde" ? 1 : 0
             const existing = item.ID
               ? await tx.tblSpielMeisterschaft.findUnique({ where: { ID: item.ID } })
               : await tx.tblSpielMeisterschaft.findFirst({
-                  where: { SpieltagID: spieltagId, SpielerID1: item.Spieler1ID, SpielerID2: item.Spieler2ID }
+                  where: { 
+                    SpieltagID: spieltagId, 
+                    SpielerID1: item.Spieler1ID, 
+                    SpielerID2: item.Spieler2ID,
+                    HinRueckrunde: hinRueckInt
+                  }
                 })
-            const hinRueckInt = item.HinRueckrunde === "Rückrunde" ? 1 : 0
             if (!existing) {
               const created = await tx.tblSpielMeisterschaft.create({
                 data: {
@@ -338,12 +346,17 @@ export async function saveEingabeAction(
 
         case "blitztunier":
           for (const item of data as MeisterschaftBlitzData[]) {
+            const hinRueckInt = item.HinRueckrunde === "Rückrunde" ? 1 : 0
             const existing = item.ID
               ? await tx.tblSpielBlitztunier.findUnique({ where: { ID: item.ID } })
               : await tx.tblSpielBlitztunier.findFirst({
-                  where: { SpieltagID: spieltagId, SpielerID1: item.Spieler1ID, SpielerID2: item.Spieler2ID }
+                  where: { 
+                    SpieltagID: spieltagId, 
+                    SpielerID1: item.Spieler1ID, 
+                    SpielerID2: item.Spieler2ID,
+                    HinR_ckrunde: hinRueckInt
+                  }
                 })
-            const hinRueckInt = item.HinRueckrunde === "Rückrunde" ? 1 : 0
             if (!existing) {
               const created = await tx.tblSpielBlitztunier.create({
                 data: {
@@ -374,12 +387,17 @@ export async function saveEingabeAction(
 
         case "kombimeisterschaft":
           for (const item of data as KombiMeisterschaftData[]) {
+            const hinRueckInt = item.HinRueckrunde === "Rückrunde" ? 1 : 0
             const existing = item.ID
               ? await tx.tblSpielKombimeisterschaft.findUnique({ where: { ID: item.ID } })
               : await tx.tblSpielKombimeisterschaft.findFirst({
-                  where: { SpieltagID: spieltagId, SpielerID1: item.Spieler1ID, SpielerID2: item.Spieler2ID }
+                  where: { 
+                    SpieltagID: spieltagId, 
+                    SpielerID1: item.Spieler1ID, 
+                    SpielerID2: item.Spieler2ID,
+                    HinRueckrunde: hinRueckInt
+                  }
                 })
-            const hinRueckInt = item.HinRueckrunde === "Rückrunde" ? 1 : 0
             if (!existing) {
               const created = await tx.tblSpielKombimeisterschaft.create({
                 data: {

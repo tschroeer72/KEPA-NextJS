@@ -7,6 +7,9 @@ import { InitialData } from "@/app/verwaltung/eingabe/_components/ergebniseingab
 export async function getKontrollausgabeAction(date: Date): Promise<{ success: boolean; data: InitialData | null; error?: string }> {
   try {
     const startOfDay = toUTCDate(date)
+    if (!startOfDay) {
+      return { success: false, data: null, error: "Ungültiges Datum" }
+    }
 
     const spieltag = await prisma.tblSpieltag.findFirst({
       where: {

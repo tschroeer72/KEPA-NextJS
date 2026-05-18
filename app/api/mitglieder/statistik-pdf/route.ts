@@ -1,6 +1,7 @@
 ﻿import { NextRequest, NextResponse } from 'next/server';
 import { getMitgliedById } from '@/app/actions/verwaltung/mitglieder/actions';
 import { getStatistikSpielerById, getStatistikSpielerErgebnisse } from '@/app/actions/verwaltung/statistik/actions';
+import { fromUTCDate, formatLocalDate } from '@/lib/date-utils';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
@@ -54,7 +55,7 @@ export async function POST(req: NextRequest) {
           '6T Runden', '6T Punkte', '6T Platz', 'Sarg', 'Pokal', '9er', 'Ratten'
         ]],
         body: ergebnisse.map(e => [
-          e.Spieltag ? new Date(e.Spieltag).toLocaleDateString('de-DE') : '',
+          e.Spieltag ? (formatLocalDate(fromUTCDate(e.Spieltag) ?? new Date())) : '',
           e.Meisterschaft || '',
           e.Gegenspieler || '',
           e.Ergebnis !== undefined ? e.Ergebnis.toString() : '',

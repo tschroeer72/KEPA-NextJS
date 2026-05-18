@@ -14,7 +14,16 @@ export async function getMeisterschaften() {
         tblMeisterschaftstyp: true
       }
     })
-    return { success: true, data }
+    const transformedData = data.map((m: any) => ({
+      ...m,
+      Beginn: (m.Beginn instanceof Date && !isNaN(m.Beginn.getTime())) 
+        ? m.Beginn.toISOString() 
+        : null,
+      Ende: (m.Ende instanceof Date && !isNaN(m.Ende.getTime())) 
+        ? m.Ende.toISOString() 
+        : null,
+    }))
+    return { success: true, data: transformedData }
   } catch (error) {
     console.error('Database error:', error)
     return { success: false, error: 'Fehler beim Abrufen der Meisterschaften' }
@@ -30,7 +39,16 @@ export async function getMeisterschaftById(id: number) {
       }
     })
     if (!data) return { success: false, error: 'Meisterschaft nicht gefunden' }
-    return { success: true, data }
+    const serializableData = {
+      ...data,
+      Beginn: (data.Beginn instanceof Date && !isNaN(data.Beginn.getTime())) 
+        ? data.Beginn.toISOString() 
+        : null,
+      Ende: (data.Ende instanceof Date && !isNaN(data.Ende.getTime())) 
+        ? data.Ende.toISOString() 
+        : null,
+    }
+    return { success: true, data: serializableData }
   } catch (error) {
     console.error('Database error:', error)
     return { success: false, error: 'Fehler beim Abrufen der Meisterschaft' }
@@ -40,6 +58,13 @@ export async function getMeisterschaftById(id: number) {
 export async function createMeisterschaft(body: Prisma.tblMeisterschaftenUncheckedCreateInput) {
   try {
     const isAktiv = Number(body.Aktiv || 0) === 1
+
+    const beginn = body.Beginn ? toUTCDate(body.Beginn as string | Date) : toUTCDate(new Date())
+    const ende = body.Ende ? toUTCDate(body.Ende as string | Date) : null
+
+    if (!beginn) {
+      return { success: false, error: 'Ungültiges Startdatum' }
+    }
 
     const data = await prisma.$transaction(async (tx) => {
       if (isAktiv) {
@@ -52,8 +77,8 @@ export async function createMeisterschaft(body: Prisma.tblMeisterschaftenUncheck
       return await tx.tblMeisterschaften.create({
         data: {
           Bezeichnung: String(body.Bezeichnung || ""),
-          Beginn: body.Beginn ? toUTCDate(body.Beginn as string | Date) : toUTCDate(new Date()),
-          Ende: body.Ende ? toUTCDate(body.Ende as string | Date) : null,
+          Beginn: beginn,
+          Ende: ende,
           MeisterschaftstypID: Number(body.MeisterschaftstypID),
           TurboDBNummer: Number(body.TurboDBNummer || 0),
           Aktiv: isAktiv ? 1 : 0,
@@ -65,10 +90,20 @@ export async function createMeisterschaft(body: Prisma.tblMeisterschaftenUncheck
     const sql = `insert into tblMeisterschaften ...`
     await createChangeLogAction("tblMeisterschaften", "insert", sql)
 
+    const serializableData = {
+      ...data,
+      Beginn: (data.Beginn instanceof Date && !isNaN(data.Beginn.getTime())) 
+        ? data.Beginn.toISOString() 
+        : null,
+      Ende: (data.Ende instanceof Date && !isNaN(data.Ende.getTime())) 
+        ? data.Ende.toISOString() 
+        : null,
+    }
+
     revalidatePath('/verwaltung/meisterschaften')
     revalidatePath('/verwaltung/eingabe')
     revalidatePath('/verwaltung/ausgabe')
-    return { success: true, data }
+    return { success: true, data: serializableData }
   } catch (error) {
     console.error('Database error:', error)
     return { success: false, error: 'Fehler beim Erstellen der Meisterschaft' }
@@ -79,8 +114,17 @@ export async function updateMeisterschaft(id: number, body: Prisma.tblMeistersch
   try {
     const updateData: any = {}
     if (body.Bezeichnung !== undefined) updateData.Bezeichnung = String(body.Bezeichnung)
-    if (body.Beginn !== undefined) updateData.Beginn = body.Beginn ? toUTCDate(body.Beginn as string | Date) : undefined
-    if (body.Ende !== undefined) updateData.Ende = body.Ende ? toUTCDate(body.Ende as string | Date) : null
+    
+    if (body.Beginn !== undefined) {
+      const beginn = body.Beginn ? toUTCDate(body.Beginn as string | Date) : null
+      if (!beginn) return { success: false, error: 'Ungültiges Startdatum' }
+      updateData.Beginn = beginn
+    }
+
+    if (body.Ende !== undefined) {
+      updateData.Ende = body.Ende ? toUTCDate(body.Ende as string | Date) : null
+    }
+
     if (body.MeisterschaftstypID !== undefined) updateData.MeisterschaftstypID = Number(body.MeisterschaftstypID)
     if (body.TurboDBNummer !== undefined) updateData.TurboDBNummer = Number(body.TurboDBNummer)
     if (body.Aktiv !== undefined) updateData.Aktiv = Number(body.Aktiv)
@@ -108,10 +152,20 @@ export async function updateMeisterschaft(id: number, body: Prisma.tblMeistersch
     const sql = `update tblMeisterschaften set ... where ID=${id}`
     await createChangeLogAction("tblMeisterschaften", "update", sql)
 
+    const serializableData = {
+      ...data,
+      Beginn: (data.Beginn instanceof Date && !isNaN(data.Beginn.getTime())) 
+        ? data.Beginn.toISOString() 
+        : null,
+      Ende: (data.Ende instanceof Date && !isNaN(data.Ende.getTime())) 
+        ? data.Ende.toISOString() 
+        : null,
+    }
+
     revalidatePath('/verwaltung/meisterschaften')
     revalidatePath('/verwaltung/eingabe')
     revalidatePath('/verwaltung/ausgabe')
-    return { success: true, data }
+    return { success: true, data: serializableData }
   } catch (error) {
     console.error('Database error:', error)
     return { success: false, error: 'Fehler beim Aktualisieren der Meisterschaft' }
@@ -171,7 +225,8 @@ export async function getTeilnehmerByMeisterschaft(meisterschaftId: number) {
         Anzeigename: m.Spitzname ? `${m.Vorname} "${m.Spitzname}" ${m.Nachname}` : `${m.Vorname} ${m.Nachname}`,
         Vorname: m.Vorname,
         Nachname: m.Nachname,
-        Spitzname: m.Spitzname || ""
+        Spitzname: m.Spitzname || "",
+        NurHinrunde: t.NurHinrunde
       }
     })
 
@@ -201,18 +256,110 @@ export async function addTeilnehmer(meisterschaftId: number, mitgliedId: number)
 
 export async function removeTeilnehmer(meisterschaftId: number, mitgliedId: number) {
   try {
-    await prisma.tblTeilnehmer.deleteMany({
+    // 1. Prüfen, ob der Spieler bereits Spiele in dieser Meisterschaft hat
+    
+    // Wir müssen alle Spieltage dieser Meisterschaft finden
+    const spieltage = await prisma.tblSpieltag.findMany({
+      where: { MeisterschaftsID: meisterschaftId },
+      select: { ID: true }
+    })
+    const spieltagIds = spieltage.map(s => s.ID)
+
+    let hatGespielt = false
+
+    if (spieltagIds.length > 0) {
+      // Prüfen in tblSpielMeisterschaft
+      const spMeisterschaft = await prisma.tblSpielMeisterschaft.findFirst({
+        where: {
+          SpieltagID: { in: spieltagIds },
+          OR: [
+            { SpielerID1: mitgliedId },
+            { SpielerID2: mitgliedId }
+          ]
+        }
+      })
+
+      // Prüfen in tblSpielBlitztunier
+      const spBlitztunier = await prisma.tblSpielBlitztunier.findFirst({
+        where: {
+          SpieltagID: { in: spieltagIds },
+          OR: [
+            { SpielerID1: mitgliedId },
+            { SpielerID2: mitgliedId }
+          ]
+        }
+      })
+
+      // Prüfen in tblSpielKombimeisterschaft (Hinweis: Laut Schema hat es SpielerID1/2, aber kein direktes Relation-Feld zu tblSpieltag? 
+      // Doch, im Schema steht tblSpieltag am Ende der Datei als Relation in anderen Models, 
+      // aber tblSpielKombimeisterschaft (Zeile 144) hat SpieltagID: Int, aber keine explizite Relation zu tblSpieltag im Prisma Model definiert?
+      // Moment, Zeile 154/155 sind Relationen zu tblMitglieder.
+      // Aber tblSpieltag (Zeile 202) hat KEINE Relation zu tblSpielKombimeisterschaft in seiner Liste (Zeile 207-212).
+      // Das ist seltsam, aber die Tabelle hat eine SpieltagID. Wir können sie trotzdem abfragen.)
+      const spKombimeisterschaft = await prisma.tblSpielKombimeisterschaft.findFirst({
+        where: {
+          SpieltagID: { in: spieltagIds },
+          OR: [
+            { SpielerID1: mitgliedId },
+            { SpielerID2: mitgliedId }
+          ]
+        }
+      })
+
+      if (spMeisterschaft || spBlitztunier || spKombimeisterschaft) {
+        hatGespielt = true
+      }
+    }
+
+    if (hatGespielt) {
+      // Nur Flag setzen
+      await prisma.tblTeilnehmer.updateMany({
+        where: {
+          MeisterschaftsID: meisterschaftId,
+          SpielerID: mitgliedId
+        },
+        data: {
+          NurHinrunde: true
+        }
+      })
+      await createChangeLogAction("tblTeilnehmer", "update", `update tblTeilnehmer set NurHinrunde=true where MeisterschaftsID=${meisterschaftId} and SpielerID=${mitgliedId} (Spieler hat bereits Spiele absolviert)`)
+      revalidatePath('/verwaltung/meisterschaften')
+      return { success: true, action: 'marked' }
+    } else {
+      // Löschen
+      await prisma.tblTeilnehmer.deleteMany({
+        where: {
+          MeisterschaftsID: meisterschaftId,
+          SpielerID: mitgliedId
+        }
+      })
+      await createChangeLogAction("tblTeilnehmer", "delete", `delete from tblTeilnehmer where MeisterschaftsID=${meisterschaftId} and SpielerID=${mitgliedId}`)
+      revalidatePath('/verwaltung/meisterschaften')
+      revalidatePath('/verwaltung/eingabe')
+      revalidatePath('/verwaltung/ausgabe')
+      return { success: true, action: 'deleted' }
+    }
+  } catch (error) {
+    console.error('Database error in removeTeilnehmer:', error)
+    return { success: false, error: 'Fehler beim Entfernen des Teilnehmers' }
+  }
+}
+
+export async function updateTeilnehmerNurHinrunde(meisterschaftId: number, mitgliedId: number, nurHinrunde: boolean) {
+  try {
+    await prisma.tblTeilnehmer.updateMany({
       where: {
         MeisterschaftsID: meisterschaftId,
         SpielerID: mitgliedId
+      },
+      data: {
+        NurHinrunde: nurHinrunde
       }
     })
-    await createChangeLogAction("tblTeilnehmer", "delete", `delete from tblTeilnehmer where MeisterschaftsID=${meisterschaftId} and SpielerID=${mitgliedId}`)
-    revalidatePath('/verwaltung/meisterschaften')
-    revalidatePath('/verwaltung/eingabe')
-    revalidatePath('/verwaltung/ausgabe')
+    await createChangeLogAction("tblTeilnehmer", "update", `update tblTeilnehmer set NurHinrunde=${nurHinrunde} where MeisterschaftsID=${meisterschaftId} and SpielerID=${mitgliedId}`)
     return { success: true }
   } catch (error) {
-    return { success: false, error: 'Fehler beim Entfernen des Teilnehmers' }
+    console.error('Database error:', error)
+    return { success: false, error: 'Fehler beim Aktualisieren des NurHinrunde-Flags' }
   }
 }

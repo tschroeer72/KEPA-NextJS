@@ -26,14 +26,14 @@ model tblDBChangeLog {
   Tablename    String?  @db.LongText
   Changetype   String?  @db.LongText
   Command      String?  @db.LongText
-  Zeitstempel  DateTime @db.DateTime(0)
+  Zeitstempel  DateTime @db.Date
 }
 
 model tblMeisterschaften {
   ID                   Int                  @id @default(autoincrement())
   Bezeichnung          String               @db.VarChar(100)
-  Beginn               DateTime             @db.DateTime(0)
-  Ende                 DateTime?            @db.DateTime(0)
+  Beginn               DateTime             @db.Date
+  Ende                 DateTime?            @db.Date
   MeisterschaftstypID  Int
   TurboDBNummer        Int?
   Aktiv                Int
@@ -59,10 +59,10 @@ model tblMitglieder {
   Strasse                               String?                      @db.VarChar(50)
   PLZ                                   String?                      @db.VarChar(5)
   Ort                                   String?                      @db.VarChar(50)
-  Geburtsdatum                          DateTime?                    @db.DateTime(0)
-  MitgliedSeit                          DateTime                     @db.DateTime(0)
-  PassivSeit                            DateTime?                    @db.DateTime(0)
-  AusgeschiedenAm                       DateTime?                    @db.DateTime(0)
+  Geburtsdatum                          DateTime?                    @db.Date
+  MitgliedSeit                          DateTime                     @db.Date
+  PassivSeit                            DateTime?                    @db.Date
+  AusgeschiedenAm                       DateTime?                    @db.Date
   Ehemaliger                            Boolean                      @db.Bit(1)
   Notizen                               String?                      @db.LongText
   Bemerkungen                           String?                      @db.LongText
@@ -202,18 +202,18 @@ model tblSpielSargKegeln {
 }
 
 model tblSpieltag {
-  ID                         Int                          @id @default(autoincrement())
-  MeisterschaftsID           Int
-  Spieltag                   DateTime                     @db.DateTime(0)
-  InBearbeitung              Boolean                      @db.Bit(1)
-  tbl9erRatten               tbl9erRatten[]
-  tblSpiel6TageRennen        tblSpiel6TageRennen[]
-  tblSpielBlitztunier        tblSpielBlitztunier[]
-  tblSpielMeisterschaft      tblSpielMeisterschaft[]
-  tblSpielPokal              tblSpielPokal[]
-  tblSpielSargKegeln         tblSpielSargKegeln[]
+  ID                    Int                     @id @default(autoincrement())
+  MeisterschaftsID      Int
+  Spieltag              DateTime                @db.Date
+  InBearbeitung         Boolean                 @db.Bit(1)
+  tbl9erRatten          tbl9erRatten[]
+  tblSpiel6TageRennen   tblSpiel6TageRennen[]
+  tblSpielBlitztunier   tblSpielBlitztunier[]
+  tblSpielMeisterschaft tblSpielMeisterschaft[]
+  tblSpielPokal         tblSpielPokal[]
+  tblSpielSargKegeln    tblSpielSargKegeln[]
   tblSpielKombimeisterschaft tblSpielKombimeisterschaft[]
-  tblMeisterschaften         tblMeisterschaften           @relation(fields: [MeisterschaftsID], references: [ID], onUpdate: Restrict, map: "FK_tblSpieltag_tblMeisterschaften")
+  tblMeisterschaften    tblMeisterschaften      @relation(fields: [MeisterschaftsID], references: [ID], onUpdate: Restrict, map: "FK_tblSpieltag_tblMeisterschaften")
 
   @@index([MeisterschaftsID], map: "FK_tblSpieltag_tblMeisterschaften")
 }
@@ -222,6 +222,7 @@ model tblTeilnehmer {
   ID                 Int                @id @default(autoincrement())
   MeisterschaftsID   Int
   SpielerID          Int
+  NurHinrunde        Boolean            @default(dbgenerated("(b'0')")) @db.Bit(1)
   tblMeisterschaften tblMeisterschaften @relation(fields: [MeisterschaftsID], references: [ID], onUpdate: Restrict, map: "FK_tblTeilnehmer_tblMeisterschaften")
   tblMitglieder      tblMitglieder      @relation(fields: [SpielerID], references: [ID], onUpdate: Restrict, map: "FK_tblTeilnehmer_tblMitglieder")
 

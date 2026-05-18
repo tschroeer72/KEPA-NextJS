@@ -12,7 +12,7 @@ import {
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import {NavDataVerwaltung} from "@/data/navdata-verwaltung";
-import {LogOut, Menu, User, X} from 'lucide-react';
+import {FileQuestion, LogOut, Menu, User, X} from 'lucide-react';
 import {useAuthContext} from "@/providers/auth-context-provider";
 import {useRouter} from "next/navigation";
 import axios from 'axios';
@@ -79,6 +79,19 @@ export default function AppBarVerwaltung() {
                                     </NavigationMenuLink>
                                 </NavigationMenuItem>
                             ))}
+
+                            <NavigationMenuItem>
+                                <NavigationMenuLink asChild>
+                                    <a
+                                        href="/Anleitung.pdf"
+                                        download="Anleitung.pdf"
+                                        className="px-3 py-2 text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-all flex items-center"
+                                        title="Anleitung herunterladen"
+                                    >
+                                        <FileQuestion size={20} />
+                                    </a>
+                                </NavigationMenuLink>
+                            </NavigationMenuItem>
 
                         </NavigationMenuList>
                     </NavigationMenu>
@@ -171,6 +184,15 @@ export default function AppBarVerwaltung() {
                                 {navItem.title}
                             </Link>
                         ))}
+                        <a
+                            href="/Anleitung.pdf"
+                            download="Anleitung.pdf"
+                            className="flex items-center space-x-2 px-3 py-2 text-white hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 rounded transition-all"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                            <FileQuestion size={20} />
+                            <span>Anleitung</span>
+                        </a>
 
                         <div className="border-t border-gray-600 dark:border-gray-700 my-1"></div>
 

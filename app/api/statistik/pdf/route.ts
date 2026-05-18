@@ -12,18 +12,47 @@ import {
     getStatistik6TageRennenMannschaftMitglied,
     getStatistikNeunerRattenKoenig
 } from '@/app/actions/verwaltung/statistik/actions';
+import { formatLocalDate, fromUTCDate } from '@/lib/date-utils';
+import { prisma } from '@/lib/prisma';
 
 export async function POST(req: NextRequest) {
     try {
-        const { auswahl, zeit, dateVon, dateBis } = await req.json();
+        const { auswahl, zeit, dateVon, dateBis, meisterschaftId } = await req.json();
 
         let zeitbereich = 4; // Gesamt
-        if (zeit === "laufende") zeitbereich = 1;
-        else if (zeit === "letzte") zeitbereich = 2;
-        else if (zeit === "individuell") zeitbereich = 3;
+        let von = dateVon ? new Date(dateVon) : undefined;
+        let bis = dateBis ? new Date(dateBis) : undefined;
+        let zeitraumText = "Gesamt";
 
-        const von = dateVon ? new Date(dateVon) : undefined;
-        const bis = dateBis ? new Date(dateBis) : undefined;
+        if (zeit === "laufende") {
+            if (meisterschaftId) {
+                const ms = await prisma.tblMeisterschaften.findUnique({
+                    where: { ID: Number(meisterschaftId) }
+                });
+                if (ms) {
+                    zeitbereich = 3; // Individuell nutzen wir hier um von/bis zu forcieren
+                    von = ms.Beginn || undefined;
+                    bis = ms.Ende || undefined;
+                    zeitraumText = `Meisterschaft: ${ms.Bezeichnung}`;
+                } else {
+                    zeitbereich = 1;
+                    zeitraumText = "Laufende Meisterschaft";
+                }
+            } else {
+                zeitbereich = 1;
+                zeitraumText = "Laufende Meisterschaft";
+            }
+        }
+        else if (zeit === "letzte") {
+            zeitbereich = 2;
+            zeitraumText = "Letzte Meisterschaft";
+        }
+        else if (zeit === "individuell") {
+            zeitbereich = 3;
+            if (von && bis) {
+                zeitraumText = `${formatLocalDate(von)} - ${formatLocalDate(bis)}`;
+            }
+        }
 
         const doc = new jsPDF({
             orientation: 'portrait',
@@ -33,11 +62,6 @@ export async function POST(req: NextRequest) {
 
         let title = "";
         let filename = "statistik.pdf";
-        let zeitraumText = "Gesamt";
-
-        if (zeitbereich === 1) zeitraumText = "Laufende Meisterschaft";
-        else if (zeitbereich === 2) zeitraumText = "Letzte Meisterschaft";
-        else if (zeitbereich === 3 && von && bis) zeitraumText = `${von.toLocaleDateString('de-DE')} - ${bis.toLocaleDateString('de-DE')}`;
 
         if (auswahl === "neuner") {
             title = "Neuner";
@@ -350,7 +374,7 @@ function renderNeunerRattenKoenigTable(doc: jsPDF, title: string, zeitraum: stri
         startY: 3.5,
         head: [["Spieltag", "Neunerkönig", "Rattenorden"]],
         body: data.lstStatistik9erRatten.map((item: any) => [
-            new Date(item.Spieltag).toLocaleDateString('de-DE'),
+            formatLocalDate(fromUTCDate(item.Spieltag) ?? new Date()),
             item.Neunerkönig || '---',
             item.Rattenorden || '---'
         ]),

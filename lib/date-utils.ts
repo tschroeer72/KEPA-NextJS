@@ -1,25 +1,34 @@
 ﻿/**
- * Utility-Funktionen zur einheitlichen Datumsbehandlung (UTC für DB, Local für UI).
+ * Utility-Funktionen zur einheitlichen Datumsbehandlung.
+ * Da die Datenbank nun DATE-Felder verwendet, sind UTC-Konvertierungen für reine Datumsfelder überflüssig.
  */
 
 /**
- * Wandelt ein lokales Datum (z.B. 16.02.2026 00:00:00 local) 
- * in ein UTC-Datum mit derselben Datumsangabe (16.02.2026 00:00:00 UTC) um.
- * Dies wird zum Speichern in der Datenbank verwendet, damit der Server (z.B. Vercel)
- * unabhängig von seiner Zeitzone den gleichen Kalendertag erkennt.
+ * Stellt sicher, dass das übergebene Datum ein valides Date-Objekt ist.
+ * @param date Das Datum
  */
-export function toUTCDate(date: Date | string | number): Date {
+export function toUTCDate(date: Date | string | number | null | undefined): Date | null {
+  if (date === null || date === undefined || date === "") return null;
   const d = new Date(date);
+  if (isNaN(d.getTime())) return null;
+
+  // Wir erstellen ein neues Date-Objekt, das die gleichen J/M/T Werte in UTC hat
+  // Dies verhindert, dass Zeitzonenverschiebungen (z.B. UTC+1) das Datum auf den Vortag schieben,
+  // wenn Prisma/MySQL das Datum als UTC interpretiert.
   return new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0));
 }
 
 /**
- * Wandelt ein UTC-Datum (z.B. 16.02.2026 00:00:00 UTC) 
- * in ein lokales Datum mit derselben Datumsangabe (16.02.2026 00:00:00 local) um.
- * Wird für die Anzeige in UI-Komponenten (z.B. Kalender) verwendet.
+ * Gibt das Datum direkt zurück, da DATE-Felder bereits lokal interpretiert werden.
+ * @param date Das Datum
  */
-export function fromUTCDate(date: Date | string | number): Date {
+export function fromUTCDate(date: Date | string | number | null | undefined): Date | null {
+  if (!date) return null;
   const d = new Date(date);
+  if (isNaN(d.getTime())) return null;
+
+  // Wenn das Datum aus der DB kommt (als UTC 00:00:00), konvertieren wir es 
+  // zurück in ein lokales Datum mit 00:00:00 Uhrzeit.
   return new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 0, 0, 0, 0);
 }
 

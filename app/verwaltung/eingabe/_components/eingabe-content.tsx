@@ -26,7 +26,7 @@ type Props = {
 }
 
 export default function EingabeContent({ mitglieder, aktiveMeisterschaft, allMeisterschaften }: Props) {
-  const [date, setDate] = React.useState<Date | undefined>(toUTCDate(new Date()))
+  const [date, setDate] = React.useState<Date | undefined>(toUTCDate(new Date()) ?? undefined)
   const [spiel, setSpiel] = React.useState<string>(SpieleType[0]?.value)
   const [spielNr, setSpielNr] = React.useState<string>("1")
   const [kontrollData, setKontrollData] = React.useState<InitialData | null>(null)
@@ -35,7 +35,7 @@ export default function EingabeContent({ mitglieder, aktiveMeisterschaft, allMei
   const isDisabled = !aktiveMeisterschaft
 
   const handleDateChange = (newDate: Date | undefined) => {
-    setDate(newDate ? toUTCDate(newDate) : undefined)
+    setDate(newDate ? (toUTCDate(newDate) ?? undefined) : undefined)
   }
 
   const loadKontrollData = React.useCallback(async () => {

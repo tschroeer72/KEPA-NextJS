@@ -14,6 +14,19 @@ export function StatistikContent() {
   const [dateVon, setDateVon] = React.useState<Date>()
   const [dateBis, setDateBis] = React.useState<Date>()
   const [loading, setLoading] = React.useState(false)
+  const [meisterschaften, setMeisterschaften] = React.useState<any[]>([])
+  const [selectedMeisterschaftId, setSelectedMeisterschaftId] = React.useState<string>("")
+
+  React.useEffect(() => {
+    import("@/app/actions/verwaltung/common/actions").then(actions => {
+      actions.getMeisterschaften().then(data => {
+        setMeisterschaften(data)
+        if (data.length > 0) {
+          setSelectedMeisterschaftId(data[0].ID.toString())
+        }
+      })
+    })
+  }, [])
 
   const handleExport = async () => {
     setLoading(true)
@@ -27,7 +40,8 @@ export function StatistikContent() {
           auswahl,
           zeit,
           dateVon,
-          dateBis
+          dateBis,
+          meisterschaftId: zeit === "laufende" ? selectedMeisterschaftId : undefined
         }),
       })
 
@@ -62,7 +76,10 @@ export function StatistikContent() {
               dateVon={dateVon} 
               setDateVon={setDateVon} 
               dateBis={dateBis} 
-              setDateBis={setDateBis} 
+              setDateBis={setDateBis}
+              meisterschaften={meisterschaften}
+              selectedMeisterschaftId={selectedMeisterschaftId}
+              setSelectedMeisterschaftId={setSelectedMeisterschaftId}
             />
             <StatistikAuswahl value={auswahl} onValueChange={setAuswahl} />
           </div>

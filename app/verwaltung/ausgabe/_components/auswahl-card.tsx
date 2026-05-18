@@ -21,6 +21,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { MeisterschaftWithTyp, Spieltag, getSpieltageByMeisterschaft } from "@/app/actions/verwaltung/common/actions"
+import { fromUTCDate } from "@/lib/date-utils"
 import { format } from "date-fns"
 import { de } from "date-fns/locale"
 
@@ -35,6 +36,11 @@ export function AuswahlCard({ meisterschaften, onRefresh }: AuswahlCardProps) {
   const [spieltage, setSpieltage] = React.useState<Spieltag[]>([])
   const [selectedSpieltagIds, setSelectedSpieltagIds] = React.useState<number[]>([])
   const [isLoading, setIsLoading] = React.useState(false)
+  const [pdfOptions, setPdfOptions] = React.useState({
+    spielergebnisse: false,
+    tabelle: true,
+    kreuztabelle: true,
+  })
 
   const handleMeisterschaftSelect = async (bezeichnung: string) => {
     const m = meisterschaften.find((item) => item.Bezeichnung === bezeichnung)
@@ -76,7 +82,13 @@ export function AuswahlCard({ meisterschaften, onRefresh }: AuswahlCardProps) {
     }
   console.log("Route", route);
     if (route) {
-      window.open(`${route}?id=${selectedMeisterschaft.ID}`, "_blank");
+      const params = new URLSearchParams({
+        id: selectedMeisterschaft.ID.toString(),
+        spielergebnisse: pdfOptions.spielergebnisse.toString(),
+        tabelle: pdfOptions.tabelle.toString(),
+        kreuztabelle: pdfOptions.kreuztabelle.toString(),
+      });
+      window.open(`${route}?${params.toString()}`, "_blank");
     }
   };
 
@@ -166,7 +178,7 @@ export function AuswahlCard({ meisterschaften, onRefresh }: AuswahlCardProps) {
                     htmlFor={`spieltag-${s.ID}`}
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
-                    {format(s.Spieltag, "dd.MM.yyyy", { locale: de })}
+                    {format(fromUTCDate(s.Spieltag) ?? new Date(), "dd.MM.yyyy", { locale: de })}
                   </label>
                 </div>
               ))}
@@ -192,6 +204,44 @@ export function AuswahlCard({ meisterschaften, onRefresh }: AuswahlCardProps) {
             <Printer className="mr-2 h-4 w-4" /> PDF
           </Button>
         </div>
+
+        {selectedMeisterschaft && (
+          <div className="space-y-3 pt-2">
+            <Label className="text-sm font-semibold">PDF Inhalt</Label>
+            <div className="grid grid-cols-1 gap-3">
+              <div className="flex items-center space-x-2">
+                <Checkbox 
+                  id="pdf-ergebnisse" 
+                  checked={pdfOptions.spielergebnisse}
+                  onCheckedChange={(checked) => setPdfOptions(prev => ({ ...prev, spielergebnisse: !!checked }))}
+                />
+                <label htmlFor="pdf-ergebnisse" className="text-sm font-medium leading-none cursor-pointer">
+                  Spielergebnisse
+                </label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox 
+                  id="pdf-tabelle" 
+                  checked={pdfOptions.tabelle}
+                  onCheckedChange={(checked) => setPdfOptions(prev => ({ ...prev, tabelle: !!checked }))}
+                />
+                <label htmlFor="pdf-tabelle" className="text-sm font-medium leading-none cursor-pointer">
+                  Tabelle
+                </label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox 
+                  id="pdf-kreuztabelle" 
+                  checked={pdfOptions.kreuztabelle}
+                  onCheckedChange={(checked) => setPdfOptions(prev => ({ ...prev, kreuztabelle: !!checked }))}
+                />
+                <label htmlFor="pdf-kreuztabelle" className="text-sm font-medium leading-none cursor-pointer">
+                  Kreuztabelle
+                </label>
+              </div>
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   )

@@ -39,7 +39,13 @@ export async function getSpieltageByMeisterschaft(meisterschaftId: number) {
       where: { MeisterschaftsID: meisterschaftId },
       orderBy: { Spieltag: 'desc' }
     });
-    return { success: true, data };
+    const transformedData = data.map(s => ({
+      ...s,
+      Spieltag: (s.Spieltag instanceof Date && !isNaN(s.Spieltag.getTime())) 
+        ? new Date(s.Spieltag.getTime() - s.Spieltag.getTimezoneOffset() * 60000).toISOString() 
+        : null
+    }));
+    return { success: true, data: transformedData };
   } catch (error) {
     return { success: false, error: 'Fehler beim Abrufen der Spieltage' };
   }

@@ -2,6 +2,7 @@
 import {Tabs, TabsContent, TabsList, TabsTrigger,} from "@/components/ui/tabs";
 import FormMeisterschaftsdaten from "./form-meisterschaft-daten";
 import {MeisterschaftDatenFormDataFormData} from "@/interfaces/meisterschaft-daten-form-data";
+import { fromUTCDate } from '@/lib/date-utils';
 import {useState, useEffect, useCallback} from "react";
 import {toast} from "sonner";
 import { getMeisterschaftById, updateMeisterschaft, createMeisterschaft } from "@/app/actions/verwaltung/meisterschaften/actions";
@@ -97,8 +98,8 @@ export default function Meisterschaftsdaten({MeisterschaftID, onDataChange, onMe
                     // FormData mit Meisterschaftsdaten befüllen
                     setFormData({
                         Bezeichnung: meisterschaftData.Bezeichnung || "",
-                        Beginn: new Date(meisterschaftData.Beginn),
-                        Ende: meisterschaftData.Ende ? new Date(meisterschaftData.Ende) : undefined,
+                        Beginn: fromUTCDate(meisterschaftData.Beginn) || new Date(),
+                        Ende: fromUTCDate(meisterschaftData.Ende) || undefined,
                         MeisterschaftstypID: meisterschaftData.MeisterschaftstypID || 1,
                         Aktiv: meisterschaftData.Aktiv || 0,
                         Bemerkungen: meisterschaftData.Bemerkungen || ""

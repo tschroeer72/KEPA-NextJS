@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Save, UserMinus, UserCheck, Loader2 } from 'lucide-react';
+import { Save, UserMinus, UserCheck, Loader2, ArrowUpDown, Search } from 'lucide-react';
 import { toast } from "sonner";
 import {
     AlertDialog,
@@ -43,6 +43,8 @@ export default function BenutzerzugriffPage() {
     const [editingId, setEditingId] = useState<number | null>(null);
     const [editValues, setEditValues] = useState<{ login: string, passwort: string }>({ login: '', passwort: '' });
     const [deactivateId, setDeactivateId] = useState<number | null>(null);
+    const [searchTerm, setSearchTerm] = useState({ vorname: '', nachname: '', login: '' });
+    const [sortConfig, setSortConfig] = useState<{ key: keyof Mitglied; direction: 'asc' | 'desc' } | null>(null);
 
     useEffect(() => {
         if (!isLogin) {
@@ -113,6 +115,37 @@ export default function BenutzerzugriffPage() {
         handleEdit(m);
     };
 
+    const requestSort = (key: keyof Mitglied) => {
+        let direction: 'asc' | 'desc' = 'asc';
+        if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') {
+            direction = 'desc';
+        }
+        setSortConfig({ key, direction });
+    };
+
+    const filteredAndSortedMitglieder = [...mitglieder]
+        .filter((m) => {
+            const matchVorname = m.Vorname.toLowerCase().includes(searchTerm.vorname.toLowerCase());
+            const matchNachname = m.Nachname.toLowerCase().includes(searchTerm.nachname.toLowerCase());
+            const matchLogin = (m.Login || '').toLowerCase().includes(searchTerm.login.toLowerCase());
+            return matchVorname && matchNachname && matchLogin;
+        })
+        .sort((a, b) => {
+            if (!sortConfig) return 0;
+            const { key, direction } = sortConfig;
+            
+            const aValue = a[key] || '';
+            const bValue = b[key] || '';
+            
+            if (aValue < bValue) {
+                return direction === 'asc' ? -1 : 1;
+            }
+            if (aValue > bValue) {
+                return direction === 'asc' ? 1 : -1;
+            }
+            return 0;
+        });
+
     if (loading && mitglieder.length === 0) {
         return (
             <div className="flex justify-center items-center h-64">
@@ -124,20 +157,62 @@ export default function BenutzerzugriffPage() {
     return (
         <div className="container mx-auto py-8 px-4">
             <h1 className="text-2xl font-bold mb-6">Benutzerzugriff Verwaltung</h1>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="relative">
+                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+                    <Input
+                        placeholder="Nachname filtern..."
+                        className="pl-9"
+                        value={searchTerm.nachname}
+                        onChange={(e) => setSearchTerm({ ...searchTerm, nachname: e.target.value })}
+                    />
+                </div>
+                <div className="relative">
+                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+                    <Input
+                        placeholder="Vorname filtern..."
+                        className="pl-9"
+                        value={searchTerm.vorname}
+                        onChange={(e) => setSearchTerm({ ...searchTerm, vorname: e.target.value })}
+                    />
+                </div>
+                <div className="relative">
+                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+                    <Input
+                        placeholder="Login filtern..."
+                        className="pl-9"
+                        value={searchTerm.login}
+                        onChange={(e) => setSearchTerm({ ...searchTerm, login: e.target.value })}
+                    />
+                </div>
+            </div>
             
             <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Nachname</TableHead>
-                            <TableHead>Vorname</TableHead>
-                            <TableHead>Login</TableHead>
+                            <TableHead className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" onClick={() => requestSort('Nachname')}>
+                                <div className="flex items-center">
+                                    Nachname <ArrowUpDown size={14} className="ml-1" />
+                                </div>
+                            </TableHead>
+                            <TableHead className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" onClick={() => requestSort('Vorname')}>
+                                <div className="flex items-center">
+                                    Vorname <ArrowUpDown size={14} className="ml-1" />
+                                </div>
+                            </TableHead>
+                            <TableHead className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" onClick={() => requestSort('Login')}>
+                                <div className="flex items-center">
+                                    Login <ArrowUpDown size={14} className="ml-1" />
+                                </div>
+                            </TableHead>
                             <TableHead>Passwort</TableHead>
                             <TableHead className="text-right">Aktionen</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {mitglieder.map((m) => (
+                        {filteredAndSortedMitglieder.map((m) => (
                             <TableRow key={m.ID}>
                                 <TableCell className="font-medium">{m.Nachname}</TableCell>
                                 <TableCell>{m.Vorname}</TableCell>

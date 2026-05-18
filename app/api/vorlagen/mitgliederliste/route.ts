@@ -1,6 +1,7 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
 import { VpeToJsPdf, TextAlignment } from "@/utils/vpe-to-jspdf";
 import { getAktiveMitglieder, getAlleMitglieder } from "@/app/actions/verwaltung/mitglieder/actions";
+import { fromUTCDate, formatLocalDate } from "@/lib/date-utils";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -32,7 +33,7 @@ export async function GET(req: NextRequest) {
     vpe.selectFont("helvetica", 10);
     vpe.setFontAttr(TextAlignment.Center, false, false, false, false);
     vpe.writeBox(vpe.nRight, vpe.nTop, -2, -0.8, "Stand:");
-    vpe.writeBox(vpe.nRight, vpe.nTop, -2, -0.8, new Date().toLocaleDateString("de-DE"));
+    vpe.writeBox(vpe.nRight, vpe.nTop, -2, -0.8, formatLocalDate(new Date()));
 
     //Zeile 3
     vpe.selectFont("helvetica", 8);
@@ -62,7 +63,7 @@ export async function GET(req: NextRequest) {
     const startY = vpe.nBottom;
     vpe.writeBox(vpe.nLeftMargin, startY, -2.5, -0.6, item.Nachname || "");
     vpe.writeBox(vpe.nRight, vpe.nTop, -2.5, -0.6, item.Vorname || "");
-    vpe.writeBox(vpe.nRight, vpe.nTop, -2, -0.6, item.Geburtsdatum ? new Date(item.Geburtsdatum).toLocaleDateString("de-DE") : "");
+    vpe.writeBox(vpe.nRight, vpe.nTop, -2, -0.6, item.Geburtsdatum ? (formatLocalDate(fromUTCDate(item.Geburtsdatum) ?? new Date())) : "");
     
     // Anschrift (Straße oben, PLZ Ort unten)
     vpe.box(vpe.nRight, vpe.nTop, -3, -0.6);
@@ -91,8 +92,8 @@ export async function GET(req: NextRequest) {
 
     // Ein-/Austritt (Eintritt oben, Austritt unten)
     vpe.box(vpe.nRight, vpe.nTop - 0.3, -2, -0.6);
-    vpe.write(vpe.nLeft, vpe.nTop, -2, -0.3, item.MitgliedSeit ? new Date(item.MitgliedSeit).toLocaleDateString("de-DE") : "");
-    const strAustritt = item.AusgeschiedenAm ? new Date(item.AusgeschiedenAm).toLocaleDateString("de-DE") : "";
+    vpe.write(vpe.nLeft, vpe.nTop, -2, -0.3, item.MitgliedSeit ? (formatLocalDate(fromUTCDate(item.MitgliedSeit) ?? new Date())) : "");
+    const strAustritt = item.AusgeschiedenAm ? (formatLocalDate(fromUTCDate(item.AusgeschiedenAm) ?? new Date())) : "";
     vpe.write(vpe.nLeft, vpe.nBottom, -2, -0.3, strAustritt);
   });
 
