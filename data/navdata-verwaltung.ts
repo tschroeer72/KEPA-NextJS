@@ -27,4 +27,8 @@
         title: "Vorlagen",
         href: "/verwaltung/vorlagen",
     },
+    {
+        title: "Kegelfahrten",
+        href: "/verwaltung/kegelfahrten",
+    },
 ]

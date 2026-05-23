@@ -13,6 +13,7 @@ export const AuthContextProvider=({children}:{children:ReactNode}) =>{
     const [vorname, setVorname] = useState<string | null>(null);
     const [nachname, setNachname] = useState<string | null>(null);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [isFilmeUser, setIsFilmeUser] = useState(false);
 
     // Beim Laden der Anwendung prüfen, ob ein gültiger Token vorhanden ist
     useEffect(() => {
@@ -29,6 +30,7 @@ export const AuthContextProvider=({children}:{children:ReactNode}) =>{
                     setVorname(response.data.vorname || null);
                     setNachname(response.data.nachname || null);
                     setIsAdmin(!!response.data.isAdmin);
+                    setIsFilmeUser(!!response.data.isFilmeUser);
                 } else {
                     setIsLogin(false);
                     setUserId(null);
@@ -45,6 +47,7 @@ export const AuthContextProvider=({children}:{children:ReactNode}) =>{
                 setVorname(null);
                 setNachname(null);
                 setIsAdmin(false);
+                setIsFilmeUser(false);
             }
         };
 
@@ -64,7 +67,9 @@ export const AuthContextProvider=({children}:{children:ReactNode}) =>{
             nachname, 
             setNachname,
             isAdmin,
-            setIsAdmin
+            setIsAdmin,
+            isFilmeUser,
+            setIsFilmeUser
         }}>
             {children}
         </AuthContext.Provider>

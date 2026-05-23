@@ -11,4 +11,6 @@
     setNachname: (value: string | null) => void,
     isAdmin: boolean,
     setIsAdmin: (value: boolean) => void,
+    isFilmeUser: boolean,
+    setIsFilmeUser: (value: boolean) => void,
 }

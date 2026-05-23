@@ -8,19 +8,54 @@ import crypto from 'crypto';
 export async function POST(request: NextRequest) {
     const body = await request.json();
     const { benutzer, passwort } = body;
-
-    //console.log('Login Route - JWT_SECRET vorhanden:', !!process.env.JWT_SECRET);
+    const trimmedBenutzer = benutzer?.trim();
 
     const hashedPassword = crypto.createHash('sha256').update(passwort).digest('hex');
-    //console.log(hashedPassword)
 
-    // Check for ADMIN credentials first
-    if (benutzer === process.env.ADMIN_USERNAME && hashedPassword === process.env.ADMIN_PASSWORD) {
-        // Token generieren für Admin
+    // Check for FILME user credentials first
+    if (trimmedBenutzer === process.env.FILME_USERNAME?.trim() && hashedPassword === process.env.FILME_PASSWORD?.trim()) {
+        const token = jwt.sign(
+            {
+                userId: -1, // Filme-User ID -1
+                login: trimmedBenutzer,
+                isAdmin: false,
+                isFilmeUser: true,
+                vorname: 'Kegelfahrten',
+                nachname: 'Benutzer',
+            },
+            process.env.JWT_SECRET!,
+            {
+                expiresIn: '1h'
+            }
+        );
+
+        const serialized = serialize('token', token, {
+            maxAge: 60 * 60,
+            sameSite: 'strict',
+            path: '/',
+            httpOnly: true,
+        });
+
+        const response = NextResponse.json({ 
+            message: 'Erfolgreich', 
+            userId: -1,
+            username: trimmedBenutzer,
+            vorname: 'Kegelfahrten',
+            nachname: 'Benutzer',
+            isAdmin: false,
+            isFilmeUser: true
+        }, { status: 200 });
+        response.headers.set('Set-Cookie', serialized);
+
+        return response;
+    }
+
+    // Check for ADMIN credentials
+    if (trimmedBenutzer === process.env.ADMIN_USERNAME?.trim() && hashedPassword === process.env.ADMIN_PASSWORD?.trim()) {
         const token = jwt.sign(
             {
                 userId: 0, // Admin ID 0
-                login: benutzer,
+                login: trimmedBenutzer,
                 isAdmin: true,
                 vorname: 'Admin',
                 nachname: 'User',
@@ -41,7 +76,7 @@ export async function POST(request: NextRequest) {
         const response = NextResponse.json({ 
             message: 'Erfolgreich', 
             userId: 0,
-            username: benutzer,
+            username: trimmedBenutzer,
             vorname: 'Admin',
             nachname: 'User',
             isAdmin: true
@@ -51,53 +86,47 @@ export async function POST(request: NextRequest) {
         return response;
     }
 
+    // Check for standard users in database
     const usr = await prisma.tblMitglieder.findFirst({
       where: {
-        Login: benutzer,
+        Login: trimmedBenutzer,
         Password: hashedPassword,
       },
     });
 
-    if (usr !== null && usr !== undefined) {
-        //console.log('Login Route - Benutzer gefunden, erstelle Token');
-
-        // Token generieren
+    if (usr) {
         const token = jwt.sign(
             {
-                userId: usr?.ID,
-                login: usr?.Login,
-                vorname: usr?.Vorname,
-                nachname: usr?.Nachname,
-                // weitere User-Daten nach Bedarf
+                userId: usr.ID,
+                login: usr.Login,
+                vorname: usr.Vorname,
+                nachname: usr.Nachname,
             },
-            process.env.JWT_SECRET!, // Verwende JWT_SECRET statt TOKEN
+            process.env.JWT_SECRET!,
             {
-                expiresIn: '1h' // Token läuft nach 1 Stunde ab
+                expiresIn: '1h'
             }
         );
 
-        //console.log('Login Route - Token erstellt:', token);
-
         const serialized = serialize('token', token, {
-            maxAge: 60 * 60, // 1 Stunde
+            maxAge: 60 * 60,
             sameSite: 'strict',
             path: '/',
-            httpOnly: true, // Zusätzlicher Schutz - Cookie nur serverseitig zugänglich
+            httpOnly: true,
         });
-        //console.log('Login Route - Cookie serialisiert:', serialized);
 
         const response = NextResponse.json({ 
             message: 'Erfolgreich', 
-            userId: usr?.ID,
-            username: usr?.Login || benutzer,
-            vorname: usr?.Vorname,
-            nachname: usr?.Nachname,
+            userId: usr.ID,
+            username: usr.Login || trimmedBenutzer,
+            vorname: usr.Vorname,
+            nachname: usr.Nachname,
             isAdmin: false
         }, { status: 200 });
         response.headers.set('Set-Cookie', serialized);
 
         return response;
-    } else {
-        return NextResponse.json('Login fehlgeschlagen', { status: 401 });
     }
+
+    return NextResponse.json('Login fehlgeschlagen', { status: 401 });
 }

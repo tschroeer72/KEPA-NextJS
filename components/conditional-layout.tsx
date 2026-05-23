@@ -5,6 +5,7 @@ import AppBar from "@/components/app-bar";
 import AppBarVerwaltung from "@/components/app-bar-verwaltung";
 import Footer from "@/components/footer";
 import {Toaster} from "@/components/ui/sonner";
+import VerwaltungGuard from "@/components/verwaltung-guard";
 
 export default function ConditionalLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -16,7 +17,9 @@ export default function ConditionalLayout({ children }: { children: React.ReactN
                 <AppBarVerwaltung />
                 <main className="flex-1 px-6 py-8">
                     <div className="max-w-7xl mx-auto">
-                        {children}
+                        <VerwaltungGuard>
+                            {children}
+                        </VerwaltungGuard>
                     </div>
                 </main>
                 <Toaster />

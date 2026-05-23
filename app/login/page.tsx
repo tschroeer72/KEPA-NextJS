@@ -13,7 +13,7 @@ export default function Login() {
     const [passwort, setPasswort] = useState("");
     const [error, setError] = useState(false);
     const router = useRouter();
-    const {setIsLogin, setUserId, setUsername, setVorname, setNachname, setIsAdmin} = useAuthContext();
+    const {setIsLogin, setUserId, setUsername, setVorname, setNachname, setIsAdmin, setIsFilmeUser} = useAuthContext();
 
     const login = async () => {
         try {
@@ -38,10 +38,16 @@ export default function Login() {
                 if (response.data.vorname) setVorname(response.data.vorname);
                 if (response.data.nachname) setNachname(response.data.nachname);
                 setIsAdmin(!!response.data.isAdmin);
+                setIsFilmeUser(!!response.data.isFilmeUser);
             } else {
                 setUsername(benutzer);
             }
-            router.push("/verwaltung");
+
+            if (response.data.isFilmeUser) {
+                router.push("/verwaltung/kegelfahrten");
+            } else {
+                router.push("/verwaltung");
+            }
         } catch (error) {
             console.log("Login Error", error)
             setError(true)

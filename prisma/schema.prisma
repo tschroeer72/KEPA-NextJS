@@ -202,18 +202,18 @@ model tblSpielSargKegeln {
 }
 
 model tblSpieltag {
-  ID                    Int                     @id @default(autoincrement())
-  MeisterschaftsID      Int
-  Spieltag              DateTime                @db.Date
-  InBearbeitung         Boolean                 @db.Bit(1)
-  tbl9erRatten          tbl9erRatten[]
-  tblSpiel6TageRennen   tblSpiel6TageRennen[]
-  tblSpielBlitztunier   tblSpielBlitztunier[]
-  tblSpielMeisterschaft tblSpielMeisterschaft[]
-  tblSpielPokal         tblSpielPokal[]
-  tblSpielSargKegeln    tblSpielSargKegeln[]
+  ID                         Int                          @id @default(autoincrement())
+  MeisterschaftsID           Int
+  Spieltag                   DateTime                     @db.Date
+  InBearbeitung              Boolean                      @db.Bit(1)
+  tbl9erRatten               tbl9erRatten[]
+  tblSpiel6TageRennen        tblSpiel6TageRennen[]
+  tblSpielBlitztunier        tblSpielBlitztunier[]
+  tblSpielMeisterschaft      tblSpielMeisterschaft[]
+  tblSpielPokal              tblSpielPokal[]
+  tblSpielSargKegeln         tblSpielSargKegeln[]
   tblSpielKombimeisterschaft tblSpielKombimeisterschaft[]
-  tblMeisterschaften    tblMeisterschaften      @relation(fields: [MeisterschaftsID], references: [ID], onUpdate: Restrict, map: "FK_tblSpieltag_tblMeisterschaften")
+  tblMeisterschaften         tblMeisterschaften           @relation(fields: [MeisterschaftsID], references: [ID], onUpdate: Restrict, map: "FK_tblSpieltag_tblMeisterschaften")
 
   @@index([MeisterschaftsID], map: "FK_tblSpieltag_tblMeisterschaften")
 }
@@ -228,4 +228,13 @@ model tblTeilnehmer {
 
   @@index([MeisterschaftsID], map: "FK_tblTeilnehmer_tblMeisterschaften")
   @@index([SpielerID], map: "FK_tblTeilnehmer_tblMitglieder")
+}
+
+model tblKegelfahrten {
+  ID        Int      @id @default(autoincrement())
+  Jahr      Int
+  Ziel      String   @db.VarChar(50)
+  Von       DateTime @db.Date
+  Bis       DateTime @db.Date
+  Dateiname String   @db.VarChar(200)
 }

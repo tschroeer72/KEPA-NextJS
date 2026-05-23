@@ -18,7 +18,7 @@ import {useRouter} from "next/navigation";
 import axios from 'axios';
 
 export default function AppBarVerwaltung() {
-    const {setIsLogin, userId, setUserId, username, setUsername, vorname, nachname, setVorname, setNachname, isAdmin, setIsAdmin} = useAuthContext();
+    const {setIsLogin, userId, setUserId, username, setUsername, vorname, nachname, setVorname, setNachname, isAdmin, setIsAdmin, isFilmeUser, setIsFilmeUser} = useAuthContext();
     const router = useRouter();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -36,6 +36,7 @@ export default function AppBarVerwaltung() {
             setVorname(null);
             setNachname(null);
             setIsAdmin(false);
+            setIsFilmeUser(false);
             router.push('/');
         } catch (error) {
             console.error('Logout fehlgeschlagen:', error);
@@ -67,7 +68,9 @@ export default function AppBarVerwaltung() {
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
 
-                            {NavDataVerwaltung.map((navItem) => (
+                            {NavDataVerwaltung
+                                .filter(navItem => !isFilmeUser || navItem.title === "Kegelfahrten")
+                                .map((navItem) => (
                                 <NavigationMenuItem key={navItem.title}>
                                     <NavigationMenuLink asChild>
                                         <Link
@@ -174,7 +177,9 @@ export default function AppBarVerwaltung() {
                         >
                             Verwaltung
                         </Link>
-                        {NavDataVerwaltung.map((navItem) => (
+                        {NavDataVerwaltung
+                            .filter(navItem => !isFilmeUser || navItem.title === "Kegelfahrten")
+                            .map((navItem) => (
                             <Link
                                 key={navItem.title}
                                 href={navItem.href}
