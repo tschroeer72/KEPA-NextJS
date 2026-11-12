@@ -71,7 +71,7 @@ export default function KegelfahrtVideoPage({ params }: { params: Promise<{ id: 
         );
     }
 
-    let videoUrl = `${freigabeUrl.replace(/\/$/, "")}/${encodeURIComponent(kegelfahrt.Dateiname)}`;
+    const videoUrl = `${freigabeUrl.replace(/\/$/, "")}/${encodeURIComponent(kegelfahrt.Dateiname)}`;
     //console.log("Video-URL:", videoUrl);
     
     const isDirectLink = videoUrl.match(/\.(mp4|webm|ogg|mov)$/i);

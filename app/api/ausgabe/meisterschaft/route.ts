@@ -197,7 +197,7 @@ export async function GET(request: Request) {
       }
     });
 
-    let lstTeilnehmer = Array.from(teilnehmerMap.values());
+    const lstTeilnehmer = Array.from(teilnehmerMap.values());
 
     // Platzierung ermitteln
     lstTeilnehmer.sort((a, b) => b.Gesamtpunkte - a.Gesamtpunkte);
@@ -494,7 +494,7 @@ export async function GET(request: Request) {
       doc.setFont("helvetica", "normal");
       doc.text(`${meisterschaft.tblMeisterschaftstyp.Meisterschaftstyp} (Stand ${formattedDate})`, nLeftMargin + tableWidth / 2, nTopMargin + 0.8, { align: "center" });
 
-      let x = nLeftMargin;
+      const x = nLeftMargin;
       let y = nTopMargin + 2;
 
       // Header Zeile 1
@@ -561,8 +561,8 @@ export async function GET(request: Request) {
 
       // Kopfzeile und Namensspalte
       doc.setFontSize(18);
-      let x = nLeftMargin;
-      let y = nTopMargin + 1.5;
+      const x = nLeftMargin;
+      const y = nTopMargin + 1.5;
       const jahr = meisterschaft.Beginn.getFullYear().toString();
 
       drawBox(x, y, 1.7, 1, jahr, 18);
