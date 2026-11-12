@@ -28,7 +28,7 @@ describe("saveEingabeAction", () => {
   it("should return success when transaction completes", async () => {
     prismaMock.$transaction.mockResolvedValue({ success: true });
 
-    const result = await saveEingabeAction(1, "2024-01-01", "9er-ratten-kranz8", [], []);
+    const result = await saveEingabeAction(1, new Date("2024-01-01"), "9er-ratten-kranz8", [], []);
 
     expect(result).toEqual({ success: true });
     expect(prismaMock.$transaction).toHaveBeenCalled();
@@ -38,7 +38,7 @@ describe("saveEingabeAction", () => {
     prismaMock.$transaction.mockRejectedValue(new Error("Tx Error"));
 
     const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
-    const result = await saveEingabeAction(1, "2024-01-01", "9er-ratten-kranz8", [], []);
+    const result = await saveEingabeAction(1, new Date("2024-01-01"), "9er-ratten-kranz8", [], []);
     consoleSpy.mockRestore();
 
     expect(result.success).toBe(false);

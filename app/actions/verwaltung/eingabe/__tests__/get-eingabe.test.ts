@@ -63,7 +63,7 @@ describe("getKontrollausgabeAction", () => {
 
     expect(result.success).toBe(true);
     expect(result.data?.neunerRatten).toHaveLength(1);
-    expect(result.data?.neunerRatten[0]).toMatchObject({
+    expect(result.data?.neunerRatten?.[0]).toMatchObject({
       ID: 10,
       Spielername: "Mäxchen",
       Neuner: 5

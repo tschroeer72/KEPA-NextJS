@@ -46,7 +46,7 @@ describe("deleteEingabeRowAction", () => {
     consoleSpy.mockRestore();
 
     expect(result.success).toBe(false);
-    expect(result.error).toContain("Unbekannter Spieltyp");
+    expect((result as { error?: string }).error).toContain("Unbekannter Spieltyp");
   });
 
   it("should handle database errors", async () => {
@@ -57,6 +57,6 @@ describe("deleteEingabeRowAction", () => {
     consoleSpy.mockRestore();
 
     expect(result.success).toBe(false);
-    expect(result.error).toContain("DB Error");
+    expect((result as { error?: string }).error).toContain("DB Error");
   });
 });

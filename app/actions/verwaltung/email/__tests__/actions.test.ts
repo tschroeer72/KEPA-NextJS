@@ -25,7 +25,7 @@ describe("getMembersForEmail", () => {
 
     expect(result.success).toBe(true);
     expect(result.data).toHaveLength(1);
-    expect(result.data[0].EMail).toBe("max@test.de");
+    expect(result.data?.[0].EMail).toBe("max@test.de");
   });
 
   it("should return error on failure", async () => {
