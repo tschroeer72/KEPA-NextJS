@@ -1,5 +1,5 @@
 ﻿import { NextResponse, NextRequest } from 'next/server';
-import {serialize} from 'cookie';
+import { stringifySetCookie } from 'cookie';
 import { prisma } from '@/lib/prisma'
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
             }
         );
 
-        const serialized = serialize('token', token, {
+        const serialized = stringifySetCookie({ name: 'token', value: token,
             maxAge: 60 * 60,
             sameSite: 'strict',
             path: '/',
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
             }
         );
 
-        const serialized = serialize('token', token, {
+        const serialized = stringifySetCookie({ name: 'token', value: token,
             maxAge: 60 * 60,
             sameSite: 'strict',
             path: '/',
@@ -123,7 +123,7 @@ export async function POST(request: NextRequest) {
             }
         );
 
-        const serialized = serialize('token', token, {
+        const serialized = stringifySetCookie({ name: 'token', value: token,
             maxAge: 60 * 60,
             sameSite: 'strict',
             path: '/',

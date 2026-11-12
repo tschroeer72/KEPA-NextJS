@@ -241,7 +241,6 @@ const FormPersoenliches: React.FC<FormPersoenlichesProps> = ({
                                             mode="single"
                                             selected={formData.Geburtsdatum}
                                             onSelect={(date) => handleDateSelect('Geburtsdatum', date)}
-                                            initialFocus
                                         />
                                     </div>
                                 )}
@@ -272,7 +271,6 @@ const FormPersoenliches: React.FC<FormPersoenlichesProps> = ({
                                             mode="single"
                                             selected={formData.MitgliedSeit}
                                             onSelect={(date) => handleDateSelect('MitgliedSeit', date)}
-                                            initialFocus
                                         />
                                     </div>
                                 )}
@@ -307,7 +305,6 @@ const FormPersoenliches: React.FC<FormPersoenlichesProps> = ({
                                             mode="single"
                                             selected={formData.PassivSeit}
                                             onSelect={(date) => handleDateSelect('PassivSeit', date)}
-                                            initialFocus
                                         />
                                     </div>
                                 )}
@@ -342,7 +339,6 @@ const FormPersoenliches: React.FC<FormPersoenlichesProps> = ({
                                             mode="single"
                                             selected={formData.AusgeschiedenAm}
                                             onSelect={(date) => handleDateSelect('AusgeschiedenAm', date)}
-                                            initialFocus
                                         />
                                     </div>
                                 )}

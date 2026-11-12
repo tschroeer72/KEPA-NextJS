@@ -83,7 +83,7 @@ describe("getKontrollausgabeAction", () => {
     const result = await getKontrollausgabeAction(testDate);
 
     expect(result.data?.neunerRatten).toHaveLength(1);
-    expect(result.data?.neunerRatten[0]).toMatchObject({
+    expect(result.data?.neunerRatten?.[0]).toMatchObject({
       ID: 10,
       SpielerID: 100,
       Spielername: "Mäxchen",
@@ -103,7 +103,7 @@ describe("getKontrollausgabeAction", () => {
     ]);
 
     const result = await getKontrollausgabeAction(testDate);
-    expect(result.data?.pokal.map(p => p.Spielername)).toEqual(["Bernd", "Carl", "Unbekannt"]);
+    expect(result.data?.pokal?.map(p => p.Spielername)).toEqual(["Bernd", "Carl", "Unbekannt"]);
   });
 
   it("maps all other game types", async () => {
@@ -132,16 +132,16 @@ describe("getKontrollausgabeAction", () => {
 
     const { data } = await getKontrollausgabeAction(testDate);
 
-    expect(data?.sechsTageRennen[0]).toMatchObject({
+    expect(data?.sechsTageRennen?.[0]).toMatchObject({
       ID: 1, Spieler1ID: 10, Spieler1Name: "Anni", Spieler2ID: 20, Spieler2Name: "Bernd", Runden: 5, Punkte: 7, Spielnr: 2,
     });
-    expect(data?.sargkegeln[0]).toMatchObject({ ID: 2, Spielername: "Anni", Platzierung: 4 });
-    expect(data?.meisterschaft.map(m => m.HinRueckrunde)).toEqual(["Hinrunde", "Rückrunde"]);
-    expect(data?.meisterschaft[0]).toMatchObject({ HolzSpieler1: 100, HolzSpieler2: 90 });
-    expect(data?.blitztunier[0]).toMatchObject({
+    expect(data?.sargkegeln?.[0]).toMatchObject({ ID: 2, Spielername: "Anni", Platzierung: 4 });
+    expect(data?.meisterschaft?.map(m => m.HinRueckrunde)).toEqual(["Hinrunde", "Rückrunde"]);
+    expect(data?.meisterschaft?.[0]).toMatchObject({ HolzSpieler1: 100, HolzSpieler2: 90 });
+    expect(data?.blitztunier?.[0]).toMatchObject({
       PunkteSpieler1: 3, PunkteSpieler2: 1, HinRueckrunde: "Rückrunde", Spieler2Name: "Bernd",
     });
-    expect(data?.kombimeisterschaft[0]).toMatchObject({
+    expect(data?.kombimeisterschaft?.[0]).toMatchObject({
       Spieler1Punkte3bis8: 1, Spieler1Punkte5Kugeln: 2, Spieler2Punkte3bis8: 3, Spieler2Punkte5Kugeln: 4,
       HinRueckrunde: "Hinrunde",
     });

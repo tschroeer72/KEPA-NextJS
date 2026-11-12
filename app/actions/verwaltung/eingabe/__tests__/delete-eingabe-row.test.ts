@@ -62,7 +62,7 @@ describe("deleteEingabeRowAction", () => {
     consoleSpy.mockRestore();
 
     expect(result.success).toBe(false);
-    expect(result.error).toContain("Unbekannter Spieltyp");
+    expect((result as { error?: string }).error).toContain("Unbekannter Spieltyp");
     expect(prismaMock.tblDBChangeLog.create).not.toHaveBeenCalled();
     expect(revalidatePath).toHaveBeenCalledWith("/verwaltung/eingabe");
   });
@@ -75,7 +75,7 @@ describe("deleteEingabeRowAction", () => {
     consoleSpy.mockRestore();
 
     expect(result.success).toBe(false);
-    expect(result.error).toContain("DB Error");
+    expect((result as { error?: string }).error).toContain("DB Error");
     expect(prismaMock.tblDBChangeLog.create).not.toHaveBeenCalled();
   });
 
@@ -87,6 +87,6 @@ describe("deleteEingabeRowAction", () => {
     consoleSpy.mockRestore();
 
     expect(result.success).toBe(false);
-    expect(result.error).toContain("Log Error");
+    expect((result as { error?: string }).error).toContain("Log Error");
   });
 });

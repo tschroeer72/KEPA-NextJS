@@ -1,10 +1,10 @@
 ﻿
 import { NextResponse } from 'next/server';
-import { serialize } from 'cookie';
+import { stringifySetCookie } from 'cookie';
 
 export async function POST() {
     // Cookie löschen durch Setzen mit negativem maxAge
-    const serialized = serialize('token', '', {
+    const serialized = stringifySetCookie({ name: 'token', value: '',
         maxAge: -1, // Negative Werte löschen das Cookie
         sameSite: 'strict',
         path: '/',

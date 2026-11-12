@@ -36,7 +36,8 @@ export async function GET(req: NextRequest) {
     vpe.penSize = 0.2;
 
     // Tabellenkopf
-    let rectLinksX = 17, rectLinksY = 4, rectWidth = 1.3, rectHeight = 1.1;
+    const rectLinksX = 17, rectWidth = 1.3;
+    let rectLinksY = 4, rectHeight = 1.1;
     vpe.box(rectLinksX, rectLinksY, -rectWidth, -rectHeight);
     vpe.selectFont("helvetica", 10);
     vpe.write(rectLinksX, rectLinksY, -rectWidth, -rectHeight, "Wert je Wurf");

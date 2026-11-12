@@ -9,7 +9,9 @@ jest.mock('@/providers/auth-context-provider', () => ({
   AuthContextProvider: ({ children }: any) => <>{children}</>
 }))
 jest.mock('@/components/conditional-layout', () => {
-  return ({ children }: any) => <>{children}</>
+  const MockLayout = ({ children }: any) => <>{children}</>
+  MockLayout.displayName = 'MockConditionalLayout'
+  return MockLayout
 })
 jest.mock('@/components/ui/sonner', () => ({
   Toaster: () => <div data-testid="toaster" />

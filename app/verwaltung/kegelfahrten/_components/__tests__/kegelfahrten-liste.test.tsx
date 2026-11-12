@@ -44,7 +44,7 @@ describe('KegelfahrtenListe', () => {
     render(<KegelfahrtenListe />)
     await waitFor(() => titles())
     // order toggle is the outline icon button right after the sort select items
-    const toggle = screen.getByTestId('sort-Ziel').parentElement!.parentElement!.parentElement!.querySelector(':scope > button') as HTMLElement
+    const toggle = screen.getByTestId('sort-Ziel').parentElement!.parentElement!.querySelector(':scope > button') as HTMLElement
     fireEvent.click(toggle)
     expect(titles()).toEqual(['Berlin', 'Zürich', 'Aachen'])
     fireEvent.click(screen.getByTestId('sort-Ziel'))
