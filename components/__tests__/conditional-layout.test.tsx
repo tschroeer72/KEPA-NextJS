@@ -23,6 +23,12 @@ jest.mock('@/components/footer', () => {
   }
 })
 
+jest.mock('@/components/verwaltung-guard', () => {
+  return function MockVerwaltungGuard({ children }: { children: React.ReactNode }) {
+    return <>{children}</>
+  }
+})
+
 describe('ConditionalLayout Component', () => {
   beforeEach(() => {
     jest.clearAllMocks()

@@ -39,6 +39,7 @@ describe('AppBarVerwaltung Component', () => {
   const setVorname = jest.fn()
   const setNachname = jest.fn()
   const setIsAdmin = jest.fn()
+  const setIsFilmeUser = jest.fn()
   const push = jest.fn()
 
   beforeEach(() => {
@@ -55,6 +56,7 @@ describe('AppBarVerwaltung Component', () => {
       setNachname,
       isAdmin: false,
       setIsAdmin,
+      setIsFilmeUser,
     })
     ;(useRouter as jest.Mock).mockReturnValue({ push })
   })
@@ -106,6 +108,7 @@ describe('AppBarVerwaltung Component', () => {
       setNachname,
       isAdmin: true,
       setIsAdmin,
+      setIsFilmeUser,
     })
     render(<AppBarVerwaltung />)
     // Benutzerzugriff is an admin link

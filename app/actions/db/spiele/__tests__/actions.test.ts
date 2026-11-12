@@ -64,7 +64,7 @@ describe("Spiele Actions", () => {
 
   describe("getSpieltageByMeisterschaft", () => {
     it("should return spieltage for meisterschaft", async () => {
-      const mockSpieltage = [{ ID: 1, MeisterschaftsID: 10 }];
+      const mockSpieltage = [{ ID: 1, MeisterschaftsID: 10, Spieltag: null }];
       prismaMock.tblSpieltag.findMany.mockResolvedValue(mockSpieltage);
 
       const result = await getSpieltageByMeisterschaft(10);

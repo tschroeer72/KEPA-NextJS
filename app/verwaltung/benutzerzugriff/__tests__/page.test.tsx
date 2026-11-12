@@ -28,6 +28,8 @@ jest.mock('lucide-react', () => ({
   UserCheck: () => <div data-testid="check-icon">Check</div>,
   Loader2: () => <div data-testid="loader-icon">Loader</div>,
   Edit: () => <div data-testid="edit-icon">Edit</div>,
+  ArrowUpDown: () => <div data-testid="sort-icon">Sort</div>,
+  Search: () => <div data-testid="search-icon">Search</div>,
 }))
 
 // Mock UI components

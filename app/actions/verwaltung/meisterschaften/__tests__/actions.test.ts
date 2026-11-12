@@ -35,13 +35,13 @@ describe("Meisterschaften Actions", () => {
 
   describe("getMeisterschaften", () => {
     it("should return all meisterschaften", async () => {
-      const mockData = [{ ID: 1, Bezeichnung: "Test" }];
+      const mockData = [{ ID: 1, Bezeichnung: "Test", Beginn: new Date("2024-01-01T00:00:00.000Z"), Ende: null }];
       prismaMock.tblMeisterschaften.findMany.mockResolvedValue(mockData);
 
       const result = await getMeisterschaften();
 
       expect(result.success).toBe(true);
-      expect(result.data).toEqual(mockData);
+      expect(result.data).toEqual([{ ...mockData[0], Beginn: "2024-01-01T00:00:00.000Z", Ende: null }]);
     });
   });
 
