@@ -35,13 +35,34 @@ describe("Meisterschaften Actions", () => {
 
   describe("getMeisterschaften", () => {
     it("should return all meisterschaften", async () => {
-      const mockData = [{ ID: 1, Bezeichnung: "Test", Beginn: new Date("2024-01-01T00:00:00.000Z"), Ende: null }];
+      const mockData = [{ ID: 1, Bezeichnung: "Test" }];
       prismaMock.tblMeisterschaften.findMany.mockResolvedValue(mockData);
 
       const result = await getMeisterschaften();
 
       expect(result.success).toBe(true);
-      expect(result.data).toEqual([{ ...mockData[0], Beginn: "2024-01-01T00:00:00.000Z", Ende: null }]);
+      expect(result.data).toEqual([{ ID: 1, Bezeichnung: "Test", Beginn: null, Ende: null }]);
+    });
+
+    it("should convert valid dates to ISO strings and invalid dates to null", async () => {
+      prismaMock.tblMeisterschaften.findMany.mockResolvedValue([
+        { ID: 1, Beginn: new Date("2025-01-01T00:00:00.000Z"), Ende: new Date("invalid") },
+      ]);
+
+      const result = await getMeisterschaften();
+
+      expect(result.data?.[0].Beginn).toBe("2025-01-01T00:00:00.000Z");
+      expect(result.data?.[0].Ende).toBeNull();
+    });
+
+    it("should return an error when the database fails", async () => {
+      jest.spyOn(console, "error").mockImplementation(() => {});
+      prismaMock.tblMeisterschaften.findMany.mockRejectedValue(new Error("db"));
+
+      const result = await getMeisterschaften();
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBe("Fehler beim Abrufen der Meisterschaften");
     });
   });
 

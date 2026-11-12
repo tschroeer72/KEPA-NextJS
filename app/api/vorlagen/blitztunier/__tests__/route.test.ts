@@ -3,6 +3,7 @@
  */
 import { GET } from '../route';
 import { NextRequest } from 'next/server';
+import { VpeToJsPdf } from '@/utils/vpe-to-jspdf';
 
 jest.mock('@/utils/vpe-to-jspdf', () => ({
     VpeToJsPdf: jest.fn().mockImplementation(() => ({
@@ -28,5 +29,36 @@ describe('GET /api/vorlagen/blitztunier', () => {
         const response = await GET(req);
         expect(response.status).toBe(200);
         expect(response.headers.get('Content-Type')).toBe('application/pdf');
+    });
+
+    const calls = (anzahl?: number) => {
+        (VpeToJsPdf as unknown as jest.Mock).mockClear();
+        const qs = anzahl === undefined ? '' : `?anzahl=${anzahl}`;
+        return GET(new NextRequest(`http://localhost/api/vorlagen/blitztunier${qs}`)).then(res => ({
+            res,
+            vpe: (VpeToJsPdf as unknown as jest.Mock).mock.results[0].value,
+        }));
+    };
+
+    it('verwendet den richtigen Titel', async () => {
+        const { vpe } = await calls();
+        const titles = vpe.write.mock.calls.map((c: any[]) => c[4]);
+        expect(titles).toContain('Blitztunier');
+    });
+
+    it('mehr Spielerspalten bei groesserem anzahl-Parameter', async () => {
+        const small = await calls(2);
+        const big = await calls(6);
+        expect(small.res.status).toBe(200);
+        expect(big.res.status).toBe(200);
+        const count = (v: any) => v.write.mock.calls.length + v.writeBox.mock.calls.length + v.box.mock.calls.length + v.line.mock.calls.length;
+        expect(count(big.vpe)).toBeGreaterThan(count(small.vpe));
+    });
+
+    it('Standardwert 3 wenn anzahl fehlt', async () => {
+        const def = await calls();
+        const three = await calls(3);
+        const count = (v: any) => v.write.mock.calls.length + v.writeBox.mock.calls.length + v.box.mock.calls.length + v.line.mock.calls.length;
+        expect(count(def.vpe)).toBe(count(three.vpe));
     });
 });

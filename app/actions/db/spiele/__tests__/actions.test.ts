@@ -74,7 +74,7 @@ describe("Spiele Actions", () => {
         orderBy: { Spieltag: 'desc' }
       });
       expect(result.success).toBe(true);
-      expect(result.data).toEqual(mockSpieltage);
+      expect(result.data).toEqual([{ ID: 1, MeisterschaftsID: 10, Spieltag: null }]);
     });
 
     it("should handle database errors in getSpieltageByMeisterschaft", async () => {

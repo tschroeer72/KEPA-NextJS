@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: mysql://user:pass@localhost:3306/kepa
+      JWT_SECRET: ci-test-secret
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx prisma generate
+      - run: npm test -- --ci
+
+  integration-tests:
+    name: Integrationstests (MariaDB + Next.js)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      mariadb:
+        image: mariadb:11
+        env:
+          MARIADB_ROOT_PASSWORD: root
+          MARIADB_DATABASE: kepa_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+    env:
+      # Der Datenbankname muss "test" enthalten (Sicherheits-Check in integration/global-setup.cjs)
+      INTEGRATION_DATABASE_URL: mysql://root:root@127.0.0.1:3306/kepa_test
+      DATABASE_URL: mysql://root:root@127.0.0.1:3306/kepa_test
+      JWT_SECRET: ci-build-secret
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx prisma generate
+      - name: Datenbankschema anlegen
+        run: npx prisma db push --accept-data-loss
+      - name: Next.js-Build (Produktions-Server für die Tests)
+        run: npx next build
+      - name: Integrationstests
+        run: npm run test:integration

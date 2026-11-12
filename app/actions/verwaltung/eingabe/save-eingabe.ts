@@ -58,6 +58,11 @@ export async function saveEingabeAction(
   deletedIds: number[] = []
 ) {
   try {
+    // Datum zuerst validieren, damit bei ungültigem Datum nichts gelöscht wird
+    const spieltagSearch = toUTCDate(spieltag)
+    if (!spieltagSearch) {
+      return { success: false, error: "Ungültiges Spieldatum" }
+    }
 
     // Start einer Transaktion (wie im C#-Code)
     return await prisma.$transaction(async (tx) => {
@@ -130,11 +135,6 @@ export async function saveEingabeAction(
         }
       }
       // 1. Spieltag suchen oder erstellen
-      const spieltagSearch = toUTCDate(spieltag)
-      if (!spieltagSearch) {
-        return { success: false, error: "Ungültiges Spieldatum" }
-      }
-
       let dbSpieltag = await tx.tblSpieltag.findFirst({
         where: {
           MeisterschaftsID: meisterschaftsId,
@@ -190,7 +190,7 @@ export async function saveEingabeAction(
                   Kranzacht: item.Kranz8
                 }
               })
-              const sql = `insert into tbl9erRatten(ID, SpieltagID, SpielerID, Neuner, Ratten) values (${created.ID}, ${spieltagId}, ${item.SpielerID}, ${item.Neuner}, ${item.Ratten})`
+              const sql = `insert into tbl9erRatten(ID, SpieltagID, SpielerID, Neuner, Ratten, Kranzacht) values (${created.ID}, ${spieltagId}, ${item.SpielerID}, ${item.Neuner}, ${item.Ratten}, ${item.Kranz8})`
               await tx.tblDBChangeLog.create({
                 data: { Changetype: "insert", Command: sql, Tablename: "tbl9erRatten", Computername: "Server", Zeitstempel: new Date() }
               })
@@ -200,7 +200,7 @@ export async function saveEingabeAction(
                   where: { ID: existing.ID },
                   data: { Neuner: item.Neuner, Ratten: item.Ratten, Kranzacht: item.Kranz8 }
                 })
-                const sql = `update tbl9erRatten set Neuner = ${item.Neuner}, Ratten = ${item.Ratten} where ID = ${existing.ID}`
+                const sql = `update tbl9erRatten set Neuner = ${item.Neuner}, Ratten = ${item.Ratten}, Kranzacht = ${item.Kranz8} where ID = ${existing.ID}`
                 await tx.tblDBChangeLog.create({
                   data: { Changetype: "update", Command: sql, Tablename: "tbl9erRatten", Computername: "Server", Zeitstempel: new Date() }
                 })

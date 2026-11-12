@@ -6,9 +6,24 @@ import crypto from 'crypto';
 
 
 export async function POST(request: NextRequest) {
-    const body = await request.json();
-    const { benutzer, passwort } = body;
-    const trimmedBenutzer = benutzer?.trim();
+    let body: { benutzer?: unknown; passwort?: unknown } | null = null;
+    try {
+        body = await request.json();
+    } catch {
+        body = null;
+    }
+
+    // Beide Felder müssen nicht-leere Strings sein, sonst würde Prisma ohne Login-Filter suchen
+    if (
+        !body ||
+        typeof body.benutzer !== 'string' || body.benutzer.trim() === '' ||
+        typeof body.passwort !== 'string' || body.passwort === ''
+    ) {
+        return NextResponse.json('Benutzername und Passwort erforderlich', { status: 400 });
+    }
+
+    const { benutzer, passwort } = body as { benutzer: string; passwort: string };
+    const trimmedBenutzer = benutzer.trim();
 
     const hashedPassword = crypto.createHash('sha256').update(passwort).digest('hex');
 

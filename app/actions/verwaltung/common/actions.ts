@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 export interface MeisterschaftWithTyp {
   ID: number;
   Bezeichnung: string;
-  Beginn: string;
+  Beginn: string | null;
   Meisterschaftstyp: string;
 }
 
@@ -26,12 +26,12 @@ export async function getMeisterschaften(): Promise<MeisterschaftWithTyp[]> {
       ? new Date(m.Beginn.getTime() - m.Beginn.getTimezoneOffset() * 60000).toISOString() 
       : null,
     Meisterschaftstyp: m.tblMeisterschaftstyp?.Meisterschaftstyp || "Unbekannt",
-  })) as any;
+  }));
 }
 
 export interface Spieltag {
   ID: number;
-  Spieltag: string;
+  Spieltag: string | null;
   MeisterschaftsID: number;
 }
 
@@ -51,5 +51,5 @@ export async function getSpieltageByMeisterschaft(meisterschaftId: number): Prom
       ? new Date(s.Spieltag.getTime() - s.Spieltag.getTimezoneOffset() * 60000).toISOString() 
       : null,
     MeisterschaftsID: s.MeisterschaftsID,
-  })) as any;
+  }));
 }

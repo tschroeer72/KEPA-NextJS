@@ -23,8 +23,17 @@ const customJestConfig = {
         "!**/coverage/**",
         "!**/jest.config.ts",
     ],
-    testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/.next/"],
+    testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/.next/", "<rootDir>/integration/"],
     transformIgnorePatterns: ["/node_modules/", "^.+\\.module\\.(css|sass|scss)$"],
 }
 
-module.exports = createJestConfig(customJestConfig)
+// cookie 2.x ist ESM-only und muss von Jest transformiert werden.
+// next/jest setzt transformIgnorePatterns selbst, daher nach dem Erzeugen der Config überschreiben.
+module.exports = async () => {
+    const config = await createJestConfig(customJestConfig)()
+    config.transformIgnorePatterns = [
+        "/node_modules/(?!(cookie)/)",
+        "^.+[.]module[.](css|sass|scss)$",
+    ]
+    return config
+}

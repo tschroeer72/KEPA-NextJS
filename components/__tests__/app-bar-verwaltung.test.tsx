@@ -56,6 +56,7 @@ describe('AppBarVerwaltung Component', () => {
       setNachname,
       isAdmin: false,
       setIsAdmin,
+      isFilmeUser: false,
       setIsFilmeUser,
     })
     ;(useRouter as jest.Mock).mockReturnValue({ push })
@@ -108,6 +109,7 @@ describe('AppBarVerwaltung Component', () => {
       setNachname,
       isAdmin: true,
       setIsAdmin,
+      isFilmeUser: false,
       setIsFilmeUser,
     })
     render(<AppBarVerwaltung />)
