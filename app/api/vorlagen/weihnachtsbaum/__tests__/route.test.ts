@@ -41,4 +41,35 @@ describe('GET /api/vorlagen/weihnachtsbaum', () => {
         expect(response.status).toBe(200);
         expect(response.headers.get('Content-Type')).toBe('application/pdf');
     });
+
+    it('variant=2 liefert nur das Bild-PDF ohne Beschriftung', async () => {
+        const { VpeToJsPdf } = jest.requireMock('@/utils/vpe-to-jspdf');
+        VpeToJsPdf.mockClear();
+        const res = await GET(new NextRequest('http://localhost/api/vorlagen/weihnachtsbaum?variant=2'));
+        expect(res.status).toBe(200);
+        expect(res.headers.get('Content-Disposition')).toBe('attachment; filename=Weihnachtsbaum.pdf');
+        const vpe = VpeToJsPdf.mock.results[0].value;
+        expect(vpe.image).toHaveBeenCalledTimes(1);
+        expect(vpe.write).not.toHaveBeenCalled();
+        const path = jest.requireMock('path');
+        expect(path.join).toHaveBeenLastCalledWith(expect.any(String), 'public', 'vorlagen', 'Weihnachtsbaumkegeln2.jpg');
+    });
+
+    it('Standard-Variante nutzt das erste Bild und beschriftet es', async () => {
+        const { VpeToJsPdf } = jest.requireMock('@/utils/vpe-to-jspdf');
+        VpeToJsPdf.mockClear();
+        await GET(new NextRequest('http://localhost/api/vorlagen/weihnachtsbaum'));
+        const vpe = VpeToJsPdf.mock.results[0].value;
+        expect(vpe.write).toHaveBeenCalledWith(9, 2, 4, 1.5, 'Name:');
+        const path = jest.requireMock('path');
+        expect(path.join).toHaveBeenLastCalledWith(expect.any(String), 'public', 'vorlagen', 'Weihnachtsbaumkegeln.jpg');
+    });
+
+    it('liefert 500 wenn das Bild nicht gelesen werden kann', async () => {
+        const fs = jest.requireMock('fs');
+        fs.readFileSync.mockImplementationOnce(() => { throw new Error('ENOENT'); });
+        const res = await GET(new NextRequest('http://localhost/api/vorlagen/weihnachtsbaum'));
+        expect(res.status).toBe(500);
+        expect(await res.json()).toEqual({ error: 'Fehler bei PDF Erstellung' });
+    });
 });

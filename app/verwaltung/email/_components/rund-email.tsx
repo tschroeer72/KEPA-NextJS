@@ -37,9 +37,16 @@ export function RundEmail() {
     fetchMembers();
   }, []);
 
+  // Liste der Empfänger bei jeder Änderung neu berechnen
   useEffect(() => {
-    filterMembers();
+    setFilteredMembers(getCombinedMembers());
   }, [selectionType, members, manualMembers]);
+
+  // Automatische Auswahl nur bei Änderung von Filter oder Mitgliederliste. Nicht bei manualMembers:
+  // sonst würde "Löschen" die Auswahl sofort wieder füllen.
+  useEffect(() => {
+    autoSelectEmails(getCombinedMembers());
+  }, [selectionType, members]);
 
   const fetchMembers = async () => {
     setFetchingMembers(true);
@@ -64,23 +71,16 @@ export function RundEmail() {
     }
   };
 
-  const filterMembers = () => {
-    let filtered = [...members];
-    if (selectionType === "active") {
-      filtered = members.filter((m) => !m.PassivSeit);
-    }
-    
-    // Add manual members to the filtered list
-    const combined = [...filtered, ...manualMembers];
-    setFilteredMembers(combined);
-    
-    // Auto-select filtered members that have an email
-    // Preserve manually added emails that are already in selectedEmails
-    const filteredEmails = combined
+  const getCombinedMembers = () => {
+    const filtered = selectionType === "active" ? members.filter((m) => !m.PassivSeit) : [...members];
+    return [...filtered, ...manualMembers];
+  };
+
+  const autoSelectEmails = (combined: Member[]) => {
+    const emails = combined
       .map(m => m.EMail?.trim())
       .filter((email): email is string => !!email && email.includes("@"));
-    
-    setSelectedEmails(filteredEmails);
+    setSelectedEmails(emails);
   };
 
   const handleToggleEmail = (email: string) => {

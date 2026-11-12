@@ -1,14 +1,23 @@
 ﻿import { NextRequest, NextResponse } from 'next/server';
 import { jwtVerify } from 'jose';
 
-// Öffentliche Routen, die keine Authentifizierung benötigen
-const publicRoutes = ['/', '/login', '/impressum', '/kontakt', '/aktuelles', '/termine'];
+// Öffentliche Seiten und Auth-Endpunkte, die keine Authentifizierung benötigen
+const publicRoutes = [
+    "/login", "/impressum", "/kontakt", "/aktuelles", "/termine",
+    "/api/login", "/api/logout", "/api/auth/verify",
+];
+
+// Matcht exakt oder als Pfad-Präfix an einer Segmentgrenze ("/login/x", nicht "/loginx")
+function isPublicRoute(pathname: string): boolean {
+    if (pathname === "/") return true;
+    return publicRoutes.some(route => pathname === route || pathname.startsWith(route + "/"));
+}
 
 export async function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     // Prüfe, ob die Route öffentlich ist
-    if (publicRoutes.some(route => pathname.startsWith(route))) {
+    if (isPublicRoute(pathname)) {
         return NextResponse.next();
     }
 
@@ -39,8 +48,8 @@ export async function proxy(request: NextRequest) {
         const response = NextResponse.next();
 
         // Token-Informationen zum Request hinzufügen (optional für Server Components)
-        response.headers.set('x-user-id', payload.id as string);
-        response.headers.set('x-user-email', payload.email as string);
+        response.headers.set('x-user-id', String(payload.userId ?? ""));
+        response.headers.set('x-user-email', String(payload.login ?? ""));
 
         return response;
     } catch (error) {
@@ -59,3 +68,7 @@ export async function proxy(request: NextRequest) {
     }
 }
 
+// Keine Prüfung für interne Next.js-Pfade und statische Dateien (alles mit Dateiendung)
+export const config = {
+    matcher: ["/((?!_next/|.*\\..*).*)"],
+};
