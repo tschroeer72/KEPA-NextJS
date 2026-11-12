@@ -4,9 +4,9 @@
 import { POST } from '../route';
 import { NextResponse } from 'next/server';
 
-// Mock cookie serialize
+// Mock cookie stringifySetCookie
 jest.mock('cookie', () => ({
-    serialize: jest.fn().mockReturnValue('token=; Max-Age=-1; SameSite=Strict; Path=/; HttpOnly'),
+    stringifySetCookie: jest.fn().mockReturnValue('token=; Max-Age=-1; SameSite=Strict; Path=/; HttpOnly'),
 }));
 
 describe('POST /api/logout', () => {

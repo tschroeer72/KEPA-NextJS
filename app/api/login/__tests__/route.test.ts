@@ -17,6 +17,11 @@ jest.mock('@/lib/prisma', () => ({
 
 jest.mock('jsonwebtoken');
 
+// cookie 2.x ist ESM-only und wird von Jest nicht geladen
+jest.mock('cookie', () => ({
+    stringifySetCookie: jest.fn(({ name, value }: { name: string; value: string }) => `${name}=${value}; Path=/; HttpOnly`),
+}));
+
 describe('POST /api/login', () => {
     const originalEnv = process.env;
 

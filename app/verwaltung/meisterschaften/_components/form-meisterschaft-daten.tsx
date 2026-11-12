@@ -111,7 +111,6 @@ const FormMeisterschaftDaten: React.FC<FormMeisterschaftDatenProps> = ({
                                         mode="single"
                                         selected={formData.Beginn || undefined}
                                         onSelect={(date) => handleDateSelect('Beginn', date)}
-                                        initialFocus
                                     />
                                 </div>
                             )}
@@ -146,7 +145,6 @@ const FormMeisterschaftDaten: React.FC<FormMeisterschaftDatenProps> = ({
                                         mode="single"
                                         selected={formData.Ende || undefined}
                                         onSelect={(date) => handleDateSelect('Ende', date)}
-                                        initialFocus
                                     />
                                 </div>
                             )}

@@ -102,7 +102,6 @@ export function ZeitbereichAuswahl({
                     mode="single"
                     selected={dateVon}
                     onSelect={setDateVon}
-                    initialFocus
                     locale={de}
                   />
                 </PopoverContent>
@@ -129,7 +128,6 @@ export function ZeitbereichAuswahl({
                     mode="single"
                     selected={dateBis}
                     onSelect={setDateBis}
-                    initialFocus
                     locale={de}
                   />
                 </PopoverContent>
