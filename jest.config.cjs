@@ -23,7 +23,7 @@ const customJestConfig = {
         "!**/coverage/**",
         "!**/jest.config.ts",
     ],
-    testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/.next/"],
+    testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/.next/", "<rootDir>/integration/"],
     transformIgnorePatterns: ["/node_modules/", "^.+\\.module\\.(css|sass|scss)$"],
 }
 

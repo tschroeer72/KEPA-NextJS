@@ -18,6 +18,8 @@ npm test               # jest (all tests)
 npx jest path/to/file.test.ts            # single test file
 npx jest -t "test name"                  # single test by name
 npm run test:coverage
+npm run test:integration:db   # startet die Wegwerf-MariaDB (docker-compose.integration.yml, Port 3307)
+npm run build && npm run test:integration   # Integrationstests (echte DB + echter next start)
 npm run pull:db        # prisma db pull (introspect existing DB into prisma/schema.prisma)
 npm run prisma:generate
 npm run generate:crud  # scripts/generate-crud-routes.ts: generates CRUD API routes from schema.prisma
@@ -38,6 +40,10 @@ Setup: copy `.env.beispiel` to `.env` and fill in `DATABASE_URL`, `JWT_SECRET`, 
 ## Testing notes
 
 Jest uses `next/jest` with jsdom; `jest.setup.ts` mocks `next/navigation` and `matchMedia`. Tests match `__tests__/**` or `*.test.ts(x)` and sit next to the code they cover (actions, components, pages, API routes).
+
+## Integration tests
+
+`integration/*.int.test.ts` (own config `jest.integration.config.cjs`, excluded from `npm test`) run against a **real MariaDB and a real `next start` server — no Prisma mocks**. `integration/global-setup.cjs` applies the schema via `prisma db push`, starts the server on port 3100 and refuses to run unless the DB name in `INTEGRATION_DATABASE_URL` (default `mysql://root:root@127.0.0.1:3307/kepa_test`) contains "test". Requires a prior `npm run build`. Tests run sequentially; each file resets the tables with `resetDb()`/`seedBasis()` (`integration/helpers`). Two styles: HTTP tests via `api()` (auth/proxy, login, PDFs, e-mail routes) and direct Server-Action calls (only `next/headers`/`next/cache` are stubbed in `integration/setup.ts`). CI runs them in the `integration-tests` job with a MariaDB service container (`.github/workflows/ci.yml`). Note: do not use `prisma db push --force-reset` from an AI agent — Prisma blocks it.
 
 ## Docs
 
