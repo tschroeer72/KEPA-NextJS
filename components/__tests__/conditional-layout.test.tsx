@@ -17,6 +17,12 @@ jest.mock('@/components/app-bar-verwaltung', () => {
     return <div data-testid="app-bar-verwaltung">AppBarVerwaltung</div>
   }
 })
+jest.mock('@/components/verwaltung-guard', () => {
+  return function MockGuard({ children }: any) {
+    return <div data-testid="guard">{children}</div>
+  }
+})
+jest.mock('@/components/ui/sonner', () => ({ Toaster: () => <div data-testid="toaster" /> }))
 jest.mock('@/components/footer', () => {
   return function MockFooter() {
     return <div data-testid="footer">Footer</div>

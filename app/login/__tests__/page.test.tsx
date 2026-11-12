@@ -22,6 +22,7 @@ describe('Login Page', () => {
   const setVorname = jest.fn()
   const setNachname = jest.fn()
   const setIsAdmin = jest.fn()
+  const setIsFilmeUser = jest.fn()
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -33,6 +34,7 @@ describe('Login Page', () => {
       setVorname,
       setNachname,
       setIsAdmin,
+      setIsFilmeUser,
     })
   })
 
